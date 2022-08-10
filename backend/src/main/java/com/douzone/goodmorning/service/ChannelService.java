@@ -12,7 +12,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class ChannelService {
-	private ChannelRepository channelRepository;
+	private final ChannelRepository channelRepository;
+	
 	public List<ChannelVo> getChannel(Long userNo) {
 		return channelRepository.findAll(userNo);
 	}

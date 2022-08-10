@@ -15,7 +15,9 @@ public class ChannelRepository {
 	private final SqlSession sqlSession;
 
 	public List<ChannelVo> findAll(Long userNo) {
-		return sqlSession.selectList("channel.findAllByUserNo", userNo);
+		List<ChannelVo> data = sqlSession.selectList("channel.findAll", userNo);
+		System.out.println(data);
+		return data;
 	}
 
 }

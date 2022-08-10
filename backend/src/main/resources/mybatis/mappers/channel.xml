@@ -5,7 +5,7 @@
 		<select id="findAll" parameterType="long" resultType="channelvo">
 				<![CDATA[
 				select no, name, discription, creation_date as creationDate, master_channel_user_no as masterChannelUserNo
-				from channel
+				from channel where master_channel_user_no = #{useNo }
 				]]>
 		</select>
 </mapper>

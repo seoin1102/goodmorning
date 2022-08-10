@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 const url = {
-  localDev: process.env.REACT_APP_LOCAL_DEV_API_URL,
-  localProd: process.env.REACT_APP_LOCAL_PROD_API_URL,
-  serverDev: process.env.REACT_APP_SERVER_DEV_API_URL,
-  serverProd: process.env.REACT_APP_SERVER_PROD_API_URL
+  localDev: 'http://192.168.10.10:8080',
+  localProd: 'http://192.168.10.10:8088',
+  serverDev: 'http://34.64.155.137:8080',
+  serverProd: 'http://34.64.155.137:8088'
 }
+
 
 const client = axios.create({baseURL: url.localDev})
 

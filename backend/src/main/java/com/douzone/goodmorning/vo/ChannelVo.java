@@ -11,6 +11,6 @@ public class ChannelVo {
 	private Long no;
 	private String name;
 	private String discription;
-	private String ceationDate;
+	private String creationDate;
 	private Long masterChannelUserNo;
 }
