@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="channel">	
+		<select id="findAll" parameterType="long" resultType="channelvo">
+				<![CDATA[
+				select no, name, discription, creation_date as creationDate, master_channel_user_no as masterChannelUserNo
+				from channel
+				]]>
+		</select>
+</mapper>
