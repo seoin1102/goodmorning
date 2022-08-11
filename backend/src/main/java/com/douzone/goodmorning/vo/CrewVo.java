@@ -7,10 +7,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ChannelVo {
+public class CrewVo {
 	private Long no;
-	private String name;
-	private String description;
+	private Long channelNo;
+	private Long masterCrewUserNo;
 	private String creationDate;
-	private Long masterChannelUserNo;
+	private String name;
 }

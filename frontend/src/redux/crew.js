@@ -16,13 +16,13 @@ export const setCrew = (crews) => ({ type: SET_CREW, crews});
 export const addCrew = (crew) => ({ type: ADD_CREW, crew});
 
 /**
- * @param {number} crewIndex 삭제할 크루의 인덱스
+ * @param {number} crewNo 삭제할 크루의 인덱스
  */
-export const deleteCrew = (crewIndex) => ({ type: DELETE_CREW, crewIndex})
+export const deleteCrew = (crewNo) => ({ type: DELETE_CREW, crewNo})
 /**
  * 초기 상태 선언
  */
-const initialState = [{name:0, roomId:0}];
+const initialState = [];
 
 /**
  * 리듀서 선언
@@ -30,11 +30,11 @@ const initialState = [{name:0, roomId:0}];
 const crew = (state = initialState, action) => {
     switch(action.type) {
         case SET_CREW:
-            return update(state, {$push: action.crews});
+            return update(state, {$set: action.crews});
         case ADD_CREW:
             return update(state, {$push: action.crew});
         case DELETE_CREW:
-            return update(state, {$splice: [[action.crewIndex], 1]});
+            return update(state, {$splice: [[action.crewNo], 1]});
         default:
             return state;
     }

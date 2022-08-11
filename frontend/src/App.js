@@ -1,37 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { get } from './apis/Axios';
-import { useSelector, useDispatch } from 'react-redux';
-import { setCrew, addCrew, deleteCrew } from './redux/crew';
+import React from 'react';
+import {useRoutes} from 'react-router';
+import ChannelContainer from './components/container/ChannelContainer';
+import Main from "./views/Main";
+import Chat from "./views/Chat";
+import Channel from "./components/modal/AddChannel";
 
-function App() {
-
-    /**
-     * 
-     */
-    const dispatch = useDispatch();
-
-    /**
-     * get state from redux store
-     */
-    const data = useSelector(state => (
-      state.crew
-    )) 
-
-    const callback = async() => {
-      const crews = await get('/chat/rooms');
-      console.log("ttt", crews);
-      dispatch(setCrew(crews));
-    }
-    useEffect(() => {
-      callback();
-    }, [])
-
-    return (
-        <div id={'App'}>
-          <h1>Test~Test~Test~</h1>
-          {data.map((t, index) => <h2 key={index}>{t.roomId}</h2>)}
-        </div>
-    );
+export default function App() {
+    return useRoutes([
+        {path:'/', element: <Main /> },
+        {path:'chat/room', element: <Chat /> },
+        {path:'modal/channel', element: <Channel />}
+    ]);
 }
-
-export default App

@@ -3,8 +3,10 @@
 <configuration>
 		<typeAliases>
 				<typeAlias type="com.douzone.goodmorning.vo.ChannelVo" alias="channelvo" />
+				<typeAlias type="com.douzone.goodmorning.vo.CrewVo" alias="crewvo" />
     </typeAliases>
 		<mappers>
 				<mapper resource="mybatis/mappers/channel.xml" />
+				<mapper resource="mybatis/mappers/crew.xml" />
 		</mappers>
 </configuration>

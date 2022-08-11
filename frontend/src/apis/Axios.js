@@ -8,7 +8,7 @@ const url = {
 }
 
 
-const client = axios.create({baseURL: url.localDev})
+const client = axios.create({baseURL: '/api'})
 
 /**
  * axios GET(Read) 요청
@@ -18,7 +18,7 @@ const client = axios.create({baseURL: url.localDev})
 export const get = async (url) => {
     try {
         let response =  await client.get(url);
-        return response.data;
+        return response.data.data;
     } catch (error) {
         console.error("Error >>", error);
     }    

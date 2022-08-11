@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="channel">	
-		<select id="findAll" parameterType="long" resultType="channelvo">
+<mapper namespace="crew">	
+		<select id="findAll" parameterType="long" resultType="crewvo">
 				<![CDATA[
-				select no, name, description, creation_date as creationDate, master_channel_user_no as masterChannelUserNo
-				from channel where master_channel_user_no = #{useNo }
+				select no, channel_no as channelNo, master_crew_user_no as masterCrewUserNo, creation_date as creationDate, name
+				from crew where channel_no = #{channelNo }
 				]]>
 		</select>
 		<insert id="insert" parameterType="channelvo">

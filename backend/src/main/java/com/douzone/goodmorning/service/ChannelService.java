@@ -18,4 +18,8 @@ public class ChannelService {
 		return channelRepository.findAll(userNo);
 	}
 
+	public Boolean addChannel(ChannelVo channelVo) {
+		return channelRepository.insert(channelVo);
+	}
+
 }

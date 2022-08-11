@@ -38,7 +38,7 @@ module.exports = function(env) {
             host: '0.0.0.0',
             port: 9090,
             proxy: {
-              '/chat': 'http://localhost:8080'
+              '/api': 'http://localhost:8080'
           },
             liveReload: true,
             hot: true,
