@@ -1,6 +1,5 @@
 import React from 'react';
 import {useRoutes} from 'react-router';
-import ChannelContainer from './components/container/ChannelContainer';
 import Main from "./views/Main";
 import Chat from "./views/Chat";
 import Channel from "./components/modal/AddChannel";

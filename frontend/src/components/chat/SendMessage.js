@@ -17,4 +17,4 @@ function SendMessage() {
     );
 }
 
-export default SendMessage;
+export default React.memo(SendMessage);

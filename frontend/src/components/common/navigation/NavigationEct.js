@@ -10,35 +10,35 @@ import NavigationEctItem from './NavigationEctItem';
 
 function NavigationEct() {
     // modal state
-    const [addChannelModalIsOpen, setAddChannelModalIsOpen] = useState(false);
-    const [addCrewModalIsOpen, setAddCrewModalIsOpen] = useState(false);
-    const [reservModalIsOpen, setReservModalIsOpen] = useState(false);
+    const [addChannelModalShow, setAddChannelModalShow] = useState(false);
+    const [addCrewModalShow, setAddCrewModalShow] = useState(false);
+    const [reservModalShow, setReservModalShow] = useState(false);
 
     // modal click
     const onClickAddChannelModal = useCallback(() => {
-        setAddChannelModalIsOpen(prevAddChannelModalIsOpen => !prevAddChannelModalIsOpen);
+        setAddChannelModalShow(prevAddChannelModalShow => !prevAddChannelModalShow);
     }, [])
 
     const onClickAddCrewModal = useCallback(() => {
-        setAddCrewModalIsOpen(prevAddCrewModalIsOpen => !prevAddCrewModalIsOpen);
+        setAddCrewModalShow(prevAddCrewModalShow => !prevAddCrewModalShow);
     }, [])
 
     const onClickReservModal = useCallback(() => {
-        setReservModalIsOpen(prevReservModalIsOpen => !prevReservModalIsOpen);
+        setReservModalShow(prevReservModalShow => !prevReservModalShow);
     }, [])
 
     return (
         <>
         <List>
             <Grid item xs={12} >캘린더 등 기타기능 여기!</Grid>
-            <NavigationEctItem userName={"Remy Sharp"} itemName={"채널 생성"} modalIsOpen={addChannelModalIsOpen} onClickModal={onClickAddChannelModal}>
-                <AddChannel onClickModal={onClickAddChannelModal}/> 
+            <NavigationEctItem userName={"Remy Sharp"} itemName={"채널 생성"} onClickModal={onClickAddChannelModal}>
+                <AddChannel modalShow={addChannelModalShow} onClickModal={onClickAddChannelModal}/> 
             </NavigationEctItem>
-            <NavigationEctItem userName={"Alice"} itemName={"크루 생성"} modalIsOpen={addCrewModalIsOpen} onClickModal={onClickAddCrewModal}>
-                <AddCrew onClickModal={onClickAddCrewModal}/> 
+            <NavigationEctItem userName={"Alice"} itemName={"크루 생성"} onClickModal={onClickAddCrewModal}>
+                <AddCrew modalShow={addCrewModalShow} onClickModal={onClickAddCrewModal} /> 
             </NavigationEctItem>
-            <NavigationEctItem userName={"Cindy Baker"} itemName={"예약메시지"} modalIsOpen={reservModalIsOpen} onClickModal={onClickReservModal}>
-                <Reserv onClickModal={onClickReservModal}/> 
+            <NavigationEctItem userName={"Cindy Baker"} itemName={"예약메시지"} onClickModal={onClickReservModal}>
+                <Reserv modalShow={reservModalShow} onClickModal={onClickReservModal}/> 
             </NavigationEctItem>
         </List>
         <Divider />

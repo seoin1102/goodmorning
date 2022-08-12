@@ -18,4 +18,4 @@ function MessageItem({align, text, time}) {
     );
 }
 
-export default MessageItem;
+export default React.memo(MessageItem);

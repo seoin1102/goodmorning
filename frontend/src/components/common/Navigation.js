@@ -36,6 +36,8 @@ function Navigation() {
      */
     useEffect(() => {
         initialChannel(2);
+        console.log("mount");
+        return () => (console.log('unmount'))
     }, [])
 
     return (

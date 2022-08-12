@@ -3,13 +3,15 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
-import Modal from "react-modal";
-import ReactModal from "react-modal";
+import { Modal, Form, Button   } from 'react-bootstrap';
+// import Modal from "react-modal";
+// import ReactModal from "react-modal";
 import '../../../styles/scss/modal/modal.scss';
+import AddCrew2 from '../../modal/AddCrew';
 
-ReactModal.setAppElement('body');
+//ReactModal.setAppElement('body');
 
-function NavigationEctItem({userName, itemName, modalIsOpen, onClickModal, children}) {
+function NavigationEctItem({userName, itemName, onClickModal, children}) {
     return (
     <>
         <ListItem button key={userName} onClick={onClickModal}>
@@ -18,16 +20,7 @@ function NavigationEctItem({userName, itemName, modalIsOpen, onClickModal, child
             </ListItemIcon>
             <ListItemText primary={itemName}>Cindy Baker</ListItemText>
         </ListItem>
-        <Modal
-            isOpen={modalIsOpen}
-            shouldCloseOnOverlayClick={ true }
-            className="Modal"
-            overlayClassName="Overlay"
-            style={ {content: {width: 550}} }
-            contentLabel="modal example"
-            >
-            {children}
-        </Modal>
+        {children}
     </>
     );
 }

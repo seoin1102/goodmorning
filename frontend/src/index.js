@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import rootReducer from './redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 /**
