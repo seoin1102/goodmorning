@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
@@ -8,24 +8,24 @@ import Reserv from '../../modal/ReservationMessage';
 import '../../../styles/scss/modal/modal.scss';
 import NavigationEctItem from './NavigationEctItem';
 
-export default function NavigationEct() {
+function NavigationEct() {
     // modal state
     const [addChannelModalIsOpen, setAddChannelModalIsOpen] = useState(false);
     const [addCrewModalIsOpen, setAddCrewModalIsOpen] = useState(false);
     const [reservModalIsOpen, setReservModalIsOpen] = useState(false);
 
     // modal click
-    const onClickAddChannelModal = () => {
+    const onClickAddChannelModal = useCallback(() => {
         setAddChannelModalIsOpen(prevAddChannelModalIsOpen => !prevAddChannelModalIsOpen);
-    }
+    }, [])
 
-    const onClickAddCrewModal = () => {
+    const onClickAddCrewModal = useCallback(() => {
         setAddCrewModalIsOpen(prevAddCrewModalIsOpen => !prevAddCrewModalIsOpen);
-    }
+    }, [])
 
-    const onClickReservModal = () => {
+    const onClickReservModal = useCallback(() => {
         setReservModalIsOpen(prevReservModalIsOpen => !prevReservModalIsOpen);
-    }
+    }, [])
 
     return (
         <>
@@ -45,3 +45,5 @@ export default function NavigationEct() {
         </>
     );
 }
+
+export default React.memo(NavigationEct);

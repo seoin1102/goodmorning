@@ -5,7 +5,7 @@ import '../../../styles/scss/modal/modal.scss';
 import NavigationItem from './NavigationItem';
 
 // 데이터 받아오면 NavigationItem.map으로 반복문 실행해서 출력
-export default function NavigationDM() {
+function NavigationDM() {
     return (
     <List>
         <Grid item xs={12}>다이렉트 메시지</Grid>
@@ -16,3 +16,5 @@ export default function NavigationDM() {
     </List>
     );
 }
+
+export default React.memo(NavigationDM);

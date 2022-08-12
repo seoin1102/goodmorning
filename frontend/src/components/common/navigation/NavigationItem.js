@@ -7,7 +7,7 @@ import Avatar from '@mui/material/Avatar';
 import { NavLink } from "react-router-dom";
 import '../../../styles/scss/modal/modal.scss';
 
-export default function NavigationItem({navLink, crewName, secondary}) {
+function NavigationItem({navLink, crewName, secondary}) {
     return (
         <NavLink to={navLink} >
         <ListItem button key="RemySharp">
@@ -20,3 +20,5 @@ export default function NavigationItem({navLink, crewName, secondary}) {
         </NavLink>
     );
 }
+
+export default React.memo(NavigationItem);

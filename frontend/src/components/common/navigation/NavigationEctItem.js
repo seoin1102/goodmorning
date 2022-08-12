@@ -9,7 +9,7 @@ import '../../../styles/scss/modal/modal.scss';
 
 ReactModal.setAppElement('body');
 
-export default function NavigationEctItem({userName, itemName, modalIsOpen, onClickModal, children}) {
+function NavigationEctItem({userName, itemName, modalIsOpen, onClickModal, children}) {
     return (
     <>
         <ListItem button key={userName} onClick={onClickModal}>
@@ -31,3 +31,5 @@ export default function NavigationEctItem({userName, itemName, modalIsOpen, onCl
     </>
     );
 }
+
+export default React.memo(NavigationEctItem);

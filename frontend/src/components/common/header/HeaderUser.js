@@ -6,7 +6,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Avatar from '@mui/material/Avatar';
 
-export default function HeaderUser() {
+function HeaderUser() {
     return (
         <Grid item xs={3}>
             <List>
@@ -20,3 +20,5 @@ export default function HeaderUser() {
         </Grid>
     );
 }
+
+export default React.memo(HeaderUser);

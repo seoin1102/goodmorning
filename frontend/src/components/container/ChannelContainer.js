@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { get, post } from '../../apis/Axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { setChannel, addChannel, deleteChannel } from '../../redux/channel';
 /**
  * 
@@ -8,12 +8,12 @@ import { setChannel, addChannel, deleteChannel } from '../../redux/channel';
  */
 function ChannelContainer() {
     const dispatch = useDispatch();
-    const channels = useSelector(state => state.channel)
+    const channels = useSelector(state => state.channel, shallowEqual);
 
     const initialChannel = useCallback(async(userNo) => {
         const getChannels = await get(`/channel/${userNo}`);
         dispatch(setChannel(getChannels));
-    })
+    }, [dispatch])
 
     useEffect(() => {
         initialChannel(1);

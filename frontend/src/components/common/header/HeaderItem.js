@@ -9,7 +9,7 @@ import ReactModal from "react-modal";
 
 ReactModal.setAppElement('body');
 
-export default function HeaderItem({itemName, customStyle, modalIsOpen, onClickModal, children}) {
+function HeaderItem({itemName, customStyle, modalIsOpen, onClickModal, children}) {
     
     return (
         <Grid item xs={2}>
@@ -34,3 +34,5 @@ export default function HeaderItem({itemName, customStyle, modalIsOpen, onClickM
         </Grid>
     );
 }
+
+export default React.memo(HeaderItem);

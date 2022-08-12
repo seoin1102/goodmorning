@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import List from '@mui/material/List';
 
-export default function HeaderSearch() {
+function HeaderSearch() {
   return (
       <Grid item xs={5}>
           <List>
@@ -19,3 +19,5 @@ export default function HeaderSearch() {
       </Grid>
   );
 }
+
+export default React.memo(HeaderSearch);

@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { get, post } from '../../apis/Axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import { setCrew, addCrew, deleteCrew } from '../../redux/crew';
 import Grid from '@mui/material/Grid';
 import '../../styles/scss/modal/modal.scss';
@@ -8,9 +8,9 @@ import NavigationCrew from './navigation/NavigationCrew';
 import NavigationDM from './navigation/NavigationDM';
 import NavigationEct from './navigation/NavigationEct';
 
-export default function Navigation() {
+function Navigation() {
     const dispatch = useDispatch();
-    const crewList = useSelector(state => (state.crew)) 
+    const crewList = useSelector(state => (state.crew), shallowEqual);
 
     /**
      * 크루 목록
@@ -19,7 +19,7 @@ export default function Navigation() {
     const initialChannel = useCallback(async(channelNo) => {
         const crews = await get(`/crew/${channelNo}`);
         dispatch(setCrew(crews));
-    })
+    }, [dispatch])
 
     /**
      * 크루 생성
@@ -29,7 +29,7 @@ export default function Navigation() {
     const onCreateCrew = useCallback(async(channelNo, crew) => {
         await post(`/crew/${channelNo}`, crew);
         dispatch(addCrew(crew));
-    })
+    }, [dispatch])
 
     /**
      * 초기 화면
@@ -48,3 +48,5 @@ export default function Navigation() {
     </>
     );
 }
+
+export default React.memo(Navigation);

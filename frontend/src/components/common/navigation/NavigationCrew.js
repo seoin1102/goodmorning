@@ -6,7 +6,8 @@ import '../../../styles/scss/modal/modal.scss';
 import NavigationItem from './NavigationItem';
 
 // 많으면 화면 넘어가므로 스크롤 추가 해주기
-export default function NavigationCrew({crewList}) {
+function NavigationCrew({crewList}) {
+    console.log(crewList)
     return (
     <>
         <List>
@@ -23,3 +24,5 @@ export default function NavigationCrew({crewList}) {
     </>
     );
 }
+
+export default React.memo(NavigationCrew);
