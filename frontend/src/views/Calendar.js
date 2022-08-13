@@ -1,10 +1,11 @@
 import React from 'react';
 import SiteLayout from '../components/layout/SiteLayout';
+import Task from '../components/calendar/Task'
 
-function Calendar(props) {
+function Calendar() {
   return (
     <SiteLayout>
-        {/* 캘린더 완성본 요기 넣기 */}
+        <Task/>
     </SiteLayout>
   );
 }
