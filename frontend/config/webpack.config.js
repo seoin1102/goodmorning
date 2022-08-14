@@ -41,7 +41,7 @@ module.exports = function(env) {
               '/chat': 'http://localhost:8080'
           },
             liveReload: true,
-            hot: true,
+            hot: false,
             compress: true,
             historyApiFallback: true
         }

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npx webpack serve --config config/webpack.config.js --progress --mode development",
     "debug": "npx webpack serve --config config/webpack.config.js --progress --env",
-    "build": "npx webpack --config config/webpack.config.js"
+    "build": "npm install && npx webpack --config config/webpack.config.js  --mode production"
   },
   "keywords": [],
   "author": "",
