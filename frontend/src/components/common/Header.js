@@ -29,10 +29,10 @@ function Header() {
     return (
         <Grid container>
             <HeaderItem itemName={'채널명'} modalIsOpen={channelModalIsOpen} customStyle={channelStyle} onClickModal={onClickChannelModal}>
-                <ChannelSetting onClickModal={onClickChannelModal}/> 
+                <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal}/> 
             </HeaderItem>
             <HeaderItem itemName={'크루명'} modalIsOpen={crewModalIsOpen} customStyle={crewStyle} onClickModal={onClickCrewModal}>
-                <CrewSetting onClickModal={onClickCrewModal}/> 
+                <CrewSetting modalShow={crewModalIsOpen} onClickModal={onClickCrewModal}/> 
             </HeaderItem>
             <HeaderSearch/>
             <HeaderUser/>

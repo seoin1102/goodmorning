@@ -10,13 +10,14 @@ import { setTask, addTask, deleteTask } from '../../redux/task';
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import tasks from '../../assets/json/task.json';
 
-//import "@fullcalendar/core/main.css";
+// import "@fullcalendar/core/main.css";
 // import "@fullcalendar/daygrid/main.css";
 // import "@fullcalendar/timegrid/main.css";
 // import "../assets/css/bootstrap.min.css";
 // import "../assets/css/calendar.css";
 
 import AddTask from "../modal/Calendar/AddTask";
+
 function Calendar() {
     const dispatch = useDispatch();
     const taskList = useSelector(state => state.task, shallowEqual);

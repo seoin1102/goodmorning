@@ -1,42 +1,49 @@
-import React from 'react';
-import { Modal, Form, Button   } from 'react-bootstrap';
-
+import { TextField } from '@mui/material';
+import React, {useState} from 'react';
+import { Modal, Form, Button, Row, Col   } from 'react-bootstrap';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 function ReservationMessage({modalShow, onClickModal}) {
+  const [value, setValue] = useState(new Date());
 
+    function onClickCheck() {
+      console.log(value);
+    }
     return (
       <>
       <Modal show={modalShow} onHide={onClickModal}>
           <Modal.Header closeButton>
-              <Modal.Title>크루 생성</Modal.Title>
+              <Modal.Title>메시지 예약</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            
               <Form>
-                  <Form.Group className="mb-3" controlId="crewForm.name">
-                    <Form.Label>크루 이름</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Crew Name"
-                      autoFocus
-                    />
-                  </Form.Group>
-                  <Form.Group
-                    className="mb-3"
-                    controlId="crewForm.description"
-                  >
-                    <Form.Label>크루 설명</Form.Label>
-                    <Form.Control as="textarea" rows={3} placeholder={"Crew Description"}/>
-                    <Button variant="outline-dark" type="submit" >
-                      초대 권한 설정
-                    </Button>
-                  </Form.Group>
-              </Form>
+               <TextField
+                      id="datetime-local"
+                      label="날짜 및 시간 선택"
+                      type="datetime-local"
+                      defaultValue=""
+                      onChange={(newValue) => {
+                        setValue(newValue.target.value);
+                      }}
+                      sx={{ width: 250 }}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    /> 
+                 </Form>
+                 
           </Modal.Body>
           <Modal.Footer>
               <Button variant="outline-dark" type="submit" onClick={onClickModal} >
                 취소
               </Button>
               <Button variant="outline-dark" type="submit" >
-                저장
+                메시지 예약
+              </Button>
+              <Button variant="outline-dark" type="submit" onClick={onClickCheck} >
+                값 확인
               </Button>
           </Modal.Footer>
       </Modal>
