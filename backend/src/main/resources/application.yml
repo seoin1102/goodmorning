@@ -22,16 +22,6 @@ spring:
    freemarker:
       template-loader-path: classpath:/templates
       suffix: .ftl
-
-# DataBase
-   datasource:
-      driver-class-name: org.mariadb.jdbc.Driver
-      url: jdbc:mysql://192.168.10.46:3306/employees?charset=utf8
-      username: hr
-      password: hr
-#      hikari:
-#         minimum-idle: 10
-#         maximum-pool-size: 20
     
 # mybatis
 mybatis:
@@ -52,6 +42,16 @@ spring:
    devtools:
       livereload:
          enabled: true
+
+# DataBase
+   datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: jdbc:mysql://192.168.10.46:3306/employees?charset=utf8
+      username: hr
+      password: hr
+      hikari:
+         minimum-idle: 10
+         maximum-pool-size: 20
          
 # server
 server:
@@ -67,10 +67,20 @@ spring:
    config:
       activate:
          on-profile: production
+
+# DataBase
+   datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: jdbc:mysql://35.216.85.55:3306/shackshcak?charset=utf8
+      username: hr
+      password: hr
+      hikari:
+         minimum-idle: 10
+         maximum-pool-size: 20
          
 # server
 server:
-   port: 8088
+   port: 8080
    servlet:
       context-path: /
       encoding:
