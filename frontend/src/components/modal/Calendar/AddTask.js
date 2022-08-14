@@ -3,6 +3,8 @@ import React, { useState, useEffect, useCallback  } from "react";
 import Modal from "react-modal";
 import DatePicker from "React-DateTime-Picker";
 import Select from "react-select";
+import "../../../styles/css/Calendar.css";
+
 
 function AddTask(props){
 
@@ -14,6 +16,9 @@ function AddTask(props){
     const [clickedEventId, setClickedEventId] = useState("");
     const [assignEvents, setAssignEvents] = useState("");
 
+    const customStyles = {
+      overlay: {zIndex: 1000}
+    };
     const onSubmit = (e) => {
         e.preventDefault(); // Submit 이벤트 발생했을 때 새로고침 방지
     
@@ -113,8 +118,8 @@ function AddTask(props){
  
     
   return(
-    <div>
-        <Modal isOpen={props.modalIsOpen} contentLabel="Example Modal" ariaHideApp={false}>
+    
+        <Modal style={customStyles} isOpen={props.modalIsOpen} contentLabel="Example Modal" ariaHideApp={false}>
             <h4>시작 일자</h4>
             <DatePicker value={props.state.start} selected={props.setState} onChange={startDateChangeHandler} format="y-MM-dd hh:mm a" disableClock={true} locale="ko-KO"/>      
             <h4>종료 일자</h4>
@@ -129,7 +134,7 @@ function AddTask(props){
                 <button onClick={props.closeModal}>닫기</button>
             </form>
         </Modal>
-    </div>
+   
   )
   }
 export default AddTask;

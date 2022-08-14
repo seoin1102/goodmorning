@@ -14,7 +14,7 @@ import tasks from '../../assets/json/task.json';
 // import "@fullcalendar/daygrid/main.css";
 // import "@fullcalendar/timegrid/main.css";
 // import "../assets/css/bootstrap.min.css";
-// import "../assets/css/calendar.css";
+import "../../styles/css/Calendar.css";
 
 import AddTask from "../modal/Calendar/AddTask";
 function Calendar() {
