@@ -15,7 +15,11 @@ public class ChannelRepository {
 	private final SqlSession sqlSession;
 
 	public List<ChannelVo> findAll(Long userNo) {
-		return sqlSession.selectList("channel.findAllByUserNo", userNo);
+		return sqlSession.selectList("channel.findAll", userNo);
+	}
+
+	public Boolean insert(ChannelVo channelVo) {
+		return sqlSession.insert("channel.insert", channelVo) == 1;
 	}
 
 }
