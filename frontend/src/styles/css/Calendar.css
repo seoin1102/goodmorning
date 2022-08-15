@@ -8,3 +8,65 @@
   z-index: 10;
 }
 
+.fc-col-header-cell-cushion {
+  color: rgb(75, 69, 69);
+  text-decoration: none;
+}
+
+.fc-col-header-cell-cushion:hover {
+  color: rgb(75, 69, 69);
+  text-decoration: none;
+}
+
+.fc-daygrid-day-number{
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+
+.fc-daygrid-day-number:hover{
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+
+.fc-daygrid-event{
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0);
+  background: rgba(255, 255, 255, 0);
+  color:rgb(75, 69, 69);
+  
+}
+
+a[aria-label="일요일"]{
+  color: rgb(204, 87, 87);
+}
+
+a[aria-label="토요일"]{
+  color: rgb(104, 87, 204);
+}
+
+.fc-event{
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 5px;
+  background: rgba(47, 41, 41, 0.079);
+  margin:5px;
+}
+
+                    
+
+.external-events{
+  border-color: rgb(0, 0, 0);
+  padding: 10px;
+  width: 30%;
+  height: auto;
+  color: black;
+  border: 1px solid #c8cacb;
+}
+
+.assign-checklist{
+  padding: 10px;
+
+}
+
+input{
+  margin-right: 5px;
+}

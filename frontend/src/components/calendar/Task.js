@@ -8,7 +8,6 @@ import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 
 import { setTask, addTask, deleteTask } from '../../redux/task';
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
-import tasks from '../../assets/json/task.json';
 
 //import "@fullcalendar/core/main.css";
 // import "@fullcalendar/daygrid/main.css";
@@ -24,40 +23,30 @@ function Calendar() {
     // 선택
     // const data, const state, const usememo
 
-    const initialTask = useCallback(() => { 
-        dispatch(setTask(tasks));
-    }, [dispatch])
-
-
-    useEffect(() => {
-        initialTask();
-    }, [])
 
     const onClickAddTask = (task) => {
       dispatch(addTask(task));
     }
 
-    
+    function getRandomColor() {
+      return `hsl(${parseInt(Math.random() * 24, 10) * 15}, 16%, 57%)`;
+    }
   /////////////////////////////////////////////////////////////
+
   const [state, setState] = useState({
+    id: '',
+    projectNo: '',
+    userNo: '',
     title: '',
     start: '',
     end: '',
-    id: '',
-    classNames: ''
+    status:'',
+    crewNo: ''
+
   })
 
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-
-  const [clickedEventId, setClickedEventId] = useState("");
-  const [clickedEventTitle, setClickedEventTitle] = useState("");
-  const [clickedEventStartDate, setClickedEventStartDate] = useState("");
-  const [clickedEventEndDate, setClickedEventEndDate] = useState("");
-
-
   const [clickedEventAssign, setClickedEventAssign] = useState("");
-  const [assignEvents, setAssignEvents] = useState("");
 
  
   function openModal() {
@@ -65,27 +54,10 @@ function Calendar() {
   }
   function closeModal() {
     setIsOpen(false)
-    setClickedEventTitle("") 
+    setState(prevState => {return {...prevState, title:"" }}) 
     
 }
   
-  const [calendarEvents, setCalendarEvents] = useState([
-    {
-      title: "Atlanta Monster",
-      start: "2022-08-09 00:00",
-      end: "2022-08-12 00:00",
-      id: 6,
-      classNames: [{ value: "김서인", label: "김서인", no: 1 }],
-    },
-    {
-      title: "My Favorite Murder",
-      start: "2022-08-10 00:00",
-      end: "2022-08-12 00:00",
-      id: 7,
-      classNames: [{ value: "김서인", label: "김서인", no: 2 }],
-    },
-  ]);
-
   const assigns = [
     { value: "김서인", label: "김서인", no: 1 },
     { value: "김휘민", label: "김휘민", no: 2 },
@@ -100,10 +72,15 @@ function Calendar() {
       itemSelector: ".fc-event",
       eventData: function (eventEl) {
         let title = eventEl.getAttribute("title");
+        let start = eventEl.getAttribute("start");
+        let end = eventEl.getAttribute("end");
+
         let id = eventEl.getAttribute("data");
         let backgroundColor = eventEl.getAttribute("backgroundColor");
         return {
           title: title,
+          start: start,
+          end: end,
           id: id,
           backgroundColor: backgroundColor,
         };
@@ -124,16 +101,17 @@ function Calendar() {
       id: id,
       classNames: classNames
     })
-    
-
+  
     setClickedEventAssign(info.event.classNames);
     openModal();
   };
 
 
   const dateClickHandler = (info) => {
-    setClickedEventStartDate(info.date);
-    setClickedEventEndDate(info.date);
+    setState({
+      start: info.date,
+      end: info.date,
+    })
     openModal();
   };
 
@@ -171,39 +149,32 @@ function Calendar() {
   return (
     <div className="animated fadeIn p-4 demo-app">
       <Row>
+        
         {/* <CalendarItem /> */}
-        <Col>
-          {console.log("!!!!!!", tasks, taskList)}
+        <Col lg={2}>
+          {console.log("!!!!!!",  taskList)}
           <div
             id="external-events"
-            style={{
-              padding: "10px",
-              width: "80%",
-              height: "auto",
-              maxHeight: "-webkit-fill-available",
-              color: "black",
-              border: "1px solid #c8cacb",
-              align: "center",
-            }}
+            style={{ maxHeight: "-webkit-fill-available", border: "1px solid #c8cacb"}}
+
           >
             <div align="center">
               <strong> Events</strong>
-              {calendarEvents.map((event, index) => (
+              {taskList.map((event, index) => (
                 <div
                   key={index}
                   className="fc-event"
                   title={event.title}
                   data={event.id}
                   style={{
-                    padding: "10px",
-                    width: "90%",
-                    height: "auto",
-                    maxHeight: "-webkit-fill-available",
-                    backgroundColor: event.backgroundColor,
+                    backgroundColor: event.backgroundColor
                   }}
                 >
                   {event.title}
+                  
                 </div>
+
+                
               ))}
               <button
                 onClick={openModal}
@@ -218,6 +189,7 @@ function Calendar() {
                 일정 추가
               </button>
             </div>
+            <div className="assign-checklist">
             <input
               type="checkbox"
               onChange={(e) => onCheckedAll(e.target.checked)}
@@ -228,7 +200,7 @@ function Calendar() {
                   ? true
                   : false
               }
-            />
+            /><strong>전체</strong>
             <br />
             {assigns.map((list, index) => (
               <div key={index}>
@@ -244,14 +216,15 @@ function Calendar() {
                 <br />
               </div>
             ))}
-          </div>
+          </div>            </div>
+
         </Col>
 
-        <Col lg={9} sm={9} md={9}>
+        <Col lg={9} sm={12} md={12}>
           <div
             className="demo-app-calendar"
             id="mycalendartest"
-            style={{ color: "black" }}
+            style={{ color: "black"}}
           >
             <FullCalendar
               defaultView="dayGridMonth"
@@ -261,7 +234,7 @@ function Calendar() {
                 right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
               }}
               locale="ko"
-              rerenderDelay={10}
+
               eventDurationEditable={true}
               editable={true}
               droppable={true}
@@ -273,16 +246,16 @@ function Calendar() {
               // drop={this.drop}
               //eventReceive={eventReceive}
               eventClick={eventClickHandler}
-              selectable={true}
+              //selectable={true}
               dateClick={dateClickHandler}
-              eventColor="#333438a4"
+              //eventColor={getRandomColor}
             />
           </div>
 
           
         </Col>
       </Row>
-      <AddTask modalIsOpen={modalIsOpen} closeModal={closeModal} state={state} setState={setState}/>
+      <AddTask modalIsOpen={modalIsOpen} closeModal={closeModal} taskList={taskList} state={state} setState={setState} onClickAddTask={onClickAddTask}/>
      
     </div>
   );
