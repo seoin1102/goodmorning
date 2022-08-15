@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+	<insert id="insert" parameterType="uservo">
+		<![CDATA[
+			insert into testchatuser values(null, #{email }, #{name }, #{passwd }, now(),#{enable })
+		]]>
+	</insert>
+	
+	<select id="existsById" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+			select no,email,name from testchatuser where email=#{email }
+		]]>
+	</select>
+	
+	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+		select no ,email, name
+		  from testchatuser
+		 where email=#{email }
+		   and passwd=#{passwd }
+		]]>
+	</select>
+	
+	<update id="updateEnable" parameterType="verifivo">
+		<![CDATA[
+			update testchatuser set enable=true where email=#{email }
+		]]>
+	</update>
+	
+	<update id="updatePw" parameterType="map">
+		<![CDATA[
+			update testchatuser set passwd=#{token } where email=#{email }
+		]]>
+	</update>
+	
+	
+</mapper>

@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useCallback  } from "react";
 import Modal from "react-modal";
-import DatePicker from "React-DateTime-Picker";
+import DatePicker from "react-datetime-picker";
 import Select from "react-select";
 
 function AddTask(props){

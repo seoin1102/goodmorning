@@ -4,9 +4,14 @@
 		<typeAliases>
 				<typeAlias type="com.douzone.goodmorning.vo.ChannelVo" alias="channelvo" />
 				<typeAlias type="com.douzone.goodmorning.vo.CrewVo" alias="crewvo" />
+				<typeAlias type="com.douzone.goodmorning.vo.UserVo" alias="uservo" />
+				<typeAlias type="com.douzone.goodmorning.vo.VerificationTokenVo" alias="verifivo" />
+				
     </typeAliases>
 		<mappers>
 				<mapper resource="mybatis/mappers/channel.xml" />
 				<mapper resource="mybatis/mappers/crew.xml" />
+				<mapper resource="mybatis/mappers/user.xml" />
+				<mapper resource="mybatis/mappers/verifi.xml" />
 		</mappers>
 </configuration>
