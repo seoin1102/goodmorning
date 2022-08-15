@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Fab from '@mui/material/Fab';
-import SendIcon from '@mui/icons-material/Send';
+// import SendIcon from '@mui/icons-material/Send';
 
 function SendMessage() {
     return (
@@ -11,7 +11,7 @@ function SendMessage() {
                 <TextField id="outlined-basic-email" label="Type Something" fullWidth />
             </Grid>
             <Grid item xs={1} align="right">
-                <Fab color="primary" aria-label="add"><SendIcon /></Fab>
+                <Fab color="primary" aria-label="add">{"보내기"}</Fab>
             </Grid>
         </Grid>
     );
