@@ -49,7 +49,7 @@ function ResetPwContainer({callback}) {
 
         } catch(err) {
           console.log(typeof(err));
-          callback(err.toString(),"/")
+          callback(err.toString())
 
         }
       }

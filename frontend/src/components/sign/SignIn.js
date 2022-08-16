@@ -56,7 +56,7 @@ function SignContainer({callback}) {
         } catch(err) {
           console.log(typeof(err));
           //alert(err);
-          callback(err.toString(),"/")
+          callback(err.toString(),"/signin")
         }
       }
 

@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 function Sign(props) {
 
     const [modalData, setModalData] = useState({isOpen: false});
-    const [modalUrl, setModalUrl] = useState({url:'/'});
+    const [modalUrl, setModalUrl] = useState({url:'/signin'});
     Modal.setAppElement('body');
 
     const showModal = function (message,url) {
