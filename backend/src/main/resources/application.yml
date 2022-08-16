@@ -77,7 +77,7 @@ spring:
 # DataBase
    datasource:
       driver-class-name: org.mariadb.jdbc.Driver
-      url: jdbc:mysql://35.216.85.55:3306/shackshcak?charset=utf8
+      url: jdbc:mysql://34.64.202.134:3306/shackshcak?charset=utf8
       username: hr
       password: hr
       hikari:
