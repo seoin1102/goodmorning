@@ -15,6 +15,7 @@ public class LandingController {
 	
 	@RequestMapping("")
 	public String index() {
+		System.out.println("!!!!!!!!!!!!!! 나오는데");
 		return "index";
 	}
 
