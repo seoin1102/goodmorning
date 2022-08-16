@@ -14,7 +14,6 @@ import { Button, Form, Row, Col, Card, Dropdown, DropdownButton, InputGroup} fro
 function ResetPw({callback}) {
   return (
     <div className="SignIn">
-     <body className="bg-theme bg-theme1" style={{height:'1000px'}}>
      <div className="card-title text-uppercase text-center py-3"></div>
      <Card className='card card-authentication1 mx-auto my-5'>
     <Card.Body>
@@ -27,7 +26,7 @@ function ResetPw({callback}) {
                 RESET PASSWORD
               </Card.Text>
                 
-                <Form.Group  className="form-group" controlId="exampleInputUsername">
+                <Form.Group  className="form-group">
                     <Form.Label htmlFor="inlineFormInputGroup">회원가입 시 작성했던 이메일을 입력해주세요. 이메일로 임시비밀번호를 보내드립니다.</Form.Label>
                     <div className="position-relative has-icon-right">
                       <Form.Label htmlFor="inlineFormInputGroup">Email address</Form.Label>
@@ -47,14 +46,13 @@ function ResetPw({callback}) {
     </Card.Body>
     
     <Card.Footer className="card-footer text-center py-3" >
-    <NavLink to={'/'}>
+    <NavLink to={'/signin'}>
         <Button className='text-warning mb-0' variant="link">
         로그인 페이지로 돌아가기
         </Button>
     </NavLink>
       </Card.Footer>
     </Card>
-    </body>
     </div>
   );
 }

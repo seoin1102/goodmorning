@@ -59,6 +59,7 @@ body {
     font-size: 15px;
     color: rgba(255,255,255,.85);
     letter-spacing: 0.5px;
+    background-image: url(../images/bg-themes/1.png);
 }
 [tabindex="-1"]:focus {
 	outline: 0!important

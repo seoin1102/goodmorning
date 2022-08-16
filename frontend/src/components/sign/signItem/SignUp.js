@@ -15,7 +15,6 @@ function SignUp({callback}) {
   return (
 
     <div className="SignUp">
-     <body className="bg-theme bg-theme1" style={{height:'1000px'}}>
        <div className="card-title text-uppercase text-center py-3"></div>
   
        <Card className='card card-authentication1 mx-auto my-4'>
@@ -29,7 +28,7 @@ function SignUp({callback}) {
       <Card.Text className="card-title text-uppercase text-center py-3">
       Sign Up
       </Card.Text>
-      <Form.Group  className="form-group" controlId="exampleInputUsername">
+      <Form.Group  className="form-group">
         <Form.Label htmlFor="inlineFormInputGroup">Email address</Form.Label>
         <div className="position-relative has-icon-right">
         
@@ -84,7 +83,6 @@ function SignUp({callback}) {
       </Row>
       </Card.Footer>
     </Card>
-    </body>
     </div>
   );
 }

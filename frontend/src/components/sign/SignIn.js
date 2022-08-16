@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SignIn from './signItem/SignIn'
 import {signin} from '../../redux/sign'
@@ -6,6 +6,13 @@ import {signin} from '../../redux/sign'
 
 function SignContainer({callback}) {
 
+
+    const [saveEmailcheck, setSaveEmailcheck] = useState("no");
+
+    const onChangeSaveEmailcheck = (status) =>{
+      setSaveEmailcheck(status);
+      console.log(status);
+    }
     const { email, passwd } = useSelector(state => ({
         email: state.sign.email,
         passwd: state.sign.passwd
@@ -18,7 +25,10 @@ function SignContainer({callback}) {
         getSignIn(email,passwd);
         return  dispatch(signin(email,passwd));
     }
-
+    
+    const checksaveId=(checkstate) =>{
+      
+    }
       const getSignIn = async function(email,passwd) {
         try {
             const data ={
@@ -49,8 +59,12 @@ function SignContainer({callback}) {
             callback("로그인이 완료되었습니다","/")
             //alert("성공");
             console.log(json.data);
+            if(saveEmailcheck==='yes'){
+              localStorage.setItem('saveEmail',email)
+            }
             localStorage.setItem('authUser',JSON.stringify(json.data));
             console.log("스토리지:" + localStorage.getItem('authUser'));
+            console.log("스토리지 로그인체크:" + localStorage.getItem('saveEmail'));
             //location.href="/";
             
         } catch(err) {
@@ -66,7 +80,9 @@ function SignContainer({callback}) {
         <SignIn
             email={email}
             passwd={passwd}
-            callback={onSignIn}/>
+            saveEmailcheck ={saveEmailcheck}
+            callback={onSignIn}
+            callbackCheckSaveEmailStatus={onChangeSaveEmailcheck}/>
        </Fragment>     
     );
 }
