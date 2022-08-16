@@ -6,7 +6,7 @@ import Avatar from '@mui/material/Avatar';
 import { Modal, Form, Button   } from 'react-bootstrap';
 // import Modal from "react-modal";
 // import ReactModal from "react-modal";
-import '../../../styles/scss/modal/modal.scss';
+
 import AddCrew2 from '../../modal/AddCrew';
 
 //ReactModal.setAppElement('body');

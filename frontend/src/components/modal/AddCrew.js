@@ -24,10 +24,11 @@ function AddCrew({modalShow, onClickModal}) {
                 >
                   <Form.Label>크루 설명</Form.Label>
                   <Form.Control as="textarea" rows={3} placeholder={"Crew Description"}/>
+                  </Form.Group>
                   <Button variant="outline-dark" type="submit" >
                     초대 권한 설정
                   </Button>
-                </Form.Group>
+                
             </Form>
         </Modal.Body>
         <Modal.Footer>

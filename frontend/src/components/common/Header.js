@@ -6,6 +6,7 @@ import HeaderItem from './header/HeaderItem';
 import HeaderSearch from './header/HeaderSearch';
 import HeaderUser from './header/HeaderUser';
 
+
 function Header() {
 
     // modal state

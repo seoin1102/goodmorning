@@ -1,5 +1,5 @@
-import React,{Fragment} from 'react';
-import { Button, Form, Row, Col, CloseButton, Card, Modal } from 'react-bootstrap';
+import React from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
 
 function CrewSetting({modalShow,onClickModal}) {
 
@@ -20,9 +20,11 @@ function CrewSetting({modalShow,onClickModal}) {
                     autoFocus
                   />
                 </Form.Group>
+                <Form.Group className="mb-3">
                 <Button variant="outline-dark" type="submit" >
                     초대 권한 설정
                   </Button>
+                  </Form.Group>
                   <Button variant="outline-dark" type="submit" >
                     강퇴 권한 설정
                   </Button>

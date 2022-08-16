@@ -5,8 +5,9 @@ import List from '@mui/material/List';
 import AddChannel from '../../modal/AddChannel';
 import AddCrew from '../../modal/AddCrew';
 import Reserv from '../../modal/ReservationMessage';
-import '../../../styles/scss/modal/modal.scss';
+
 import NavigationEctItem from './NavigationEctItem';
+import NavigationItem from './NavigationItem';
 
 function NavigationEct() {
     // modal state
@@ -40,6 +41,8 @@ function NavigationEct() {
             <NavigationEctItem userName={"Cindy Baker"} itemName={"예약메시지"} onClickModal={onClickReservModal}>
                 <Reserv modalShow={reservModalShow} onClickModal={onClickReservModal}/> 
             </NavigationEctItem>
+            <NavigationItem navLink={"/calendar"}  crewName={"캘린더"}>
+            </NavigationItem>
         </List>
         <Divider />
         </>

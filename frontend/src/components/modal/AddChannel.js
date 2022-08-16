@@ -31,10 +31,11 @@ function AddChannel({modalShow, onClickModal}) {
                         type="email"
                         placeholder="example@gmail.com"
                       />
+                      </Form.Group>
                       <Button variant="outline-dark" type="submit" >
                         전송
                       </Button>
-                  </Form.Group>
+                  
               </Form>
           </Modal.Body>
           <Modal.Footer>

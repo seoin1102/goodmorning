@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
-import '../../../styles/scss/modal/modal.scss';
+
 import NavigationItem from './NavigationItem';
 
 // 데이터 받아오면 NavigationItem.map으로 반복문 실행해서 출력

@@ -36,9 +36,21 @@ function ChannelSetting({modalShow, onClickModal}) {
                   <Form.Control as="textarea" rows={3} placeholder={"Crew Description"}/>
     
                 </Form.Group>
-                <Button variant="outline-dark" type="submit" >
+                <Form.Group className="mb-3" controlId="crewForm.name">
+                      <Form.Label>초대</Form.Label>
+                      <Form.Control
+                        type="email"
+                        placeholder="example@gmail.com"
+                      />
+                      <Button variant="outline-dark" type="submit" >
+                        전송
+                      </Button>
+                  </Form.Group>
+                <Form.Group  className="mb-3">
+                <Button variant="outline-dark"  type="submit" >
                     초대 권한 설정
                   </Button>
+                </Form.Group>
                   <Button variant="outline-dark" type="submit" >
                     강퇴 권한 설정
                   </Button>
