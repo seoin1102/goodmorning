@@ -3,7 +3,6 @@ import { get, post } from '../../apis/Axios';
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import { setCrew, addCrew, deleteCrew } from '../../redux/crew';
 import Grid from '@mui/material/Grid';
-import '../../styles/scss/modal/modal.scss';
 import NavigationCrew from './navigation/NavigationCrew';
 import NavigationDM from './navigation/NavigationDM';
 import NavigationEct from './navigation/NavigationEct';

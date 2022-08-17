@@ -6,6 +6,8 @@
 				<typeAlias type="com.douzone.goodmorning.vo.CrewVo" alias="crewvo" />
 				<typeAlias type="com.douzone.goodmorning.vo.UserVo" alias="uservo" />
 				<typeAlias type="com.douzone.goodmorning.vo.VerificationTokenVo" alias="verifivo" />
+				<typeAlias type="com.douzone.goodmorning.vo.TaskVo" alias="taskvo" />
+
 				
     </typeAliases>
 		<mappers>
@@ -14,5 +16,6 @@
 				<mapper resource="mybatis/mappers/user.xml" />
 				<mapper resource="mybatis/mappers/verifi.xml" />
 				<mapper resource="mybatis/mappers/githubhook.xml" />
+				<mapper resource="mybatis/mappers/task.xml" />	
 		</mappers>
 </configuration>
