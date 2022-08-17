@@ -26,6 +26,7 @@ function TaskCalendar(props) {
         events={props.taskList}
         eventClick={props.eventClickHandler}
         dateClick={props.dateClickHandler}
+        eventColor="rgba(47, 41, 41, 0.432)"
       /></div>
   );
 }

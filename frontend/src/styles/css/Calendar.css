@@ -47,7 +47,7 @@ a[aria-label="토요일"]{
 .fc-event{
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 5px;
-  background: rgba(47, 41, 41, 0.079);
+  background: rgba(47, 41, 41, 0.432);
   margin:5px;
 }
 
@@ -73,17 +73,21 @@ input{
 }
 
 .Modal {
-  position: absolute;
-  width: 500px;
-  height: 600px;
+  position: fixed;
+  top: 200px;
+  right: 600px;
+  bottom: 200px;
+  left: 600px;
+  z-index: 10000;
   background-color: rgb(255, 255, 255);
-  padding: 70px;
+  padding: 30px;
+  border: 1px solid #00000027;
   
 }
 
 .Overlay {
   z-index: 100;
-  
+
 }
 
 .addTaskBtn{
