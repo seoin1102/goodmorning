@@ -13,4 +13,4 @@ fi
 
 echo "starting [$APPLICATION_NAME]"
 cd $SCRIPT_DIR
-nohup java -Dspring.profiles.active=production -jar $SCRIPT_DIR/$APPLICATION_NAME.jar >> $SCRIPT_DIR/launch.log &
+nohup java -Djasypt.encryptor.password=gnlals022!,jasypt.encryptor.algorithm=PBEWITHHMACSHA512ANDAES_256,spring.profiles.active=production -jar $SCRIPT_DIR/$APPLICATION_NAME.jar >> $SCRIPT_DIR/launch.log &

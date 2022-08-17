@@ -77,12 +77,16 @@ spring:
 # DataBase
    datasource:
       driver-class-name: org.mariadb.jdbc.Driver
-      url: jdbc:mysql://34.64.202.134:3306/shackshcak?charset=utf8
-      username: hr
-      password: hr
+      url: jdbc:mysql://34.64.202.134:3306/goodmorning?charset=utf8
+      username: ENC(zPCspAbRWtf/yA50+PyeFYCDx1ZUkoPX3WIp/V7+5gXJNFHXb5AEWSxg2XFBBJZw)
+      password: ENC(YUeIVcQ32Lbtasm1eZeujUbFBYS7cJX9f9kWTiUahNFYGDioSKAy44GpC62azMZ+Rm31kZhgtXIOXkdOV8BalA==)
       hikari:
          minimum-idle: 10
          maximum-pool-size: 20
+
+jasypt:
+   encryptor:
+      bean: jasyptStringEncryptor
          
 # server
 server:
