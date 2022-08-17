@@ -47,7 +47,6 @@ public class GitHubHookController {
 		
 		Entry<String, Object> entry = data.entrySet().iterator().next();
 		String key= entry.getKey();
-		System.out.println("테스트"+key); 
 		switch(key) {
 			case "pusher":
 				githubHookService.pushEventInsert(data);
