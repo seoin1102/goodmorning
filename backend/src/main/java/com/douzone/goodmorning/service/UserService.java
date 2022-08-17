@@ -8,10 +8,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.douzone.goodmoring.util.MailUtil;
 import com.douzone.goodmorning.repository.UserRepository;
 import com.douzone.goodmorning.repository.VerificationTokenRepository;
 import com.douzone.goodmorning.security.SHA256;
+import com.douzone.goodmorning.util.MailUtil;
 import com.douzone.goodmorning.vo.UserVo;
 import com.douzone.goodmorning.vo.VerificationTokenVo;
 

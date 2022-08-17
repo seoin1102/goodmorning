@@ -1,4 +1,4 @@
-package com.douzone.goodmoring.util;
+package com.douzone.goodmorning.util;
 
 import java.io.UnsupportedEncodingException;
 
