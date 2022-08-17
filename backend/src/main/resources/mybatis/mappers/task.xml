@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="task">	
+		<select id="findAll" parameterType="long" resultType="taskvo">
+				<![CDATA[
+				select no as id, project_no as projectNo, user_no as userNo, task_name as title, start_date as start, end_date as end, status, crew_no as crewNo from task
+				where project_no = #{projectNo}
+				]]>
+		</select>
+		<insert id="insert" parameterType="taskvo">
+				<![CDATA[
+				insert into task value(null, #{project_no}, #{userNo}, #{taskName}, #{startDate}, #{endDate}, #{status}, #{crewNo});
+				]]>
+		</insert>
+</mapper>
