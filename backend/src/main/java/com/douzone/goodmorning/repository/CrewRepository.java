@@ -20,4 +20,8 @@ public class CrewRepository {
 		return sqlSession.selectList("crew.findAll", channelNo);
 	}
 
+	public boolean insert(CrewVo crewVo) {
+		return sqlSession.insert("crew.insert", crewVo) == 1;
+	}
+
 }

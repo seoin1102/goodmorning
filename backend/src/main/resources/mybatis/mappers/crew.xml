@@ -8,11 +8,11 @@
 				from crew where channel_no = #{channelNo }
 				]]>
 		</select>
-		<insert id="insert" parameterType="channelvo">
+		<insert id="insert" parameterType="crewvo">
 				<![CDATA[
 				insert
 					into channel
-				values(null, #{name }, #{description }, now(), #{masterChannelUserNo })
+				values(null, #{channelNo }, #{masterCrewUserNo }, now(), #{name })
 				]]>
 		</insert>
 </mapper>

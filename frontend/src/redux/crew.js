@@ -19,10 +19,13 @@ export const addCrew = (crew) => ({ type: ADD_CREW, crew});
  * @param {number} crewNo 삭제할 크루의 인덱스
  */
 export const deleteCrew = (crewNo) => ({ type: DELETE_CREW, crewNo})
+
 /**
  * 초기 상태 선언
  */
-const initialState = [];
+const initialState = [
+    {}
+];
 
 /**
  * 리듀서 선언

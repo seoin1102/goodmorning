@@ -8,14 +8,18 @@ import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 
 import { setTask, addTask, deleteTask } from '../../redux/task';
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
+
 import {get} from '../../apis/Axios'
 import "../../styles/css/Calendar.css";
+
 
 import TaskList from "./TaskList";
 import Checkbox from "./AssignCheckbox";
 import AddTask from "../modal/Calendar/AddTask";
+
 import TaskContainer from "../container/TaskContainer";
 import TaskCalendar from "./TaskCalendar";
+
 function Calendar() {
 
     const [state, setState] = useState({id: '', projectNo: '', userNo: '', title: '', start: '', end: '', status:'', crewNo: ''})

@@ -12,7 +12,7 @@ function SiteLayout({children}) {
     return (
         <div>
             <Grid container component={Paper}>
-                <Header />            
+                <Header />
                 <Navigation/>
                 {children}
             </Grid>
