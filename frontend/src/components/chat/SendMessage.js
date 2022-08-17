@@ -23,6 +23,15 @@ function SendMessage() {
             </Grid>
             <Grid item xs={1} align="right">
                 <Fab color="primary" aria-label="add"><SendIcon /></Fab>
+                {/* <Dropdown as={ButtonGroup}>
+                    <Button variant="success">보내기</Button>
+
+                    <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1">메시지 예약</Dropdown.Item>
+                    </Dropdown.Menu>
+                    </Dropdown> */} 
             </Grid>
         </Grid>
         </>

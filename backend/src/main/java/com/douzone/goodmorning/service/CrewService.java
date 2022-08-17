@@ -19,4 +19,9 @@ public class CrewService {
 		return crewRepository.findAll(channelNo);
 	}
 
+	public Boolean addCrew(CrewVo crewVo) {
+		return crewRepository.insert(crewVo);
+		
+	}
+
 }

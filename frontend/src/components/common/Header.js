@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
+import {useSelector, useDispatch } from 'react-redux';
 import Grid from '@mui/material/Grid';
-import ChannelSetting from '../modal/ChannelSetting';
-import CrewSetting from '../modal/CrewSetting';
+import ChannelSetting from '../modal/Channel/ChannelSetting';
+import CrewSetting from '../modal/Crew/CrewSetting';
 import HeaderItem from './header/HeaderItem';
 import HeaderSearch from './header/HeaderSearch';
 import HeaderUser from './header/HeaderUser';
@@ -12,6 +13,11 @@ function Header() {
     // modal state
     const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
     const [crewModalIsOpen, setCrewModalIsOpen] = useState(false);
+
+    const channelList = useSelector(state => state.channel);
+    const crewList = useSelector(state => state.crew);
+    console.log(crewList.map((crew) => {crew.name}));
+    
 
     // css
     // 이넘 땜에 최적화 안됨 --> css 파일로 만들기 
@@ -29,10 +35,11 @@ function Header() {
 
     return (
         <Grid container>
-            <HeaderItem itemName={'채널명'} modalIsOpen={channelModalIsOpen} customStyle={channelStyle} onClickModal={onClickChannelModal}>
+            
+            <HeaderItem itemName={"channelName"} modalIsOpen={channelModalIsOpen} customStyle={channelStyle} onClickModal={onClickChannelModal}>
                 <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal}/> 
             </HeaderItem>
-            <HeaderItem itemName={'크루명'} modalIsOpen={crewModalIsOpen} customStyle={crewStyle} onClickModal={onClickCrewModal}>
+            <HeaderItem itemName={"crewName"} modalIsOpen={crewModalIsOpen} customStyle={crewStyle} onClickModal={onClickCrewModal}>
                 <CrewSetting modalShow={crewModalIsOpen} onClickModal={onClickCrewModal}/> 
             </HeaderItem>
             <HeaderSearch/>

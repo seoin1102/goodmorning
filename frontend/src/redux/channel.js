@@ -9,13 +9,7 @@ export const addChannel = (channel) => ({ type: ADD_CHANNEL, channel});
 export const deleteChannel = (channelNo) => ({ type: DELETE_CHANNEL, channelNo});
 
 const initialState = [
-  { 
-    no: '', 
-    name: '', 
-    description: '', 
-    creationDate: '', 
-    masterChannelUserNo: ''
-  }
+  {}
 ]
 
 const channel = (state = initialState, action) => {
