@@ -3,9 +3,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
-
 import { NavLink } from "react-router-dom";
-import '../../../styles/scss/modal/modal.scss';
+
 
 function NavigationItem({navLink, crewName, secondary}) {
     return (
