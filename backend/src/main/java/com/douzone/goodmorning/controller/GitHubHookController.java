@@ -1,7 +1,9 @@
 package com.douzone.goodmorning.controller;
 
 import java.util.HashMap;
-
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,13 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.douzone.goodmorning.service.GithubHookService;
 
 import lombok.RequiredArgsConstructor;
-
-import org.json.simple.JSONObject; // JSON객체 생성
-import org.json.simple.JSONArray; // JSON이 들어있는 Array 생성
-import org.json.simple.parser.JSONParser; // JSON객체 파싱
-import org.json.simple.parser.ParseException; // 예외처리
 
 
 @RequestMapping("/githubhook")
@@ -24,16 +22,38 @@ import org.json.simple.parser.ParseException; // 예외처리
 @RequiredArgsConstructor
 public class GitHubHookController {
 	
-	//private final SiteService service;
-	private final SqlSession sqlSession;
+	private final GithubHookService githubHookService;
 	
 	@PostMapping("/test")
-	public void add2(@RequestBody HashMap<String, Object> prama){
-		System.out.println(prama);
-		JSONArray jsonArray = new JSONArray();
-		jsonArray.add(prama);
-		String jsonStr = jsonArray.toJSONString();
-		System.out.println(jsonStr);
+	public void add2(@RequestBody HashMap<String, Object> data){
+		
+//		System.out.println(data);
+//		System.out.println(data.values().toArray()[0]);
+//		System.out.println("================================");
+		
+//		for(Entry<String, Object> entry : data.entrySet()) {
+//		if(!"null".equals(entry.getKey())) {
+//		String key = entry.getKey();
+//		System.out.println("키:" + key);
+//		}
+//		if(entry.getValue()!=null) {
+//		String value = entry.getValue().toString();
+//		System.out.println("밸류:" + value);
+//		}
+//	}
+		
+		
+		Map<String,Object> map = new LinkedHashMap<>();
+		
+		Entry<String, Object> entry = data.entrySet().iterator().next();
+		String key= entry.getKey();
+		System.out.println("테스트"+key); 
+		switch(key) {
+			case "pusher":
+				githubHookService.pushEventInsert(data);
+				break;
+		}
+		
 	}
 	
 	@RequestMapping("/chatTest")

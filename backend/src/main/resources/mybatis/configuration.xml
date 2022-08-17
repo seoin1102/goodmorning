@@ -13,5 +13,6 @@
 				<mapper resource="mybatis/mappers/crew.xml" />
 				<mapper resource="mybatis/mappers/user.xml" />
 				<mapper resource="mybatis/mappers/verifi.xml" />
+				<mapper resource="mybatis/mappers/githubhook.xml" />
 		</mappers>
 </configuration>
