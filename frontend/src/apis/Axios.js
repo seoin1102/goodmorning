@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const url = {
-  localDev: 'http://192.168.10.10:8080',
-  localProd: 'http://192.168.10.10:8088',
+  localDev: 'http://192.168.10.16:8080',
+  localProd: 'http://192.168.10.16:8088',
   serverDev: 'http://34.64.155.137:8080',
   serverProd: 'http://34.64.155.137:8088'
 }

@@ -4,9 +4,8 @@ import Modal from "react-modal";
 import DatePicker from "react-datetime-picker";
 import Select from "react-select";
 import "../../../styles/css/Calendar.css";
-import { setTask, addTask, deleteTask } from '../../../redux/task';
+import { setTask, addTask, deleteTask, updateTask } from '../../../redux/task';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-
 
 function AddTask(props) {
   const { title, start, end, id } = props.state
@@ -15,10 +14,8 @@ function AddTask(props) {
   const [clickedEventEnd, setClickedEventEnd] = useState()
 
   const [clickedEventAssign, setClickedEventAssign] = useState("")
-  const [startDate, setStartDate] = useState(new Date());
   const [clickedEventId, setClickedEventId] = useState("");
   const [assignEvents, setAssignEvents] = useState("");
-  const taskList = useSelector(state => state.task, shallowEqual);
 
   useEffect(()=>{
     setClickedEventTitle(title)
@@ -26,13 +23,7 @@ function AddTask(props) {
     setClickedEventEnd(end)
   },[props])
 
-
-
   const dispatch = useDispatch();
-  const customStyles = {
-    overlay: { zIndex: 1000 }
-  };
-
   const onSubmit = (e) => {
     e.preventDefault(); // Submit 이벤트 발생했을 때 새로고침 방지
 
@@ -49,17 +40,16 @@ function AddTask(props) {
         end: clickedEventEnd,
         id
       }
-      console.log("업데이트테스크"+updatedTask)
-      // newCalendarEvents[clickedEventIdx].title = clickedEventTitle
-      // newCalendarEvents[clickedEventIdx].start = props.state.start;
-      // newCalendarEvents[clickedEventIdx].end = props.state.end;
-      //newCalendarEvents[props.state.id].backgroundColor = getRandomColor();
-      // let li = [];
-      // for (let i in clickedEventAssign) {
-      //   li.push(clickedEventAssign[i].value);
-      // }
-      // newCalendarEvents[props.state.id].classNames = clickedEventAssign;
-      dispatch(setTask(updatedTask));
+
+      newCalendarEvents[clickedEventIdx].title = clickedEventTitle
+      newCalendarEvents[clickedEventIdx].start = props.state.start;
+      newCalendarEvents[clickedEventIdx].end = props.state.end;
+      let li = [];
+      for (let i in clickedEventAssign) {
+        li.push(clickedEventAssign[i].value);
+      }
+      //dispatch(setTask(newCalendarEvents));
+      dispatch(updateTask(clickedEventIdx, updatedTask));
 
     } else {
       const ids = newCalendarEvents.map((event) => {
@@ -79,7 +69,6 @@ function AddTask(props) {
       //   id: maxId + 100,
       // });
       dispatch(addTask([props.state]));
-
     }
 
     props.closeModal();
@@ -104,7 +93,6 @@ function AddTask(props) {
     console.log(clickedEventIdx)
     dispatch(deleteTask(props.state, 1));
     props.closeModal();
-
   }
 
   const startDateChangeHandler = (date) => {
@@ -137,7 +125,7 @@ function AddTask(props) {
   // }
   return (
 
-    <Modal style={customStyles} isOpen={props.modalIsOpen} contentLabel="Example Modal" ariaHideApp={false}>
+    <Modal className="Modal" overlayClassName="Overlay" isOpen={props.modalIsOpen} contentLabel="Example Modal" ariaHideApp={false}>
       <h4>시작 일자</h4>
       <DatePicker value={clickedEventStart} onChange={startDateChangeHandler} format="y-MM-dd hh:mm a" disableClock={true} locale="ko-KO" />
       <h4>종료 일자</h4>
