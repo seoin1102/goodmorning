@@ -4,20 +4,20 @@
 
 	<insert id="insert" parameterType="uservo">
 		<![CDATA[
-			insert into testchatuser values(null, #{email }, #{name }, #{passwd }, now(),#{enable })
+			insert into user values(null, #{email }, #{name }, #{passwd }, now(),#{enable }, null, null, null)
 		]]>
 	</insert>
 	
 	<select id="existsById" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			select no,email,name from testchatuser where email=#{email }
+			select no,email,name from user where email=#{email }
 		]]>
 	</select>
 	
 	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo">
 		<![CDATA[
 		select no ,email, name
-		  from testchatuser
+		  from user
 		 where email=#{email }
 		   and passwd=#{passwd }
 		]]>
@@ -25,13 +25,13 @@
 	
 	<update id="updateEnable" parameterType="verifivo">
 		<![CDATA[
-			update testchatuser set enable=true where email=#{email }
+			update user set enable=true where email=#{email }
 		]]>
 	</update>
 	
 	<update id="updatePw" parameterType="map">
 		<![CDATA[
-			update testchatuser set passwd=#{token } where email=#{email }
+			update user set passwd=#{token } where email=#{email }
 		]]>
 	</update>
 	

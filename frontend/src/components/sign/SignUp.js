@@ -54,7 +54,7 @@ function SignContainer({callback}) {
         } catch(err) {
           console.log(err);
           //alert(err);
-          callback(err.toString());
+          callback(err.toString(),"/signup");
         }
       }
 
