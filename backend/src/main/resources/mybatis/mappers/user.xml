@@ -16,7 +16,7 @@
 	
 	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-		select no ,email, name
+		select no ,email, name,enable
 		  from user
 		 where email=#{email }
 		   and passwd=#{passwd }

@@ -51,6 +51,19 @@ public class LoginInterceptor implements HandlerInterceptor {
 			
 			return false;
 		}
+		System.out.println("테스트" + authUser.isEnable());
+		if(!authUser.isEnable()) {
+			response.setStatus(HttpServletResponse.SC_OK);
+		
+			JsonResult jsonResult = JsonResult.fail("이메일 인증이 되지 않았습니다. 이메일을 확인해주세요.");
+			String jsonString = new ObjectMapper().writeValueAsString(jsonResult);
+			
+			OutputStream os = response.getOutputStream();
+			os.write(jsonString.getBytes("UTF-8"));
+			os.close();
+			
+			return false;
+		}
 
 		/* session 처리 */
 		System.out.println(authUser);
