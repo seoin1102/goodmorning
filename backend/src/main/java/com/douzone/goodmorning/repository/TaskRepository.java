@@ -23,4 +23,8 @@ public class TaskRepository {
 		return sqlSession.insert("task.insert", taskVo) == 1;
 	}
 
+	public Boolean update(TaskVo taskVo) {
+		return sqlSession.insert("task.update", taskVo) == 1;
+	}
+
 }

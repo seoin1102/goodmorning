@@ -7,6 +7,7 @@ import { Button, Container, Dropdown, DropdownButton, Nav, Navbar, NavDropdown }
 
 
 function HeaderUser() {
+
     
     const onClickLogout = async function() {
         console.log("스토리지:" + localStorage.getItem('authUser'));
@@ -49,7 +50,7 @@ function HeaderUser() {
                             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                             <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="ms-auto">
-                            <Navbar.Brand >김현석님</Navbar.Brand>
+                            <Navbar.Brand >"~~님"</Navbar.Brand>
                                 <Nav.Link href="#home">내정보</Nav.Link>
                                 <Nav.Link href="/signin" onclick={onClickLogout}>Logout</Nav.Link>
                             </Nav>

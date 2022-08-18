@@ -22,9 +22,7 @@ function SendMessage() {
                 <TextField id="outlined-basic-email" label="Type Something" fullWidth />
             </Grid>
             <Grid item xs={1} align="right">
-
                 <Fab color="primary" aria-label="add">{"보내기"}</Fab>
-
             </Grid>
         </Grid>
         </>
