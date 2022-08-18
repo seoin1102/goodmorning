@@ -6,6 +6,9 @@ import Select from "react-select";
 import "../../../styles/css/Calendar.css";
 import { setTask, addTask, deleteTask, updateTask } from '../../../redux/task';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import {put, post} from '../../../apis/Axios';
+import moment from 'moment';
+
 
 function AddTask(props) {
   const { title, start, end, id } = props.state
@@ -36,7 +39,7 @@ function AddTask(props) {
 
       const updatedTask={
         title: clickedEventTitle,
-        start: clickedEventStart,
+        start:clickedEventStart,
         end: clickedEventEnd,
         id
       }
@@ -48,8 +51,8 @@ function AddTask(props) {
       for (let i in clickedEventAssign) {
         li.push(clickedEventAssign[i].value);
       }
-      //dispatch(setTask(newCalendarEvents));
       dispatch(updateTask(clickedEventIdx, updatedTask));
+      put(`/task/${clickedEventId}`, updatedTask)
 
     } else {
       const ids = newCalendarEvents.map((event) => {
@@ -62,13 +65,17 @@ function AddTask(props) {
       // }
       props.state.id = maxId + 1
       console.log(props.state)
+      props.state.start = moment(props.state.start).format('YYYY-MM-DD HH:mm')
+      props.state.end = momentfdfddf(props.state.start).format('YYYY-MM-DD HH:mm')
       // newCalendarEvents.push({
       //   title: clickedEventTitle,
       //   start: clickedEventStartDate,
       //   end: clickedEventEndDate,
       //   id: maxId + 100,
       // });
+      props.state.title = clickedEventTitle
       dispatch(addTask([props.state]));
+      post(`/task`, props.state)
     }
 
     props.closeModal();
@@ -96,14 +103,13 @@ function AddTask(props) {
   }
 
   const startDateChangeHandler = (date) => {
-    setClickedEventStart(date)
+    setClickedEventStart(moment.utc(date).format('YYYY-MM-DD HH:mm'))
   }
   const endDateChangeHandler = (date) => {
-    setClickedEventEnd(date)
+    setClickedEventEnd(moment.utc(date).format('YYYY-MM-DD HH:mm'))
   }
   const titleChangeHandler = (e) => {
     setClickedEventTitle(e.target.value)
-
   }
 
   // const assignChangeHandler = (clickedEventAssign) => {
@@ -125,7 +131,7 @@ function AddTask(props) {
   // }
   return (
 
-    <Modal className="Modal" overlayClassName="Overlay" isOpen={props.modalIsOpen} contentLabel="Example Modal" ariaHideApp={false}>
+    <Modal className="addTaskModal" overlayClassName="Overlay" isOpen={props.modalIsOpen} contentLabel="Example Modal" ariaHideApp={false}>
       <h4>시작 일자</h4>
       <DatePicker value={clickedEventStart} onChange={startDateChangeHandler} format="y-MM-dd hh:mm a" disableClock={true} locale="ko-KO" />
       <h4>종료 일자</h4>

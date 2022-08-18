@@ -17,7 +17,6 @@ function TaskContainer() {
     
     useEffect(() => {
         initialTask(1);
-        console.log("fjsdkfsd2348320"+initialTask(1))
     }, [])
 
     return (
