@@ -1,5 +1,5 @@
-import React,{Fragment} from 'react';
-import { Button, Form, Row, Col, CloseButton, Card, Modal } from 'react-bootstrap';
+import React from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
 
 
 function ChannelSetting_info() {
@@ -31,10 +31,14 @@ function ChannelSetting_info() {
                         type="email"
                         placeholder="example@gmail.com"
                       />
-                      <Button variant="outline-dark" type="submit" onClick={{}}>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="crewForm.name">
+                <Button variant="outline-dark" type="submit" onClick={(e) => {
+                  
+                  console.log("zz");}}>
                         전송
                       </Button>
-                  </Form.Group>
+                      </Form.Group>
                   <Form.Group className="mb-3">
                 <Button variant="outline-dark" type="submit" >
                     이 채널에서 나가기

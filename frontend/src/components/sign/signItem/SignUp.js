@@ -1,10 +1,4 @@
 import React from 'react'; 
-import '../../../assets/css/pace.min.css'
-import '../../../assets/css/bootstrap.css'
-import '../../../assets/css/bootstrap.min.css'
-import '../../../assets/css/animate.css'
-import '../../../assets/css/icons.css'
-import '../../../assets/css/app-style.css'
 import {NavLink} from "react-router-dom";
 
 import { Button, Form, Row, Col, Card, Dropdown, DropdownButton, InputGroup} from 'react-bootstrap';

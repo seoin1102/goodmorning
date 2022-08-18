@@ -44,8 +44,6 @@ function AddChannel({modalShow, onClickModal}) {
                       <Button variant="outline-dark" type="submit" >
                         전송
                       </Button>
-                  
-              
           </Modal.Body>
           <Modal.Footer>
               <Button variant="outline-dark" type="submit" onClick={onClickModal} >
