@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 function NavigationItem({navLink, crewName, secondary}) {
     return (
         <NavLink to={navLink} >
-        <ListItem button key="RemySharp">
+        <ListItem button>
             <ListItemIcon>
                 <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
             </ListItemIcon>

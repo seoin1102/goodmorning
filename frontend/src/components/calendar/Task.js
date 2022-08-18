@@ -5,6 +5,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
+import moment from 'moment';
 
 import { setTask, addTask, deleteTask } from '../../redux/task';
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
@@ -69,7 +70,7 @@ function Calendar() {
     };
   
     const dateClickHandler = (info) => {
-      setState({start: info.date, end: info.date})
+      setState({start: info.date, end: info.date, title: ""})
       openModal();
     };
 

@@ -10,7 +10,13 @@
 		</select>
 		<insert id="insert" parameterType="taskvo">
 				<![CDATA[
-				insert into task value(null, #{project_no}, #{userNo}, #{taskName}, #{startDate}, #{endDate}, #{status}, #{crewNo});
+				insert into task value(null, 1, 1, #{title}, #{start}, #{end}, "Todo", 1);
 				]]>
 		</insert>
+		
+		<update id="update" parameterType="taskvo">
+				<![CDATA[
+				update task set user_no=1, task_name=#{title},start_date=#{start}, end_date=#{end}, status="Todo" where no=#{id};
+				]]>
+		</update>
 </mapper>
