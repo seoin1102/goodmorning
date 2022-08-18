@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.douzone.goodmorning.security.LoginInterceptor;
-import com.douzone.goodmorning.security.LogoutInterceptor;
+//import com.douzone.goodmorning.security.LogoutInterceptor;
 
 
 @SpringBootConfiguration
@@ -24,10 +24,10 @@ public class WebConfig implements WebMvcConfigurer {
 		return new LoginInterceptor();
 	}
 	
-	@Bean
-	public HandlerInterceptor logoutInterceptor() {
-		return new LogoutInterceptor();
-	}
+//	@Bean
+//	public HandlerInterceptor logoutInterceptor() {
+//		return new LogoutInterceptor();
+//	}
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -35,9 +35,9 @@ public class WebConfig implements WebMvcConfigurer {
 		registry
 			.addInterceptor(loginInterceptor())
 			.addPathPatterns("/api/user/signIn");
-		registry
-		.addInterceptor(logoutInterceptor())
-		.addPathPatterns("/user/logout");
+		//registry
+		//.addInterceptor(logoutInterceptor())
+		//.addPathPatterns("/user/logout");
 		
 	}
 }
