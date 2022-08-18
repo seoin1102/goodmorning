@@ -16,6 +16,7 @@
 				<mapper resource="mybatis/mappers/user.xml" />
 				<mapper resource="mybatis/mappers/verifi.xml" />
 				<mapper resource="mybatis/mappers/githubhook.xml" />
+				<mapper resource="mybatis/mappers/jenkinshook.xml" />
 				<mapper resource="mybatis/mappers/task.xml" />	
 		</mappers>
 </configuration>

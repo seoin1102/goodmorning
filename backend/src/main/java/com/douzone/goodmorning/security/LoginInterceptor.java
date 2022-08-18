@@ -24,7 +24,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			
 			throws Exception {
 		SHA256 sha256 =  new SHA256();
-		System.out.println("테테스트");
+
 		String email = request.getParameter("email");
 		String passwd = request.getParameter("passwd");
 
@@ -35,11 +35,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 		System.out.println(authUser);
 		
 		if(authUser == null) {
-			request.setAttribute("email", email);
-			request.setAttribute("result", "fail");
+			//request.setAttribute("email", email);
+			//request.setAttribute("result", "fail");
 			//request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
 			
-			// 3. json 응답
+			//json 응답처리 
 			response.setStatus(HttpServletResponse.SC_OK);
 		
 			JsonResult jsonResult = JsonResult.fail("이메일 또는 패스워드가 잘못되었습니다.");
@@ -57,7 +57,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
 		
-		// 3. json 응답
+		//json 응답처리 
 		response.setStatus(HttpServletResponse.SC_OK);
 
 		JsonResult jsonResult = JsonResult.success(authUser);

@@ -18,8 +18,6 @@ public class LogoutInterceptor implements HandlerInterceptor {
 			throws Exception {
 		
 		
-		
-		
 		//세션처리 
 		HttpSession session = request.getSession();
 		session.removeAttribute("authUser");
