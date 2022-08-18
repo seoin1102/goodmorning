@@ -5,7 +5,6 @@ const SET_TASK = 'task/SET_TASK';
 const ADD_TASK = 'task/ADD_TASK';
 const DELETE_TASK = 'task/DELETE_TASK';
 const UPDATE_TASK = 'task/UPDATE_TASK';
-import {get} from '../apis/Axios'
 
 // export const changeTask = (changeTask) => ({ type: CHANGE_TASK, changeTask });
 export const setTask = (tasks) => ({ type: SET_TASK, tasks });

@@ -72,12 +72,13 @@ input{
   margin-left: 7px;
 }
 
-.Modal {
+.addTaskModal {
   position: fixed;
   top: 200px;
-  right: 600px;
+  right: 20%;
   bottom: 200px;
-  left: 600px;
+  width:30%;
+  left: 30%;
   z-index: 10000;
   background-color: rgb(255, 255, 255);
   padding: 30px;

@@ -24,8 +24,18 @@ export const get = async (url) => {
  */
 export const post = async (url, data) => {
     try {
-        let response = await axios.post(url, data);
+        let response = await client.post(url, data);
         return response.data;
+    } catch (error) {
+        console.error("Error >>", error);
+    }
+}
+
+export const put = async (url, data) => {
+    try {
+        let response = await client.put(url, data);
+        return response.data;
+
     } catch (error) {
         console.error("Error >>", error);
     }
