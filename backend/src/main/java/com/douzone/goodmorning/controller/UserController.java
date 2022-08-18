@@ -71,6 +71,11 @@ public class UserController {
 //		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("로그인 성공했습니다."));
 	}
 	
+	@RequestMapping("/logout")
+	public void logout() {
+	}
+	
+	
 	@PutMapping("/resetPw")
 	public ResponseEntity<JsonResult> resetPw(@RequestBody UserVo vo) {
 		
@@ -81,6 +86,8 @@ public class UserController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("임시 비밀번호가 해당 메일로 전송되었습니다."));
 	}
+	
+
 	
 	
 }
