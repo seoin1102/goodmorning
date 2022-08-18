@@ -30,6 +30,7 @@ function CrewSetting_info() {
                   </Form.Group>
             </Form>
         </Modal.Body>
+        
      </>
     );
 }

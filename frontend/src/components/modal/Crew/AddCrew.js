@@ -11,11 +11,12 @@ function AddCrew({modalShow, onClickModal, onCreate}) {
         </Modal.Header>
         <Form onSubmit={(e) => {
                         e.preventDefault();
-                        // onCreate(e.target[0].value)
+                        const {name, value} = e.target;
+                        const data = {[name]: value}
+                        onCreate(e.target[0].value)
                         console.log(e.target[0].value)
                        }}>
         <Modal.Body>
-            
                 <Form.Group className="mb-3" controlId="crewForm.name">
                   <Form.Label>크루 이름</Form.Label>
                   <Form.Control
