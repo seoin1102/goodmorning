@@ -6,7 +6,7 @@ import {signin} from '../../redux/sign'
 
 function SignContainer({callback}) {
 
-
+    console.log("로그아웃됬는지 체크:" + localStorage.getItem('authUser'));
     const [saveEmailcheck, setSaveEmailcheck] = useState("no");
 
     const onChangeSaveEmailcheck = (status) =>{

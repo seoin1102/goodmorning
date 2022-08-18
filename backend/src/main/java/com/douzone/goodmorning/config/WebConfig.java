@@ -37,7 +37,7 @@ public class WebConfig implements WebMvcConfigurer {
 			.addPathPatterns("/api/user/signIn");
 		registry
 		.addInterceptor(logoutInterceptor())
-		.addPathPatterns("/user/logout");
+		.addPathPatterns("/api/user/logout");
 		
 	}
 }

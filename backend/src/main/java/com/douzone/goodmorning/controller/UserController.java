@@ -71,7 +71,7 @@ public class UserController {
 //		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("로그인 성공했습니다."));
 	}
 	
-	@RequestMapping("/logout")
+	@GetMapping("/logout")
 	public void logout() {
 	}
 	

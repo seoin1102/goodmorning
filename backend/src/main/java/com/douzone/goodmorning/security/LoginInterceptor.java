@@ -44,9 +44,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 		
 			JsonResult jsonResult = JsonResult.fail("이메일 또는 패스워드가 잘못되었습니다.");
 			String jsonString = new ObjectMapper().writeValueAsString(jsonResult);
+			
 			OutputStream os = response.getOutputStream();
 			os.write(jsonString.getBytes("UTF-8"));
-			System.out.println(os);
 			os.close();
 			
 			return false;
