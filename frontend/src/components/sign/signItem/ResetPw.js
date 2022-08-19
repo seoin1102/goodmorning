@@ -43,7 +43,7 @@ function ResetPw({callback}) {
         
         <Card.Footer className="card-footer text-center py-3" >
         <NavLink to={'/signin'}>
-            <Button className='mb-0' variant="outline-warning">
+            <Button className='mb-0' variant="outline-dark">
             로그인 페이지로 돌아가기
             </Button>
         </NavLink>

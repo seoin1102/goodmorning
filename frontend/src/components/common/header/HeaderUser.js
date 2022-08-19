@@ -29,7 +29,8 @@ function HeaderUser() {
           if(json.result !== 'success') {
             throw new Error(`${json.result} ${json.message}`);  
           }
-            alert("로그아웃성공!");
+            const message = json.message; 
+            alert(message);
             localStorage.setItem('authUser','');
             location.href="/signin"
         } catch(err) {

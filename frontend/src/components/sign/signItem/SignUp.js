@@ -69,7 +69,7 @@ function SignUp({callback}) {
           </Col>
           <Col sm='6'>
           <NavLink to={'/signin'}>
-            <Button className='mb-0' variant="outline-warning">
+            <Button className='mb-0' variant="outline-dark">
               로그인하기
             </Button>
           </NavLink>

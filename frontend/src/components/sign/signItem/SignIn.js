@@ -5,12 +5,7 @@ import '../../../styles/css/body.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons'
 
-function SignIn({callback, saveEmailcheck, callbackCheckSaveEmailStatus, callbackonChangeEmailInput}) {
-
-  const onChangeSaveEmailcheck = e => {
-    const status = e.target.value === 'no' ? 'yes' : 'no';
-    callbackCheckSaveEmailStatus(status);
-  }
+function SignIn({callback}) {
 
   return (
     <div className="SignIn">
@@ -32,7 +27,7 @@ function SignIn({callback, saveEmailcheck, callbackCheckSaveEmailStatus, callbac
           <InputGroup className="mb-2">
             <Form.Control className='form-control input-shadow' type="email" placeholder="이메일을 입력해주세요" id="email" required/>
               <InputGroup.Text>
-                <FontAwesomeIcon icon={faEnvelopeOpen}></FontAwesomeIcon>
+              <FontAwesomeIcon icon={faEnvelopeOpen}></FontAwesomeIcon>
               </InputGroup.Text>
             </InputGroup>
           
@@ -52,11 +47,6 @@ function SignIn({callback, saveEmailcheck, callbackCheckSaveEmailStatus, callbac
         
 
         <Form.Group className="form-group">
-        <Row className="align-items-center">
-          <Col sm='8'>
-          <Form.Check type="checkbox" label="아이디 저장" id="checkId" value={saveEmailcheck} checked={saveEmailcheck==='yes'} onChange={onChangeSaveEmailcheck}/>
-          </Col>
-        </Row>
         <Row>
       
           <div className='text-center'>
@@ -68,9 +58,6 @@ function SignIn({callback, saveEmailcheck, callbackCheckSaveEmailStatus, callbac
         </Row>
         
         </Form.Group>
-
-        
-        
         </Col>
 
       </Form>
@@ -87,7 +74,7 @@ function SignIn({callback, saveEmailcheck, callbackCheckSaveEmailStatus, callbac
           </Col>
           <Col sm='6'>
           <NavLink to={'/signup'}>
-            <Button className='mb-0' variant="outline-warning">
+            <Button className='mb-0' variant="outline-dark">
             회원가입하기
             </Button>
           </NavLink>

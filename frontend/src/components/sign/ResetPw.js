@@ -37,17 +37,13 @@ function ResetPwContainer({callback}) {
           }
 
           const json = await response.json();
-          const message = json.message;
 
           if(json.result !== 'success') {
             throw new Error(`${json.result} ${json.message}`);  
           }
 
-            callback(message,"/signin")
-            console.log(json.data);
+            callback("해당 메일로 임시 패스워드가 전송되었습니다.","/signin")
             localStorage.setItem('authUser',JSON.stringify(json.data));
-            console.log("스토리지:" + localStorage.getItem('authUser'));
-
         } catch(err) {
           //console.log(typeof(err));
           callback(err.toString(),"")

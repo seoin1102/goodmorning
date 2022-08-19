@@ -43,12 +43,11 @@ function SignContainer({callback}) {
           }
 
           const json = await response.json();
-          const message = json.message;
 
           if(json.result !== 'success') {
             throw new Error(`${json.result} ${json.message}`);  
           }
-            callback(message,"/signin");
+            callback("회원가입 되었습니다. 해당 이메일로 확인 메일이 전송되었습니다.","/signin");
             //alert("회원가입 되었습니다. 해당 이메일로 확인 메일이 전송되었습니다.")
             //location.href="/";
           
