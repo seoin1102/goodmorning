@@ -2,14 +2,15 @@ import React from 'react';
 import {NavLink} from "react-router-dom";
 
 import { Button, Form, Row, Col, Card, Dropdown, DropdownButton, InputGroup} from 'react-bootstrap';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons'
 
 
 function ResetPw({callback}) {
   return (
     <div className="SignIn">
      <div style={{padding:'0 700px'}}>
-        <Card className='card card-authentication1 mx-auto my-5'>
+        <Card bg='light' className='card card-authentication1 mx-auto my-5'>
         <Card.Body>
             <Form onSubmit={e => {
                       e.preventDefault();
@@ -26,7 +27,7 @@ function ResetPw({callback}) {
                           <Form.Label htmlFor="inlineFormInputGroup">Email address</Form.Label>
                           <InputGroup className="mb-2">
                             <Form.Control className='form-control input-shadow' type="email" id="email" placeholder="이메일을 입력해주세요" required/>
-                            <InputGroup.Text><i className="icon-envelope-open"></i></InputGroup.Text>
+                            <InputGroup.Text><FontAwesomeIcon icon={faEnvelopeOpen}></FontAwesomeIcon></InputGroup.Text>
                           </InputGroup>
                         </div>
                       </Form.Group>

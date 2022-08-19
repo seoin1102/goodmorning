@@ -33,7 +33,10 @@ public class UserRepository {
 		return sqlSession.selectOne("user.findByEmailAndPassword",vo);
 	}
 
-
+	public UserVo findByEnable(UserVo vo) {
+		return sqlSession.selectOne("user.findByEnable",vo);
+	}
+	
 	public int updateEnable(VerificationTokenVo vo) {
 		
 		return sqlSession.update("user.updateEnable",vo);
@@ -46,6 +49,9 @@ public class UserRepository {
 		map.put("token", token);
 		return sqlSession.update("user.updatePw",map);
 	}
+
+
+
 
 
 }

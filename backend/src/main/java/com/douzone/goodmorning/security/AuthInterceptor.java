@@ -51,7 +51,17 @@ public class AuthInterceptor implements HandlerInterceptor {
 		String url = "http://localhost:9090/signin";
 		if(session == null) {
 			
-			response.sendRedirect(url);
+			//json 응답처리 
+			response.setStatus(HttpServletResponse.SC_OK);
+		
+			JsonResult jsonResult = JsonResult.fail("인증이 되지 않았습니다.");
+			String jsonString = new ObjectMapper().writeValueAsString(jsonResult);
+			
+			OutputStream os = response.getOutputStream();
+			os.write(jsonString.getBytes("UTF-8"));
+			os.close();
+			
+			//response.sendRedirect(request.getContextPath() + "/user/login");
 			return false;
 		}
 		
@@ -61,7 +71,16 @@ public class AuthInterceptor implements HandlerInterceptor {
 		
 		if(authUser == null) {
 			
-			response.sendRedirect(url);
+			//json 응답처리 
+			response.setStatus(HttpServletResponse.SC_OK);
+		
+			JsonResult jsonResult = JsonResult.fail("인증이 되지 않았습니다.");
+			String jsonString = new ObjectMapper().writeValueAsString(jsonResult);
+			
+			OutputStream os = response.getOutputStream();
+			os.write(jsonString.getBytes("UTF-8"));
+			os.close();
+			
 			return false;
 		}
 		

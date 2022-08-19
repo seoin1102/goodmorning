@@ -70,6 +70,10 @@ public class UserService {
 		return userRepository.findByEmailAndPassword(vo);
 		
 	}
+	
+	public UserVo getEmailEnable(UserVo vo) {
+		return userRepository.findByEnable(vo);
+	}
 
 	
     private String generateVerificationToken(UserVo vo) {
@@ -93,6 +97,7 @@ public class UserService {
 	
 	@Transactional
 	public int resetPw(UserVo vo) {
+		System.out.println("여기 들어왔는지 체크1");
 		SHA256 sha256 = new SHA256();
 		
 		String token;

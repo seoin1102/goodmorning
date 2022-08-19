@@ -80,6 +80,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 		os.write(jsonString.getBytes("UTF-8"));
 		os.close();
 		
-		return true;
+		return false;
 	}
 }

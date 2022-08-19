@@ -9,10 +9,16 @@ function SignContainer({callback}) {
     console.log("로그아웃됬는지 체크:" + localStorage.getItem('authUser'));
     const [saveEmailcheck, setSaveEmailcheck] = useState("no");
 
+
     const onChangeSaveEmailcheck = (status) =>{
       setSaveEmailcheck(status);
       console.log(status);
     }
+
+    const onChangeEmailInput = (email) => {
+      dispatch(signin(email));
+    }
+
     const { email, passwd } = useSelector(state => ({
         email: state.sign.email,
         passwd: state.sign.passwd
@@ -26,9 +32,7 @@ function SignContainer({callback}) {
         return  dispatch(signin(email,passwd));
     }
     
-    const checksaveId=(checkstate) =>{
-      
-    }
+
       const getSignIn = async function(email,passwd) {
         try {
             const data ={
@@ -52,13 +56,13 @@ function SignContainer({callback}) {
           }
 
           const json = await response.json();
+          const message = json.message;
 
           if(json.result !== 'success') {
             throw new Error(`${json.result} ${json.message}`);  
           }
-            callback("로그인이 완료되었습니다","/")
-            //alert("성공");
-            console.log(json.data);
+
+            callback(message,"/")
             if(saveEmailcheck==='yes'){
               localStorage.setItem('saveEmail',email)
             }
@@ -68,9 +72,8 @@ function SignContainer({callback}) {
             //location.href="/";
             
         } catch(err) {
-          console.log(typeof(err));
           //alert(err);
-          callback(err.toString(),"/signin")
+          callback(err.toString(),"")
         }
       }
 
@@ -82,7 +85,9 @@ function SignContainer({callback}) {
             passwd={passwd}
             saveEmailcheck ={saveEmailcheck}
             callback={onSignIn}
-            callbackCheckSaveEmailStatus={onChangeSaveEmailcheck}/>
+            callbackCheckSaveEmailStatus={onChangeSaveEmailcheck}
+            callbackonChangeEmailInput={onChangeEmailInput}/>
+
        </Fragment>     
     );
 }

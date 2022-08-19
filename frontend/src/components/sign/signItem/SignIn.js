@@ -1,10 +1,11 @@
 import React from 'react'; 
 import {NavLink} from "react-router-dom";
 import { Button, Form, Row, Col, Card, Dropdown, DropdownButton, InputGroup} from 'react-bootstrap';
+import '../../../styles/css/body.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock, faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons'
 
-
-
-function SignIn({callback, saveEmailcheck, callbackCheckSaveEmailStatus}) {
+function SignIn({callback, saveEmailcheck, callbackCheckSaveEmailStatus, callbackonChangeEmailInput}) {
 
   const onChangeSaveEmailcheck = e => {
     const status = e.target.value === 'no' ? 'yes' : 'no';
@@ -14,7 +15,7 @@ function SignIn({callback, saveEmailcheck, callbackCheckSaveEmailStatus}) {
   return (
     <div className="SignIn">
         <div style={{padding:'0 700px'}}>
-      <Card className='card card-authentication1 mx-auto my-5'>
+      <Card bg='light' className='card card-authentication1 mx-auto my-5'>
         <Card.Body>
       <Form onSubmit={e => {
                 e.preventDefault();
@@ -30,7 +31,9 @@ function SignIn({callback, saveEmailcheck, callbackCheckSaveEmailStatus}) {
           
           <InputGroup className="mb-2">
             <Form.Control className='form-control input-shadow' type="email" placeholder="이메일을 입력해주세요" id="email" required/>
-              <InputGroup.Text><i className="icon-envelope-open"></i></InputGroup.Text>
+              <InputGroup.Text>
+                <FontAwesomeIcon icon={faEnvelopeOpen}></FontAwesomeIcon>
+              </InputGroup.Text>
             </InputGroup>
           
           </div>
@@ -42,7 +45,9 @@ function SignIn({callback, saveEmailcheck, callbackCheckSaveEmailStatus}) {
             </Form.Label>
             <InputGroup className="mb-2">
             <Form.Control type="password" id="passwd" className="form-control input-shadow" placeholder="비밀번호를 입력해주세요" required/>
-              <InputGroup.Text><i className="icon-lock"></i></InputGroup.Text>
+              <InputGroup.Text>
+                <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>
+              </InputGroup.Text>
             </InputGroup>
         
 

@@ -37,19 +37,20 @@ function ResetPwContainer({callback}) {
           }
 
           const json = await response.json();
+          const message = json.message;
 
           if(json.result !== 'success') {
             throw new Error(`${json.result} ${json.message}`);  
           }
 
-            callback("변경된 패스워드를 메일로 전송하였습니다.","/signin")
+            callback(message,"/signin")
             console.log(json.data);
             localStorage.setItem('authUser',JSON.stringify(json.data));
             console.log("스토리지:" + localStorage.getItem('authUser'));
 
         } catch(err) {
-          console.log(typeof(err));
-          callback(err.toString())
+          //console.log(typeof(err));
+          callback(err.toString(),"")
 
         }
       }
