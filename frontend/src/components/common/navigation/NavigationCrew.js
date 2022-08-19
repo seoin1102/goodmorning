@@ -6,7 +6,7 @@ import NavigationItem from './NavigationItem';
 
 // 많으면 화면 넘어가므로 스크롤 추가 해주기
 function NavigationCrew({crewList}) {
-    console.log(crewList)
+    // console.log(crewList)
     return (
     <>
         <Grid item xs={12}>크루</Grid>

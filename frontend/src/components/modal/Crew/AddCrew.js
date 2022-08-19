@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Form, Button   } from 'react-bootstrap';
 
 function AddCrew({modalShow, onClickModal, onCreate}) {
+  const [name,setName] = useState("");
+  const user = JSON.parse(localStorage.getItem('authUser'));
+  const userNo = user.no;
+  const crew = {name}
 
   return (
     <>
@@ -10,11 +14,8 @@ function AddCrew({modalShow, onClickModal, onCreate}) {
             <Modal.Title>크루 생성</Modal.Title>
         </Modal.Header>
         <Form onSubmit={(e) => {
-                        e.preventDefault();
-                        const {name, value} = e.target;
-                        const data = {[name]: value}
-                        onCreate(e.target[0].value)
-                        console.log(e.target[0].value)
+                        onCreate(2,crew,userNo)
+                        console.log(crew)
                        }}>
         <Modal.Body>
                 <Form.Group className="mb-3" controlId="crewForm.name">
@@ -24,17 +25,18 @@ function AddCrew({modalShow, onClickModal, onCreate}) {
                     placeholder="Crew Name"
                     autoFocus
                     onChange={(e) =>{
-                      setValue(e.target.value)
-                  }}
+                      setName(e.target.value)
+                    }}
                   />
                 </Form.Group>
-                  <Button variant="outline-dark" type="submit" >
+                  <Button variant="outline-dark" type="button" 
+                  onClick ={(e) =>{e.preventDefault}} >
                     초대 권한 설정
                   </Button>
             
         </Modal.Body>
         <Modal.Footer>
-            <Button variant="outline-dark" type="submit" onClick={onClickModal} >
+            <Button variant="outline-dark" type="button" onClick={onClickModal} >
               취소
             </Button>
             <Button variant="outline-dark" type="submit" >

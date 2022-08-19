@@ -15,12 +15,22 @@ public class CrewService {
 	
 	private final CrewRepository crewRepository;
 	
-	public List<CrewVo> getCrew(Long channelNo) {
-		return crewRepository.findAll(channelNo);
+	public List<CrewVo> getCrew(Long channelNo, Long userNo) {
+		return crewRepository.findAll(channelNo, userNo);
 	}
 
 	public Boolean addCrew(CrewVo crewVo) {
 		return crewRepository.insert(crewVo);
+		
+	}
+
+	public Long findMaster(Long channelNo, Long userNo) {
+		return crewRepository.findMaster(channelNo, userNo);
+		
+	}
+
+	public void addCrewUser(Long masterNo, Long userNo) {
+		crewRepository.addCrewUser(masterNo, userNo);
 		
 	}
 

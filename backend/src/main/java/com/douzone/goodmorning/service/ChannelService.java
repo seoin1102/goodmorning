@@ -14,12 +14,16 @@ import lombok.RequiredArgsConstructor;
 public class ChannelService {
 	private final ChannelRepository channelRepository;
 	
-	public List<ChannelVo> getChannel(Long userNo) {
-		return channelRepository.findAll(userNo);
+	public List<ChannelVo> getChannel(Long channelNo, Long userNo) {
+		return channelRepository.findAll(channelNo, userNo);
 	}
 
 	public Boolean addChannel(ChannelVo channelVo) {
 		return channelRepository.insert(channelVo);
+	}
+
+	public Object getFirstChannel(Long userNo) {
+		return channelRepository.findFirst(userNo);
 	}
 
 }
