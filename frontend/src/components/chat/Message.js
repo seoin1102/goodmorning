@@ -3,7 +3,7 @@ import MessageItem from './MessageItem';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 
-function Message() {
+function Message({chatList}) {
     return (
     <>
         <List style={{ height: '700px', overflow: 'auto' }}>
