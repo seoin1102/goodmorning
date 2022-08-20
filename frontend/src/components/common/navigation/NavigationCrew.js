@@ -11,9 +11,9 @@ function NavigationCrew({crewList}) {
     <>
         <Grid item xs={12}>크루</Grid>
         <List style={{height: '300px', overflow: 'auto'}}>
-            {crewList.map((crew) => 
+            {crewList.map((crew, index) => 
                 <NavigationItem
-                    key={crew.no}
+                    key={index}
                     navLink={"/chat/room"} 
                     crewName={crew.name} />
             )}

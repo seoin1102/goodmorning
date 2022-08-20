@@ -26,12 +26,10 @@ function Header() {
      const channelList = useSelector(state => (state.channel), shallowEqual);
 
     const channelName = useSelector(state => {
-        console.log("[SUBSCRIBE]",state.focus)
         return state.focus.channelName;
     }, shallowEqual);
 
     const channelNo = useSelector(state => {
-        console.log("[SUBSCRIBE]",state.focus)
         return state.focus.channelNo;
     }, shallowEqual);
 
@@ -40,7 +38,6 @@ function Header() {
      * @param userNo 채널 번호
      */
     const initialChannel = useCallback(async(channelNo,userNo) => {
-        console.log("ㅁㅁ");
       const channels = await get(`/channel/${channelNo}/${userNo}`);
       dispatch(setChannel(channels));
       }, [dispatch])
@@ -49,13 +46,11 @@ function Header() {
         const channelFocus = await get(`/channel/${userNo}`);
         const {name, no} = channelFocus[0];
         dispatch(setCHANNELFOCUS({name: name, no: no}));
-        console.log("[디스패치]", channelFocus);
     }, [dispatch])
 
     useEffect(() => {
         initialFocus(userNo);
         initialChannel(2,userNo);
-        console.log("mountㅋㅋ");
         return () => (console.log('unmount'))
       }, [])
     

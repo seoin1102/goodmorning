@@ -39,7 +39,6 @@ function Navigation() {
      */
     useEffect(() => {
         initialCrew(2,userNo);
-        console.log("mount");
         return () => (console.log('unmount'))
     }, [])
 

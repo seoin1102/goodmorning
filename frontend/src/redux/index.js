@@ -4,13 +4,15 @@ import crew from './crew';
 import task from './task';
 import sign from './sign';
 import focus from './focus';
+import chat from './chat';
 
 const rootReducer = combineReducers({
     channel,
     crew,
     task,
     sign,
-    focus
+    focus,
+    chat
 });
 
 export default rootReducer;

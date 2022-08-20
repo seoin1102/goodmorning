@@ -10,6 +10,7 @@ const client = axios.create({baseURL: '/api'})
 export const get = async (url) => {
     try {
         let response =  await client.get(url);
+        console.log(response, url)
         return response.data.data;
     } catch (error) {
         console.error("Error >>", error);
@@ -29,6 +30,16 @@ export const post = async (url, data) => {
     } catch (error) {
         console.error("Error >>", error);
     }
+}
+
+export const postJson = async (url, data) => {
+  try {
+      let response = await client.post(url, data, {headers: {'Content-Type': 'application/json'}
+    });
+      return response.data;
+  } catch (error) {
+      console.error("Error >>", error);
+  }
 }
 
 export const put = async (url, data) => {
