@@ -13,12 +13,14 @@ function Navigation() {
     const crewList = useSelector(state => (state.crew), shallowEqual);
     const user = JSON.parse(localStorage.getItem('authUser'));
     const userNo = user.no;
+    const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
     
-
+    // console.log("Zz" + channelNo);
     /**
      * 크루 목록
      * @param channelNo 채널 번호
      */
+
     const initialCrew = useCallback(async(channelNo,userNo) => {
         const crews = await get(`/crew/${channelNo}/${userNo}`);
         dispatch(setCrew(crews));
@@ -38,10 +40,12 @@ function Navigation() {
      * 초기 화면
      */
     useEffect(() => {
-        initialCrew(2,userNo);
+        if(channelNo != null){
+        initialCrew(channelNo,userNo);
+        }
         console.log("mount");
         return () => (console.log('unmount'))
-    }, [])
+    }, [channelNo])
 
     return (
     <>

@@ -7,9 +7,9 @@ import { Button, Container, Dropdown, DropdownButton, Nav, Navbar, NavDropdown }
 import { setChannel } from '../../../redux/channel';
 
 
-function HeaderUser({user, channelList}) {
+function HeaderUser({user, channelList, onChangeChannel}) {
 
-  // console.log("채널:" ,channelList);
+  console.log("채널:" ,channelList);
     const onClickLogout = async function() {
         console.log("스토리지:" + localStorage.getItem('authUser'));
         localStorage.setItem('authUser','');
@@ -43,7 +43,6 @@ function HeaderUser({user, channelList}) {
       }
 
 
-
     return (
         <Grid item xs={3}>
             <List>
@@ -60,7 +59,7 @@ function HeaderUser({user, channelList}) {
                             >
                               {channelList.map((channel) => 
                                 <NavDropdown.Item
-                                  href="/"
+                                onClick={() => {onChangeChannel(channel.no,channel.name)}}
                                   key={channel.no} >
                                     {channel.name}
                                 </NavDropdown.Item>

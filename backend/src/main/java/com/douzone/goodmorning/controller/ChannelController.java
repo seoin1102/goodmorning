@@ -24,7 +24,7 @@ import com.douzone.goodmorning.vo.ChannelVo;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:9090", allowedHeaders = {"GET", "POST", "PUT", "DELETE"})
+@CrossOrigin(origins = "http://localhost:9090", allowedHeaders = {"GET", "POST", "PUT", "DELETE", "PATCH"})
 @RequestMapping("/api")
 @Controller
 public class ChannelController {
@@ -85,7 +85,6 @@ public class ChannelController {
     	message.setMessage("채널추가 성공");
     	message.setData(channelVo);
     	return ResponseEntity.ok().headers(headers).body(message);
-
     }
 
 }
