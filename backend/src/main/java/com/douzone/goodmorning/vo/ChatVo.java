@@ -8,6 +8,13 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ChatVo {
+	
+    // 메시지 타입 : 입장, 채팅
+    public enum MessageType {
+        ENTER, CHAT, DM
+    }
+	
+    private MessageType type;
     private Long no;
     private Long crewNo;
     private Long userNo;

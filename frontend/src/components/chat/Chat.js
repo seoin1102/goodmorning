@@ -60,10 +60,24 @@ const Chat = () => {
     const initialSubscribe = async(focusChannelNo, focusCrewNo, crewList) => {
         console.log("@@@@@@@@@@@", crewList)
         await crewList.map(async (crew) => {
+
+            const enterChat = JSON.stringify({
+                type: 'ENTER',
+                crewNo: crew.no,
+                userNo: authUser.no,
+                sendDate: '',
+                message: ''
+            })
+            // 레디스 리스너 추가용
+            client.current.publish({
+                destination: `/pub/chat`, 
+                body: enterChat
+            });
+
             // focus 안된 크루에 대한 메시지 알림 기능
             if(crew.no !== focusCrewNo) {
-                client.current.subscribe(`/sub/${focusChannelNo}/${crew.no}`, (data) => {
-                    console.log(crew.no)
+                client.current.subscribe(`/sub/${crew.no}`, (data) => {
+                    //추후 작성
                 })
                 return true;
             };
@@ -74,14 +88,18 @@ const Chat = () => {
             dispatch(setChat(getChatList));
 
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)
-            client.current.subscribe(`/sub/${focusChannelNo}/${focusCrewNo}`, (data) => {
-                //dispatch(addChat(JSON.parse(data.body)));
+            client.current.subscribe(`/sub/${focusCrewNo}`, (data) => {
+                console.log("stomp로 받아오는 데이터!!!!!", data.body);
+                dispatch(addChat(JSON.parse(data.body)));
             })
         })
     };
 
     const publish = async(focusChannelNo, focusCrewNo = 20) => {
         if (!client.current.connected) 
+            return;
+
+        if (sendMessage === '')
             return;
 
         const addChat = JSON.stringify({
@@ -97,14 +115,14 @@ const Chat = () => {
         if(result.data === 'success') {
             const pubChat = JSON.stringify({
                 type: 'CHAT',
-                channel: focusChannelNo,
-                crew: focusCrewNo,
-                message: sendMessage,
-                sender: authUser.no
+                crewNo: focusCrewNo,
+                userNo: authUser.no,
+                sendDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
+                message: sendMessage
             })
 
             client.current.publish({
-                destination: `/pub/${focusChannelNo}/${focusCrewNo}`, 
+                destination: `/pub/chat`, 
                 body: pubChat
             });
         }
@@ -118,6 +136,7 @@ const Chat = () => {
             <SendMessage 
               onChangeHandler={(e) => setSendMessage(e.target.value)}
               onClickHandler={publish}
+              text={sendMessage}
               />
         </>
     );

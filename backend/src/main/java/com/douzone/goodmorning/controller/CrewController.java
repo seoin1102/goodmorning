@@ -38,9 +38,9 @@ public class CrewController {
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("크루목록 조회");
-    	message.setData(crewService.getCrew(channelNo, userNo));
+    	message.setData(crewService.getCrew(channelNo, userNo));   	
+    	
     	return ResponseEntity.ok().headers(headers).body(message);
-
     }
     
     @PostMapping("/crew/{channelNo}/{userNo}")
