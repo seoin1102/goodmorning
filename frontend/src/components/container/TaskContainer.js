@@ -10,14 +10,6 @@ function TaskContainer() {
     const dispatch = useDispatch();
     const tasks = useSelector(state => state.task, shallowEqual);
 
-    const initialTask = useCallback(async(projectNo) => {
-        const getTasks = await get(`/task/${projectNo}`);
-        dispatch(setTask(getTasks));
-    }, [dispatch])
-    
-    useEffect(() => {
-        initialTask(1);
-    }, [])
 
     return (
         <div>

@@ -26,4 +26,9 @@ public class TaskService {
 		return taskRepository.insert(taskVo);
 	}
 
+	public Boolean deleteTask(Long id) {
+		return taskRepository.delete(id);
+
+	}
+
 }

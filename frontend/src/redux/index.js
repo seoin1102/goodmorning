@@ -5,6 +5,8 @@ import task from './task';
 import sign from './sign';
 import focus from './focus';
 import chat from './chat';
+import crewUser from './crewUser';
+
 
 const rootReducer = combineReducers({
     channel,
@@ -12,7 +14,8 @@ const rootReducer = combineReducers({
     task,
     sign,
     focus,
-    chat
+    chat,
+    crewUser
 });
 
 export default rootReducer;

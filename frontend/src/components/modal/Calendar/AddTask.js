@@ -1,152 +1,130 @@
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, memo } from "react";
+import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
+
 import Modal from "react-modal";
 import DatePicker from "react-datetime-picker";
-import Select from "react-select";
 import "../../../styles/css/Calendar.css";
-import { setTask, addTask, deleteTask, updateTask } from '../../../redux/task';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import {put, post} from '../../../apis/Axios';
+import { addTask, deleteTask, updateTask } from '../../../redux/task';
+import {put, post, remove} from '../../../apis/Axios';
 import moment from 'moment';
-
+import AssignSelect from '../../calendar/AssignSelect'
 
 function AddTask(props) {
-  const { title, start, end, id } = props.state
+  const { title, start, end, id, userName, userNo } = props.state
   const [clickedEventTitle, setClickedEventTitle] = useState()
   const [clickedEventStart, setClickedEventStart] = useState()
   const [clickedEventEnd, setClickedEventEnd] = useState()
+  const [clickedEventUserNo,setClickedEvenUserNo] = useState()
 
-  const [clickedEventAssign, setClickedEventAssign] = useState("")
-  const [clickedEventId, setClickedEventId] = useState("");
-  const [assignEvents, setAssignEvents] = useState("");
+  const [clickedEventId, setClickedEventId] = useState();
+  const [addedAssigns, setAddedAssigns]= useState([]);
+  const [includesCheck, setIncludeCheck] = useState(true);
 
   useEffect(()=>{
     setClickedEventTitle(title)
     setClickedEventStart(start)
     setClickedEventEnd(end)
+    setClickedEvenUserNo(userNo)
   },[props])
 
   const dispatch = useDispatch();
-  const onSubmit = (e) => {
+  const taskList = useSelector(state => state.task, shallowEqual);
+  let newCalendarEvents = [...taskList];
+
+    const onSubmit = (e) => {
     e.preventDefault(); // Submit 이벤트 발생했을 때 새로고침 방지
 
-    let newCalendarEvents = [...props.taskList];
     let clickedEventId = props.state.id
-    if (clickedEventId) {
+    const updatedTask={
+      title: clickedEventTitle,
+      start:moment(clickedEventStart).format('YYYY-MM-DD HH:mm'),
+      end: moment(clickedEventEnd).format('YYYY-MM-DD HH:mm'),
+      id: clickedEventId}
+
+    if(clickedEventId){
       const clickedEventIdx = newCalendarEvents.findIndex(
-        (event) => event.id == clickedEventId
-      );
-
-      const updatedTask={
-        title: clickedEventTitle,
-        start:clickedEventStart,
-        end: clickedEventEnd,
-        id
+        (event) => event.id == clickedEventId);
+      if(addedAssigns){ // 추가된 사람이 있다.
+        addedAssigns.map((assign)=>{
+          const ids = []
+          newCalendarEvents.map((event) => {ids.push(event.id)})
+          const maxId = Math.max(...ids);
+          const _addTask={...updatedTask, id: maxId + 1, userNo: assign, userName:userName}
+          post(`/task`, _addTask)
+          dispatch(addTask([_addTask]));
+        })
       }
-
-      newCalendarEvents[clickedEventIdx].title = clickedEventTitle
-      newCalendarEvents[clickedEventIdx].start = props.state.start;
-      newCalendarEvents[clickedEventIdx].end = props.state.end;
-      let li = [];
-      for (let i in clickedEventAssign) {
-        li.push(clickedEventAssign[i].value);
+      
+      if(includesCheck){ //기존 사람의 변경 및 삭제 여부.
+        
+        put(`/task/${clickedEventId}`, {...updatedTask,userNo:userNo})
+        dispatch(updateTask(clickedEventIdx, {...updatedTask,userNo:userNo}));
+      }else{
+        deleteEventHandler()
       }
-      dispatch(updateTask(clickedEventIdx, updatedTask));
-      put(`/task/${clickedEventId}`, updatedTask)
-
     } else {
-      const ids = newCalendarEvents.map((event) => {
-        return event.id;
-      });
-      const maxId = Math.max(...ids);
-      // let li = [];
-      // for (let i in clickedEventAssign) {
-      //   li.push(clickedEventAssign[i].value);
-      // }
-      props.state.id = maxId + 1
-      console.log(props.state)
-      props.state.start = moment(props.state.start).format('YYYY-MM-DD HH:mm')
-      props.state.end = momentfdfddf(props.state.start).format('YYYY-MM-DD HH:mm')
-      // newCalendarEvents.push({
-      //   title: clickedEventTitle,
-      //   start: clickedEventStartDate,
-      //   end: clickedEventEndDate,
-      //   id: maxId + 100,
-      // });
-      props.state.title = clickedEventTitle
-      dispatch(addTask([props.state]));
-      post(`/task`, props.state)
+      addedAssigns.map((assign)=>{
+        const ids = []
+        newCalendarEvents.map((event) => {ids.push(event.id)})
+        const maxId = Math.max(...ids);
+
+        const _addTask={...updatedTask,
+          id: maxId + 1,
+          userNo: assign,
+        }
+        post(`/task`, _addTask)
+        dispatch(addTask([_addTask]));
+      })
     }
 
     props.closeModal();
-    setClickedEventTitle("");
-  };
+    setClickedEventTitle("");};
 
   function getRandomColor() {
-    return `hsl(${parseInt(Math.random() * 24, 10) * 15}, 16%, 57%)`;
-  }
-
-  const assigns = [
-    { value: "김서인", label: "김서인", no: 1 },
-    { value: "김휘민", label: "김휘민", no: 2 },
-    { value: "최시창", label: "최시창", no: 3 },
-    { value: "김현석", label: "김현석", no: 4 },
-  ]
+    return `hsl(${parseInt(Math.random() * 24, 10) * 15}, 16%, 57%)`;}
 
   const deleteEventHandler = () => {
-    let newCalendarEvents = [...props.taskList];
-
-    const clickedEventIdx = newCalendarEvents.findIndex(event => event.id == clickedEventId)
-    console.log(clickedEventIdx)
-    dispatch(deleteTask(props.state, 1));
+    const clickedEventIdx = taskList.findIndex(event => event.id == clickedEventId)
+    remove(`/task/${id}`, id)
+    dispatch(deleteTask(clickedEventIdx));
     props.closeModal();
   }
 
   const startDateChangeHandler = (date) => {
-    setClickedEventStart(moment.utc(date).format('YYYY-MM-DD HH:mm'))
+    setClickedEventStart(date)
   }
   const endDateChangeHandler = (date) => {
-    setClickedEventEnd(moment.utc(date).format('YYYY-MM-DD HH:mm'))
+    setClickedEventEnd(date)
   }
   const titleChangeHandler = (e) => {
     setClickedEventTitle(e.target.value)
   }
 
-  // const assignChangeHandler = (clickedEventAssign) => {
-  //   setClickedEventAssign(clickedEventAssign)
-  //   const li = []
-  //   // for(let i=0; i < clickedEventAssign.length; i++){
-  //   //   li.push(clickedEventAssign[i].label)
-  //   // }
+  const closeEventHandler = () => {
+    props.closeModal();
+    props.setState('')
+  }
 
-  //   for (let i; calendarEvents.length; i++) {
-  //     if (calendarEvents[i].classNames) {
-  //       li.push(calendarEvents[i])
-  //       console.log("왜???")
-  //     }
-  //   }
-  //   setAssignEvents(li)
-
-  //   //setAssignEvents()
-  // }
   return (
 
     <Modal className="addTaskModal" overlayClassName="Overlay" isOpen={props.modalIsOpen} contentLabel="Example Modal" ariaHideApp={false}>
       <h4>시작 일자</h4>
-      <DatePicker value={clickedEventStart} onChange={startDateChangeHandler} format="y-MM-dd hh:mm a" disableClock={true} locale="ko-KO" />
+      <DatePicker value={clickedEventStart} onChange={startDateChangeHandler}  disableClock={true} locale="ko-KO" />
       <h4>종료 일자</h4>
-      <DatePicker value={clickedEventEnd} onChange={endDateChangeHandler} format="y-MM-dd hh:mm a" disableClock={true} locale="ko-KO" />
+      <DatePicker value={clickedEventEnd} onChange={endDateChangeHandler}  disableClock={true} locale="ko-KO" />
       <form onSubmit={onSubmit}>
         <h4>업무명</h4>
         <input type="text" value={clickedEventTitle} onChange={titleChangeHandler} />
         <br />
-        <Select options={assigns} placeholder="참여자를 고르세요" value={clickedEventAssign} isSearchable={true} isMulti />
+        <h4>책임자</h4>
+        <AssignSelect defaultValue={props.state || null} addedAssigns={addedAssigns} setAddedAssigns={setAddedAssigns} includesCheck={includesCheck} setIncludeCheck={setIncludeCheck}/>
         <button type="submit">등록</button>
         <button type="button" onClick={deleteEventHandler}>삭제</button>
-        <button type="button" onClick={props.closeModal}>닫기</button>
+        <button type="button" onClick={closeEventHandler}>닫기</button>
       </form>
     </Modal>
 
   )
 }
-export default AddTask;
+export default memo(AddTask);

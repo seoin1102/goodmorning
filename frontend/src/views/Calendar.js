@@ -1,9 +1,38 @@
-import React from 'react';
+import React, {  useEffect, useCallback, useSelector  } from 'react';
 import SiteLayout from '../components/layout/SiteLayout';
 import Task from '../components/calendar/Task'
-import AddTask from '../components/modal/Calendar/AddTask';
+import {useDispatch ,shallowEqual  } from 'react-redux';
+import {get} from '../apis/Axios';
+import  { setTask } from '../redux/task';
+import { setCrewUser } from "../redux/crewUser";
 
 function Calendar() {
+
+  const dispatch = useDispatch();
+
+  const initialTask = useCallback(
+    async (projectNo) => {
+      const getTasks = await get(`/task/${projectNo}`);
+      dispatch(setTask(getTasks));
+    },
+    [dispatch]
+  );
+
+  const initialCrew = useCallback(
+    async (no) => {
+      const assignList = await get(`/crew/user/${no}`);
+      dispatch(setCrewUser(assignList));    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    initialTask(1);
+  }, []);
+
+  useEffect(() => {
+    initialCrew(20);
+  }, []);
+
   return (
     <SiteLayout>
         <Task/>

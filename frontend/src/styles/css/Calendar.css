@@ -79,7 +79,7 @@ input{
   bottom: 200px;
   width:30%;
   left: 30%;
-  z-index: 10000;
+  z-index: 100;
   background-color: rgb(255, 255, 255);
   padding: 30px;
   border: 1px solid #00000027;

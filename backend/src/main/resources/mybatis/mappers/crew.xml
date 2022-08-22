@@ -30,4 +30,10 @@
 				insert into crew_user values (null, #{masterNo}, #{userNo}, 1, now(), 1);
 				]]>
 		</insert>
+		
+		<select id="findCrewUser" parameterType="long" resultType="crewvo">
+				<![CDATA[
+				select a.user_no as userNo, b.name as userName  from crew_user a, user b where a.user_no = b.no and crew_no=#{no};
+				]]>
+		</select>
 </mapper>

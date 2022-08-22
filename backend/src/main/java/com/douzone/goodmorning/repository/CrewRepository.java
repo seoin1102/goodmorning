@@ -32,6 +32,7 @@ public class CrewRepository {
 		return sqlSession.insert("crew.insert", crewVo) == 1;
 	}
 
+
 	@Transactional
 	public Long findMaster(Long channelNo, Long userNo) {
 		Map<String, Object> map = new HashMap<>();
@@ -49,10 +50,10 @@ public class CrewRepository {
 		sqlSession.insert("crew.insertcrewuser", map);
 	}
 
-//	public List<CrewVo> findAll(Long channelNo, Long userNo) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
+	public List<CrewVo> findCrewUser(Long no) {
+		return sqlSession.selectList("crew.findCrewUser", no);
+	}
+	
 
 }

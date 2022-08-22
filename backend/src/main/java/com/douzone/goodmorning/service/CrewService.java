@@ -24,6 +24,7 @@ public class CrewService {
 		
 	}
 
+
 	public Long findMaster(Long channelNo, Long userNo) {
 		return crewRepository.findMaster(channelNo, userNo);
 		
@@ -32,6 +33,11 @@ public class CrewService {
 	public void addCrewUser(Long masterNo, Long userNo) {
 		crewRepository.addCrewUser(masterNo, userNo);
 		
+	}
+
+	// crew_user 관련 서비스
+	public List<CrewVo> getCrewUser(Long no) {
+		return crewRepository.findCrewUser(no);
 	}
 
 }

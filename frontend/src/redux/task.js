@@ -25,10 +25,10 @@ const task = (state = initialState, action) => {
         //     newCalendarEvents[clickedEventIdx] = {...newCalendarEvents[clickedEventIdx],...action.task}
         //     return update(state, { $set: newCalendarEvents});
         case SET_TASK:
-            return update(state, { $set: action.tasks });    
+            return state.concat(action.tasks);    
         case ADD_TASK:
             return update(state, { $push: action.task });
-        case DELETE_TASK:
+        case DELETE_TASK:  
             return update(state, { $splice: [[action.id, 1]] });
         case UPDATE_TASK:
             return update(state, { [action.id]: { $set: action.task }})

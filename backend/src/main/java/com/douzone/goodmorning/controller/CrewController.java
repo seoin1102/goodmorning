@@ -62,4 +62,19 @@ public class CrewController {
     	return ResponseEntity.ok().headers(headers).body(message);
 
     }
+    
+	// crew_user 관련 컨트롤러
+    
+    @GetMapping("/crew/user/{no}")
+    public ResponseEntity<Message> crewUser(@PathVariable("no") Long no) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("크루유저목록 조회");
+    	message.setData(crewService.getCrewUser(no));
+    	System.out.println(crewService.getCrewUser(no));
+    	return ResponseEntity.ok().headers(headers).body(message);
+
+    }
 }

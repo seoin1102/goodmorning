@@ -14,6 +14,7 @@ public class TaskVo {
 	private String start;
 	private String end;
 	private String status;
+	private String userName;
 	private Long userNo;
 	private Long crewNo;
 
