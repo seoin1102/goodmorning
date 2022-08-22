@@ -40,3 +40,13 @@ export const put = async (url, data) => {
         console.error("Error >>", error);
     }
 }
+
+export const remove = async (url, data) => {
+    try {
+        let response = await client.delete(url, data);
+        return response.data;
+
+    } catch (error) {
+        console.error("Error >>", error);
+    }
+}

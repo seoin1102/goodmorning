@@ -52,7 +52,7 @@ function HeaderUser() {
                             <Nav className="ms-auto">
                             <Navbar.Brand >"~~님"</Navbar.Brand>
                                 <Nav.Link href="#home">내정보</Nav.Link>
-                                <Nav.Link href="/signin" onclick={onClickLogout}>Logout</Nav.Link>
+                                <Nav.Link href="/signin" onClick={onClickLogout}>Logout</Nav.Link>
                             </Nav>
                             </Navbar.Collapse>
                         </Container>

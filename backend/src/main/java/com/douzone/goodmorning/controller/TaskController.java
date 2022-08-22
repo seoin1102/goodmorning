@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class TaskController {
     private final TaskService taskService;
-	
   
 	/**
 	 * 채널 리스트 정보
@@ -38,6 +38,7 @@ public class TaskController {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
+    	System.out.println(taskService.getTask(projectNo));
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.getTask(projectNo)));
     }
     
@@ -47,7 +48,6 @@ public class TaskController {
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	 
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.updateTask(taskVo)));
-
     }
     
     @PostMapping("")
@@ -55,9 +55,15 @@ public class TaskController {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
-   
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.addTask(taskVo)));
-
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<JsonResult> delete(@PathVariable("id") Long id) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.deleteTask(id)));
+    }
+    
 }

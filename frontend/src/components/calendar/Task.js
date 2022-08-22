@@ -5,14 +5,11 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
-import moment from 'moment';
 
-import { setTask, addTask, deleteTask } from '../../redux/task';
-import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
+import { setTask, addTask, deleteTask } from "../../redux/task";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
-import {get} from '../../apis/Axios'
 import "../../styles/css/Calendar.css";
-
 
 import TaskList from "./TaskList";
 import Checkbox from "./AssignCheckbox";
@@ -22,79 +19,127 @@ import TaskContainer from "../container/TaskContainer";
 import TaskCalendar from "./TaskCalendar";
 
 function Calendar() {
+  const [state, setState] = useState({
+    id: "",
+    projectNo: "",
+    userName: "",
+    title: "",
+    start: "",
+    end: "",
+    status: "",
+    crewNo: "",
+  });
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [clickedEventAssign, setClickedEventAssign] = useState("");
+  const taskList = useSelector((state) => state.task, shallowEqual);
 
-    const [state, setState] = useState({id: '', projectNo: '', userNo: '', title: '', start: '', end: '', status:'', crewNo: ''})
-    const [modalIsOpen, setIsOpen] = useState(false);
-    const [clickedEventAssign, setClickedEventAssign] = useState("");
+  const [filteredTask, setFilteredTask] = useState([]);
+  /////
 
-    /////
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
-    const taskList = useSelector(state => state.task, shallowEqual);
+  /////
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  function closeModal() {
+    setIsOpen(false);
+    setState((prevState) => ({ ...prevState, title: "" }));
+  }
+
+  function getRandomColor() {
+    return `hsl(${parseInt(Math.random() * 24, 10) * 15}, 16%, 57%)`;
+  }
+
+
+  useEffect(() => {
+    if(!modalIsOpen){
+    setFilteredTask(taskList);}
     
-    /////
+  }, [taskList]);
 
-    const openModal = () => {setIsOpen(true)}
+  const onClickAddTask = (task) => {
+    dispatch(addTask(task));
+  };
+
+  /////
+  const eventClickHandler = (info) => {
+    const { id, title, start, end } = info.event;
+    const { userName, userNo, status } = info.event.extendedProps;
     
-    function closeModal() {
-      setIsOpen(false)
-      setState(prevState => ({...prevState, title:"" }))   
-    }
-
-    function getRandomColor() {
-      return `hsl(${parseInt(Math.random() * 24, 10) * 15}, 16%, 57%)`;
-    }
-
-    const initialTask = useCallback(async(projectNo) => {
-        const getTasks = await get(`/task/${projectNo}`);
-        dispatch(setTask(getTasks));
-    }, [dispatch])
-
-    useEffect(() => {
-        initialTask(1);
-        console.log("fjsdkfsd2348320"+initialTask(1))
-    }, [])
-
-
-    const onClickAddTask = (task) => {
-      dispatch(addTask(task));
-    }
-
     
-    /////
-    const eventClickHandler = (info) => {
-      const {id, title ,start, end, classNames} = info.event;
-      setState({title: title, start: start, end: end, id: id, classNames: classNames})
-      setClickedEventAssign(info.event.classNames);
-      openModal();
+    const clickedTask = {
+      title: title,
+      start: start,
+      end: end,
+      id: id,
+      userName: userName,
+      userNo: userNo,
+      status: status
     };
-  
-    const dateClickHandler = (info) => {
-      setState({start: info.date, end: info.date, title: ""})
-      openModal();
-    };
+    if(end == null){
+      console.log("first")
+      const clickedOnedayTask = {...clickedTask, end:start}
+      setState(clickedOnedayTask)
 
+    }else{
+      setState(clickedTask)
+
+    }
+    
+    openModal();
+  };
+
+  const dateClickHandler = (info) => {
+    setState({ start: info.date, end: info.date, title: "" });
+    openModal();
+  };
+
+  // const assignList = [];
+  // taskList.map((task) => {
+  //   const assign = { value: task.userName, label: task.userName, no: task.id };
+  //   if (!assignList.some((user) => user.value == task.userName)) {
+  //     assignList.push(assign);
+  //   }
+  // });
 
   return (
     <div className="animated fadeIn p-4 demo-app">
       <Row>
         <Col lg={2}>
           <div className="external-events">
-            
-              <TaskList taskList={taskList}/>
-              <button className="addTaskBtn"onClick={openModal}>
-                일정 추가
-              </button>
-              <Checkbox/>
-           
-             </div>
+            <TaskList />
+            <button className="addTaskBtn" onClick={openModal}>
+              일정 추가
+            </button>
+            <Checkbox
+              filteredTask={filteredTask}
+              setFilteredTask={setFilteredTask}
+            />
+          </div>
         </Col>
         <Col lg={9} sm={12} md={12}>
-          <TaskCalendar taskList={taskList} eventClickHandler={eventClickHandler} dateClickHandler={dateClickHandler}/>
+          <TaskCalendar
+            taskList={filteredTask}
+            eventClickHandler={eventClickHandler}
+            dateClickHandler={dateClickHandler}
+          />
         </Col>
       </Row>
-      <AddTask modalIsOpen={modalIsOpen} closeModal={closeModal} taskList={taskList} state={state} setState={setState} onClickAddTask={onClickAddTask}/>
-     <TaskContainer/>
+      <AddTask
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+        taskList={filteredTask}
+        state={state}
+        setState={setState}
+        onClickAddTask={onClickAddTask}
+        // assignList={assignList}
+        clickedEventAssign={clickedEventAssign}
+        setClickedEventAssign={setClickedEventAssign}
+      />
+      <TaskContainer />
     </div>
   );
 }

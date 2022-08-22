@@ -27,4 +27,9 @@ public class TaskRepository {
 		return sqlSession.insert("task.update", taskVo) == 1;
 	}
 
+	public Boolean delete(Long id) {
+		return sqlSession.insert("task.delete", id) == 1;
+
+	}
+
 }

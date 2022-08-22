@@ -23,5 +23,10 @@ public class CrewRepository {
 	public boolean insert(CrewVo crewVo) {
 		return sqlSession.insert("crew.insert", crewVo) == 1;
 	}
-
+	
+	// crew_user 관련 레포지토리
+	public List<CrewVo> findCrewUser(Long no) {
+		return sqlSession.selectList("crew.findCrewUser", no);
+	}
+	
 }

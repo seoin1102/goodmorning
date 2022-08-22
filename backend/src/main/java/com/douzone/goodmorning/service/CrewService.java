@@ -24,4 +24,8 @@ public class CrewService {
 		
 	}
 
+	// crew_user 관련 서비스
+	public List<CrewVo> getCrewUser(Long no) {
+		return crewRepository.findCrewUser(no);
+	}
 }
