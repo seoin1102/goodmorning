@@ -5,8 +5,8 @@ import List from '@mui/material/List';
 import NavigationItem from './NavigationItem';
 
 // 많으면 화면 넘어가므로 스크롤 추가 해주기
-function NavigationCrew({crewList}) {
-    // console.log(crewList)
+function NavigationCrew({crewList,onClickCrew}) {
+
     return (
     <>
         <Grid item xs={12}>크루</Grid>
@@ -14,8 +14,11 @@ function NavigationCrew({crewList}) {
             {crewList.map((crew, index) => 
                 <NavigationItem
                     key={index}
-                    navLink={"/chat/room"} 
-                    crewName={crew.name} />
+                    navLink={"/chat/room"}
+                    crewName={crew.name}
+                    crewNo={crew.no}
+                    onClickCrew={onClickCrew} />
+
             )}
         </List>
         <Divider />

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import ChatHeader from "./ChatHeader";
 import * as StompJs from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
 import { get, post, postJson } from '../../apis/Axios';
@@ -124,6 +125,7 @@ const Chat = () => {
 
     return (
         <>
+            <ChatHeader/>
             <Message chatList={chatList}/>
             <SendMessage 
               onChangeHandler={(e) => setSendMessage(e.target.value)}

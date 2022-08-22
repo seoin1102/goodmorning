@@ -10,17 +10,17 @@ function AddChannel({modalShow, onClickModal}) {
               <Modal.Title>채널 생성</Modal.Title>
           </Modal.Header>
           <Form  
-                       onSubmit={(e) => {
-                        e.preventDefault();
-                        console.log("온클릭!", e.target[0].value, e.target[1].value)
-                       }}>
+                      //  onSubmit={(e) => {
+                      //   e.preventDefault();
+                      //   console.log("온클릭!", e.target[0].value, e.target[1].value)
+                      //  }}
+                      >
           <Modal.Body>
 
                   <Form.Group className="mb-3" controlId="channelForm.name">
                       <Form.Label>채널 이름</Form.Label>
                       <Form.Control
                         type="text"
-                       
                         placeholder="Channel Name"
                         autoFocus
                       />
@@ -37,19 +37,19 @@ function AddChannel({modalShow, onClickModal}) {
                       <Form.Label>초대</Form.Label>
                       <Form.Control
                         type="email"
-                        
+
                         placeholder="example@gmail.com"
                       />
                       </Form.Group>
-                      <Button variant="outline-dark" type="submit" >
+                      <Button variant="outline-dark" onClick={onClickModal}>
                         전송
                       </Button>
           </Modal.Body>
           <Modal.Footer>
-              <Button variant="outline-dark" type="submit" onClick={onClickModal} >
+              <Button variant="outline-dark"  onClick={onClickModal} >
                 취소
               </Button>
-              <Button variant="outline-dark" type="submit">
+              <Button variant="outline-dark" onClick={onClickModal} >
                 저장
               </Button>
           </Modal.Footer>
