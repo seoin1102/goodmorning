@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { setCHANNELFOCUS } from '../../../redux/focus';
 
 
-function ChannelSetting_info() {
-
+function ChannelSetting_info({onChangeHandler, channelName, onClickModal}) {
 
     return (
     <>
@@ -14,6 +15,8 @@ function ChannelSetting_info() {
                   <Form.Control
                     type="text"
                     placeholder="Crew Name"
+                    onChange={onChangeHandler}
+                    defaultValue={channelName}
                     autoFocus
                   />
                 </Form.Group>
@@ -33,19 +36,25 @@ function ChannelSetting_info() {
                       />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="crewForm.name">
-                <Button variant="outline-dark" type="submit" onClick={(e) => {
-                  
-                  console.log("zz");}}>
+                <Button variant="outline-dark" onClick={onClickModal} >
                         전송
                       </Button>
                       </Form.Group>
                   <Form.Group className="mb-3">
-                <Button variant="outline-dark" type="submit" >
+                <Button variant="outline-dark" onClick={onClickModal} >
                     이 채널에서 나가기
                   </Button>
                   </Form.Group>
             </Form>
         </Modal.Body>
+        {/* <Modal.Footer>
+            <Button variant="outline-dark" onClick={onClickModal} >
+              취소
+            </Button>
+            <Button variant="outline-dark" onClick={onChangeValue} >
+              변경사항 저장
+            </Button>
+        </Modal.Footer> */}
         
     </>
     );

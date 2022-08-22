@@ -8,7 +8,6 @@ import Navigation from '../common/Navigation';
 
 function SiteLayout({children}) {
 
-
     return (
         <div>
             <Grid container component={Paper}>

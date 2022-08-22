@@ -15,8 +15,8 @@ public class CrewService {
 	
 	private final CrewRepository crewRepository;
 	
-	public List<CrewVo> getCrew(Long channelNo) {
-		return crewRepository.findAll(channelNo);
+	public List<CrewVo> getCrew(Long channelNo, Long userNo) {
+		return crewRepository.findAll(channelNo, userNo);
 	}
 
 	public Boolean addCrew(CrewVo crewVo) {
@@ -24,8 +24,20 @@ public class CrewService {
 		
 	}
 
+
+	public Long findMaster(Long channelNo, Long userNo) {
+		return crewRepository.findMaster(channelNo, userNo);
+		
+	}
+
+	public void addCrewUser(Long masterNo, Long userNo) {
+		crewRepository.addCrewUser(masterNo, userNo);
+		
+	}
+
 	// crew_user 관련 서비스
 	public List<CrewVo> getCrewUser(Long no) {
 		return crewRepository.findCrewUser(no);
 	}
+
 }

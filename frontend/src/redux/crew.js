@@ -35,7 +35,7 @@ const crew = (state = initialState, action) => {
         case SET_CREW:
             return update(state, {$set: action.crews});
         case ADD_CREW:
-            return update(state, {$push: action.crew});
+            return state.concat(action.crew);
         case DELETE_CREW:
             return update(state, {$splice: [[action.crewNo], 1]});
         default:

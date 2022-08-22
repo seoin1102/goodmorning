@@ -1,23 +1,63 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Dropdown, Modal, NavItem, NavLink } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { putJson } from '../../../apis/Axios';
+import { setCHANNELFOCUS } from '../../../redux/focus';
 import ChannelSetting_info from './ChannelSetting_info';
 import Channelsetting_set from './Channelsetting_set';
 
 function ChannelSetting({modalShow, onClickModal}) {
     let [tab, setTab] = useState(0);
 
+    const channelName = useSelector(state => {
+      return state.focus.channelName;
+    });
+
+    const channelNo = useSelector(state => {
+      return state.focus.channelNo;
+    });
+    const [text, setText] = useState(channelName);
+    
+    // const onChangeValue = () => {
+    //   console.log(channelName);
+    //   dispatch(setCHANNELFOCUS({name: channelName}));
+    //   onClickModal();
+    // }
+    const dispatch = useDispatch();
+
+    const onClickHandler = async() => {
+      const updateChannel = JSON.stringify({
+            no: channelNo,
+            name: text,
+            description: '',
+            creationDate: '',
+            masterChannelUserNo: 0
+        })
+
+        await putJson(`/channel/${channelNo}`, updateChannel);
+        dispatch(setCHANNELFOCUS({name: text, no: channelNo}));
+        onClickModal();
+    }
+
+    const onChangeHandler = (e) => {
+        setText(e.target.value);
+    }
+
     function TabContent() {
-        if (tab === 0) return <ChannelSetting_info />
-        else if (tab === 1) return <Channelsetting_set />
-        // else return <div>2</div>
+        if (tab === 0) return <ChannelSetting_info onChangeHandler={onChangeHandler} channelName ={text} onClickModal={onClickModal}/>
+        else if (tab === 1) return <Channelsetting_set onClickModal={onClickModal} />
       }
-      
+
+    // useEffect(() => {
+    //   setText(channelName);
+    // }, [channelName]);
+    
     return (
         <>
         <Modal show={modalShow} onHide={onClickModal}>
         <Modal.Header closeButton>
-            <Modal.Title>채널 설정</Modal.Title>
+            <Modal.Title>{channelName}</Modal.Title>
         </Modal.Header>
       <Nav  variant="tabs" defaultActiveKey="link-0">
         <Nav.Item>
@@ -38,13 +78,13 @@ function ChannelSetting({modalShow, onClickModal}) {
       </Nav>
       <TabContent />
       <Modal.Footer>
-            <Button variant="outline-dark" type="submit" onClick={onClickModal} >
+            <Button variant="outline-dark" onClick={onClickModal} >
               취소
             </Button>
-            <Button variant="outline-dark" type="submit" >
+            <Button variant="outline-dark" onClick={onClickHandler} >
               변경사항 저장
             </Button>
-        </Modal.Footer>
+        </Modal.Footer> 
       </Modal>
         </>
     );

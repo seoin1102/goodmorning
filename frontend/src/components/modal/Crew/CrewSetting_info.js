@@ -3,7 +3,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 
 function CrewSetting_info() {
 
-
+    
     return (
       <>
         <Modal.Body>
@@ -16,15 +16,8 @@ function CrewSetting_info() {
                     autoFocus
                   />
                 </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="crewForm.description"
-                >
-                  <Form.Label>크루 설명</Form.Label>
-                  <Form.Control as="textarea" rows={3} placeholder={"Crew Description"}/>
-                  </Form.Group>
                 <Form.Group className="mb-3">
-                <Button variant="outline-dark" type="submit" >
+                <Button variant="outline-dark"  >
                     이 크루에서 나가기
                   </Button>
                   </Form.Group>
