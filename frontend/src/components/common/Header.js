@@ -17,8 +17,9 @@ function Header() {
 
     // modal state
     const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
-    const [changeChannelNo, setChangeChannelNo] = useState("");
-    const [changeChannelName, setChangeChannelName] = useState("");
+
+    //const [changeChannelNo, setChangeChannelNo] = useState(channelNo);
+    //const [changeChannelName, setChangeChannelName] = useState(channelName);
     const user = JSON.parse(localStorage.getItem('authUser'));
     const userNo = user.no;
 
@@ -30,6 +31,14 @@ function Header() {
         return state.focus.channelName;
     }, shallowEqual);
 
+    const channelNo = useSelector(state => {
+        return state.focus.channelNo;
+    }, shallowEqual);
+
+    const [changeChannel, setChangeChannel] = useState({
+        no: channelNo,
+        name: channelName
+    })
    
     /**
      * 채널 목록
@@ -47,23 +56,26 @@ function Header() {
     }, [dispatch])
 
     const onChangeChannel = (channelNo, channelName) => {
-        setChangeChannelNo(channelNo);
-        setChangeChannelName(channelName);
-        dispatch(setCHANNELFOCUS({no: changeChannelNo, name: changeChannelName}));
-        console.log("sdafasf",changeChannelNo,changeChannelName);
+        setChangeChannel((prevState) => ({...prevState, no: channelNo, name: channelName}))
+        // setChangeChannelNo(channelNo);
+        // setChangeChannelName(channelName);
+        //dispatch(setCHANNELFOCUS({no: changeChannelNo, name: changeChannelName}));
+       // console.log("sdafasf ",changeChannelNo," asdafaf",changeChannelName);
     }
-    const channelNo = useSelector(state => {
-        return state.focus.channelNo;
-    }, shallowEqual);
 
+    useEffect(() =>{
+        dispatch(setCHANNELFOCUS({no: changeChannel.no, name: changeChannel.name}));
+    }, [changeChannel])
     
     useEffect(() => {
+
         if (channelNo == null){
         initialFocus(userNo);
         }
         if (channelNo != null){
         initialChannel(channelNo,userNo);
         }
+
         console.log("mount:header");
         return () => (console.log('unmount:header'))
       }, [channelNo])

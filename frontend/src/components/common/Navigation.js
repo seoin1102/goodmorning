@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { get, post } from '../../apis/Axios';
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import { setCrew, addCrew, deleteCrew } from '../../redux/crew';
@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import NavigationCrew from './navigation/NavigationCrew';
 import NavigationDM from './navigation/NavigationDM';
 import NavigationEct from './navigation/NavigationEct';
+import { setCREWFOCUS } from '../../redux/focus';
 
 function Navigation() {
 
@@ -14,7 +15,13 @@ function Navigation() {
     const user = JSON.parse(localStorage.getItem('authUser'));
     const userNo = user.no;
     const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
-    
+
+    const crewNo = useSelector(state => (state.focus.crewNo), shallowEqual);
+    const crewName = useSelector(state => (state.focus.crewName), shallowEqual);
+    const [changeCrew, setChangeCrew] = useState({
+        no: crewNo,
+        name: crewName
+    });
     // console.log("Zz" + channelNo);
     /**
      * 크루 목록
@@ -36,6 +43,14 @@ function Navigation() {
         dispatch(addCrew(crew));
     }, [dispatch])
 
+    const onClickCrew = (crewNo,crewName) => {
+        setChangeCrew((prevState) => ({...prevState, no: crewNo, name: crewName}))
+    }
+
+    useEffect(() =>{
+        console.log("zzzzzzzzz" + changeCrew.no + "aaaaa" + changeCrew.name)
+        dispatch(setCREWFOCUS({no: changeCrew.no, name: changeCrew.name}));
+    }, [changeCrew])
     /**
      * 초기 화면
      */
@@ -51,7 +66,7 @@ function Navigation() {
     <>
         <Grid item xs={2} style={{ height: '840px'}}>
             <NavigationEct onCreate={onCreateCrew} />
-            <NavigationCrew crewList={crewList} />
+            <NavigationCrew crewList={crewList} onClickCrew={onClickCrew} />
             <NavigationDM />
         </Grid>
     </>
