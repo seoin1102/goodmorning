@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect , memo} from "react";
 
 import { Col, Row } from "react-bootstrap";
 import FullCalendar from "@fullcalendar/react";
@@ -6,7 +6,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 
-import { setTask, addTask, deleteTask } from "../../redux/task";
+import task, { setTask, addTask, deleteTask } from "../../redux/task";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
 import "../../styles/css/Calendar.css";
@@ -19,6 +19,7 @@ import TaskContainer from "../container/TaskContainer";
 import TaskCalendar from "./TaskCalendar";
 
 function Calendar() {
+  console.log("Task")
   const [state, setState] = useState({
     id: "",
     projectNo: "",
@@ -56,7 +57,7 @@ function Calendar() {
 
   useEffect(() => {
     if(!modalIsOpen){
-    setFilteredTask(taskList);}
+    setFilteredTask(prevFilteredTask => prevFilteredTask.concat(taskList))}
     
   }, [taskList]);
 
@@ -97,14 +98,6 @@ function Calendar() {
     openModal();
   };
 
-  // const assignList = [];
-  // taskList.map((task) => {
-  //   const assign = { value: task.userName, label: task.userName, no: task.id };
-  //   if (!assignList.some((user) => user.value == task.userName)) {
-  //     assignList.push(assign);
-  //   }
-  // });
-
   return (
     <div className="animated fadeIn p-4 demo-app">
       <Row>
@@ -135,7 +128,6 @@ function Calendar() {
         state={state}
         setState={setState}
         onClickAddTask={onClickAddTask}
-        // assignList={assignList}
         clickedEventAssign={clickedEventAssign}
         setClickedEventAssign={setClickedEventAssign}
       />

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 
 import Modal from "react-modal";
@@ -11,13 +11,14 @@ import moment from 'moment';
 import AssignSelect from '../../calendar/AssignSelect'
 
 function AddTask(props) {
+  console.log("AddTask")
   const { title, start, end, id, userName, userNo } = props.state
   const [clickedEventTitle, setClickedEventTitle] = useState()
   const [clickedEventStart, setClickedEventStart] = useState()
   const [clickedEventEnd, setClickedEventEnd] = useState()
   const [clickedEventUserNo,setClickedEvenUserNo] = useState()
 
-  const [clickedEventId, setClickedEventId] = useState("");
+  const [clickedEventId, setClickedEventId] = useState();
   const [addedAssigns, setAddedAssigns]= useState([]);
   const [includesCheck, setIncludeCheck] = useState(true);
 
@@ -30,21 +31,11 @@ function AddTask(props) {
 
   const dispatch = useDispatch();
   const taskList = useSelector(state => state.task, shallowEqual);
-  const crewUserList = useSelector((state) => state.crewUser, shallowEqual);
-
-
-  const findUserName=(no) => crewUserList.forEach(element => {
-    if(element.userNo == no){
-      return element.userName
-    }
-    
-  });
-
 
     const onSubmit = (e) => {
     e.preventDefault(); // Submit 이벤트 발생했을 때 새로고침 방지
 
-    let newCalendarEvents = [...taskList];
+    const newCalendarEvents = [...taskList];
     let clickedEventId = props.state.id
     const updatedTask={
       title: clickedEventTitle,
@@ -76,22 +67,13 @@ function AddTask(props) {
       addedAssigns.map((assign)=>{
         const ids = []
         newCalendarEvents.map((event) => {ids.push(event.id)})
-        // const userName = findUserName(assign)
         const maxId = Math.max(...ids);
 
         const _addTask={...updatedTask,
           id: maxId + 1,
           userNo: assign,
-          userName:userName
         }
-        
-        console.log("+++++++++++++++++++++")
-        console.log("userName"+userName)
-        console.log("userNo"+assign)
-        console.log("+++++++++++++++++++++")
-
-        console.log("_addTask")
-        console.log(_addTask)
+      
         post(`/task`, _addTask)
         dispatch(addTask([_addTask]));
       })
@@ -104,8 +86,6 @@ function AddTask(props) {
     return `hsl(${parseInt(Math.random() * 24, 10) * 15}, 16%, 57%)`;}
 
   const deleteEventHandler = () => {
-    let newCalendarEvents = [...taskList];
-
     const clickedEventIdx = newCalendarEvents.findIndex(event => event.id == clickedEventId)
     remove(`/task/${id}`, id)
     dispatch(deleteTask(clickedEventIdx));

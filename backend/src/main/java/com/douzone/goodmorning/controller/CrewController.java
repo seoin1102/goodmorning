@@ -57,6 +57,7 @@ public class CrewController {
     }
     
 	// crew_user 관련 컨트롤러
+    
     @GetMapping("/crew/user/{no}")
     public ResponseEntity<Message> crewUser(@PathVariable("no") Long no) {
     	HttpHeaders headers = new HttpHeaders();

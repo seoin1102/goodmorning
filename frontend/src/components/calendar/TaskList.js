@@ -20,7 +20,9 @@ function TaskList(props) {
           }}
         >
           {event.title}
-        </div>))}
+        </div>
+        ))
+      }
     </div>
   );
 }

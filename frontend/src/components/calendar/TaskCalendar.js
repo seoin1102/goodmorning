@@ -8,29 +8,26 @@ import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import "../../styles/css/Calendar.css";
 
 function TaskCalendar(props) {
+  console.log("TaskCalendar")
   const taskList = useSelector(state => state.task, shallowEqual);
-  const tasks = []
+  // const tasks = []
 
-  const groupBy =(objectArray, property)=> {
-    return objectArray.reduce(function (acc, obj) {
-      var key = obj[property];
-      if (!acc[key]) {
-        acc[key] = [];
-        tasks.push({...obj, userName:acc[key]})
-      }
-      acc[key].push(obj.userName);
-      return tasks;
-    }, {});
-  }
+  // const groupBy =(objectArray, property)=> {
+  //   return objectArray.reduce(function (acc, obj) {
+  //     var key = obj[property];
+  //     if (!acc[key]) {
+  //       acc[key] = [];
+  //       tasks.push({...obj, userName:acc[key]})
+  //     }
+  //     acc[key].push(obj.userName);
+  //     return tasks;
+  //   }, {});
+  // }
 
-  const groupedPeople = groupBy(taskList, 'title');
+  // const groupedPeople = groupBy(taskList, 'title');
 
 
-  let li = []
-  tasks.forEach(element => {
-    if(typeof(element) != Array){
-      li.push(element)
-    }});
+
     
   return (
     <div className="demo-app-calendar" id="mycalendartest">

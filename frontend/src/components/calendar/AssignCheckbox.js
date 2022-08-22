@@ -5,15 +5,13 @@ import { setCrewUser } from "../../redux/crewUser";
 
 import { get } from "../../apis/Axios";
 function AssignCheckbox(props) {
+  console.log("AssignCheckbox")
   const dispatch = useDispatch();
   const taskList = useSelector((state) => state.task, shallowEqual);
   const crewUserList = useSelector((state) => state.crewUser, shallowEqual);
   // 체크된 아이템을 담을 배열
   const [checkItems, setCheckItems] = useState(crewUserList);
 
-
-  
-  
   useEffect(() => {
     setCheckItems(crewUserList)
   }, [crewUserList]);
