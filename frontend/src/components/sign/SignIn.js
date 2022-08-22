@@ -2,7 +2,8 @@ import React, {Fragment, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SignIn from './signItem/SignIn'
 import {signin} from '../../redux/sign'
-
+import axios from 'axios';
+import qs from 'qs';
 
 function SignContainer({callback}) {
 
@@ -42,7 +43,17 @@ function SignContainer({callback}) {
             },
             body: new URLSearchParams(data)
           });
-    
+          
+          // const response = await axios({
+          //   url:'/api/user/signIn',
+          //   method:'post',
+          //   headers:{
+          //     'Content-Type': 'application/x-www-form-urlencoded',  
+          //     'Accept': 'application/json'
+          //   },
+          //   data: new URLSearchParams(data)
+          // })
+
           if(!response.ok) {
             throw new Error(`${response.status} ${response.statusText}`);
           }
@@ -53,11 +64,11 @@ function SignContainer({callback}) {
             throw new Error(`${json.result} ${json.message}`);  
           }
 
-            callback("로그인이 성공적으로 되었습니다.","/")
+            //callback("로그인이 성공적으로 되었습니다.","/")
             localStorage.setItem('authUser',JSON.stringify(json.data));
             console.log("스토리지:" + localStorage.getItem('authUser'));
             console.log("스토리지 로그인체크:" + localStorage.getItem('saveEmail'));
-            //location.href="/";
+            location.href="/";
             
         } catch(err) {
           //alert(err);

@@ -7,8 +7,8 @@
 				<typeAlias type="com.douzone.goodmorning.vo.UserVo" alias="uservo" />
 				<typeAlias type="com.douzone.goodmorning.vo.VerificationTokenVo" alias="verifivo" />
 				<typeAlias type="com.douzone.goodmorning.vo.TaskVo" alias="taskvo" />
-
-				
+				<typeAlias type="com.douzone.goodmorning.vo.GithubHookVo" alias="gitvo" />
+				<typeAlias type="com.douzone.goodmorning.vo.JenkinsHookVo" alias="jenkinsvo" />
     </typeAliases>
 		<mappers>
 				<mapper resource="mybatis/mappers/channel.xml" />

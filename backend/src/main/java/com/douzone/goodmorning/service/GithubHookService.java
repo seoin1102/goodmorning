@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import org.springframework.stereotype.Service;
 
 import com.douzone.goodmorning.repository.GitHubHookRepository;
+import com.douzone.goodmorning.vo.GithubHookVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +27,7 @@ public class GithubHookService {
 		map.put("projectName",((HashMap<String, Object>) data.get("repository")).get("name").toString());
 		//map.put("timeStamp",((HashMap<String, Object>) data.get("head_commit")).get("timestamp").toString());
 		
+		map.put("projectNo",findprojectNo(map.get("projectName")));
 		return gitHubHookRepository.pusherEventInsert(map);
 	}
 
@@ -37,6 +39,7 @@ public class GithubHookService {
 		map.put("projectName", ((HashMap<String, Object>) data.get("repository")).get("name").toString());
 		map.put("message",data.get("ref") +" 의 " + data.get("ref_type") +" 삭제" );
 		
+		map.put("projectNo",findprojectNo(map.get("projectName")));
 		return gitHubHookRepository.pusherEventInsert(map);
 	}
 
@@ -49,6 +52,7 @@ public class GithubHookService {
 		map.put("projectName", ((HashMap<String, Object>) data.get("repository")).get("name").toString());
 		map.put("message",data.get("ref") +"  " + data.get("ref_type") +" 생성" );
 		
+		map.put("projectNo",findprojectNo(map.get("projectName")));
 		return gitHubHookRepository.pusherEventInsert(map);
 		
 	}
@@ -65,8 +69,15 @@ public class GithubHookService {
 		}else {
 			map.put("message","pullRequest " +data.get("action").toString());
 		}
+		
+		map.put("projectNo",findprojectNo(map.get("projectName")));
 		return gitHubHookRepository.pusherEventInsert(map);
 		
+	}
+	
+	public String findprojectNo(String projectName) {
+		GithubHookVo projectNo = gitHubHookRepository.findProjectNo(projectName);
+		return Integer.toString(projectNo.getNo());
 	}
 	
 	

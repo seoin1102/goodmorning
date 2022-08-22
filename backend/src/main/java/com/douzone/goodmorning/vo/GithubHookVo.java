@@ -2,16 +2,16 @@ package com.douzone.goodmorning.vo;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @RequiredArgsConstructor
 @Getter
-@Setter
 @ToString
-public class VerificationTokenVo {
+public class GithubHookVo {
 	private int no;
-	private String token;
-	private int userNo;
-	private String email;
+	private String eventType;
+	private String userName;
+	private String message;
+	private String date;
+	private int projectNo;
 }

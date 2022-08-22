@@ -3,7 +3,13 @@
 <mapper namespace="jenkinshook">
 	<insert id="insert" parameterType="map">
 		<![CDATA[
-			insert into jenkinshook values(null, #{ProjectName }, #{fullUrl }, #{buildNumber}, #{duration}, #{status}, #{branch}, #{commit}, now())
+			insert into jenkinshook values(null, #{fullUrl }, #{buildNumber}, #{duration}, #{status}, #{branch}, #{commit}, now(), #{projectNo})
 		]]>
 	</insert>
+	
+	<select id="findProjectNo" parameterType="String" resultType="jenkinsvo">
+		<![CDATA[
+			select no from project where project_name=#{projectName }
+		]]>
+	</select>
 </mapper>

@@ -4,8 +4,14 @@
 
 	<insert id="insert" parameterType="map">
 		<![CDATA[
-			insert into githubhook values(null, #{eventType }, #{pusher }, #{projectName }, #{message }, now())
+			insert into githubhook values(null, #{eventType }, #{pusher }, #{message }, now(), #{projectNo})
 		]]>
 	</insert>
-
+	
+	<select id="findProjectNo" parameterType="String" resultType="gitvo">
+		<![CDATA[
+			select no from project where project_name=#{projectName }
+		]]>
+	</select>
+	
 </mapper>

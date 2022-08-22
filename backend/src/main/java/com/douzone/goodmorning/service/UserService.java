@@ -12,6 +12,7 @@ import com.douzone.goodmorning.repository.UserRepository;
 import com.douzone.goodmorning.repository.VerificationTokenRepository;
 import com.douzone.goodmorning.security.SHA256;
 import com.douzone.goodmorning.util.MailUtil;
+import com.douzone.goodmorning.vo.GithubHookVo;
 import com.douzone.goodmorning.vo.UserVo;
 import com.douzone.goodmorning.vo.VerificationTokenVo;
 
@@ -36,9 +37,12 @@ public class UserService {
 		vo.setEnable(false);
 		userRepository.insert(vo);
 		
+		
 		VerificationTokenVo verificationTokenVo =new VerificationTokenVo();
 		
+		
 		String token = generateVerificationToken(vo);
+		
 		
 		String setSubject ="[굿모닝 이메일 인증메일 입니다.]";
 		String setText = "<h1>메일인증</h1>" +
@@ -80,7 +84,7 @@ public class UserService {
         String token = UUID.randomUUID().toString();
         VerificationTokenVo verificationToken = new VerificationTokenVo();
         verificationToken.setToken(token);
-        verificationToken.setEmail(vo.getEmail());
+        verificationToken.setUserNo(findEmailNo(vo.getEmail()));
         verificationTokenRepository.insert(verificationToken);
         return token;
     }
@@ -146,6 +150,9 @@ public class UserService {
 		}
 	}
 	
-	
+	public int findEmailNo(String email) {
+		VerificationTokenVo userNo = verificationTokenRepository.findUserNo(email);
+		return userNo.getNo();
+	}
 	
 }
