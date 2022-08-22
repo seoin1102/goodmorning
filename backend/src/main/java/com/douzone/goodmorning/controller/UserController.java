@@ -79,7 +79,7 @@ public class UserController {
 	@PutMapping("/resetPw")
 	public ResponseEntity<JsonResult> resetPw(@RequestBody UserVo vo) {
 		
-		System.out.println("테스트 콘솔1 " + vo);
+		
 		UserVo authUser = userService.getEmailEnable(vo);
 		
 		if(!authUser.isEnable()) {
@@ -87,7 +87,7 @@ public class UserController {
 		}
 		
 		int result =userService.resetPw(authUser);
-		System.out.println("테스트 콘솔2" + result);
+		
 		if(result==0) {
 			return ResponseEntity.status(HttpStatus.OK).body(JsonResult.fail("이메일 전송 실패.."));
 		}
