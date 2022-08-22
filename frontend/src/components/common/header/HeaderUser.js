@@ -57,10 +57,11 @@ function HeaderUser({user, channelList, onChangeChannel}) {
                               title="채널목록"
                               menuVariant="dark"
                             >
-                              {channelList.map((channel) => 
+                              {channelList.map((channel, index) => 
                                 <NavDropdown.Item
                                 onClick={() => {onChangeChannel(channel.no,channel.name)}}
-                                  key={channel.no} >
+                                  key={index} >
+
                                     {channel.name}
                                 </NavDropdown.Item>
                               )}

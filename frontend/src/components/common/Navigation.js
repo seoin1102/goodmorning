@@ -31,7 +31,7 @@ function Navigation() {
     const initialCrew = useCallback(async(channelNo,userNo) => {
         const crews = await get(`/crew/${channelNo}/${userNo}`);
         dispatch(setCrew(crews));
-    }, [dispatch])
+    }, [])
  
     /**
      * 크루 생성
@@ -41,7 +41,7 @@ function Navigation() {
     const onCreateCrew = useCallback(async(channelNo, crew, userNo) => {
         await post(`/crew/${channelNo}/${userNo}`, crew);
         dispatch(addCrew(crew));
-    }, [dispatch])
+    }, [])
 
     const onClickCrew = (crewNo,crewName) => {
         setChangeCrew((prevState) => ({...prevState, no: crewNo, name: crewName}))
@@ -55,10 +55,12 @@ function Navigation() {
      * 초기 화면
      */
     useEffect(() => {
+
         if(channelNo != null){
         initialCrew(channelNo,userNo);
         }
         console.log("mount");
+
         return () => (console.log('unmount'))
     }, [channelNo])
 

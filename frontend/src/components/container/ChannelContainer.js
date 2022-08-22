@@ -13,7 +13,7 @@ function ChannelContainer() {
     const initialChannel = useCallback(async(userNo) => {
         const getChannels = await get(`/channel/${userNo}`);
         dispatch(setChannel(getChannels));
-    }, [dispatch])
+    }, [])
 
     useEffect(() => {
         initialChannel(1);

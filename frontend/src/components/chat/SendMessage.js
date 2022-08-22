@@ -6,7 +6,7 @@ import Fab from '@mui/material/Fab';
 import { Button } from '@mui/material';
 
 
-function SendMessage({onChangeHandler, onClickHandler}) {
+function SendMessage({onChangeHandler, onClickHandler, text}) {
     return (
         <>
         <Grid container style={{ padding: '10px 30px 10px 20px'}}>
@@ -23,7 +23,9 @@ function SendMessage({onChangeHandler, onClickHandler}) {
                   onChange={onChangeHandler}
                   id="outlined-basic-email" 
                   label="Type Something" 
-                  fullWidth 
+                  fullWidth
+                  onKeyDown={(e) => { if(e.key === 'Enter') onClickHandler() }}
+                  value={text}
                   />
             </Grid>
             <Grid item xs={1} align="right">
@@ -31,7 +33,6 @@ function SendMessage({onChangeHandler, onClickHandler}) {
                   color="primary" 
                   aria-label="add"
                   onClick={onClickHandler}
-                  onKeyDown={(e) => { if(e.key === 'Enter') onClickHandler }}
                   >
                   {"보내기"}
                 </Fab>

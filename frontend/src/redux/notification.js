@@ -1,23 +1,23 @@
 import update from 'react-addons-update';
 
-const SET_CHAT = 'chat/SET_CHAT';
-const ADD_CHAT = 'chat/ADD_CHAT';
-const DELETE_CHAT = 'chat/DELETE_CHAT';
+const SET_NOTIFICATION = 'notification/SET_NOTIFICATION';
+const ADD_NOTIFICATION = 'notification/ADD_NOTIFICATION';
+const DELETE_NOTIFICATION = 'notification/DELETE_NOTIFICATION';
 
-export const setChat = (chats) => ({ type: SET_CHAT, chats});
-export const addChat = (chat) => ({ type: ADD_CHAT, chat});
-export const deleteChat = (chatNo) => ({ type: DELETE_CHAT, chatNo});
+export const setNotification = (notifications) => ({ type: SET_NOTIFICATION, notifications});
+export const addNotification = (notification) => ({ type: ADD_NOTIFICATION, notification});
+export const deleteNotification = (notificationNo) => ({ type: DELETE_NOTIFICATION, notificationNo});
 
-const initialState = [{}]
+const initialState = []
 
 const notification = (state = initialState, action) => {
     switch(action.type) {
-        case SET_CHAT:
-            return update(state, {$set: action.chats});
-        case ADD_CHAT:
-            return update(state, {$push: action.chat});
-        case DELETE_CHAT:
-            return update(state, {$splice: [[action.chatNo], 1]});
+        case SET_NOTIFICATION:
+            return update(state, {$set: action.notifications});
+        case ADD_NOTIFICATION:
+            return update(state, {$push: action.notification});
+        case DELETE_NOTIFICATION:
+            return update(state, {$splice: [[action.notificationNo], 1]});
         default:
             return state;
     }

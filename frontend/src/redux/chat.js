@@ -15,7 +15,7 @@ const chat = (state = initialState, action) => {
         case SET_CHAT:
             return update(state, {$set: action.chats});
         case ADD_CHAT:
-            return update(state, {$push: action.chat});
+            return state.concat(action.chat);
         case DELETE_CHAT:
             return update(state, {$splice: [[action.chatNo], 1]});
         default:

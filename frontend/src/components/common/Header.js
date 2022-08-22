@@ -27,7 +27,6 @@ function Header() {
      const channelList = useSelector(state => (state.channel), shallowEqual);
 
     const channelName = useSelector(state => {
-        console.log("[SUBSCRIBE]",state.focus)
         return state.focus.channelName;
     }, shallowEqual);
 
@@ -47,13 +46,14 @@ function Header() {
     const initialChannel = useCallback(async(channelNo,userNo) => {
       const channels = await get(`/channel/${channelNo}/${userNo}`);
       dispatch(setChannel(channels));
-      }, [dispatch])
+      }, [])
 
     const initialFocus = useCallback(async(userNo) => {
         const channelFocus = await get(`/channel/${userNo}`);
         const {name, no} = channelFocus[0];
         dispatch(setCHANNELFOCUS({name: name, no: no}));
-    }, [dispatch])
+    }, [])
+
 
     const onChangeChannel = (channelNo, channelName) => {
         setChangeChannel((prevState) => ({...prevState, no: channelNo, name: channelName}))
@@ -72,6 +72,7 @@ function Header() {
         if (channelNo == null){
         initialFocus(userNo);
         }
+        
         if (channelNo != null){
         initialChannel(channelNo,userNo);
         }
@@ -80,6 +81,7 @@ function Header() {
         return () => (console.log('unmount:header'))
       }, [channelNo])
         
+
     // css
     // 이넘 땜에 최적화 안됨 --> css 파일로 만들기
     const channelStyle = {height:'60px', whiteSpace:'no-wrap', overflow:'hidden', textOverflow:'ellipsis'};
