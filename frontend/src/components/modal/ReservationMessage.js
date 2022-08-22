@@ -36,13 +36,13 @@ function ReservationMessage({modalShow, onClickModal}) {
                  
           </Modal.Body>
           <Modal.Footer>
-              <Button variant="outline-dark" type="submit" onClick={onClickModal} >
+              <Button variant="outline-dark"  onClick={onClickModal} >
                 취소
               </Button>
-              <Button variant="outline-dark" type="submit" >
+              <Button variant="outline-dark"  >
                 메시지 예약
               </Button>
-              <Button variant="outline-dark" type="submit" onClick={onClickCheck} >
+              <Button variant="outline-dark"  onClick={onClickCheck} >
                 값 확인
               </Button>
           </Modal.Footer>

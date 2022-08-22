@@ -36,4 +36,20 @@ public class ChannelRepository {
 		
 	}
 
+	public void updateChannel(ChannelVo channelVo) {
+		sqlSession.update("channel.updateChannel", channelVo);
+		
+	}
+
+	public Long findByMasterChannelUserNo(Long masterChannelUserNo) {
+		return sqlSession.selectOne("channel.findByMasterChannelUserNo", masterChannelUserNo);
+	}
+
+	public void addChannelUser(Long masterChannelUserNo, Long channelNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("masterChannelUserNo", masterChannelUserNo);
+		map.put("channelNo", channelNo);
+		sqlSession.insert("channel.insertUser", map);
+	}
+
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Dropdown, Modal, NavItem, NavLink } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { putJson } from '../../../apis/Axios';
 import { setCHANNELFOCUS } from '../../../redux/focus';
 import ChannelSetting_info from './ChannelSetting_info';
 import Channelsetting_set from './Channelsetting_set';
@@ -13,6 +14,9 @@ function ChannelSetting({modalShow, onClickModal}) {
       return state.focus.channelName;
     });
 
+    const channelNo = useSelector(state => {
+      return state.focus.channelNo;
+    });
     const [text, setText] = useState(channelName);
     
     // const onChangeValue = () => {
@@ -22,8 +26,17 @@ function ChannelSetting({modalShow, onClickModal}) {
     // }
     const dispatch = useDispatch();
 
-    const onClickHandler = () => {
-        dispatch(setCHANNELFOCUS({name: text}));
+    const onClickHandler = async() => {
+      const updateChannel = JSON.stringify({
+            no: channelNo,
+            name: text,
+            description: '',
+            creationDate: '',
+            masterChannelUserNo: 0
+        })
+
+        await putJson(`/channel/${channelNo}`, updateChannel);
+        dispatch(setCHANNELFOCUS({name: text, no: channelNo}));
         onClickModal();
     }
 
@@ -36,9 +49,9 @@ function ChannelSetting({modalShow, onClickModal}) {
         else if (tab === 1) return <Channelsetting_set onClickModal={onClickModal} />
       }
 
-    useEffect(() => {
-      setText(channelName);
-    }, [channelName]);
+    // useEffect(() => {
+    //   setText(channelName);
+    // }, [channelName]);
     
     return (
         <>

@@ -39,10 +39,10 @@ function CrewSetting({modalShow,onClickModal}) {
     </Nav>
     <TabContent />
     <Modal.Footer>
-          <Button variant="outline-dark" type="submit" onClick={onClickModal} >
+          <Button variant="outline-dark"  onClick={onClickModal} >
             취소
           </Button>
-          <Button variant="outline-dark" type="submit" >
+          <Button variant="outline-dark"  >
             변경사항 저장
           </Button>
       </Modal.Footer>

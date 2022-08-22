@@ -31,6 +31,7 @@ function Header() {
     }, shallowEqual);
 
     const channelNo = useSelector(state => {
+        console.log("@@@@@@@@@@@@@", state.focus.channelNo);
         return state.focus.channelNo;
     }, shallowEqual);
 
@@ -43,10 +44,11 @@ function Header() {
      * 채널 목록
      * @param userNo 채널 번호
      */
-    const initialChannel = useCallback(async(channelNo,userNo) => {
+    const initialChannel = useCallback(async(channelNo, userNo) => {
       const channels = await get(`/channel/${channelNo}/${userNo}`);
+      console.log("no??????????????????", channels);
       dispatch(setChannel(channels));
-      }, [])
+      }, [channelNo])
 
     const initialFocus = useCallback(async(userNo) => {
         const channelFocus = await get(`/channel/${userNo}`);
@@ -69,11 +71,11 @@ function Header() {
     
     useEffect(() => {
 
-        if (channelNo == null){
+        if (channelNo === null){
         initialFocus(userNo);
         }
         
-        if (channelNo != null){
+        if (channelNo !== null){
         initialChannel(channelNo,userNo);
         }
 

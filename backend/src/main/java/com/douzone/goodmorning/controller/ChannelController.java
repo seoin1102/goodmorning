@@ -9,8 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.douzone.goodmorning.dto.Message;
@@ -21,7 +24,7 @@ import com.douzone.goodmorning.vo.ChannelVo;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:9090", allowedHeaders = {"GET", "POST", "PUT", "DELETE", "PATCH"})
+@CrossOrigin(origins = "http://localhost:9090", allowedHeaders = {"GET", "POST", "PUT", "DELETE"})
 @RequestMapping("/api")
 @Controller
 public class ChannelController {
@@ -69,11 +72,14 @@ public class ChannelController {
      * application/json로 전달 할 경우 @RequestBody ChannelVo channelVo로 받기
      */
     @Transactional
-    @PostMapping("/channel/{userNo}")
-    public ResponseEntity<Message> channel(@PathVariable("userNo") Long userNo, ChannelVo channelVo) {
-    	channelVo.setMasterChannelUserNo(userNo);
+    @PostMapping("/channel")
+    public ResponseEntity<Message> channel(@RequestBody ChannelVo channelVo) {
     	channelService.addChannel(channelVo);
+    	Long channelNo = channelService.findByMasterChannelUserNo(channelVo.getMasterChannelUserNo());
+    	channelService.addChannelUser(channelVo.getMasterChannelUserNo(),channelNo);
     	
+    	channelVo.setNo(channelNo);
+//    	System.out.println(channelVo);
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
@@ -81,6 +87,23 @@ public class ChannelController {
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("채널추가 성공");
     	message.setData(channelVo);
+    	return ResponseEntity.ok().headers(headers).body(message);
+    }
+    
+    @Transactional
+    @PutMapping("/channel/{channelNo}")
+    public ResponseEntity<Message> updateChannel(@PathVariable("channelNo") String channelNo, @RequestBody ChannelVo channelVo) {
+
+    	System.out.println(channelVo);
+    	channelService.updateChannel(channelVo);
+    	
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("채널업데이트 성공");
+    	message.setData("success");
     	return ResponseEntity.ok().headers(headers).body(message);
     }
 

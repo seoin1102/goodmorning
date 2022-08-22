@@ -59,9 +59,10 @@ function HeaderUser({user, channelList, onChangeChannel}) {
                             >
                               {channelList.map((channel, index) => 
                                 <NavDropdown.Item
-                                onClick={() => {onChangeChannel(channel.no,channel.name)}}
+                                onClick={() => { 
+                                  return onChangeChannel(channel.no, channel.name)}}
                                   key={index} >
-
+                                    {console.log("xxxxxxxxxxxxxxxxxxx", channel)}
                                     {channel.name}
                                 </NavDropdown.Item>
                               )}

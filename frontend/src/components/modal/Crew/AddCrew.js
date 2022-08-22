@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button   } from 'react-bootstrap';
+import { shallowEqual, useSelector } from 'react-redux';
 
-function AddCrew({modalShow, onClickModal, onCreate}) {
+function AddCrew({modalShow, onClickModal, onCreateCrew}) {
   const [name,setName] = useState("");
   const user = JSON.parse(localStorage.getItem('authUser'));
   const userNo = user.no;
   const crew = {name}
+  const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
 
   return (
     <>
@@ -13,10 +15,7 @@ function AddCrew({modalShow, onClickModal, onCreate}) {
         <Modal.Header closeButton>
             <Modal.Title>크루 생성</Modal.Title>
         </Modal.Header>
-        <Form onSubmit={(e) => {
-                        onCreate(2,crew,userNo)
-                        console.log(crew)
-                       }}>
+        <Form>
         <Modal.Body>
                 <Form.Group className="mb-3" controlId="crewForm.name">
                   <Form.Label>크루 이름</Form.Label>
@@ -39,7 +38,11 @@ function AddCrew({modalShow, onClickModal, onCreate}) {
             <Button variant="outline-dark" type="button" onClick={onClickModal} >
               취소
             </Button>
-            <Button variant="outline-dark" type="submit" >
+            <Button variant="outline-dark" type="button" onClick={(e) => {
+                        onCreateCrew(channelNo,crew,userNo)
+                        console.log(crew)
+                        onClickModal()
+                       }} >
               저장
             </Button>
             

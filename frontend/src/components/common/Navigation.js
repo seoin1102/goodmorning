@@ -7,6 +7,7 @@ import NavigationCrew from './navigation/NavigationCrew';
 import NavigationDM from './navigation/NavigationDM';
 import NavigationEct from './navigation/NavigationEct';
 import { setCREWFOCUS } from '../../redux/focus';
+import { addChannel } from '../../redux/channel';
 
 function Navigation() {
 
@@ -28,10 +29,10 @@ function Navigation() {
      * @param channelNo 채널 번호
      */
 
-    const initialCrew = useCallback(async(channelNo,userNo) => {
+    const initialCrew = useCallback(async(channelNo, userNo) => {
         const crews = await get(`/crew/${channelNo}/${userNo}`);
         dispatch(setCrew(crews));
-    }, [])
+    }, [channelNo])
  
     /**
      * 크루 생성
@@ -41,11 +42,23 @@ function Navigation() {
     const onCreateCrew = useCallback(async(channelNo, crew, userNo) => {
         await post(`/crew/${channelNo}/${userNo}`, crew);
         dispatch(addCrew(crew));
+        console.log(channelNo+"::fsdfdsf "+ " user ::" + userNo + "crew ::" + crew)
+    }, [])
+
+    const onCreateChannel = useCallback(async(channel) => {
+        const result = await post(`/channel`, channel);
+
+        console.log("############", result);
+        dispatch(addChannel(result.data));
+        console.log(channel)
     }, [])
 
     const onClickCrew = (crewNo,crewName) => {
         setChangeCrew((prevState) => ({...prevState, no: crewNo, name: crewName}))
     }
+
+    
+
 
     useEffect(() =>{
         console.log("zzzzzzzzz" + changeCrew.no + "aaaaa" + changeCrew.name)
@@ -56,7 +69,7 @@ function Navigation() {
      */
     useEffect(() => {
 
-        if(channelNo != null){
+        if(channelNo !== null){
         initialCrew(channelNo,userNo);
         }
         console.log("mount");
@@ -67,7 +80,7 @@ function Navigation() {
     return (
     <>
         <Grid item xs={2} style={{ height: '840px'}}>
-            <NavigationEct onCreate={onCreateCrew} />
+            <NavigationEct onCreateCrew={onCreateCrew} onCreateChannel={onCreateChannel}/>
             <NavigationCrew crewList={crewList} onClickCrew={onClickCrew} />
             <NavigationDM />
         </Grid>

@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button   } from 'react-bootstrap';
 
-function AddChannel({modalShow, onClickModal}) {
+function AddChannel({modalShow, onClickModal,onCreateChannel}) {
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const user = JSON.parse(localStorage.getItem('authUser'));
+    const userNo = user.no;
+
+    const channel = {name, description, masterChannelUserNo:userNo}
 
     return (
       <>
@@ -23,21 +29,29 @@ function AddChannel({modalShow, onClickModal}) {
                         type="text"
                         placeholder="Channel Name"
                         autoFocus
+                        onChange={(e) =>{
+                          setName(e.target.value)
+                        }}
                       />
                   </Form.Group>
-                  <Form.Group className="mb-3" controlId="CrewForm.name">
-                      <Form.Label>크루 이름</Form.Label>
-                      <Form.Control
-                        type="text"
-                        
-                        placeholder="Crew Name"
-                      />
-                  </Form.Group>
+                  <Form.Group
+                  className="mb-3"
+                  controlId="crewForm.description"
+                >
+                  <Form.Label>채널 주제</Form.Label>
+                  <Form.Control 
+                  as="textarea" 
+                  rows={3} 
+                  placeholder={"Crew Description"}
+                  onChange={(e) =>{
+                    setDescription(e.target.value)
+                  }}/>
+                </Form.Group>
+
                   <Form.Group className="mb-3" controlId="email">
                       <Form.Label>초대</Form.Label>
                       <Form.Control
                         type="email"
-
                         placeholder="example@gmail.com"
                       />
                       </Form.Group>
@@ -49,7 +63,8 @@ function AddChannel({modalShow, onClickModal}) {
               <Button variant="outline-dark"  onClick={onClickModal} >
                 취소
               </Button>
-              <Button variant="outline-dark" onClick={onClickModal} >
+              <Button variant="outline-dark" onClick={() => {onCreateChannel(channel)
+                                                            onClickModal();}} >
                 저장
               </Button>
           </Modal.Footer>

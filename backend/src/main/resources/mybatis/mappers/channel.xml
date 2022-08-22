@@ -18,6 +18,15 @@
 				]]>
 		</select>
 		
+		<select id="findByMasterChannelUserNo" parameterType="long" resultType="long">
+				<![CDATA[
+				select no 
+				from channel 
+				where master_channel_user_no = #{masterChannelUserNo}
+				order by no desc limit 1;
+				]]>
+		</select>
+		
 		<insert id="insert" parameterType="channelvo">
 				<![CDATA[
 				insert
@@ -25,4 +34,16 @@
 				values(null, #{name }, #{description }, now(), #{masterChannelUserNo });
 				]]>
 		</insert>
+		
+		<insert id="insertUser" parameterType="map">
+				<![CDATA[
+				insert into channel_user values (null, #{masterChannelUserNo}, #{channelNo}, now(), 1);
+				]]>
+		</insert>
+		
+		<update id="updateChannel" parameterType ="channelvo">
+			<![CDATA[
+				update channel set name = #{name} where no = #{no};
+				]]>
+		</update>
 </mapper>

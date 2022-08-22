@@ -17,7 +17,7 @@ function CrewSetting_info() {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                <Button variant="outline-dark" type="submit" >
+                <Button variant="outline-dark"  >
                     이 크루에서 나가기
                   </Button>
                   </Form.Group>

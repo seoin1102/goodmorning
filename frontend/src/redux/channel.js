@@ -17,7 +17,7 @@ const channel = (state = initialState, action) => {
       case SET_CHANNEL:
           return update(state, {$set: action.channels});
       case ADD_CHANNEL:
-          return update(state, {$push: action.channel});
+          return state.concat(action.channel);
       case DELETE_CHANNEL:
           return update(state, {$splice: [[action.channelNo], 1]});
       default:

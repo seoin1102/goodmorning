@@ -26,4 +26,19 @@ public class ChannelService {
 		return channelRepository.findFirst(userNo);
 	}
 
+	public void updateChannel(ChannelVo channelVo) {
+		channelRepository.updateChannel(channelVo);
+		
+	}
+
+
+	public Long findByMasterChannelUserNo(Long masterChannelUserNo) {
+		return channelRepository.findByMasterChannelUserNo(masterChannelUserNo);
+	}
+
+	public void addChannelUser(Long masterChannelUserNo, Long channelNo) {
+		channelRepository.addChannelUser(masterChannelUserNo,channelNo);
+		
+	}
+
 }
