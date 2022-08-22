@@ -66,8 +66,8 @@ function SignContainer({callback}) {
 
             //callback("로그인이 성공적으로 되었습니다.","/")
             localStorage.setItem('authUser',JSON.stringify(json.data));
-            console.log("스토리지:" + localStorage.getItem('authUser'));
-            console.log("스토리지 로그인체크:" + localStorage.getItem('saveEmail'));
+            //console.log("스토리지:" + localStorage.getItem('authUser'));
+            //console.log("스토리지 로그인체크:" + localStorage.getItem('saveEmail'));
             location.href="/";
             
         } catch(err) {
