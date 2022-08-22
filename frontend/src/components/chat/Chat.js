@@ -13,22 +13,14 @@ const Chat = () => {
     const [sendMessage, setSendMessage] = useState("");
 
     const dispatch = useDispatch();
-    const [render, setRender] = useState(false);
-    const [channelRender, setChannelRender] = useState(false);
     const crewList = useSelector(state => (state.crew), shallowEqual);
     const chatList = useSelector(state => (state.chat), shallowEqual);
 
-    // 크루 렌더링 옵션
     useEffect(() => {
-        setRender((prevRender) => true);
+      console.log("useEffect 호출")
+        connect()
         return () => disconnect();
-    }, [])
-
-    useEffect(() => {
-        if(render === false) {
-            connect()
-        }
-    }, [render, crewList, dispatch]);
+    }, [crewList]);
 
     // 자원 할당(소켓 연결)
     const connect = () => {
@@ -58,8 +50,8 @@ const Chat = () => {
      * @param {object} crewList 구독 중인 크루 리스트
      */
     const initialSubscribe = async(focusChannelNo, focusCrewNo, crewList) => {
-        console.log("@@@@@@@@@@@", crewList)
-        await crewList.map(async (crew) => {
+        console.log("[크루 목록]", crewList)
+        await crewList.map(async (crew, index) => {
 
             const enterChat = JSON.stringify({
                 type: 'ENTER',
@@ -81,10 +73,10 @@ const Chat = () => {
                 })
                 return true;
             };
-            
+      
             // focus 된 [채널/크루]의 전체 메시지 리스트 DB에서 가져와 출력
             const getChatList = await get(`/chat/${focusCrewNo}`);
-            console.log(`[${focusCrewNo}의 메시지 리스트]`, getChatList)
+            console.log(`[${focusCrewNo}번 크루의 메시지 리스트]`, getChatList)
             dispatch(setChat(getChatList));
 
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)

@@ -40,13 +40,13 @@ function Header() {
     const initialChannel = useCallback(async(channelNo,userNo) => {
       const channels = await get(`/channel/${channelNo}/${userNo}`);
       dispatch(setChannel(channels));
-      }, [dispatch])
+      }, [])
 
     const initialFocus = useCallback(async(userNo) => {
         const channelFocus = await get(`/channel/${userNo}`);
         const {name, no} = channelFocus[0];
         dispatch(setCHANNELFOCUS({name: name, no: no}));
-    }, [dispatch])
+    }, [])
 
     useEffect(() => {
         initialFocus(userNo);

@@ -10,7 +10,6 @@ const client = axios.create({baseURL: '/api'})
 export const get = async (url) => {
     try {
         let response =  await client.get(url);
-        console.log(response, url)
         return response.data.data;
     } catch (error) {
         console.error("Error >>", error);

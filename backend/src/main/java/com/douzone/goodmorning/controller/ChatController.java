@@ -5,11 +5,10 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.douzone.goodmorning.repository.ChatRoomRepository;
 import com.douzone.goodmorning.service.RedisPublisher;
 import com.douzone.goodmorning.service.RedisSubscriber;
 import com.douzone.goodmorning.vo.ChatVo;
@@ -42,6 +41,18 @@ public class ChatController {
 //        redisPublisher.publish(message);
 //    }
     
+//    @ResponseBody
+//    @PostMapping("/chat/test")
+//    public void test(@RequestBody ChatVo chatVo) {	
+//    	
+//    	String topic = Long.toString(chatVo.getCrewNo());
+//    	System.out.println("토픽값:" + topic);
+//    	
+//
+//    	if(ChatVo.MessageType.CHAT.equals(chatVo.getType())) 
+//    		redisPublisher.publish(topic, chatVo);
+//    }
+//    
     
     @MessageMapping("/chat")
     public void message(@RequestBody ChatVo chatVo) {
@@ -56,6 +67,5 @@ public class ChatController {
     	// 1번. [CHAT]일 경우 클라이언트 => 서버로 전달
     	if(ChatVo.MessageType.CHAT.equals(chatVo.getType())) 
     		redisPublisher.publish(topic, chatVo);
-    	
     }
 }

@@ -22,7 +22,7 @@ function Navigation() {
     const initialCrew = useCallback(async(channelNo,userNo) => {
         const crews = await get(`/crew/${channelNo}/${userNo}`);
         dispatch(setCrew(crews));
-    }, [dispatch])
+    }, [])
  
     /**
      * 크루 생성
@@ -32,7 +32,7 @@ function Navigation() {
     const onCreateCrew = useCallback(async(channelNo, crew, userNo) => {
         await post(`/crew/${channelNo}/${userNo}`, crew);
         dispatch(addCrew(crew));
-    }, [dispatch])
+    }, [])
 
     /**
      * 초기 화면
