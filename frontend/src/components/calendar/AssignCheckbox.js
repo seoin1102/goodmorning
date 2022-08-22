@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useCallback,memo } from "react";
-import { setTask, addTask, deleteTask } from "../../redux/task";
+import React, { useState, useEffect} from "react";
+import { Prev } from "react-bootstrap/esm/PageItem";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { setCrewUser } from "../../redux/crewUser";
 
-import { get } from "../../apis/Axios";
 function AssignCheckbox(props) {
-  console.log("AssignCheckbox")
   const dispatch = useDispatch();
   const taskList = useSelector((state) => state.task, shallowEqual);
   const crewUserList = useSelector((state) => state.crewUser, shallowEqual);
@@ -33,7 +30,6 @@ function AssignCheckbox(props) {
       // 단일 선택 해제 시 체크된 아이템을 제외한 배열 (필터)
       setCheckItems(checkItems.filter((el) => el !== assign));
       props.setFilteredTask(props.filteredTask.filter((el) => el.userNo !== assign.userNo));
-      
     }
   };
 

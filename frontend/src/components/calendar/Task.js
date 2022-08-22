@@ -19,7 +19,6 @@ import TaskContainer from "../container/TaskContainer";
 import TaskCalendar from "./TaskCalendar";
 
 function Calendar() {
-  console.log("Task")
   const [state, setState] = useState({
     id: "",
     projectNo: "",
@@ -57,9 +56,9 @@ function Calendar() {
 
   useEffect(() => {
     if(!modalIsOpen){
-    setFilteredTask(prevFilteredTask => prevFilteredTask.concat(taskList))}
-    
-  }, [taskList]);
+    setFilteredTask(taskList)
+
+  }}, [taskList]);
 
   const onClickAddTask = (task) => {
     dispatch(addTask(task));
@@ -81,13 +80,10 @@ function Calendar() {
       status: status
     };
     if(end == null){
-      console.log("first")
       const clickedOnedayTask = {...clickedTask, end:start}
       setState(clickedOnedayTask)
-
     }else{
       setState(clickedTask)
-
     }
     
     openModal();

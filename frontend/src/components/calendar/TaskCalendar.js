@@ -8,8 +8,7 @@ import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import "../../styles/css/Calendar.css";
 
 function TaskCalendar(props) {
-  console.log("TaskCalendar")
-  const taskList = useSelector(state => state.task, shallowEqual);
+  // const taskList = useSelector(state => state.task, shallowEqual);
   // const tasks = []
 
   // const groupBy =(objectArray, property)=> {
@@ -27,8 +26,6 @@ function TaskCalendar(props) {
   // const groupedPeople = groupBy(taskList, 'title');
 
 
-
-    
   return (
     <div className="demo-app-calendar" id="mycalendartest">
       <FullCalendar

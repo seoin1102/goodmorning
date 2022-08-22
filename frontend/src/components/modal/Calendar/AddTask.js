@@ -11,7 +11,6 @@ import moment from 'moment';
 import AssignSelect from '../../calendar/AssignSelect'
 
 function AddTask(props) {
-  console.log("AddTask")
   const { title, start, end, id, userName, userNo } = props.state
   const [clickedEventTitle, setClickedEventTitle] = useState()
   const [clickedEventStart, setClickedEventStart] = useState()
@@ -31,11 +30,11 @@ function AddTask(props) {
 
   const dispatch = useDispatch();
   const taskList = useSelector(state => state.task, shallowEqual);
+  let newCalendarEvents = [...taskList];
 
     const onSubmit = (e) => {
     e.preventDefault(); // Submit 이벤트 발생했을 때 새로고침 방지
 
-    const newCalendarEvents = [...taskList];
     let clickedEventId = props.state.id
     const updatedTask={
       title: clickedEventTitle,
@@ -58,8 +57,9 @@ function AddTask(props) {
       }
       
       if(includesCheck){ //기존 사람의 변경 및 삭제 여부.
-        put(`/task/${clickedEventId}`, updatedTask)
-        dispatch(updateTask(clickedEventIdx, updatedTask));
+        
+        put(`/task/${clickedEventId}`, {...updatedTask,userNo:userNo})
+        dispatch(updateTask(clickedEventIdx, {...updatedTask,userNo:userNo}));
       }else{
         deleteEventHandler()
       }
@@ -73,7 +73,6 @@ function AddTask(props) {
           id: maxId + 1,
           userNo: assign,
         }
-      
         post(`/task`, _addTask)
         dispatch(addTask([_addTask]));
       })
@@ -86,7 +85,7 @@ function AddTask(props) {
     return `hsl(${parseInt(Math.random() * 24, 10) * 15}, 16%, 57%)`;}
 
   const deleteEventHandler = () => {
-    const clickedEventIdx = newCalendarEvents.findIndex(event => event.id == clickedEventId)
+    const clickedEventIdx = taskList.findIndex(event => event.id == clickedEventId)
     remove(`/task/${id}`, id)
     dispatch(deleteTask(clickedEventIdx));
     props.closeModal();
@@ -116,10 +115,10 @@ function AddTask(props) {
       <DatePicker value={clickedEventEnd} onChange={endDateChangeHandler}  disableClock={true} locale="ko-KO" />
       <form onSubmit={onSubmit}>
         <h4>업무명</h4>
-        <input type="text" value={clickedEventTitle || ''} onChange={titleChangeHandler} />
+        <input type="text" value={clickedEventTitle} onChange={titleChangeHandler} />
         <br />
         <h4>책임자</h4>
-        <AssignSelect defaultValue={props.state} addedAssigns={addedAssigns} setAddedAssigns={setAddedAssigns} includesCheck={includesCheck} setIncludeCheck={setIncludeCheck}/>
+        <AssignSelect defaultValue={props.state || null} addedAssigns={addedAssigns} setAddedAssigns={setAddedAssigns} includesCheck={includesCheck} setIncludeCheck={setIncludeCheck}/>
         <button type="submit">등록</button>
         <button type="button" onClick={deleteEventHandler}>삭제</button>
         <button type="button" onClick={closeEventHandler}>닫기</button>
@@ -128,4 +127,4 @@ function AddTask(props) {
 
   )
 }
-export default AddTask;
+export default memo(AddTask);

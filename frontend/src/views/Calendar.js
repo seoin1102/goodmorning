@@ -1,23 +1,19 @@
-import React, {  useEffect, useCallback  } from 'react';
+import React, {  useEffect, useCallback, useSelector  } from 'react';
 import SiteLayout from '../components/layout/SiteLayout';
 import Task from '../components/calendar/Task'
-import {useDispatch  } from 'react-redux';
+import {useDispatch ,shallowEqual  } from 'react-redux';
 import {get} from '../apis/Axios';
 import  { setTask } from '../redux/task';
 import { setCrewUser } from "../redux/crewUser";
 
 function Calendar() {
-  console.log("Calendar")
+
   const dispatch = useDispatch();
 
   const initialTask = useCallback(
     async (projectNo) => {
       const getTasks = await get(`/task/${projectNo}`);
-      console.log("**************************")
-      console.log(getTasks)
       dispatch(setTask(getTasks));
-      console.log("태스크 랜더링")
-
     },
     [dispatch]
   );
@@ -25,14 +21,15 @@ function Calendar() {
   const initialCrew = useCallback(
     async (no) => {
       const assignList = await get(`/crew/user/${no}`);
-      dispatch(setCrewUser(assignList));
-      console.log("크루 랜더링")
-    },
+      dispatch(setCrewUser(assignList));    },
     [dispatch]
   );
 
   useEffect(() => {
     initialTask(1);
+  }, []);
+
+  useEffect(() => {
     initialCrew(20);
   }, []);
 
