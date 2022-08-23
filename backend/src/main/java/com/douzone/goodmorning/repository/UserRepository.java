@@ -49,9 +49,4 @@ public class UserRepository {
 		map.put("token", token);
 		return sqlSession.update("user.updatePw",map);
 	}
-
-
-
-
-
 }

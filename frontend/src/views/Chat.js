@@ -1,8 +1,7 @@
 import React from 'react';
 import SiteLayout from '../components/layout/SiteLayout';
 import Grid from '@mui/material/Grid';
-import Message from '../components/chat/Message';
-import SendMessage from '../components/chat/SendMessage';
+import Chat from '../components/chat/Chat';
 
 
 function chat() {
@@ -10,8 +9,7 @@ function chat() {
     return (
         <SiteLayout>
             <Grid item xs={10}>
-                <Message />
-                <SendMessage />
+                <Chat />
             </Grid>
         </SiteLayout>
     );

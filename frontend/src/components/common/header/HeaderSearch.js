@@ -6,7 +6,7 @@ import List from '@mui/material/List';
 
 function HeaderSearch() {
   return (
-      <Grid item xs={5}>
+      <Grid item xs={7}>
           <List>
               <TextField 
               id="outlined-basic-email" 

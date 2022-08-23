@@ -9,7 +9,7 @@ import Reserv from '../../modal/ReservationMessage';
 import NavigationEctItem from './NavigationEctItem';
 import NavigationItem from './NavigationItem';
 
-function NavigationEct({onCreate}) {
+function NavigationEct({onCreateCrew, onCreateChannel}) {
     // modal state
     const [addChannelModalShow, setAddChannelModalShow] = useState(false);
     const [addCrewModalShow, setAddCrewModalShow] = useState(false);
@@ -34,10 +34,10 @@ function NavigationEct({onCreate}) {
         <List style={{height: '200px', overflow: 'auto'}}>
             
             <NavigationEctItem userName={"Remy Sharp"} itemName={"채널 생성"} onClickModal={onClickAddChannelModal}>
-                <AddChannel modalShow={addChannelModalShow} onClickModal={onClickAddChannelModal} /> 
+                <AddChannel modalShow={addChannelModalShow} onClickModal={onClickAddChannelModal} onCreateChannel={onCreateChannel} /> 
             </NavigationEctItem>
             <NavigationEctItem userName={"Alice"} itemName={"크루 생성"} onClickModal={onClickAddCrewModal}>
-                <AddCrew modalShow={addCrewModalShow} onClickModal={onClickAddCrewModal} onCreate={onCreate} /> 
+                <AddCrew modalShow={addCrewModalShow} onClickModal={onClickAddCrewModal} onCreateCrew={onCreateCrew} /> 
             </NavigationEctItem>
             <NavigationEctItem userName={"Cindy Baker"} itemName={"예약 메시지"} onClickModal={onClickReservModal}>
                 <Reserv modalShow={reservModalShow} onClickModal={onClickReservModal}/> 

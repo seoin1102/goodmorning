@@ -22,7 +22,7 @@ function CrewSetting_member() {
                         
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="email">
-                      <Button  variant="outline-dark" type="submit">
+                      <Button  variant="outline-dark" >
                         전송
                       </Button>
                       </Form.Group>

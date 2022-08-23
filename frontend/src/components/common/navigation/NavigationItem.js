@@ -6,10 +6,13 @@ import Avatar from '@mui/material/Avatar';
 import { NavLink } from "react-router-dom";
 
 
-function NavigationItem({navLink, crewName, secondary}) {
+function NavigationItem({navLink, crewName, secondary, crewNo, onClickCrew}) {
+
+    
+    
     return (
         <NavLink to={navLink} >
-        <ListItem button>
+        <ListItem button onClick={() => {onClickCrew(crewNo,crewName)}}>
             <ListItemIcon>
                 <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
             </ListItemIcon>

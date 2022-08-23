@@ -1,10 +1,9 @@
 package com.douzone.goodmorning.service;
 
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Service;
 
-import com.douzone.goodmorning.vo.ChatMessage;
+import com.douzone.goodmorning.vo.ChatVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,7 +13,13 @@ public class RedisPublisher {
 
     private final RedisTemplate<String, Object> redisTemplate;
 
-    public void publish(ChannelTopic topic, ChatMessage message) {
-        redisTemplate.convertAndSend(topic.getTopic(), message);
+//    public void publish(ChannelTopic topic, ChatMessage message) {
+//        redisTemplate.convertAndSend(topic.getTopic(), message);
+//    }
+    
+    // 2번. 서버 => 레디스로 전달
+    public void publish(String topic, ChatVo chatVo) {
+    	System.out.println("2번 스서버에서 레디스로 전달" + topic + "@" + chatVo);
+        redisTemplate.convertAndSend(topic, chatVo);
     }
 }

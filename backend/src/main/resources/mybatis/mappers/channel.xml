@@ -2,17 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="channel">	
-		<select id="findAll" parameterType="long" resultType="channelvo">
+		<select id="findAll" parameterType="map" resultType="channelvo">
 				<![CDATA[
-				select no, name, description, creation_date as creationDate, master_channel_user_no as masterChannelUserNo
-				from channel where master_channel_user_no = #{useNo }
+				select b.no as no, b.name as name 
+				from channel_user as a, channel as b 
+				where a.channel_no = b.no and a.user_no = #{userNo} and a.channel_no != #{channelNo};
 				]]>
 		</select>
+		
+		<select id="findFirst" parameterType="long" resultType="channelvo">
+				<![CDATA[
+				select b.no, b.name
+				 from channel_user as a, channel as b 
+				  where b.no = a.channel_no and  a. user_no = #{userNo} limit 1;
+				]]>
+		</select>
+		
+		<select id="findByMasterChannelUserNo" parameterType="long" resultType="long">
+				<![CDATA[
+				select no 
+				from channel 
+				where master_channel_user_no = #{masterChannelUserNo}
+				order by no desc limit 1;
+				]]>
+		</select>
+		
 		<insert id="insert" parameterType="channelvo">
 				<![CDATA[
 				insert
 					into channel
-				values(null, #{name }, #{description }, now(), #{masterChannelUserNo })
+				values(null, #{name }, #{description }, now(), #{masterChannelUserNo });
 				]]>
 		</insert>
+		
+		<insert id="insertUser" parameterType="map">
+				<![CDATA[
+				insert into channel_user values (null, #{masterChannelUserNo}, #{channelNo}, now(), 1);
+				]]>
+		</insert>
+		
+		<update id="updateChannel" parameterType ="channelvo">
+			<![CDATA[
+				update channel set name = #{name} where no = #{no};
+				]]>
+		</update>
 </mapper>

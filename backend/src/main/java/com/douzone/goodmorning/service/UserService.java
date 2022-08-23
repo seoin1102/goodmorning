@@ -8,11 +8,15 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.douzone.goodmorning.repository.ChannelRepository;
+import com.douzone.goodmorning.repository.CrewRepository;
 import com.douzone.goodmorning.repository.UserRepository;
 import com.douzone.goodmorning.repository.VerificationTokenRepository;
 import com.douzone.goodmorning.security.SHA256;
 import com.douzone.goodmorning.util.MailUtil;
 import com.douzone.goodmorning.vo.GithubHookVo;
+import com.douzone.goodmorning.vo.ChannelVo;
+import com.douzone.goodmorning.vo.CrewVo;
 import com.douzone.goodmorning.vo.UserVo;
 import com.douzone.goodmorning.vo.VerificationTokenVo;
 
@@ -24,6 +28,8 @@ public class UserService {
 	
 
 	private final UserRepository userRepository;
+	private final ChannelRepository channelRepository;
+	private final CrewRepository crewRepository;
 	private final VerificationTokenRepository verificationTokenRepository;
 	private final JavaMailSender mailSender;
 
@@ -155,4 +161,25 @@ public class UserService {
 		return userNo.getNo();
 	}
 	
+	public void addDefaultChannelAndCrew(UserVo vo) {
+		ChannelVo channelVo = new ChannelVo();
+		channelVo.setName(vo.getName() + "채널");
+		channelVo.setDescription(vo.getName() + "의 채널 입니다.");
+		channelVo.setMasterChannelUserNo(Long.valueOf(vo.getNo()));
+		channelRepository.insert(channelVo);
+		Long channelNo = channelRepository.findByMasterChannelUserNo(Long.valueOf(vo.getNo()));
+		channelRepository.addChannelUser(channelVo.getMasterChannelUserNo(), channelNo);
+		
+		CrewVo crewVo = new CrewVo();
+		crewVo.setName(vo.getName() + "의 크루");
+		crewVo.setMasterCrewUserNo(Long.valueOf(vo.getNo()));
+		crewVo.setChannelNo(channelNo);
+		crewRepository.insert(crewVo);
+		
+		Long crewNo = crewRepository.findMaster(channelNo, Long.valueOf(vo.getNo()));
+		crewRepository.addCrewUser(crewNo, Long.valueOf(vo.getNo()));
+		
+		
+		
+	}
 }

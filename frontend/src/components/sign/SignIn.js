@@ -9,7 +9,9 @@ function SignContainer({callback}) {
 
     console.log("로그아웃됬는지 체크:" + localStorage.getItem('authUser'));
     const [errormessage, seterrormessage] = useState("");
-    
+    console.log("스토리지:" + localStorage.getItem('authUser'));
+    const [saveEmailcheck, setSaveEmailcheck] = useState("no");
+
     const onChangeSaveEmailcheck = (status) =>{
       setSaveEmailcheck(status);
       console.log(status);

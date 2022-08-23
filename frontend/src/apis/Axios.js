@@ -31,9 +31,39 @@ export const post = async (url, data) => {
     }
 }
 
+export const postJson = async (url, data) => {
+  try {
+      let response = await client.post(url, data, {headers: {'Content-Type': 'application/json'}
+    });
+      return response.data;
+  } catch (error) {
+      console.error("Error >>", error);
+  }
+}
+
+export const putJson = async (url, data) => {
+    try {
+        let response = await client.put(url, data, {headers: {'Content-Type': 'application/json'}
+      });
+        return response.data;
+    } catch (error) {
+        console.error("Error >>", error);
+    }
+  }
+
 export const put = async (url, data) => {
     try {
         let response = await client.put(url, data);
+        return response.data;
+
+    } catch (error) {
+        console.error("Error >>", error);
+    }
+}
+
+export const remove = async (url, data) => {
+    try {
+        let response = await client.delete(url, data);
         return response.data;
 
     } catch (error) {
