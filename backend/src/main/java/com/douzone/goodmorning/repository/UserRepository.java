@@ -49,4 +49,9 @@ public class UserRepository {
 		map.put("token", token);
 		return sqlSession.update("user.updatePw",map);
 	}
+
+
+	public int findByUserNo(String email) {
+		return sqlSession.selectOne("user.findByUserNo", email);
+	}
 }

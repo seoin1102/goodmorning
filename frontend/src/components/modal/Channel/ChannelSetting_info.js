@@ -1,3 +1,4 @@
+import { Autocomplete, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
@@ -5,6 +6,16 @@ import { setCHANNELFOCUS } from '../../../redux/focus';
 
 
 function ChannelSetting_info({onChangeHandler, channelName, onClickModal}) {
+  const emaillist = [
+    { title: 'The Shawshank Redemption', year: 1994 },
+    { title: 'The Godfather', year: 1972 },
+    { title: 'The Godfather: Part II', year: 1974 },
+    { title: 'The Dark Knight', year: 2008 },
+    { title: '12 Angry Men', year: 1957 },
+    { title: "Schindler's List", year: 1993 },
+    { title: 'Pulp Fiction', year: 1994 },
+
+  ];
 
     return (
     <>
@@ -30,9 +41,17 @@ function ChannelSetting_info({onChangeHandler, channelName, onClickModal}) {
 
                 <Form.Group className="mb-3" controlId="crewForm.name">
                       <Form.Label>초대</Form.Label>
-                      <Form.Control
-                        type="email"
-                        placeholder="example@gmail.com"
+                      <Autocomplete
+                        multiple
+                        limitTags={2}
+                        id="multiple-limit-tags"
+                        options={emaillist}
+                        getOptionLabel={(option) => option.title}
+                        // defaultValue={[emaillist[13], emaillist[12], emaillist[11]]}
+                        renderInput={(params) => (
+                          <TextField {...params} label="email" placeholder="example@gmail.com" />
+                        )}
+                        sx={{ width: '450px' }}
                       />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="crewForm.name">

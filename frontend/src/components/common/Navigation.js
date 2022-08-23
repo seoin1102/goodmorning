@@ -57,8 +57,6 @@ function Navigation() {
         setChangeCrew((prevState) => ({...prevState, no: crewNo, name: crewName}))
     }
 
-    
-
 
     useEffect(() =>{
         console.log("zzzzzzzzz" + changeCrew.no + "aaaaa" + changeCrew.name)
