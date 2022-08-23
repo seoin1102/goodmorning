@@ -69,7 +69,6 @@ function Calendar() {
     const { id, title, start, end } = info.event;
     const { userName, userNo, status } = info.event.extendedProps;
     
-    
     const clickedTask = {
       title: title,
       start: start,
@@ -85,7 +84,6 @@ function Calendar() {
     }else{
       setState(clickedTask)
     }
-    
     openModal();
   };
 

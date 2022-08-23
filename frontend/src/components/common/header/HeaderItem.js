@@ -12,16 +12,17 @@ function HeaderItem({itemName, customStyle, onClickModal, children}) {
     
     return (
         <Grid item xs={2}>
-            <List>
+            <List style={{background:'#3a4275'}}>
                 <ListItem 
                     button key="RemySharp" 
                     style={customStyle}
-                    onClick={onClickModal}>
-                    <ListItemText >{itemName}</ListItemText>
+                    onClick={onClickModal}
+                    >
+                    <ListItemText style={{fontStyle:'10em'}}>{itemName}</ListItemText>
                 </ListItem>
                     {children}
             </List>
-            <Divider />
+            <Divider/>
         </Grid>
     );
 }
