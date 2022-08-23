@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,6 +20,7 @@ import com.douzone.goodmorning.dto.status.StatusEnum;
 import com.douzone.goodmorning.security.Auth;
 import com.douzone.goodmorning.service.CrewService;
 import com.douzone.goodmorning.vo.CrewVo;
+import com.douzone.goodmorning.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,7 +33,7 @@ public class CrewController {
     private final CrewService crewService;
 	
 
-	  @Auth
+	@Auth
     @GetMapping("/crew/{channelNo}/{userNo}")
     public ResponseEntity<Message> crews(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo) {
     	
@@ -80,5 +82,21 @@ public class CrewController {
     	System.out.println(crewService.getCrewUser(no));
     	return ResponseEntity.ok().headers(headers).body(message);
 
+    }
+    
+    @Transactional
+    @PutMapping("/crew/{crewNo}")
+    public ResponseEntity<Message> updateChannel(@PathVariable("crewNo") String crewNo, @RequestBody UserVo userVo) {
+
+    	crewService.updateLastIn(crewNo, userVo.getNo());
+    	
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("크루 마지막 접속 업데이트 성공");
+    	message.setData("success");
+    	return ResponseEntity.ok().headers(headers).body(message);
     }
 }

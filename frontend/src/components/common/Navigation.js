@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { get, post } from '../../apis/Axios';
+import { get, post, put, putJson } from '../../apis/Axios';
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import { setCrew, addCrew, deleteCrew } from '../../redux/crew';
 import Grid from '@mui/material/Grid';
@@ -53,15 +53,19 @@ function Navigation() {
         console.log(channel)
     }, [])
 
-    const onClickCrew = (crewNo,crewName) => {
-        setChangeCrew((prevState) => ({...prevState, no: crewNo, name: crewName}))
+    const onClickCrew = async(crewNo, crewName) => {
+        console.log("#####", userNo, "aaaaaa", crewNo)
+        const result = await putJson(`/crew/${crewNo}`, JSON.stringify({no: userNo}))
+        console.log("#####", result)
+        if(result.data === 'success')
+            setChangeCrew((prevState) => ({...prevState, no: crewNo, name: crewName}))
     }
-
 
     useEffect(() =>{
         console.log("zzzzzzzzz" + changeCrew.no + "aaaaa" + changeCrew.name)
         dispatch(setCREWFOCUS({no: changeCrew.no, name: changeCrew.name}));
     }, [changeCrew])
+
     /**
      * 초기 화면
      */

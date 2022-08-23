@@ -2,7 +2,7 @@ import React,{Fragment} from 'react';
 import { Button, Form, Row, Col, CloseButton, Card, Modal } from 'react-bootstrap';
 
 
-function ChannelSetting_member({onClickModal}) {
+function ChannelSetting_member({onClickModal,onChangeValue , onClickHandler}) {
 
 
     return (
@@ -24,6 +24,14 @@ function ChannelSetting_member({onClickModal}) {
                   </Button>
             </Form>
         </Modal.Body>
+              <Modal.Footer>
+            <Button variant="outline-dark" onClick={onClickModal} >
+              취소
+            </Button>
+            <Button variant="outline-dark" onClick={onClickHandler} >
+              변경사항 저장
+            </Button>
+        </Modal.Footer> 
         
     </>
     );

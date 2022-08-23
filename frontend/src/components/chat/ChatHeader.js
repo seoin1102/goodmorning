@@ -10,8 +10,10 @@ function ChatHeader() {
     const onClickCrewModal = useCallback(() => {
         setCrewModalIsOpen(prevCrewModalIsOpen => !prevCrewModalIsOpen);
     }, [])
-    const crewName = useSelector(state => (state.focus.crewName), shallowEqual);
 
+    const crewName = useSelector(state => {  
+        return (state.focus.crewName)}, shallowEqual);
+    
     return (
         <>
             <Grid container style={{ padding: '10px 30px 0px 20px', backgroundColor:'#f7f7fa', borderBottom:'solid 2px black' }}>

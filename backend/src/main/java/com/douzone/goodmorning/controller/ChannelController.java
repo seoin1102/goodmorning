@@ -55,14 +55,35 @@ public class ChannelController {
      * @return
      */
     @GetMapping("/channel/{userNo}")
-    public ResponseEntity<Message> channels(@PathVariable("userNo") Long userNo) {
+    public ResponseEntity<Message> channels(@PathVariable("userNo") String userNo) {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    
     	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("첫 채널목록 조회");
     	message.setData(channelService.getFirstChannel(userNo));
+    	return ResponseEntity.ok().headers(headers).body(message);
+
+    }
+    
+    /**
+     * 
+     * @param channelNo
+     * @param userNo
+     * @return 채널 변경시 첫 크루 조회
+     * 
+     */
+    @GetMapping("/channel/change/{channelNo}/{userNo}")
+    public ResponseEntity<Message> changeChannels(@PathVariable("channelNo") String channelNo, @PathVariable("userNo") String userNo ) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("채널 변경시 첫 크루 조회");
+    	message.setData(channelService.getChangeChannel(channelNo,userNo));
     	return ResponseEntity.ok().headers(headers).body(message);
 
     }

@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { get } from '../../apis/Axios';
 import { setChannel } from '../../redux/channel';
-import { setCHANNELFOCUS } from '../../redux/focus';
+import { setCHANNELFOCUS, setCREWFOCUS } from '../../redux/focus';
 import ChannelSetting from '../modal/Channel/ChannelSetting';
 import CrewSetting from '../modal/Crew/CrewSetting';
 import HeaderItem from './header/HeaderItem';
@@ -31,7 +31,6 @@ function Header() {
     }, shallowEqual);
 
     const channelNo = useSelector(state => {
-        console.log("@@@@@@@@@@@@@", state.focus.channelNo);
         return state.focus.channelNo;
     }, shallowEqual);
 
@@ -46,28 +45,37 @@ function Header() {
      */
     const initialChannel = useCallback(async(channelNo, userNo) => {
       const channels = await get(`/channel/${channelNo}/${userNo}`);
-      console.log("no??????????????????", channels);
+      //console.log("no??????????????????", channels);
       dispatch(setChannel(channels));
       }, [channelNo])
 
     const initialFocus = useCallback(async(userNo) => {
-        const channelFocus = await get(`/channel/${userNo}`);
-        const {name, no} = channelFocus[0];
+        const Focus = await get(`/channel/${userNo}`);
+        const {no, name, crewNo, crewName} = Focus[0];
         dispatch(setCHANNELFOCUS({name: name, no: no}));
+        dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
     }, [])
 
 
-    const onChangeChannel = (channelNo, channelName) => {
-        setChangeChannel((prevState) => ({...prevState, no: channelNo, name: channelName}))
-        // setChangeChannelNo(channelNo);
-        // setChangeChannelName(channelName);
-        //dispatch(setCHANNELFOCUS({no: changeChannelNo, name: changeChannelName}));
-       // console.log("sdafasf ",changeChannelNo," asdafaf",changeChannelName);
-    }
+    const onChangeChannel = useCallback(async(channelNo, userNo) => {
+        const result = await get(`/channel/change/${channelNo}/${userNo}`);
+        const {no, name, crewNo, crewName} = result[0];
+        console.log("no??????????????????", result);
+        dispatch(setCHANNELFOCUS({name: name, no: no}));
+        dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
+    }, [])
 
-    useEffect(() =>{
-        dispatch(setCHANNELFOCUS({no: changeChannel.no, name: changeChannel.name}));
-    }, [changeChannel])
+    // const onChangeChannel = (channelNo, channelName) => {
+    //     setChangeChannel((prevState) => ({...prevState, no: channelNo, name: channelName}))
+    //     // setChangeChannelNo(channelNo);
+    //     // setChangeChannelName(channelName);
+    //     //dispatch(setCHANNELFOCUS({no: changeChannelNo, name: changeChannelName}));
+    //    // console.log("sdafasf ",changeChannelNo," asdafaf",changeChannelName);
+    // }
+
+    // useEffect(() =>{
+    //     dispatch(setCHANNELFOCUS({no: changeChannel.no, name: changeChannel.name}));
+    // }, [changeChannel])
     
     useEffect(() => {
 

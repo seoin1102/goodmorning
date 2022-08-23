@@ -15,7 +15,6 @@ import TaskList from "./TaskList";
 import Checkbox from "./AssignCheckbox";
 import AddTask from "../modal/Calendar/AddTask";
 
-import TaskContainer from "../container/TaskContainer";
 import TaskCalendar from "./TaskCalendar";
 
 function Calendar() {
@@ -125,7 +124,6 @@ function Calendar() {
         clickedEventAssign={clickedEventAssign}
         setClickedEventAssign={setClickedEventAssign}
       />
-      <TaskContainer />
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { setCHANNELFOCUS } from '../../../redux/focus';
 
 
-function ChannelSetting_info({onChangeHandler, channelName, onClickModal}) {
+function ChannelSetting_info({setText, channelName, onChangeValue,  onClickModal, onChangeDescHandler,description}) {
   
   const emaillist = [
     { title: 'The Shawshank Redemption', year: 1994 },
@@ -22,25 +22,34 @@ function ChannelSetting_info({onChangeHandler, channelName, onClickModal}) {
     <>
         <Modal.Body>
             <Form>
-                <Form.Group className="mb-3" controlId="crewForm.name">
+                <Form.Group className="mb-3" controlId="channelForm.name">
                   <Form.Label>채널 이름</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Crew Name"
-                    onChange={onChangeHandler}
-                    defaultValue={channelName}
                     autoFocus
-                  />
-                </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="crewForm.description"
-                >
-                  <Form.Label>채널 주제</Form.Label>
-                  <Form.Control as="textarea" rows={3} placeholder={"Crew Description"}/>
+                    onChange={(e) =>{
+                      setText(e.target.value)
+                    }}
+                 
+                    //value={channelName}
+                    
+                    />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="crewForm.name">
+                <Form.Group className="mb-3" controlId="channelForm.description">
+                  <Form.Label>채널 주제</Form.Label>
+                  <Form.Control 
+                    as="textarea" 
+                    rows={3} 
+                    placeholder={"Crew Description"}
+                    //onChange={onChangeDescHandler}
+                    //defaultValue={""}                
+                    //value={description}
+                    />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="channelForm.invite">
                       <Form.Label>초대</Form.Label>
                       <Autocomplete
                         multiple
@@ -55,7 +64,7 @@ function ChannelSetting_info({onChangeHandler, channelName, onClickModal}) {
                         sx={{ width: '450px' }}
                       />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="crewForm.name">
+                <Form.Group className="mb-3" controlId="channelForm.footer">
                 <Button variant="outline-dark" onClick={onClickModal} >
                         전송
                       </Button>
@@ -67,14 +76,14 @@ function ChannelSetting_info({onChangeHandler, channelName, onClickModal}) {
                   </Form.Group>
             </Form>
         </Modal.Body>
-        {/* <Modal.Footer>
+        <Modal.Footer>
             <Button variant="outline-dark" onClick={onClickModal} >
               취소
             </Button>
             <Button variant="outline-dark" onClick={onChangeValue} >
               변경사항 저장
             </Button>
-        </Modal.Footer> */}
+        </Modal.Footer>
         
     </>
     );

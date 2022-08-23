@@ -40,4 +40,8 @@ public class CrewService {
 		return crewRepository.findCrewUser(no);
 	}
 
+	public boolean updateLastIn(String crewNo, int userNo) {
+		return crewRepository.updateLastIn(crewNo, userNo);
+	}
+
 }

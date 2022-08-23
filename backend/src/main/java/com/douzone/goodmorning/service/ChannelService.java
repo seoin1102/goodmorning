@@ -22,7 +22,7 @@ public class ChannelService {
 		return channelRepository.insert(channelVo);
 	}
 
-	public Object getFirstChannel(Long userNo) {
+	public List<ChannelVo> getFirstChannel(String userNo) {
 		return channelRepository.findFirst(userNo);
 	}
 
@@ -39,6 +39,10 @@ public class ChannelService {
 	public void addChannelUser(Long masterChannelUserNo, Long channelNo) {
 		channelRepository.addChannelUser(masterChannelUserNo,channelNo);
 		
+	}
+
+	public List<ChannelVo> getChangeChannel(String channelNo, String userNo) {
+		return channelRepository.getChangeChannel(channelNo, userNo);
 	}
 
 }

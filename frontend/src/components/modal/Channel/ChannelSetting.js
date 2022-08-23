@@ -17,14 +17,15 @@ function ChannelSetting({modalShow, onClickModal}) {
     const channelNo = useSelector(state => {
       return state.focus.channelNo;
     });
+
     const [text, setText] = useState(channelName);
     const [description, setDescription] = useState("");
 
-    // const onChangeValue = () => {
-    //   console.log(channelName);
-    //   dispatch(setCHANNELFOCUS({name: channelName}));
-    //   onClickModal();
-    // }
+    const onChangeValue = () => {
+      // console.log(channelName);
+      // dispatch(setCHANNELFOCUS({name: channelName}));
+      // onClickModal();
+    }
     const dispatch = useDispatch();
 
     const onClickHandler = async() => {
@@ -45,9 +46,24 @@ function ChannelSetting({modalShow, onClickModal}) {
         setText(e.target.value);
     }
 
+    useEffect(() => {
+      console.log(text);
+  }, [text])
+
+    const onChangeDescHandler = (e) => {
+      setDescription(e.target.value);
+    }
+
     function TabContent() {
-        if (tab === 0) return <ChannelSetting_info onChangeHandler={onChangeHandler} channelName ={text} onClickModal={onClickModal}/>
-        else if (tab === 1) return <Channelsetting_set onClickModal={onClickModal} />
+        if (tab === 0) return <ChannelSetting_info 
+            setText={setText} 
+            channelName ={text} 
+            onClickModal={onClickModal} 
+            onChangeDescHandler={onChangeDescHandler} 
+            description={description}
+            onClickHandler={onClickHandler}
+            onChangeValue={onChangeValue}/>
+        else if (tab === 1) return <Channelsetting_set onClickModal={onClickModal} onClickHandler={onClickHandler} onChangeValue={onChangeValue}/>
       }
 
     // useEffect(() => {
@@ -78,14 +94,14 @@ function ChannelSetting({modalShow, onClickModal}) {
         </Nav.Item> */}
       </Nav>
       <TabContent />
-      <Modal.Footer>
+      {/* <Modal.Footer>
             <Button variant="outline-dark" onClick={onClickModal} >
               취소
             </Button>
             <Button variant="outline-dark" onClick={onClickHandler} >
               변경사항 저장
             </Button>
-        </Modal.Footer> 
+        </Modal.Footer>  */}
       </Modal>
         </>
     );

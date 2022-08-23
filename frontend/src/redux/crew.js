@@ -23,9 +23,7 @@ export const deleteCrew = (crewNo) => ({ type: DELETE_CREW, crewNo})
 /**
  * 초기 상태 선언
  */
-const initialState = [
-    {}
-];
+const initialState = [];
 
 /**
  * 리듀서 선언

@@ -3,6 +3,7 @@ package com.douzone.goodmorning.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -16,7 +17,7 @@ import com.douzone.goodmorning.security.LoginInterceptor;
 import com.douzone.goodmorning.security.LogoutInterceptor;
 //import com.douzone.goodmorning.security.LogoutInterceptor;
 
-
+@PropertySource("classpath:config/WebConfig.properties")
 @SpringBootConfiguration
 public class WebConfig implements WebMvcConfigurer {
 	

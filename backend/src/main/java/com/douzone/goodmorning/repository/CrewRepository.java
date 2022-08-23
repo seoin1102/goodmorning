@@ -54,6 +54,14 @@ public class CrewRepository {
 	public List<CrewVo> findCrewUser(Long no) {
 		return sqlSession.selectList("crew.findCrewUser", no);
 	}
+
+	public boolean updateLastIn(String crewNo, int userNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("crewNo", crewNo);
+		map.put("userNo", userNo);
+		
+		return sqlSession.update("crew.updateLastIn", map) == 1;
+	}
 	
 
 }

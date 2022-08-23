@@ -14,7 +14,7 @@ import SaveMessage from './views/SaveMessage';
 export default function App() {
    
     return useRoutes([
-        {path:'/', element: <Main /> },
+        {path:'/', element: <Chat/> },
         {path:'chat/room', element: <Chat /> },
         {path:'modal/channel', element: <Channel />},
         {path:'calendar', element: <Calendar />},

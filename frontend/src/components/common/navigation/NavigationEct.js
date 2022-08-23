@@ -8,13 +8,19 @@ import Reserv from '../../modal/ReservationMessage';
 
 import NavigationEctItem from './NavigationEctItem';
 import NavigationItem from './NavigationItem';
+import { Collapse, ListItemButton } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 function NavigationEct({onCreateCrew, onCreateChannel}) {
     // modal state
     const [addChannelModalShow, setAddChannelModalShow] = useState(false);
     const [addCrewModalShow, setAddCrewModalShow] = useState(false);
     const [reservModalShow, setReservModalShow] = useState(false);
+    const [open, setOpen] = useState(true);
 
+    const handleClick = () => {
+        setOpen(!open);
+    };
     // modal click
     const onClickAddChannelModal = useCallback(() => {
         setAddChannelModalShow(prevAddChannelModalShow => !prevAddChannelModalShow);
@@ -30,7 +36,10 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
 
     return (
         <>
-        <Grid item xs={12} style={{fontSize:'20px', padding:'10px', fontStyle:'bold', borderBottom:'solid 1.5px white', color:'white'}}> 기능 </Grid>
+        <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold',borderTop:'solid 1.5px white', borderBottom:'solid 1.5px white',color:'white'}}>
+        <Grid item xs={12}> 기능 </Grid>
+        </ListItemButton>
+        <Collapse in={open} timeout="auto" unmountOnExit>
         <List style={{height: '200px', overflow: 'auto'}}>
             
             <NavigationEctItem userName={"Remy Sharp"} itemName={"채널 생성"} onClickModal={onClickAddChannelModal}>
@@ -42,13 +51,19 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
             <NavigationEctItem userName={"Cindy Baker"} itemName={"예약 메시지"} onClickModal={onClickReservModal}>
                 <Reserv modalShow={reservModalShow} onClickModal={onClickReservModal}/> 
             </NavigationEctItem>
-            <NavigationItem navLink={"/calendar"}  crewName={"캘린더"}>
-            </NavigationItem>
-            <NavigationItem navLink={"/reservation"}  crewName={"예약 메시지"}>
-            </NavigationItem>
-            <NavigationItem navLink={"/save"}  crewName={"저장된 메시지"}>
-            </NavigationItem>
+
+            <NavLink to={"/calendar"} style={{textDecoration:'none', color: 'black'}}>
+            <NavigationEctItem crewName={"캘린더"} />
+            </NavLink>
+            
+            <NavLink to={"/reservation"} style={{textDecoration:'none', color: 'black'}}>
+            <NavigationEctItem  crewName={"예약 메시지"} />
+            </NavLink>
+            <NavLink to={"/save"} style={{textDecoration:'none', color: 'black'}}>
+            <NavigationEctItem crewName={"저장된 메시지"} />
+            </NavLink>
         </List>
+        </Collapse>
         <Divider />
         </>
     );
