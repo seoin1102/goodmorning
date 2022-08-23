@@ -35,7 +35,7 @@ function HeaderUser({user, channelList, onChangeChannel}) {
           }
 
             const message = json.message; 
-            alert(message);
+            // alert("");
             localStorage.setItem('authUser','');
             location.href="/signin"
 
@@ -71,7 +71,7 @@ function HeaderUser({user, channelList, onChangeChannel}) {
                               )}
                             </NavDropdown>  
                                 <Nav.Link href="#home">내정보</Nav.Link>
-                                <Nav.Link href="/signin" onClick={onClickLogout}>Logout</Nav.Link>
+                                <Nav.Link href="#signin" onClick={onClickLogout}>Logout</Nav.Link>
 
                             </Nav>
                             </Navbar.Collapse>
