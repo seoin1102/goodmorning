@@ -7,6 +7,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.douzone.goodmorning.security.AuthInterceptor;
@@ -61,4 +62,15 @@ public class WebConfig implements WebMvcConfigurer {
 		.excludePathPatterns("/api/user/logout");
 		
 	}
+	
+//	@Override
+//	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//		registry
+//			.addResourceHandler(env.getProperty("fileupload.resourceMapping"))
+//			.addResourceLocations("file:" + env.getProperty("fileupload.uploadLocation"));
+//		
+//		registry
+//			.addResourceHandler("/assets/**")
+//			.addResourceLocations("classpath:/static/");
+//	}
 }
