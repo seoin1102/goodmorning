@@ -30,8 +30,8 @@ public class CrewService {
 		
 	}
 
-	public void addCrewUser(Long masterNo, Long userNo) {
-		crewRepository.addCrewUser(masterNo, userNo);
+	public void addCrewUser(Long crewNo, Long userNo) {
+		crewRepository.addCrewUser(crewNo, userNo);
 		
 	}
 

@@ -65,7 +65,7 @@ function SignContainer({callback}) {
             name={name}
             passwd={passwd}
             callback={onSignUp}/>
-       </Fragment>     
+       </Fragment>
     );
 }
 

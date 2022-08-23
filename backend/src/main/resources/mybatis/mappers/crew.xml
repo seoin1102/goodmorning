@@ -27,7 +27,7 @@
 		
 		<insert id="insertcrewuser" parameterType="crewvo">
 				<![CDATA[
-				insert into crew_user values (null, #{masterNo}, #{userNo}, 1, now(), 1);
+				insert into crew_user values (null, #{crewNo}, #{userNo}, 1, now(), 1);
 				]]>
 		</insert>
 		

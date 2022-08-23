@@ -18,7 +18,8 @@ function ChannelSetting({modalShow, onClickModal}) {
       return state.focus.channelNo;
     });
     const [text, setText] = useState(channelName);
-    
+    const [description, setDescription] = useState("");
+
     // const onChangeValue = () => {
     //   console.log(channelName);
     //   dispatch(setCHANNELFOCUS({name: channelName}));
@@ -30,7 +31,7 @@ function ChannelSetting({modalShow, onClickModal}) {
       const updateChannel = JSON.stringify({
             no: channelNo,
             name: text,
-            description: '',
+            description: description,
             creationDate: '',
             masterChannelUserNo: 0
         })

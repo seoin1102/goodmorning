@@ -47,5 +47,4 @@ public class UserRepository {
 		return sqlSession.update("user.updatePw",map);
 	}
 
-
 }

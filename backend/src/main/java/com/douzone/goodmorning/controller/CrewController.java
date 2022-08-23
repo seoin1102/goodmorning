@@ -49,8 +49,8 @@ public class CrewController {
     	crewVo.setChannelNo(channelNo);
     	crewVo.setMasterCrewUserNo(userNo);
     	crewService.addCrew(crewVo);
-    	Long MasterNo = crewService.findMaster(channelNo, userNo);
-    	crewService.addCrewUser(MasterNo, userNo);
+    	Long crewNo = crewService.findMaster(channelNo, userNo);
+    	crewService.addCrewUser(crewNo, userNo);
     	
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
@@ -70,6 +70,7 @@ public class CrewController {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
+    	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("크루유저목록 조회");
     	message.setData(crewService.getCrewUser(no));
