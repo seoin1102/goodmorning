@@ -4,6 +4,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import { NavLink } from "react-router-dom";
+import { color } from '@mui/system';
 
 
 function NavigationItem({navLink, crewName, secondary, crewNo, onClickCrew}) {
@@ -11,7 +12,7 @@ function NavigationItem({navLink, crewName, secondary, crewNo, onClickCrew}) {
     
     
     return (
-        <NavLink to={navLink} >
+        <NavLink to={navLink} style={{textDecoration:'none', color: 'black'}}>
         <ListItem button onClick={() => {onClickCrew(crewNo,crewName)}}>
             <ListItemIcon>
                 <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
