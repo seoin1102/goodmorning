@@ -1,4 +1,4 @@
-package com.douzone.goodmoring.exception;
+package com.douzone.goodmorning.exception;
 
 public class FileUploadException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

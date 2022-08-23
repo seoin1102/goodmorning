@@ -9,7 +9,7 @@ import java.util.Calendar;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.douzone.goodmoring.exception.FileUploadException;
+import com.douzone.goodmorning.exception.FileUploadException;
 
 
 
