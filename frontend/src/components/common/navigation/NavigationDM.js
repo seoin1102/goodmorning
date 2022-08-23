@@ -8,10 +8,9 @@ import NavigationItem from './NavigationItem';
 function NavigationDM() {
     return (
         <>
-        <Grid item xs={12}>다이렉트 메시지</Grid>
+        <Grid item xs={12}style={{fontSize:'20px', padding:'10px', fontStyle:'bold',borderTop:'solid 1.5px white', borderBottom:'solid 1.5px white',color:'white'}}>다이렉트 메시지</Grid>
         
     <List style={{height: '250px', overflow: 'auto'}}>
-        
         <NavigationItem  navLink={"/chat/room"} crewName={"김현석"} secondary={"online"} />
         <NavigationItem  navLink={"/chat/room"} crewName={"김서인"} secondary={"online"} />
         <NavigationItem  navLink={"/chat/room"} crewName={"김휘민"} secondary={"online"} />

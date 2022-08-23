@@ -85,6 +85,7 @@ function AddTask(props) {
     return `hsl(${parseInt(Math.random() * 24, 10) * 15}, 16%, 57%)`;}
 
   const deleteEventHandler = () => {
+    
     const clickedEventIdx = taskList.findIndex(event => event.id == clickedEventId)
     remove(`/task/${id}`, id)
     dispatch(deleteTask(clickedEventIdx));
