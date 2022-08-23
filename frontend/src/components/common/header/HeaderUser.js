@@ -9,19 +9,19 @@ import { setChannel } from '../../../redux/channel';
 
 function HeaderUser({user, channelList, onChangeChannel}) {
 
-  console.log("채널:" ,channelList);
+
+     console.log("채널:" ,channelList);
     const onClickLogout = async function() {
         console.log("스토리지:" + localStorage.getItem('authUser'));
         localStorage.setItem('authUser','');
 
         try {
-
           const response = await fetch('/api/user/logout', {
             method: 'get',
             headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
               'Accept': 'application/json'
-            },
+            }
           });
     
           if(!response.ok) {
@@ -33,12 +33,15 @@ function HeaderUser({user, channelList, onChangeChannel}) {
           if(json.result !== 'success') {
             throw new Error(`${json.result} ${json.message}`);
           }
-            callback("로그아웃 되었습니다.","/signin")
-            
-            console.log("스토리지:" + localStorage.getItem('authUser'));
+
+            const message = json.message; 
+            alert(message);
+            localStorage.setItem('authUser','');
+            location.href="/signin"
+
         } catch(err) {
           console.log(typeof(err));
-          callback(err.toString(),"/signin")
+          alert(err)
         }
       }
 
@@ -68,7 +71,8 @@ function HeaderUser({user, channelList, onChangeChannel}) {
                               )}
                             </NavDropdown>  
                                 <Nav.Link href="#home">내정보</Nav.Link>
-                                <Nav.Link href="/signin" onClick={onClickLogout}>Logout</Nav.Link>
+                                <Nav.Link href="#signin" onClick={onClickLogout}>Logout</Nav.Link>
+
                             </Nav>
                             </Navbar.Collapse>
                         </Container>

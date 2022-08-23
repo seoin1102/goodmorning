@@ -3,12 +3,22 @@
 <mapper namespace="verifi">
 	<insert id="insert" parameterType="verifivo">
 		<![CDATA[
-			insert into verification values(null, #{token }, #{email })
+			insert into verification values(null, #{token }, #{userNo })
 		]]>
 	</insert>
+	
 	<select id="findByToken" parameterType="verifivo" resultType="verifivo" >
 		<![CDATA[
-			select no,token,email from verification where token=#{token} and email=#{email}
+			select vf.no,vf.token,user.email 
+			 from verification as vf, user 
+			 where vf.user_no=user.no and token=#{token} and email=#{email}
 		]]>		
 	</select>
+	
+	<select id="findUserNo" parameterType="String" resultType="verifivo" >
+		<![CDATA[
+			select no from user where email=#{email }
+		]]>		
+	</select>
+	
 </mapper>

@@ -5,6 +5,9 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.douzone.goodmorning.vo.GithubHookVo;
+import com.douzone.goodmorning.vo.JenkinsHookVo;
+
 import lombok.RequiredArgsConstructor;
 
 @Repository
@@ -17,5 +20,12 @@ public class GitHubHookRepository {
 		return sqlSession.insert("githubhook.insert",map);
 	}
 	
-
+	public GithubHookVo findProjectNo(String string) {
+		return sqlSession.selectOne("githubhook.findProjectNo",string);
+	}
+	
+	public GithubHookVo findGitHubChatInfo() {
+		return sqlSession.selectOne("githubhook.findGitHubChatInfo");
+	}
+	
 }

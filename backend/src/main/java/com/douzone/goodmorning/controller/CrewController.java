@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.douzone.goodmorning.dto.Message;
 import com.douzone.goodmorning.dto.status.StatusEnum;
+import com.douzone.goodmorning.security.Auth;
 import com.douzone.goodmorning.service.CrewService;
 import com.douzone.goodmorning.vo.CrewVo;
 
@@ -29,6 +30,8 @@ public class CrewController {
 	
     private final CrewService crewService;
 	
+
+	  @Auth
     @GetMapping("/crew/{channelNo}/{userNo}")
     public ResponseEntity<Message> crews(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo) {
     	

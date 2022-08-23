@@ -10,6 +10,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class VerificationTokenVo {
+	private int no;
 	private String token;
+	private int userNo;
 	private String email;
 }

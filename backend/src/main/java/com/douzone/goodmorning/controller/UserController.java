@@ -75,7 +75,7 @@ public class UserController {
 //		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("로그인 성공했습니다."));
 	}
 	
-	@RequestMapping("/logout")
+	@GetMapping("/logout")
 	public void logout() {
 	}
 	
@@ -83,7 +83,14 @@ public class UserController {
 	@PutMapping("/resetPw")
 	public ResponseEntity<JsonResult> resetPw(@RequestBody UserVo vo) {
 		
-		int result =userService.resetPw(vo);
+		
+		UserVo authUser = userService.getEmailEnable(vo);
+		
+		if(!authUser.isEnable()) {
+			return ResponseEntity.status(HttpStatus.OK).body(JsonResult.fail("인증되지 않은 이메일 입니다."));
+		}
+		
+		int result =userService.resetPw(authUser);
 		
 		if(result==0) {
 			return ResponseEntity.status(HttpStatus.OK).body(JsonResult.fail("이메일 전송 실패.."));

@@ -1,17 +1,28 @@
-import React from 'react'; 
+import React,{useState} from 'react'; 
 import {NavLink} from "react-router-dom";
 import { Button, Form, Row, Col, Card, Dropdown, DropdownButton, InputGroup} from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock, faEnvelopeOpen, faUser, faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 
+function SignUp({callback,errormessage}) {
+  const [checkemail, setcheckEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
 
-function SignUp({callback}) {
-  
+  const onChangeEmailInput = e => {
+    setcheckEmail(e.target.value);
+    // check email format(account@mysite.com)
+    const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
+    setValidEmail(re.test(e.target.value))
+ }
+
   return (
 
+
     <div className="SignUp">
-       <div style={{padding:'0 700px'}}>
+       <div style={{padding:'0 35%'}}>
     
-        <Card className='card card-authentication1 mx-auto my-4'>
-          <Card.Body>
+        <Card bg='light' className='card card-authentication1 mx-auto my-4'>
+          <Card.Body style={{height: '478px'}}>
             <Form onSubmit={e => {
                 e.preventDefault();
                 callback(e.target.email.value, e.target.name.value, e.target.passwd.value);
@@ -26,14 +37,20 @@ function SignUp({callback}) {
           <div className="position-relative has-icon-right">
           
           <InputGroup className="mb-2">
-            <Form.Control className='form-control input-shadow' id="email" type="email"  placeholder="이메일을 입력해주세요" required />
-              <InputGroup.Text><i className="icon-envelope-open"></i></InputGroup.Text>
+            <Form.Control className='form-control input-shadow' id="email" type="email" value={checkemail}  placeholder="이메일을 입력해주세요" onChange={onChangeEmailInput} required />
+              { checkemail === '' ?
+                  null :
+                  validEmail ?
+                      <FontAwesomeIcon icon={faCheckCircle} style={{marginLeft:5,marginRight:5 , fontSize:35, color:'blue'}}/>: 
+                      <FontAwesomeIcon icon={faTimesCircle} style={{marginLeft:5,marginRight:5, fontSize:35, color:'red'}}/>
+              }
+              <InputGroup.Text><FontAwesomeIcon icon={faEnvelopeOpen}></FontAwesomeIcon></InputGroup.Text>
             </InputGroup>
 
           <Form.Label htmlFor="inlineFormInputGroup">Name</Form.Label>
           <InputGroup className="mb-2">
           <Form.Control className='form-control input-shadow' id="name" type="name"  placeholder="이름을 입력해주세요" required/>
-            <InputGroup.Text><i className="icon-user"></i></InputGroup.Text>
+            <InputGroup.Text><FontAwesomeIcon icon={faUser}></FontAwesomeIcon></InputGroup.Text>
           </InputGroup>  
           
           </div>
@@ -45,16 +62,25 @@ function SignUp({callback}) {
             </Form.Label>
             <InputGroup className="mb-2">
             <Form.Control type="password" id="passwd" className="form-control input-shadow"  placeholder="비밀번호를 입력해주세요" required/>
-              <InputGroup.Text><i className="icon-lock"></i></InputGroup.Text>
+              <InputGroup.Text><FontAwesomeIcon icon={faLock}></FontAwesomeIcon></InputGroup.Text>
             </InputGroup>
   
 
       
 
             <div className='text-center'>
-          <Button className="btn btn-outline-dark" style={{margin:'20px 0px -30px 0px' , width:'300px', height: '40px'}} size='sm' variant="outline-dark" type="submit">
+          <Button className="btn btn-outline-dark" style={{margin:'20px 0px -30px 0px' , width:'55%', height: '40px'}} size='sm' variant="outline-dark" type="submit">
               회원가입
           </Button>
+          <div className='text-center'>
+            {
+              errormessage===''?
+              <><br/><br/></>:
+              <p style={{color:'red'}}>
+                <br/><br/>{errormessage}
+              </p>
+            }
+          </div>
           </div>
         </Col>
 
@@ -68,7 +94,7 @@ function SignUp({callback}) {
           </Col>
           <Col sm='6'>
           <NavLink to={'/signin'}>
-            <Button className='mb-0' variant="outline-warning">
+            <Button className='mb-0' variant="outline-dark">
               로그인하기
             </Button>
           </NavLink>

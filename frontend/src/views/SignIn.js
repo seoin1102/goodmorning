@@ -1,6 +1,8 @@
 import React, {Fragment,useState,useRef} from 'react';
 import SignInContainer from '../components/sign/SignIn'
-import Modal from 'react-modal';
+import Modal from 'react-modal'
+
+
 function Sign(props) {
 
     const [modalData, setModalData] = useState({isOpen: false});
@@ -35,7 +37,9 @@ function Sign(props) {
                 <div>
                     <button onClick={() => { 
                       setModalData({isOpen: false});
-                      location.href=(modalUrl.url);
+                      if(modalUrl.url!=''){
+                        location.href=(modalUrl.url);
+                      }
                       }}>확인</button>
                 </div>
           </Modal>
