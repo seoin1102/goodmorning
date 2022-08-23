@@ -37,8 +37,7 @@ public class UserController {
 		int result = userService.signUp(vo);
 		if(result==-1) {
 			return ResponseEntity.status(HttpStatus.OK).body(JsonResult.fail("중복된 이메일 입니다!")); 
-		}
-		
+		}		
 		userService.addDefaultChannelAndCrew(vo);
 
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("회원가입 되었습니다 해당 이메일로 확인 메일이 전송되었습니다."));

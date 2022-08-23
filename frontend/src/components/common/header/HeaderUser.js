@@ -35,7 +35,7 @@ function HeaderUser({user, channelList, onChangeChannel}) {
           }
 
             const message = json.message; 
-            alert(message);
+            // alert("");
             localStorage.setItem('authUser','');
             location.href="/signin"
 

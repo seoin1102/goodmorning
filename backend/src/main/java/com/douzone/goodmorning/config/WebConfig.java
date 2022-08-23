@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.douzone.goodmorning.security.AuthInterceptor;
 import com.douzone.goodmorning.security.AuthUserHandlerMethodArgumentResolver;
 import com.douzone.goodmorning.security.LoginInterceptor;
+import com.douzone.goodmorning.security.LogoutInterceptor;
 //import com.douzone.goodmorning.security.LogoutInterceptor;
 import com.douzone.goodmorning.security.LogoutInterceptor;
 

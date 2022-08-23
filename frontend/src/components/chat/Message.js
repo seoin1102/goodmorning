@@ -7,7 +7,7 @@ function Message({chatList}) {
 
     return (
     <>
-        <List style={{ height: '700px', overflow: 'auto' }}>
+        <List style={{ height: '700px', overflow: 'auto', backgroundColor:'#f7f7fa' }}>
             {chatList.map((chat, index) => 
                 <MessageItem 
                     key={index} 

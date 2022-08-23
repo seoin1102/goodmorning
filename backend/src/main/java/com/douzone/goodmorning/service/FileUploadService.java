@@ -8,7 +8,6 @@ import java.util.Calendar;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.douzone.goodmorning.exception.FileUploadException;
 
 
@@ -44,7 +43,7 @@ public class FileUploadService {
 		} catch(IOException ex) {
 			throw new FileUploadException("file upload error:" + ex);
 		}
-	}
+}
 	
 	private String generateSaveFilename(String extName) {
 		String filename = "";

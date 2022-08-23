@@ -162,10 +162,14 @@ public class UserService {
 	}
 	
 	public void addDefaultChannelAndCrew(UserVo vo) {
+		
+		int userNo = userRepository.findByUserNo(vo.getEmail());
+		vo.setNo(userNo);
 		ChannelVo channelVo = new ChannelVo();
 		channelVo.setName(vo.getName() + "채널");
 		channelVo.setDescription(vo.getName() + "의 채널 입니다.");
 		channelVo.setMasterChannelUserNo(Long.valueOf(vo.getNo()));
+		System.out.println("channel : " + channelVo);
 		channelRepository.insert(channelVo);
 		Long channelNo = channelRepository.findByMasterChannelUserNo(Long.valueOf(vo.getNo()));
 		channelRepository.addChannelUser(channelVo.getMasterChannelUserNo(), channelNo);
@@ -174,9 +178,10 @@ public class UserService {
 		crewVo.setName(vo.getName() + "의 크루");
 		crewVo.setMasterCrewUserNo(Long.valueOf(vo.getNo()));
 		crewVo.setChannelNo(channelNo);
+		System.out.println("crew : " + crewVo);
 		crewRepository.insert(crewVo);
-		
 		Long crewNo = crewRepository.findMaster(channelNo, Long.valueOf(vo.getNo()));
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA     "+crewNo);
 		crewRepository.addCrewUser(crewNo, Long.valueOf(vo.getNo()));
 		
 		

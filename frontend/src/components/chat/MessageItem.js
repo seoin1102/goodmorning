@@ -5,9 +5,17 @@ import ListItemText from '@mui/material/ListItemText';
 
 function MessageItem({align, message, time}) {
     return (
-        <ListItem key="1">
-            <Grid container>
-                <Grid item xs={12}>
+        <ListItem key="1" >
+            <Grid container spacing={2}>
+                <Grid item xs={7}></Grid>
+                <Grid item xs={5} sx={{
+                    bgcolor: '#86a6df',
+                    boxShadow: 1,
+                    borderRadius: 3,
+                    p: 2,
+                    color:'white'
+          
+          }}>
                     <ListItemText align={align} primary={message}></ListItemText>
                 </Grid>
                 <Grid item xs={12}>

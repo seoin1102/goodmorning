@@ -30,7 +30,7 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
 
     return (
         <>
-        <Grid item xs={12} >캘린더 등 기타기능 여기!</Grid>
+        <Grid item xs={12} style={{fontSize:'20px', padding:'10px', fontStyle:'bold', borderBottom:'solid 1.5px white', color:'white'}}> 기능 </Grid>
         <List style={{height: '200px', overflow: 'auto'}}>
             
             <NavigationEctItem userName={"Remy Sharp"} itemName={"채널 생성"} onClickModal={onClickAddChannelModal}>

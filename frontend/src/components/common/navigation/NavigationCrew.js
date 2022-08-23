@@ -9,7 +9,7 @@ function NavigationCrew({crewList,onClickCrew}) {
 
     return (
     <>
-        <Grid item xs={12}>크루</Grid>
+        <Grid item xs={12} style={{fontSize:'20px', padding:'10px', fontStyle:'bold',borderTop:'solid 1.5px white', borderBottom:'solid 1.5px white',color:'white'}}>크루</Grid>
         <List style={{height: '300px', overflow: 'auto'}}>
             {crewList.map((crew, index) => 
                 <NavigationItem
