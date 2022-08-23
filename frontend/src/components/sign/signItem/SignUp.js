@@ -4,7 +4,7 @@ import { Button, Form, Row, Col, Card, Dropdown, DropdownButton, InputGroup} fro
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faEnvelopeOpen, faUser, faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 
-function SignUp({callback, email}) {
+function SignUp({callback,errormessage}) {
   const [checkemail, setcheckEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
 
@@ -19,10 +19,10 @@ function SignUp({callback, email}) {
 
 
     <div className="SignUp">
-       <div style={{padding:'0 700px'}}>
+       <div style={{padding:'0 35%'}}>
     
         <Card bg='light' className='card card-authentication1 mx-auto my-4'>
-          <Card.Body>
+          <Card.Body style={{height: '478px'}}>
             <Form onSubmit={e => {
                 e.preventDefault();
                 callback(e.target.email.value, e.target.name.value, e.target.passwd.value);
@@ -69,9 +69,18 @@ function SignUp({callback, email}) {
       
 
             <div className='text-center'>
-          <Button className="btn btn-outline-dark" style={{margin:'20px 0px -30px 0px' , width:'300px', height: '40px'}} size='sm' variant="outline-dark" type="submit">
+          <Button className="btn btn-outline-dark" style={{margin:'20px 0px -30px 0px' , width:'55%', height: '40px'}} size='sm' variant="outline-dark" type="submit">
               회원가입
           </Button>
+          <div className='text-center'>
+            {
+              errormessage===''?
+              <><br/><br/></>:
+              <p style={{color:'red'}}>
+                <br/><br/>{errormessage}
+              </p>
+            }
+          </div>
           </div>
         </Col>
 

@@ -80,7 +80,9 @@ public class GithubHookService {
 		return Integer.toString(projectNo.getNo());
 	}
 	
-	
+	public GithubHookVo getGitHookData() {
+		return gitHubHookRepository.findGitHubChatInfo();
+	}
 
 
 }

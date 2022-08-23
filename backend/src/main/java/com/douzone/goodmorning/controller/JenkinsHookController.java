@@ -45,7 +45,9 @@ public class JenkinsHookController {
 				break;
 		}
 		
-		
-		
+	}
+	@PostMapping("/jenkinsHookChatData")
+	public void gitHookChatData() {
+		System.out.println(jenkinsHookService.getJenkinsHookData());
 	}
 }

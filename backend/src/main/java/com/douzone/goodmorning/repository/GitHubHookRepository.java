@@ -23,4 +23,9 @@ public class GitHubHookRepository {
 	public GithubHookVo findProjectNo(String string) {
 		return sqlSession.selectOne("githubhook.findProjectNo",string);
 	}
+	
+	public GithubHookVo findGitHubChatInfo() {
+		return sqlSession.selectOne("githubhook.findGitHubChatInfo");
+	}
+	
 }

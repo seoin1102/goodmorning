@@ -39,4 +39,8 @@ public class JenkinsHookService {
 		return Integer.toString(projectNo.getNo());
 	}
 	
+	public JenkinsHookVo getJenkinsHookData() {
+		return jenkinsHookRepository.findJenkinsChatInfo();
+	}
+	
 }

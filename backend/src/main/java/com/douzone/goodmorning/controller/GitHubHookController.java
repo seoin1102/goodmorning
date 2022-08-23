@@ -76,4 +76,9 @@ public class GitHubHookController {
 		
 	}
 	
+	@PostMapping("/gitHookChatData")
+	public void gitHookChatData() {
+		System.out.println(githubHookService.getGitHookData());
+	}
+	
 }

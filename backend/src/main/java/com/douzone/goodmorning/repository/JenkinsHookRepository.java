@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.douzone.goodmorning.vo.GithubHookVo;
 import com.douzone.goodmorning.vo.JenkinsHookVo;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,8 @@ public class JenkinsHookRepository {
 		return sqlSession.selectOne("jenkinshook.findProjectNo",string);
 	}
 	
-	
+	public JenkinsHookVo findJenkinsChatInfo() {
+		return sqlSession.selectOne("jenkinshook.findJenkinsChatInfo");
+	}
 
 }

@@ -10,7 +10,7 @@ import lombok.ToString;
 public class JenkinsHookVo {
 	private int no;
 	private String fullUrl;
-	private String buildNum;
+	private String buildNumber;
 	private int duration;
 	private String status;
 	private String branch;

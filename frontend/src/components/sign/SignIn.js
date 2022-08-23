@@ -8,11 +8,13 @@ import qs from 'qs';
 function SignContainer({callback}) {
 
     console.log("로그아웃됬는지 체크:" + localStorage.getItem('authUser'));
-
+    const [errormessage, seterrormessage] = useState("");
+    
     const onChangeSaveEmailcheck = (status) =>{
       setSaveEmailcheck(status);
       console.log(status);
     }
+
     const { email, passwd } = useSelector(state => ({
         email: state.sign.email,
         passwd: state.sign.passwd
@@ -61,7 +63,8 @@ function SignContainer({callback}) {
           const json = await response.json();
 
           if(json.result !== 'success') {
-            throw new Error(`${json.result} ${json.message}`);  
+            //throw new Error(`${json.result} ${json.message}`);  
+            throw new Error(`${json.message}`); 
           }
 
             //callback("로그인이 성공적으로 되었습니다.","/")
@@ -69,10 +72,11 @@ function SignContainer({callback}) {
             //console.log("스토리지:" + localStorage.getItem('authUser'));
             //console.log("스토리지 로그인체크:" + localStorage.getItem('saveEmail'));
             location.href="/";
-            
+            seterrormessage('');
         } catch(err) {
+          seterrormessage(err.toString());
           //alert(err);
-          callback(err.toString(),"")
+          //callback(err.toString(),"")
         }
       }
 
@@ -83,7 +87,8 @@ function SignContainer({callback}) {
             email={email}
             passwd={passwd}
             callback={onSignIn}
-            callbackCheckSaveEmailStatus={onChangeSaveEmailcheck}/>
+            callbackCheckSaveEmailStatus={onChangeSaveEmailcheck}
+            errormessage={errormessage}/>
        </Fragment>     
     );
 }

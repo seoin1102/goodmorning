@@ -6,12 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons'
 
 
-function ResetPw({callback}) {
+function ResetPw({callback,errormessage}) {
   return (
     <div className="SignIn">
-     <div style={{padding:'0 700px'}}>
+     <div style={{padding:'0 35%'}}>
         <Card bg='light' className='card card-authentication1 mx-auto my-5'>
-        <Card.Body>
+        <Card.Body style={{height: '350px'}}>
             <Form onSubmit={e => {
                       e.preventDefault();
                       callback(e.target.email.value);
@@ -32,9 +32,18 @@ function ResetPw({callback}) {
                         </div>
                       </Form.Group>
                     <div className='text-center'>
-                      <Button className="btn btn-light btn-block" style={{margin:'20px 0px -30px 0px' , width:'300px', height: '40px'}} size='sm' type="submit"  variant="outline-dark">
+                      <Button className="btn btn-light btn-block" style={{margin:'20px 0px -30px 0px' , width:'55%', height: '40px'}} size='sm' type="submit"  variant="outline-dark">
                         비밀번호 수정
                       </Button>
+                      <div className='text-center'>
+                        {
+                          errormessage===''?
+                          <><br/><br/></>:
+                          <p style={{color:'red'}}>
+                            <br/><br/>{errormessage}
+                          </p>
+                        }
+                    </div>
                     </div>
                 </Col>
 
