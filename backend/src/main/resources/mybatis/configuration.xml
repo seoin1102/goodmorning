@@ -7,7 +7,9 @@
 				<typeAlias type="com.douzone.goodmorning.vo.ChatVo" alias="chatvo" />
 				<typeAlias type="com.douzone.goodmorning.vo.UserVo" alias="uservo" />
 				<typeAlias type="com.douzone.goodmorning.vo.VerificationTokenVo" alias="verifivo" />
-				<typeAlias type="com.douzone.goodmorning.vo.TaskVo" alias="taskvo" />	
+				<typeAlias type="com.douzone.goodmorning.vo.TaskVo" alias="taskvo" />
+				<typeAlias type="com.douzone.goodmorning.vo.GithubHookVo" alias="gitvo" />
+				<typeAlias type="com.douzone.goodmorning.vo.JenkinsHookVo" alias="jenkinsvo" />
 				<typeAlias type="com.douzone.goodmorning.vo.ProjectVo" alias="projectvo" />		
 					
     </typeAliases>
@@ -19,6 +21,7 @@
 				<mapper resource="mybatis/mappers/user.xml" />
 				<mapper resource="mybatis/mappers/verifi.xml" />
 				<mapper resource="mybatis/mappers/githubhook.xml" />
+				<mapper resource="mybatis/mappers/jenkinshook.xml" />
 				<mapper resource="mybatis/mappers/task.xml" />	
 				<mapper resource="mybatis/mappers/project.xml" />	
 		</mappers>

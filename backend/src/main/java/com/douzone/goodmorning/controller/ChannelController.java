@@ -41,7 +41,7 @@ public class ChannelController {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
-    	Message message = new Message(); 	
+    	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("채널목록 조회");
     	message.setData(channelService.getChannel(channelNo,userNo));

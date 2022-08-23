@@ -24,7 +24,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			
 			throws Exception {
 		SHA256 sha256 =  new SHA256();
-		System.out.println("테테스트");
+
 		String email = request.getParameter("email");
 		String passwd = request.getParameter("passwd");
 
@@ -35,18 +35,31 @@ public class LoginInterceptor implements HandlerInterceptor {
 		System.out.println(authUser);
 		
 		if(authUser == null) {
-			request.setAttribute("email", email);
-			request.setAttribute("result", "fail");
+			//request.setAttribute("email", email);
+			//request.setAttribute("result", "fail");
 			//request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
 			
-			// 3. json 응답
+			//json 응답처리 
 			response.setStatus(HttpServletResponse.SC_OK);
 		
 			JsonResult jsonResult = JsonResult.fail("이메일 또는 패스워드가 잘못되었습니다.");
 			String jsonString = new ObjectMapper().writeValueAsString(jsonResult);
+			
 			OutputStream os = response.getOutputStream();
 			os.write(jsonString.getBytes("UTF-8"));
-			System.out.println(os);
+			os.close();
+			
+			return false;
+		}
+		System.out.println("테스트" + authUser.isEnable());
+		if(!authUser.isEnable()) {
+			response.setStatus(HttpServletResponse.SC_OK);
+		
+			JsonResult jsonResult = JsonResult.fail("이메일 인증이 되지 않았습니다. 이메일을 확인해주세요.");
+			String jsonString = new ObjectMapper().writeValueAsString(jsonResult);
+			
+			OutputStream os = response.getOutputStream();
+			os.write(jsonString.getBytes("UTF-8"));
 			os.close();
 			
 			return false;
@@ -57,7 +70,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
 		
-		// 3. json 응답
+		//json 응답처리 
 		response.setStatus(HttpServletResponse.SC_OK);
 
 		JsonResult jsonResult = JsonResult.success(authUser);
@@ -67,6 +80,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 		os.write(jsonString.getBytes("UTF-8"));
 		os.close();
 		
-		return true;
+		return false;
 	}
 }

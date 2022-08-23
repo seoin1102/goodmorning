@@ -4,8 +4,25 @@
 
 	<insert id="insert" parameterType="map">
 		<![CDATA[
-			insert into githubhook values(null, #{eventType }, #{pusher }, #{projectName }, #{message }, #{timeStamp})
+			insert into githubhook values(null, #{eventType }, #{pusher }, #{message }, now(), #{projectNo})
 		]]>
 	</insert>
-
+	
+	<select id="findProjectNo" parameterType="String" resultType="gitvo">
+		<![CDATA[
+			select no from project where project_name=#{projectName }
+		]]>
+	</select>
+	
+	<select id="findGitHubChatInfo" resultType="gitvo">
+		<![CDATA[
+			select gh.no, gh.event_type as eventType, gh.user_name as userName, gh.message, gh.date, gh.project_no as projectNo, pj.project_name as projectName, task.crew_no as crewNo, crew.master_crew_user_no as masterCrewUserNo
+			 from githubhook as gh,
+			 project as pj,
+		     task,
+		     crew
+			 where gh.project_no = pj.no and pj.no = task.project_no and task.crew_no = crew.no
+			 order by gh.no desc limit 1;
+		]]>
+	</select>
 </mapper>

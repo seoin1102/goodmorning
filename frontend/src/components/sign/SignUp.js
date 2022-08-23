@@ -1,10 +1,12 @@
-import React, {Fragment} from 'react';
+import React,{useState, Fragment} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SignUp from './signItem/SignUp'
 import {signup} from '../../redux/sign'
 
 
 function SignContainer({callback}) {
+
+    const [errormessage, seterrormessage] = useState("");
 
     const { email, name, passwd } = useSelector(state => ({
         email: state.sign.email,
@@ -45,16 +47,17 @@ function SignContainer({callback}) {
           const json = await response.json();
 
           if(json.result !== 'success') {
-            throw new Error(`${json.result} ${json.message}`);  
+            //throw new Error(`${json.result} ${json.message}`);  
+            throw new Error(`${json.message}`);  
           }
-            callback("회원가입 되었습니다 해당 이메일로 확인 메일이 전송되었습니다.","/signin");
+            callback("회원가입 되었습니다. 해당 이메일로 확인 메일이 전송되었습니다.","/signin");
             //alert("회원가입 되었습니다. 해당 이메일로 확인 메일이 전송되었습니다.")
             //location.href="/";
-          
+            seterrormessage('');
         } catch(err) {
-          console.log(err);
           //alert(err);
-          callback(err.toString(),"/signup");
+          //callback(err.toString(),"");
+          seterrormessage(err.toString());
         }
       }
 
@@ -64,8 +67,10 @@ function SignContainer({callback}) {
             email={email}
             name={name}
             passwd={passwd}
-            callback={onSignUp}/>
+            callback={onSignUp}
+            errormessage={errormessage}/>
        </Fragment>     
+
     );
 }
 

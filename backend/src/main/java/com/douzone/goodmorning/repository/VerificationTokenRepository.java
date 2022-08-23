@@ -19,5 +19,9 @@ public class VerificationTokenRepository {
 	public VerificationTokenVo findByToken(VerificationTokenVo verificationToken) {
 		return sqlSession.selectOne("verifi.findByToken",verificationToken);
 	}
+
+	public VerificationTokenVo findUserNo(String email) {
+		return sqlSession.selectOne("verifi.findUserNo", email);
+	}
 	
 }

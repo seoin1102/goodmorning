@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {resetPw} from '../../redux/sign'
 import ResetPw from './signItem/ResetPw'
@@ -10,7 +10,8 @@ function ResetPwContainer({callback}) {
       }));
 
     const dispatch = useDispatch();
-
+    const [errormessage, seterrormessage] = useState("");
+    
 
     const onResetPw=(email) =>{
         updatePw(email);
@@ -39,18 +40,17 @@ function ResetPwContainer({callback}) {
           const json = await response.json();
 
           if(json.result !== 'success') {
-            throw new Error(`${json.result} ${json.message}`);  
+            throw new Error(`${json.message}`);  
           }
 
-            callback("변경된 패스워드를 메일로 전송하였습니다.","/signin")
-            console.log(json.data);
-            localStorage.setItem('authUser',JSON.stringify(json.data));
-            console.log("스토리지:" + localStorage.getItem('authUser'));
+            callback("해당 메일로 임시 패스워드가 전송되었습니다.","/signin")
+            //localStorage.setItem('authUser',JSON.stringify(json.data));
+            seterrormessage('');
 
         } catch(err) {
-          console.log(typeof(err));
-          callback(err.toString())
-
+          //console.log(typeof(err));
+          seterrormessage(err.toString());
+          //callback(err.toString(),"")
         }
       }
 
@@ -59,6 +59,7 @@ function ResetPwContainer({callback}) {
         <ResetPw
             email={email}
             callback={onResetPw}
+            errormessage={errormessage}
         />
     );
 }

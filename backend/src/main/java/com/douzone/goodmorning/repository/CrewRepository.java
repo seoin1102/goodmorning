@@ -43,9 +43,9 @@ public class CrewRepository {
 	}
 
 	@Transactional
-	public void addCrewUser(Long masterNo, Long userNo) {
+	public void addCrewUser(Long crewNo, Long userNo) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("masterNo", masterNo);
+		map.put("masterNo", crewNo);
 		map.put("userNo", userNo);
 		sqlSession.insert("crew.insertcrewuser", map);
 	}

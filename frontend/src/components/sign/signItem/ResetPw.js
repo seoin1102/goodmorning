@@ -2,15 +2,16 @@ import React from 'react';
 import {NavLink} from "react-router-dom";
 
 import { Button, Form, Row, Col, Card, Dropdown, DropdownButton, InputGroup} from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons'
 
 
-
-function ResetPw({callback}) {
+function ResetPw({callback,errormessage}) {
   return (
     <div className="SignIn">
-     <div style={{padding:'0 700px'}}>
-        <Card className='card card-authentication1 mx-auto my-5'>
-        <Card.Body>
+     <div style={{padding:'0 35%'}}>
+        <Card bg='light' className='card card-authentication1 mx-auto my-5'>
+        <Card.Body style={{height: '350px'}}>
             <Form onSubmit={e => {
                       e.preventDefault();
                       callback(e.target.email.value);
@@ -26,14 +27,23 @@ function ResetPw({callback}) {
                           <Form.Label htmlFor="inlineFormInputGroup">Email address</Form.Label>
                           <InputGroup className="mb-2">
                             <Form.Control className='form-control input-shadow' type="email" id="email" placeholder="이메일을 입력해주세요" required/>
-                            <InputGroup.Text><i className="icon-envelope-open"></i></InputGroup.Text>
+                            <InputGroup.Text><FontAwesomeIcon icon={faEnvelopeOpen}></FontAwesomeIcon></InputGroup.Text>
                           </InputGroup>
                         </div>
                       </Form.Group>
                     <div className='text-center'>
-                      <Button className="btn btn-light btn-block" style={{margin:'20px 0px -30px 0px' , width:'300px', height: '40px'}} size='sm' type="submit"  variant="outline-dark">
+                      <Button className="btn btn-light btn-block" style={{margin:'20px 0px -30px 0px' , width:'55%', height: '40px'}} size='sm' type="submit"  variant="outline-dark">
                         비밀번호 수정
                       </Button>
+                      <div className='text-center'>
+                        {
+                          errormessage===''?
+                          <><br/><br/></>:
+                          <p style={{color:'red'}}>
+                            <br/><br/>{errormessage}
+                          </p>
+                        }
+                    </div>
                     </div>
                 </Col>
 
@@ -42,7 +52,7 @@ function ResetPw({callback}) {
         
         <Card.Footer className="card-footer text-center py-3" >
         <NavLink to={'/signin'}>
-            <Button className='mb-0' variant="outline-warning">
+            <Button className='mb-0' variant="outline-dark">
             로그인 페이지로 돌아가기
             </Button>
         </NavLink>

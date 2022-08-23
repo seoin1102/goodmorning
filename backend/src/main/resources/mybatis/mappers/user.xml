@@ -16,10 +16,18 @@
 	
 	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-		select no ,email, name
+		select no ,email, name,enable
 		  from user
 		 where email=#{email }
 		   and passwd=#{passwd }
+		]]>
+	</select>
+	
+	<select id="findByEnable" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+		select no ,email, name,enable
+		  from user
+		 where email=#{email }
 		]]>
 	</select>
 	
@@ -34,6 +42,5 @@
 			update user set passwd=#{token } where email=#{email }
 		]]>
 	</update>
-	
 	
 </mapper>

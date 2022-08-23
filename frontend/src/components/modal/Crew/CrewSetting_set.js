@@ -19,7 +19,7 @@ function CrewSetting_set() {
                   </Button>
                   </Form.Group>
                 <Form.Group className="mb-3">
-                <Button variant="outline-dark"  >
+                <Button variant="outline-dark" onClick={""} >
                     이 크루 삭제
                   </Button>
                   </Form.Group>
