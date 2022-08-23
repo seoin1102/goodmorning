@@ -6,6 +6,7 @@ import { setCHANNELFOCUS } from '../../../redux/focus';
 
 
 function ChannelSetting_info({onChangeHandler, channelName, onClickModal}) {
+  
   const emaillist = [
     { title: 'The Shawshank Redemption', year: 1994 },
     { title: 'The Godfather', year: 1972 },

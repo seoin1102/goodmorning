@@ -71,7 +71,7 @@ function HeaderUser({user, channelList, onChangeChannel}) {
                               )}
                             </NavDropdown>  
                                 <Nav.Link href="#home">내정보</Nav.Link>
-                                <Nav.Link href="#signin" onClick={onClickLogout}>Logout</Nav.Link>
+                                <Nav.Link href="/signin" onClick={onClickLogout}>Logout</Nav.Link>
 
                             </Nav>
                             </Navbar.Collapse>
