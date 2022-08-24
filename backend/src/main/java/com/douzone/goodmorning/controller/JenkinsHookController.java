@@ -24,16 +24,16 @@ public class JenkinsHookController {
 	@PostMapping("/hookdata")
 	public void jenkinshook(@RequestBody HashMap<String, Object> data) {
 		
-//		for(Entry<String, Object> entry : data.entrySet()) {
-//		if(!"null".equals(entry.getKey())) {
-//		String key = entry.getKey();
-//		System.out.println("키:" + key);
-//		}
-//		if(entry.getValue()!=null) {
-//		String value = entry.getValue().toString();
-//		System.out.println("밸류:" + value);
-//		}
-//	}
+		for(Entry<String, Object> entry : data.entrySet()) {
+		if(!"null".equals(entry.getKey())) {
+		String key = entry.getKey();
+		System.out.println("키:" + key);
+		}
+		if(entry.getValue()!=null) {
+		String value = entry.getValue().toString();
+		System.out.println("밸류:" + value);
+		}
+	}
 		
 		Map<String,Object> map = new LinkedHashMap<>();
 		

@@ -1,19 +1,34 @@
-import React from 'react';
+import React,{useState, useRef,useEffect} from 'react';
+import Modal from "react-modal";
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Fab from '@mui/material/Fab';
-
+import '../../styles/css/Calendar.css'
 import { Button } from '@mui/material';
+import FileUpload from '../modal/Channel/FileUpload'
 
+function SendMessage({onChangeHandler, onClickHandler, text, addFilecallback}) {
 
-function SendMessage({onChangeHandler, onClickHandler, text}) {
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    // modal click
+    const onClickFileUploadModal = () => {
+        setModalIsOpen(true)
+    }
+    
+    const FileUploadModalIsOpen = (isOpenStatus) => {
+        setModalIsOpen(isOpenStatus)
+    }
+
     return (
         <>
         <Grid container style={{ padding: '10px 30px 10px 20px'}}>
             <Grid item xs={11} style={{direction:'rtl'}}>
+                <Button variant="outlined" component="label" onClick={onClickFileUploadModal}>
+                    Upload  
+                </Button>
                 <Button variant="outlined" component="label">
-                Upload  
-                    <input hidden accept="image/*" multiple type="file" />
+                    임시다운로드 버튼 
                 </Button>
             </Grid>
         </Grid>
@@ -38,6 +53,9 @@ function SendMessage({onChangeHandler, onClickHandler, text}) {
                 </Fab>
             </Grid>
         </Grid>
+        <FileUpload callback={addFilecallback} modalShow={modalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} >
+            <></>
+        </FileUpload>
         </>
     );
 }

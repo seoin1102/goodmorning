@@ -9,13 +9,14 @@ import java.util.Calendar;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.douzone.goodmorning.exception.FileUploadException;
+import com.douzone.goodmorning.vo.FileManagementVo;
 
 
 
 @Service
 public class FileUploadService {
-	private static String SAVE_PATH = "/mysite-uploads";
-	private static String URL_BASE = "/assets/gallery";	
+	private static String SAVE_PATH = "/goodmorning-uploads";
+	private static String URL_BASE = "/assets/file";	
 	
 	public String restoreImage(MultipartFile file) throws FileUploadException {
 		try {
@@ -60,5 +61,9 @@ public class FileUploadService {
 		filename += ("." + extName);
 		
 		return filename;
-	}	
+	}
+
+
+
+
 }
