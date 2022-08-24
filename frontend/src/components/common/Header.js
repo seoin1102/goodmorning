@@ -113,16 +113,16 @@ function Header() {
     
     const [users, setUsers] = useState([]);
 
-    const initialUser = useCallback(async(userNo) => {
-        const result = await get(`/user/email/${userNo}`);
-        console.log(result);
-        setUsers((prevUsers) => prevUsers.concat(result));
+    // const initialUser = useCallback(async(userNo) => {
+    //     const result = await get(`/user/email/${userNo}`);
+    //     console.log(result);
+    //     setUsers((prevUsers) => prevUsers.concat(result));
 
-    }, [users])
+    // }, [users])
     // modal click
     const onClickChannelModal = useCallback(() => {
         setChannelModalIsOpen(prevChannelModalIsOpen => !prevChannelModalIsOpen);
-        initialUser(userNo);
+        // initialUser(userNo);
     }, [])
 
 

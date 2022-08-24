@@ -5,6 +5,7 @@ import { Button, Dropdown, Form, ListGroup, Modal } from 'react-bootstrap';
 function CrewSetting_member({users,onClickModal,setTab}) {
 
   const [value, setValue] = useState([]);
+  
   console.log(users);
     return (
       <>
@@ -31,7 +32,7 @@ function CrewSetting_member({users,onClickModal,setTab}) {
                       <Form.Group className="mb-3" controlId="user">
                       <Form.Label>멤버</Form.Label>
                 <ListGroup style={{height:"200px",overflow:"auto"}}>
-                  {users.map((user)=><ListGroup.Item key={user.no}>{user.name}</ListGroup.Item>)}
+                  {users.map((user)=><ListGroup.Item key={user.no}>{user.name} ({user.email})</ListGroup.Item>)}
                 </ListGroup>
                 </Form.Group>
             </Form>

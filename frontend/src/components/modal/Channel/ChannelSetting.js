@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Dropdown, Modal, NavItem, NavLink } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { putJson } from '../../../apis/Axios';
+import { post, postJson, putJson } from '../../../apis/Axios';
 import { setCHANNELFOCUS } from '../../../redux/focus';
 import ChannelSetting_info from './ChannelSetting_info';
 import Channelsetting_set from './Channelsetting_set';
@@ -34,14 +34,25 @@ function ChannelSetting({modalShow, onClickModal,users}) {
         onClickModal();
     }
 
+    const onClickChannelInvite = async(channelNo, user) => {
+      const userEmail = JSON.stringify({
+        email: user
+    })
+      const result = await postJson(`/channel/invite/${channelNo}`, userEmail);
+      console.log(result);
+    }
+
     function TabContent() {
         if (tab === 0) return <ChannelSetting_info 
             onClickHandler={onClickHandler}
             channelName={channelName}
             channelNo={channelNo}
             onClickModal={onClickModal}
-            users={users} />
-        else if (tab === 1) return <Channelsetting_set onClickModal={onClickModal} />
+            users={users}
+            onClickChannelInvite={onClickChannelInvite} />
+        else if (tab === 1) return <Channelsetting_set 
+                onClickModal={onClickModal}
+                setTab={setTab} />
       }
     
     return (

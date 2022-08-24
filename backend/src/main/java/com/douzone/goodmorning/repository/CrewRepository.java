@@ -43,10 +43,11 @@ public class CrewRepository {
 	}
 
 	@Transactional
-	public void addCrewUser(Long crewNo, Long userNo) {
+	public void addCrewUser(Long crewNo, Long userNo, Long owner) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("crewNo", crewNo);
 		map.put("userNo", userNo);
+		map.put("owner", owner);
 		sqlSession.insert("crew.insertcrewuser", map);
 	}
 
@@ -61,6 +62,14 @@ public class CrewRepository {
 		map.put("userNo", userNo);
 		
 		return sqlSession.update("crew.updateLastIn", map) == 1;
+	}
+
+	public Long findCrewNoByChannelNo(String channelNo) {
+		return sqlSession.selectOne("crew.findCrewNoByChannelNo", channelNo);
+	}
+
+	public boolean updateCrewName(CrewVo crewVo) {
+		return sqlSession.update("crew.updateCrewName", crewVo ) == 1;
 	}
 	
 

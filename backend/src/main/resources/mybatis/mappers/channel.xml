@@ -40,6 +40,18 @@
 				]]>
 		</select>
 		
+		<select id="checkUser" parameterType="map" resultType="integer">
+				<![CDATA[
+				select count(*) from channel_user as a, user as b where b.email = #{email} and a.user_no = b.no and a.channel_no = #{channelNo};
+				]]>
+		</select>
+		
+		<select id="findUserNoByEmail" parameterType="string" resultType="integer">
+				<![CDATA[
+				select no from user where email = #{email};
+				]]>
+		</select>
+		
 		<insert id="insert" parameterType="channelvo">
 				<![CDATA[
 				insert
@@ -50,7 +62,7 @@
 		
 		<insert id="insertUser" parameterType="map">
 				<![CDATA[
-				insert into channel_user values (null, #{masterChannelUserNo}, #{channelNo}, now(), 1);
+				insert into channel_user values (null, #{masterChannelUserNo }, #{channelNo }, now(), #{owner });
 				]]>
 		</insert>
 		

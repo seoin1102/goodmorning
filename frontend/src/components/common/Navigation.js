@@ -23,6 +23,7 @@ function Navigation() {
         no: crewNo,
         name: crewName
     });
+    console.log("aaaaaaaaaaaaaaaa", crewList)
     // console.log("Zz" + channelNo);
     /**
      * 크루 목록

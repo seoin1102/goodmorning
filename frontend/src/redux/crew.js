@@ -5,10 +5,14 @@ import update from 'react-addons-update';
 const SET_CREW = 'crew/SET_CREW';
 const ADD_CREW = 'crew/ADD_CREW';
 const DELETE_CREW = 'crew/DELETE_CREW';
+const UPDATE_CREW = 'crew/UPDATE_CREW';
 /**
  * @param {object} crews 채널에 속한 크루 목록
  */
 export const setCrew = (crews) => ({ type: SET_CREW, crews});
+
+export const updateCREW = (crew) => ({ type: UPDATE_CREW, crew});
+
 
 /**
  * @param {object} crew 채널에 추가될 크루 
@@ -34,6 +38,12 @@ const crew = (state = initialState, action) => {
             return update(state, {$set: action.crews});
         case ADD_CREW:
             return state.concat(action.crew);
+        case UPDATE_CREW:
+            return state.map((crew) => {
+                if(crew.no === action.crew.no)
+                     crew.name = action.crew.name;            
+                return crew;
+            })
         case DELETE_CREW:
             return update(state, {$splice: [[action.crewNo], 1]});
         default:

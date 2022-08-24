@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.douzone.goodmorning.repository.ChannelRepository;
+import com.douzone.goodmorning.repository.CrewRepository;
 import com.douzone.goodmorning.vo.ChannelVo;
 
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class ChannelService {
 	private final ChannelRepository channelRepository;
+	private final CrewRepository crewRepository;
 	
 	public List<ChannelVo> getChannel(Long channelNo, Long userNo) {
 		return channelRepository.findAll(channelNo, userNo);
@@ -36,13 +38,26 @@ public class ChannelService {
 		return channelRepository.findByMasterChannelUserNo(masterChannelUserNo);
 	}
 
-	public void addChannelUser(Long masterChannelUserNo, Long channelNo) {
-		channelRepository.addChannelUser(masterChannelUserNo,channelNo);
+	public void addChannelUser(Long masterChannelUserNo, Long channelNo, Long owner) {
+		channelRepository.addChannelUser(masterChannelUserNo,channelNo, owner);
 		
 	}
 
 	public List<ChannelVo> getChangeChannel(String channelNo, String userNo) {
 		return channelRepository.getChangeChannel(channelNo, userNo);
+	}
+
+	public int checkUser(String channelNo, String email) {
+		return channelRepository.checkUser(channelNo,email);
+		
+	}
+
+	public int findUserNoByEmail(String email) {
+		return channelRepository.findUserNoByEmail(email);
+	}
+
+	public Long findCrewNoByChannelNo(String channelNo) {
+		return crewRepository.findCrewNoByChannelNo(channelNo);
 	}
 
 }

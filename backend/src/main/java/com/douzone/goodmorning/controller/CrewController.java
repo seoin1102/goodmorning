@@ -33,6 +33,7 @@ public class CrewController {
     private final CrewService crewService;
 	
 	@Auth
+	@Transactional
     @GetMapping("/crew/{channelNo}/{userNo}")
     public ResponseEntity<Message> crews(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo) {
     	System.out.println("제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발" + channelNo + userNo);
@@ -46,7 +47,7 @@ public class CrewController {
     	
     	return ResponseEntity.ok().headers(headers).body(message);
     }
-    
+	@Transactional
     @PostMapping("/crew/{channelNo}/{userNo}")
     public ResponseEntity<Message> crew(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo, @RequestBody CrewVo crewVo) {
     	
@@ -54,7 +55,7 @@ public class CrewController {
     	crewVo.setMasterCrewUserNo(userNo);
     	crewService.addCrew(crewVo);
     	Long crewNo = crewService.findMaster(channelNo, userNo);
-    	crewService.addCrewUser(crewNo, userNo);
+    	crewService.addCrewUser(crewNo, userNo, 1L);
     	
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
@@ -69,6 +70,7 @@ public class CrewController {
     
 	// crew_user 관련 컨트롤러
     
+    @Transactional
     @GetMapping("/crew/user/{no}")
     public ResponseEntity<Message> crewUser(@PathVariable("no") Long no) {
     	HttpHeaders headers = new HttpHeaders();
@@ -85,7 +87,7 @@ public class CrewController {
     
     @Transactional
     @PutMapping("/crew/{crewNo}")
-    public ResponseEntity<Message> updateChannel(@PathVariable("crewNo") String crewNo, @RequestBody UserVo userVo) {
+    public ResponseEntity<Message> updateLastIn(@PathVariable("crewNo") String crewNo, @RequestBody UserVo userVo) {
 
     	crewService.updateLastIn(crewNo, userVo.getNo());
     	
@@ -98,4 +100,21 @@ public class CrewController {
     	message.setData("success");
     	return ResponseEntity.ok().headers(headers).body(message);
     }
+    
+    @Transactional
+    @PutMapping("/crew/update")
+    public ResponseEntity<Message> updateCrewName(@RequestBody CrewVo crewVo) {
+    	
+    	crewService.updateCrewName(crewVo);
+    	
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("크루 마지막 접속 업데이트 성공");
+    	message.setData("success");
+    	return ResponseEntity.ok().headers(headers).body(message);
+    }
+    
 }

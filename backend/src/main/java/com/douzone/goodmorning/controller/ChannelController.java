@@ -1,6 +1,7 @@
 package com.douzone.goodmorning.controller;
 
 import java.nio.charset.Charset;
+import java.util.List;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.douzone.goodmorning.dto.Message;
 import com.douzone.goodmorning.dto.status.StatusEnum;
 import com.douzone.goodmorning.service.ChannelService;
+import com.douzone.goodmorning.service.CrewService;
 import com.douzone.goodmorning.vo.ChannelVo;
 import com.douzone.goodmorning.vo.UserVo;
 
@@ -31,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class ChannelController {
 
     private final ChannelService channelService;
+    private final CrewService crewService;
   
 	/**
 	 * 채널 리스트 정보
@@ -98,7 +101,7 @@ public class ChannelController {
     public ResponseEntity<Message> channel(@RequestBody ChannelVo channelVo) {
     	channelService.addChannel(channelVo);
     	Long channelNo = channelService.findByMasterChannelUserNo(channelVo.getMasterChannelUserNo());
-    	channelService.addChannelUser(channelVo.getMasterChannelUserNo(),channelNo);
+    	channelService.addChannelUser(channelVo.getMasterChannelUserNo(),channelNo, 1L);
     	
     	channelVo.setNo(channelNo);
 //    	System.out.println(channelVo);
@@ -132,21 +135,33 @@ public class ChannelController {
     @Transactional
     @PostMapping("/channel/invite/{channelNo}")
     public ResponseEntity<Message> inviteChannel(@PathVariable("channelNo") String channelNo, @RequestBody UserVo userVo) {
+
+    	int checkcount = channelService.checkUser(channelNo,userVo.getEmail());
     	
-    	System.out.println(userVo);
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
-//    	channelService.addChannel(channelVo);
-//    	Long channelNo = channelService.findByMasterChannelUserNo(channelVo.getMasterChannelUserNo());
-//    	channelService.addChannelUser(channelVo.getMasterChannelUserNo(),channelNo);
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	if(checkcount == 1) {
+        	message.setMessage("유저가 채널에 이미 존재합니다.");
+        	message.setData("fail");
+    		return ResponseEntity.ok().headers(headers).body(message);
+    	}
     	
-//    	HttpHeaders headers = new HttpHeaders();
-//    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-//    	
-//    	Message message = new Message();
-//    	message.setStatus(StatusEnum.OK);
-//    	message.setMessage("채널추가 성공");
-//    	message.setData(channelVo);
-//    	return ResponseEntity.ok().headers(headers).body(message);
-    	return null;
+    	int userNo = channelService.findUserNoByEmail(userVo.getEmail());
+    	if(userNo == 0 ) {
+        	message.setMessage("가입한 유저가 아닙니다.");
+        	message.setData("fail");
+    		return ResponseEntity.ok().headers(headers).body(message);
+    	}
+    	
+    	channelService.addChannelUser(Long.valueOf(userNo),Long.valueOf(channelNo), 0L);
+    	Long crewNo = channelService.findCrewNoByChannelNo(channelNo);
+    	crewService.addCrewUser(crewNo, Long.valueOf(userNo), 0L);
+    	
+    	message.setMessage("유저 초대에 성공하였습니다.");
+    	message.setData("success");
+    	return ResponseEntity.ok().headers(headers).body(message);
     }
 }

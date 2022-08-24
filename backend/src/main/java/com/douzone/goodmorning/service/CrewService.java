@@ -30,8 +30,8 @@ public class CrewService {
 		
 	}
 
-	public void addCrewUser(Long crewNo, Long userNo) {
-		crewRepository.addCrewUser(crewNo, userNo);
+	public void addCrewUser(Long crewNo, Long userNo, Long owner) {
+		crewRepository.addCrewUser(crewNo, userNo, owner);
 		
 	}
 
@@ -42,6 +42,11 @@ public class CrewService {
 
 	public boolean updateLastIn(String crewNo, int userNo) {
 		return crewRepository.updateLastIn(crewNo, userNo);
+	}
+
+	public boolean updateCrewName(CrewVo crewVo) {
+		return crewRepository.updateCrewName(crewVo);
+		
 	}
 
 }

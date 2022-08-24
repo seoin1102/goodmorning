@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal, Nav } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import CrewSetting_info from './CrewSetting_info';
 import CrewSetting_member from './CrewSetting_member';
 import CrewSetting_set from './CrewSetting_set';
@@ -8,8 +9,18 @@ function CrewSetting({modalShow,onClickModal, users, crewName }) {
 
   let [tab, setTab] = useState(0);
 
+  const crewNo = useSelector(state => {
+    return state.focus.crewNo;
+  });
+
+
+
   function TabContent() {
-      if (tab === 0) return <CrewSetting_info crewName={crewName} onClickModal={onClickModal} setTab={setTab}/>
+      if (tab === 0) return <CrewSetting_info 
+                            crewName={crewName} 
+                            onClickModal={onClickModal} 
+                            setTab={setTab}
+                            crewNo={crewNo}/>
       else if (tab === 1) return <CrewSetting_member users={users} onClickModal={onClickModal} setTab={setTab}/>
       else return <CrewSetting_set onClickModal={onClickModal} setTab={setTab}/>
     }

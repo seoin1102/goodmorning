@@ -6,9 +6,13 @@ import { get } from '../../../apis/Axios';
 import { setCHANNELFOCUS } from '../../../redux/focus';
 
 
-function ChannelSetting_info({onClickHandler,channelName, onClickModal}) {
+function ChannelSetting_info({onClickHandler,channelName, onClickModal, channelNo,onClickChannelInvite}) {
   
   const [name, setName] = useState(channelName);
+  const [value, setValue] = useState([]);
+
+  console.log("zffaf",channelNo);
+
 
     return (
     <>
@@ -28,6 +32,23 @@ function ChannelSetting_info({onClickHandler,channelName, onClickModal}) {
                     />
                 </Form.Group>
 
+                <Form.Group className="mb-3" controlId="channelForm.invite">
+                      <Form.Label>초대</Form.Label>
+                      <Form.Control
+                    type="email"
+                    placeholder="example@gmail.com"
+                    autoFocus
+                    onChange={(e) =>{
+                      setValue(e.target.value)
+                    }}
+                    
+                    />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="channelForm.footer">
+                <Button variant="outline-dark" onClick={() => onClickChannelInvite(channelNo,value)} >
+                        전송
+                      </Button>
+                      </Form.Group>
                   <Form.Group className="mb-3">
                 <Button variant="outline-dark" onClick={onClickModal} >
                     이 채널에서 나가기
