@@ -1,10 +1,13 @@
 package com.douzone.goodmorning.controller;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.douzone.goodmorning.dto.JsonResult;
+import com.douzone.goodmorning.dto.Message;
+import com.douzone.goodmorning.dto.status.StatusEnum;
 import com.douzone.goodmorning.service.UserService;
 import com.douzone.goodmorning.vo.UserVo;
 import com.douzone.goodmorning.vo.VerificationTokenVo;
@@ -97,7 +102,18 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("임시 비밀번호가 해당 메일로 전송되었습니다."));
 	}
 	
+	@GetMapping("/email/{userNo}")
+	 public ResponseEntity<Message> getEmails(@PathVariable("userNo") String userNo) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("전체 유저 이메일 리스트 조회");
+    	message.setData(userService.findAllEmaillist(userNo));
+    	return ResponseEntity.ok().headers(headers).body(message);
 
+    }
 	
 	
 }

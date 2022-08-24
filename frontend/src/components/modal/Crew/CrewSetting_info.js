@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 
-function CrewSetting_info() {
+function CrewSetting_info({onClickModal, crewName, setTab}) {
 
     
     return (
@@ -14,6 +14,7 @@ function CrewSetting_info() {
                     type="text"
                     placeholder="Crew Name"
                     autoFocus
+                    defaultValue={crewName}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -23,6 +24,18 @@ function CrewSetting_info() {
                   </Form.Group>
             </Form>
         </Modal.Body>
+        <Modal.Footer>
+          <Button 
+              variant="outline-dark"  
+              onClick={() => {onClickModal()
+                              setTab(0)
+                              }} >
+            취소
+          </Button>
+          <Button variant="outline-dark"  >
+            변경사항 저장
+          </Button>
+      </Modal.Footer>
         
      </>
     );

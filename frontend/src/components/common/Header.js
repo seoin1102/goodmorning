@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { get } from '../../apis/Axios';
 import { setChannel } from '../../redux/channel';
-import { setCHANNELFOCUS, setCREWFOCUS } from '../../redux/focus';
+import { setCHANNELFOCUS, setCREWFOCUS, setCHANNELCREWFOCUS } from '../../redux/focus';
 import ChannelSetting from '../modal/Channel/ChannelSetting';
 import CrewSetting from '../modal/Crew/CrewSetting';
 import HeaderItem from './header/HeaderItem';
@@ -50,20 +50,35 @@ function Header() {
       }, [channelNo])
 
     const initialFocus = useCallback(async(userNo) => {
+        // console.log("hhhhhhhhhhhhhhhhhh", userNo);
         const Focus = await get(`/channel/${userNo}`);
         const {no, name, crewNo, crewName} = Focus[0];
-        console.log("크루 목록이 안뜨면 요기가 문제!", Focus[0]);
-        dispatch(setCHANNELFOCUS({name: name, no: no}));
-        dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
+        // console.log("kkkkkkkkkkkkkkkkkk", Focus[0]);
+        dispatch(setCHANNELCREWFOCUS({
+            channelName: name, 
+            channelNo: no,
+            crewName: crewName,
+            crewNo: crewNo
+        }))
+        // dispatch(setCHANNELFOCUS({name: name, no: no}));
+        // dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
     }, [])
 
 
     const onChangeChannel = useCallback(async(channelNo, userNo) => {
+        // console.log(channelNo,"zzzz", userNo);
         const result = await get(`/channel/change/${channelNo}/${userNo}`);
+        // console.log("asdafaa",result[0]);
         const {no, name, crewNo, crewName} = result[0];
-        console.log("no??????????????????", result);
-        dispatch(setCHANNELFOCUS({name: name, no: no}));
-        dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
+        // console.log("no??????????????????", result);
+        dispatch(setCHANNELCREWFOCUS({
+            channelName: name, 
+            channelNo: no,
+            crewName: crewName,
+            crewNo: crewNo
+        }))
+        // dispatch(setCHANNELFOCUS({name: name, no: no}));
+        // dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
     }, [])
 
     // const onChangeChannel = (channelNo, channelName) => {
@@ -79,7 +94,6 @@ function Header() {
     // }, [changeChannel])
     
     useEffect(() => {
-        console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", channelNo)
         if (channelNo === null){
         initialFocus(userNo);
         }
@@ -96,17 +110,26 @@ function Header() {
     // css
     // 이넘 땜에 최적화 안됨 --> css 파일로 만들기
     const channelStyle = {height:'60px', whiteSpace:'no-wrap', overflow:'hidden', textOverflow:'ellipsis'};
+    
+    const [users, setUsers] = useState([]);
 
+    const initialUser = useCallback(async(userNo) => {
+        const result = await get(`/user/email/${userNo}`);
+        console.log(result);
+        setUsers((prevUsers) => prevUsers.concat(result));
+
+    }, [users])
     // modal click
     const onClickChannelModal = useCallback(() => {
         setChannelModalIsOpen(prevChannelModalIsOpen => !prevChannelModalIsOpen);
+        initialUser(userNo);
     }, [])
 
 
     return (
         <Grid container style={{backgroundColor:'white', color:'black'}}>            
             <HeaderItem itemName={channelName} modalIsOpen={channelModalIsOpen} customStyle={channelStyle} onClickModal={onClickChannelModal}>
-                <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal}/>
+                <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users}/>
             </HeaderItem>
             <HeaderSearch/>
             <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel}/>

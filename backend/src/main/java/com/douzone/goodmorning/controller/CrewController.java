@@ -32,11 +32,10 @@ public class CrewController {
 	
     private final CrewService crewService;
 	
-
 	@Auth
     @GetMapping("/crew/{channelNo}/{userNo}")
     public ResponseEntity<Message> crews(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo) {
-    	
+    	System.out.println("제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발" + channelNo + userNo);
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
