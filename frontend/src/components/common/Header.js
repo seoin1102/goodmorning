@@ -94,7 +94,6 @@ function Header() {
     // }, [changeChannel])
     
     useEffect(() => {
-        console.log("gggggggggggggggggggg", channelNo);
         if (channelNo === null){
         initialFocus(userNo);
         }

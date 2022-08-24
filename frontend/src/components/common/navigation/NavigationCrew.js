@@ -4,6 +4,8 @@ import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import NavigationItem from './NavigationItem';
 import { Collapse, ListItemButton } from '@mui/material';
+import arrowDownIcon from '../../../assets/icons/keyboard_arrow_down.svg';
+import arrowUpIcon from '../../../assets/icons/keyboard_arrow_up.svg';
 
 // 많으면 화면 넘어가므로 스크롤 추가 해주기
 function NavigationCrew({crewList,onClickCrew}) {
@@ -15,7 +17,8 @@ function NavigationCrew({crewList,onClickCrew}) {
     return (
     <>
         <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold',borderTop:'solid 1.5px white', borderBottom:'solid 1.5px white',color:'white'}}>
-        <Grid item xs={12} >크루</Grid>
+        <Grid item xs={12} textAlign={'center'}>크루</Grid>
+        {open ? <img src={arrowUpIcon}/> : <img src={arrowDownIcon} />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
         <List style={{height: '300px', overflow: 'auto'}}>

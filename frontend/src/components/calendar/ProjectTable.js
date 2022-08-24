@@ -9,10 +9,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
 function createData(name, start, end, description, status) {
@@ -55,7 +53,7 @@ function Row(props) {
             size="small"
             onClick={() => setOpen(!open)}
           >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            {/* {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} */}
           </IconButton>
         </TableCell>
 
@@ -78,9 +76,9 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
+              {/* <Typography variant="h6" gutterBottom component="div">
                 작업 목록
-              </Typography>
+              </Typography> */}
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
