@@ -37,6 +37,12 @@
 		]]>
 	</select>
 	
+	<select id="findAllEmaillist" parameterType="string" resultType="uservo">
+		<![CDATA[
+		select no, email, name from user where no !=#{userNo};
+		]]>
+	</select>
+	
 	<update id="updateEnable" parameterType="verifivo">
 		<![CDATA[
 			update user set enable=true where email=#{email }

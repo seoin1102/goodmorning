@@ -20,6 +20,7 @@ import com.douzone.goodmorning.dto.Message;
 import com.douzone.goodmorning.dto.status.StatusEnum;
 import com.douzone.goodmorning.service.ChannelService;
 import com.douzone.goodmorning.vo.ChannelVo;
+import com.douzone.goodmorning.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -127,5 +128,25 @@ public class ChannelController {
     	message.setData("success");
     	return ResponseEntity.ok().headers(headers).body(message);
     }
-
+    
+    @Transactional
+    @PostMapping("/channel/invite/{channelNo}")
+    public ResponseEntity<Message> inviteChannel(@PathVariable("channelNo") String channelNo, @RequestBody UserVo userVo) {
+    	
+    	System.out.println(userVo);
+    	
+//    	channelService.addChannel(channelVo);
+//    	Long channelNo = channelService.findByMasterChannelUserNo(channelVo.getMasterChannelUserNo());
+//    	channelService.addChannelUser(channelVo.getMasterChannelUserNo(),channelNo);
+    	
+//    	HttpHeaders headers = new HttpHeaders();
+//    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+//    	
+//    	Message message = new Message();
+//    	message.setStatus(StatusEnum.OK);
+//    	message.setMessage("채널추가 성공");
+//    	message.setData(channelVo);
+//    	return ResponseEntity.ok().headers(headers).body(message);
+    	return null;
+    }
 }

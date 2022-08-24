@@ -2,6 +2,7 @@ package com.douzone.goodmorning.service;
 
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.mail.javamail.JavaMailSender;
@@ -186,5 +187,9 @@ public class UserService {
 		
 		
 		
+	}
+
+	public List<UserVo> findAllEmaillist(String userNo) {
+		return userRepository.findAllEmaillist(userNo);
 	}
 }

@@ -31,6 +31,7 @@ function Navigation() {
 
     const initialCrew = useCallback(async(channelNo, userNo) => {
         const crews = await get(`/crew/${channelNo}/${userNo}`);
+        console.log("uuuuuuuuuuuuuuuuuu", channelNo, userNo, crews)
         dispatch(setCrew(crews));
     }, [channelNo])
  

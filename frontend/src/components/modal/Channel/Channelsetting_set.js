@@ -2,7 +2,7 @@ import React,{Fragment} from 'react';
 import { Button, Form, Row, Col, CloseButton, Card, Modal } from 'react-bootstrap';
 
 
-function ChannelSetting_member({onClickModal,onChangeValue , onClickHandler}) {
+function ChannelSetting_member({onClickModal, onClickHandler}) {
 
 
     return (

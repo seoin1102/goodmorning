@@ -7,7 +7,7 @@ import { setCHANNELFOCUS } from '../../../redux/focus';
 import ChannelSetting_info from './ChannelSetting_info';
 import Channelsetting_set from './Channelsetting_set';
 
-function ChannelSetting({modalShow, onClickModal}) {
+function ChannelSetting({modalShow, onClickModal,users}) {
     let [tab, setTab] = useState(0);
 
     const channelName = useSelector(state => {
@@ -18,57 +18,31 @@ function ChannelSetting({modalShow, onClickModal}) {
       return state.focus.channelNo;
     });
 
-    const [text, setText] = useState(channelName);
-    const [description, setDescription] = useState("");
-
-    const onChangeValue = () => {
-      // console.log(channelName);
-      // dispatch(setCHANNELFOCUS({name: channelName}));
-      // onClickModal();
-    }
     const dispatch = useDispatch();
 
-    const onClickHandler = async() => {
+    const onClickHandler = async(channelName) => {
       const updateChannel = JSON.stringify({
             no: channelNo,
-            name: text,
-            description: description,
+            name: channelName,
+            description: '',
             creationDate: '',
             masterChannelUserNo: 0
         })
 
         await putJson(`/channel/${channelNo}`, updateChannel);
-        dispatch(setCHANNELFOCUS({name: text, no: channelNo}));
+        dispatch(setCHANNELFOCUS({name: channelName, no: channelNo}));
         onClickModal();
-    }
-
-    const onChangeHandler = (e) => {
-        setText(e.target.value);
-    }
-
-    useEffect(() => {
-      console.log(text);
-  }, [text])
-
-    const onChangeDescHandler = (e) => {
-      setDescription(e.target.value);
     }
 
     function TabContent() {
         if (tab === 0) return <ChannelSetting_info 
-            setText={setText} 
-            channelName ={text} 
-            onClickModal={onClickModal} 
-            onChangeDescHandler={onChangeDescHandler} 
-            description={description}
             onClickHandler={onClickHandler}
-            onChangeValue={onChangeValue}/>
-        else if (tab === 1) return <Channelsetting_set onClickModal={onClickModal} onClickHandler={onClickHandler} onChangeValue={onChangeValue}/>
+            channelName={channelName}
+            channelNo={channelNo}
+            onClickModal={onClickModal}
+            users={users} />
+        else if (tab === 1) return <Channelsetting_set onClickModal={onClickModal} />
       }
-
-    // useEffect(() => {
-    //   setText(channelName);
-    // }, [channelName]);
     
     return (
         <>
@@ -87,21 +61,8 @@ function ChannelSetting({modalShow, onClickModal}) {
             설정
           </Nav.Link>
         </Nav.Item>
-        {/* <Nav.Item>
-          <Nav.Link eventKey="link-2" onClick={() => setTab(2)}>
-            Option 2
-          </Nav.Link>
-        </Nav.Item> */}
       </Nav>
       <TabContent />
-      {/* <Modal.Footer>
-            <Button variant="outline-dark" onClick={onClickModal} >
-              취소
-            </Button>
-            <Button variant="outline-dark" onClick={onClickHandler} >
-              변경사항 저장
-            </Button>
-        </Modal.Footer>  */}
       </Modal>
         </>
     );

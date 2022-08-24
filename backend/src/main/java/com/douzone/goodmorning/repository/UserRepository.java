@@ -1,6 +1,7 @@
 package com.douzone.goodmorning.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -53,5 +54,10 @@ public class UserRepository {
 
 	public int findByUserNo(String email) {
 		return sqlSession.selectOne("user.findByUserNo", email);
+	}
+
+
+	public List<UserVo> findAllEmaillist(String userNo) {
+		return sqlSession.selectList("user.findAllEmaillist", userNo);
 	}
 }

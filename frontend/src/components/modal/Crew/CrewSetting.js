@@ -4,21 +4,21 @@ import CrewSetting_info from './CrewSetting_info';
 import CrewSetting_member from './CrewSetting_member';
 import CrewSetting_set from './CrewSetting_set';
 
-function CrewSetting({modalShow,onClickModal}) {
+function CrewSetting({modalShow,onClickModal, users, crewName }) {
 
   let [tab, setTab] = useState(0);
 
   function TabContent() {
-      if (tab === 0) return <CrewSetting_info />
-      else if (tab === 1) return <CrewSetting_member />
-      else return <CrewSetting_set />
+      if (tab === 0) return <CrewSetting_info crewName={crewName} onClickModal={onClickModal} setTab={setTab}/>
+      else if (tab === 1) return <CrewSetting_member users={users} onClickModal={onClickModal} setTab={setTab}/>
+      else return <CrewSetting_set onClickModal={onClickModal} setTab={setTab}/>
     }
     
   return (
       <>
       <Modal show={modalShow} onHide={onClickModal}>
       <Modal.Header closeButton>
-          <Modal.Title>크루 설정</Modal.Title>
+          <Modal.Title>{crewName}</Modal.Title>
       </Modal.Header>
     <Nav variant="tabs" defaultActiveKey="link-0">
       <Nav.Item>
@@ -38,14 +38,14 @@ function CrewSetting({modalShow,onClickModal}) {
       </Nav.Item> 
     </Nav>
     <TabContent />
-    <Modal.Footer>
+    {/* <Modal.Footer>
           <Button variant="outline-dark"  onClick={onClickModal} >
             취소
           </Button>
           <Button variant="outline-dark"  >
             변경사항 저장
           </Button>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
       </>
     );
