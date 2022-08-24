@@ -33,7 +33,7 @@ function Navigation() {
         const crews = await get(`/crew/${channelNo}/${userNo}`);
         dispatch(setCrew(crews));
     }, [channelNo])
- 
+
     /**
      * 크루 생성
      * @param {*} channelNo 크루를 생성할 채널 번호
@@ -81,7 +81,7 @@ function Navigation() {
 
     return (
     <>
-        <Grid item xs={2} style={{ height: '840px',backgroundColor:"#3a4275"}}>
+        <Grid item xs={2} style={{ height: '840px',backgroundColor:"#283249 "}}>
             <NavigationEct onCreateCrew={onCreateCrew} onCreateChannel={onCreateChannel}/>
             <NavigationCrew crewList={crewList} onClickCrew={onClickCrew} />
             <NavigationDM />

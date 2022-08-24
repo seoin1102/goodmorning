@@ -52,6 +52,7 @@ function Header() {
     const initialFocus = useCallback(async(userNo) => {
         const Focus = await get(`/channel/${userNo}`);
         const {no, name, crewNo, crewName} = Focus[0];
+        console.log("크루 목록이 안뜨면 요기가 문제!", Focus[0]);
         dispatch(setCHANNELFOCUS({name: name, no: no}));
         dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
     }, [])
@@ -78,7 +79,7 @@ function Header() {
     // }, [changeChannel])
     
     useEffect(() => {
-
+        console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", channelNo)
         if (channelNo === null){
         initialFocus(userNo);
         }

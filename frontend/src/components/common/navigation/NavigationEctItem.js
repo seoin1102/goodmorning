@@ -18,7 +18,7 @@ function NavigationEctItem({userName, itemName, onClickModal, children}) {
             <ListItemIcon>
                 <Avatar alt={userName} src="https://material-ui.com/static/images/avatar/2.jpg" />
             </ListItemIcon>
-            <ListItemText primary={itemName}>Cindy Baker</ListItemText>
+            <ListItemText primary={itemName} >Cindy Baker</ListItemText>
         </ListItem>
         {children}
     </>

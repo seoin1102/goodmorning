@@ -10,6 +10,8 @@ import NavigationEctItem from './NavigationEctItem';
 import NavigationItem from './NavigationItem';
 import { Collapse, ListItemButton } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import arrowDownIcon from '../../../assets/icons/keyboard_arrow_down.svg';
+import arrowUpIcon from '../../../assets/icons/keyboard_arrow_up.svg';
 
 function NavigationEct({onCreateCrew, onCreateChannel}) {
     // modal state
@@ -34,13 +36,33 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
         setReservModalShow(prevReservModalShow => !prevReservModalShow);
     }, [])
 
+    // const list = {
+    //   overflowY: "auto",
+    //   margin: 0,
+    //   padding: 0,
+    //   listStyle: "none",
+    //   height: "100%",
+    //   '&::-webkit-scrollbar': {
+    //     width: '0.4em'
+    //   },
+    //   '&::-webkit-scrollbar-track': {
+    //     boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+    //     webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+    //   },
+    //   '&::-webkit-scrollbar-thumb': {
+    //     backgroundColor: 'rgba(0,0,0,.1)',
+    //     outline: '1px solid slategrey'
+    //   }
+    // }
+
     return (
         <>
         <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold',borderTop:'solid 1.5px white', borderBottom:'solid 1.5px white',color:'white'}}>
-        <Grid item xs={12}> 기능 </Grid>
+        <Grid item xs={12} textAlign={'center'}> 기능 </Grid>
+        {open ? <img src={arrowUpIcon}/> : <img src={arrowDownIcon} />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
-        <List style={{height: '200px', overflow: 'auto'}}>
+        <List style={{height: '200px', overflow: 'auto', listStyle: "none"}}>
             
             <NavigationEctItem userName={"Remy Sharp"} itemName={"채널 생성"} onClickModal={onClickAddChannelModal}>
                 <AddChannel modalShow={addChannelModalShow} onClickModal={onClickAddChannelModal} onCreateChannel={onCreateChannel} /> 
@@ -52,14 +74,15 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
                 <Reserv modalShow={reservModalShow} onClickModal={onClickReservModal}/> 
             </NavigationEctItem>
 
-            <NavLink to={"/calendar"} style={{textDecoration:'none', color: 'black'}}>
-            <NavigationEctItem crewName={"캘린더"} />
+            <NavLink to={"/calendar"} style={{textDecoration:'none', color: '#E2BA89'}}>
+            <NavigationEctItem crewName={"캘린더"}/>
             </NavLink>
             
-            <NavLink to={"/reservation"} style={{textDecoration:'none', color: 'black'}}>
+            <NavLink to={"/reservation"} style={{textDecoration:'none', color: '#E2BA89'}}>
             <NavigationEctItem  crewName={"예약 메시지"} />
             </NavLink>
-            <NavLink to={"/save"} style={{textDecoration:'none', color: 'black'}}>
+
+            <NavLink to={"/save"} style={{textDecoration:'none', color: '#E2BA89'}}>
             <NavigationEctItem crewName={"저장된 메시지"} />
             </NavLink>
         </List>
