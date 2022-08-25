@@ -57,7 +57,11 @@ public class UserRepository {
 	}
 
 
-	public List<UserVo> findAllEmaillist(String userNo) {
-		return sqlSession.selectList("user.findAllEmaillist", userNo);
+	public List<UserVo> findAllEmaillist(String channelNo, String crewNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("channelNo", channelNo);
+		map.put("crewNo", crewNo);
+		
+		return sqlSession.selectList("user.findAllEmaillist", map);
 	}
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.douzone.goodmorning.dto.Message;
 import com.douzone.goodmorning.dto.status.StatusEnum;
 import com.douzone.goodmorning.security.Auth;
+import com.douzone.goodmorning.service.ChannelService;
 import com.douzone.goodmorning.service.CrewService;
 import com.douzone.goodmorning.vo.CrewVo;
 import com.douzone.goodmorning.vo.UserVo;
@@ -31,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class CrewController {
 	
     private final CrewService crewService;
+	private final ChannelService channelService;
 	
 	@Auth
 	@Transactional
@@ -112,9 +114,39 @@ public class CrewController {
     	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
-    	message.setMessage("크루 마지막 접속 업데이트 성공");
+    	message.setMessage("크루 이름 업데이트 성공");
     	message.setData("success");
     	return ResponseEntity.ok().headers(headers).body(message);
     }
     
+    @Transactional
+    @PostMapping("/crew/invite/{channelNo}/{crewNo}")
+    public ResponseEntity<Message> inviteCrew(@PathVariable("channelNo") String channelNo, @PathVariable("crewNo") String crewNo, @RequestBody UserVo userVo) {
+
+    	int checkcount = channelService.checkUser(channelNo,userVo.getEmail());
+    	
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	if(checkcount == 0) {
+        	message.setMessage("유저가 채널에 존재하지 않습니다.");
+        	message.setData("fail");
+    		return ResponseEntity.ok().headers(headers).body(message);
+    	}
+    	
+    	int userNo = channelService.findUserNoByEmail(userVo.getEmail());
+    	if(userNo == 0) {
+        	message.setMessage("가입한 유저가 아닙니다.");
+        	message.setData("fail");
+    		return ResponseEntity.ok().headers(headers).body(message);
+    	}
+    	
+    	crewService.addCrewUser(Long.valueOf(crewNo),Long.valueOf(userNo), 0L);
+    	
+    	message.setMessage("유저 초대에 성공하였습니다.");
+    	message.setData("success");
+    	return ResponseEntity.ok().headers(headers).body(message);
+    }
 }

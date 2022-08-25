@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal, Nav } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { postJson } from '../../../apis/Axios';
 import CrewSetting_info from './CrewSetting_info';
 import CrewSetting_member from './CrewSetting_member';
 import CrewSetting_set from './CrewSetting_set';
 
-function CrewSetting({modalShow,onClickModal, users, crewName }) {
+function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo }) {
 
   let [tab, setTab] = useState(0);
 
-  const crewNo = useSelector(state => {
-    return state.focus.crewNo;
-  });
-
+  const onClickCrewInvite = async(user) => {
+    const userEmail = JSON.stringify({
+      email: user
+  })
+    const result = await postJson(`/crew/invite/${channelNo}/${crewNo}`, userEmail);
+    console.log(result);
+  }
 
 
   function TabContent() {
@@ -21,13 +25,17 @@ function CrewSetting({modalShow,onClickModal, users, crewName }) {
                             onClickModal={onClickModal} 
                             setTab={setTab}
                             crewNo={crewNo}/>
-      else if (tab === 1) return <CrewSetting_member users={users} onClickModal={onClickModal} setTab={setTab}/>
+      else if (tab === 1) return <CrewSetting_member 
+                          users={users} 
+                          onClickModal={onClickModal} 
+                          setTab={setTab}
+                          onClickCrewInvite={onClickCrewInvite}/>
       else return <CrewSetting_set onClickModal={onClickModal} setTab={setTab}/>
     }
     
   return (
       <>
-      <Modal show={modalShow} onHide={onClickModal}>
+      <Modal show={modalShow} onHide={onClickModal} backdrop="static">
       <Modal.Header closeButton>
           <Modal.Title>{crewName}</Modal.Title>
       </Modal.Header>

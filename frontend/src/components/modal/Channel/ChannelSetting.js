@@ -57,7 +57,7 @@ function ChannelSetting({modalShow, onClickModal,users}) {
     
     return (
         <>
-        <Modal show={modalShow} onHide={onClickModal}>
+        <Modal show={modalShow} onHide={onClickModal} backdrop="static">
         <Modal.Header closeButton>
             <Modal.Title>{channelName}</Modal.Title>
         </Modal.Header>

@@ -102,15 +102,16 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("임시 비밀번호가 해당 메일로 전송되었습니다."));
 	}
 	
-	@GetMapping("/email/{userNo}")
-	 public ResponseEntity<Message> getEmails(@PathVariable("userNo") String userNo) {
-    	HttpHeaders headers = new HttpHeaders();
+	@GetMapping("/email/{channelNo}/{crewNo}")
+	 public ResponseEntity<Message> getEmails(@PathVariable("channelNo") String channelNo, @PathVariable("crewNo") String crewNo) {
+		
+		HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
-    	message.setMessage("전체 유저 이메일 리스트 조회");
-    	message.setData(userService.findAllEmaillist(userNo));
+    	message.setMessage("해당 채널&크루 유저의 이메일 리스트 조회");
+    	message.setData(userService.findAllEmaillist(channelNo, crewNo));
     	return ResponseEntity.ok().headers(headers).body(message);
 
     }

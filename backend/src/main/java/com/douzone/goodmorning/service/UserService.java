@@ -188,7 +188,7 @@ public class UserService {
 		
 	}
 
-	public List<UserVo> findAllEmaillist(String userNo) {
-		return userRepository.findAllEmaillist(userNo);
+	public List<UserVo> findAllEmaillist(String channelNo, String crewNo) {
+		return userRepository.findAllEmaillist(channelNo, crewNo);
 	}
 }
