@@ -16,7 +16,7 @@ function TaskList(props) {
           title={event.title}
           data={event.id}
           style={{
-            backgroundColor: event.backgroundColor
+            backgroundColor: event.color
           }}
         >
           {event.title}

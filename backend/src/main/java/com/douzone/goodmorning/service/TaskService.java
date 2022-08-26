@@ -14,8 +14,12 @@ import lombok.RequiredArgsConstructor;
 public class TaskService {
 	private final TaskRepository taskRepository;
 	
-	public List<TaskVo> getTask(Long projectNo) {
-		return taskRepository.findAll(projectNo);
+	public List<TaskVo> findByProject(Long projectNo) {
+		return taskRepository.findByProject(projectNo);
+	}
+	
+	public List<TaskVo> findByCrew(Long crewNo) {
+		return taskRepository.findByCrew(crewNo);
 	}
 	
 	public Boolean updateTask(TaskVo taskVo) {

@@ -4,13 +4,13 @@
 <mapper namespace="project">	
 		<select id="findAll" parameterType="long" resultType="projectvo">
 				<![CDATA[
-				select no, project_name as projectName, start_date as start, end_date as end, descrition as description, status from project where no= 1;
+				select no, project_name as projectName, start_date as start, end_date as end, descrition as description, status from project where crew_no= #{crewNo};
 
 				]]>
 		</select>
 		<insert id="insert" parameterType="projectvo">
 				<![CDATA[
-				insert into task value(null, 1, #{userNo}, #{title}, #{start}, #{end}, "Todo", 1);
+				insert into project value(null, #{projectName}, #{start}, #{end}, #{description}, #{status}, #{crewNo});
 				]]>
 		</insert>
 		

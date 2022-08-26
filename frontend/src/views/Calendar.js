@@ -12,13 +12,22 @@ function Calendar() {
 
   const dispatch = useDispatch();
 
+  // const initialTask = useCallback(
+  //   async (projectNo) => {
+  //     const getTasks = await get(`/pNo/${projectNo}`);
+  //     dispatch(setTask(getTasks));
+  //   },
+  //   [dispatch]
+  // );
+
   const initialTask = useCallback(
-    async (projectNo) => {
-      const getTasks = await get(`/task/${projectNo}`);
+    async (crewNo) => {
+      const getTasks = await get(`/task/cNo/${crewNo}`);
       dispatch(setTask(getTasks));
     },
     [dispatch]
   );
+
 
   const initialCrew = useCallback(
     async (no) => {
@@ -35,20 +44,20 @@ function Calendar() {
   );
 
   useEffect(() => {
-    initialTask(1);
+    initialTask(40);
   }, []);
 
   useEffect(() => {
-    initialCrew(20);
+    initialCrew(40);
   }, []);
 
   useEffect(() => {
-    initialProject(20);
+    initialProject(40);
   }, []);
 
   return (
     <SiteLayout>
-        <Project/>
+        {/* <Project/> */}
         <Task/>
     </SiteLayout>
   );

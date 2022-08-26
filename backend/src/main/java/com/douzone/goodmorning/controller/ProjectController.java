@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.douzone.goodmorning.dto.JsonResult;
 import com.douzone.goodmorning.service.ProjectService;
+import com.douzone.goodmorning.vo.ProjectVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,7 +39,6 @@ public class ProjectController {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
-    	//System.out.println(taskService.getTask(projectNo));
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.getProject(crewNo)));
     }
     
@@ -50,13 +50,13 @@ public class ProjectController {
 //		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.updateTask(taskVo)));
 //    }
 //    
-//    @PostMapping("")
-//    public ResponseEntity<JsonResult> add(@RequestBody TaskVo taskVo) {
-//    	HttpHeaders headers = new HttpHeaders();
-//    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-//    	
-//		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.addTask(taskVo)));
-//    }
+    @PostMapping("")
+    public ResponseEntity<JsonResult> add(@RequestBody ProjectVo projectVo) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.addTask(projectVo)));
+    }
 //
 //    @DeleteMapping("/{id}")
 //    public ResponseEntity<JsonResult> delete(@PathVariable("id") Long id) {
