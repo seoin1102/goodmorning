@@ -71,6 +71,10 @@ public class CrewRepository {
 	public boolean updateCrewName(CrewVo crewVo) {
 		return sqlSession.update("crew.updateCrewName", crewVo ) == 1;
 	}
+
+	public List<CrewVo> getAllCrew(Long userNo) {
+		return sqlSession.selectList("crew.getAllCrew",userNo);
+	}
 	
 
 }

@@ -25,9 +25,7 @@ function ChatHeader() {
 
     const initialUser = useCallback(async() => {
         const result = await get(`/user/email/${channelNo}/${crewNo}`);
-        console.log("aaaaa",result);
         setUsers(() => [].concat(result));
-
     }, [users, channelNo, crewNo])
     return (
         <>

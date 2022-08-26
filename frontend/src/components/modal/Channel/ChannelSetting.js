@@ -35,11 +35,8 @@ function ChannelSetting({modalShow, onClickModal,users}) {
     }
 
     const onClickChannelInvite = async(channelNo, user) => {
-      const userEmail = JSON.stringify({
-        email: user
-    })
-      const result = await postJson(`/channel/invite/${channelNo}`, userEmail);
-      console.log(result);
+      const userEmail = JSON.stringify({email: user})
+      await postJson(`/channel/invite/${channelNo}`, userEmail);
     }
 
     function TabContent() {

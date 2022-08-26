@@ -49,4 +49,8 @@ public class CrewService {
 		
 	}
 
+	public List<CrewVo> getAllCrew(Long userNo) {
+		return crewRepository.getAllCrew(userNo);
+	}
+
 }

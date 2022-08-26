@@ -48,9 +48,8 @@ function Calendar() {
 
   return (
     <SiteLayout>
-        {/* <Project/> */}
-        {/* <Task/> */}
-  
+        <Project/>
+        <Task/>
     </SiteLayout>
   );
 }

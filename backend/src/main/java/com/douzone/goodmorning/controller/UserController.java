@@ -99,12 +99,12 @@ public class UserController {
 		if(result==0) {
 			return ResponseEntity.status(HttpStatus.OK).body(JsonResult.fail("이메일 전송 실패.."));
 		}
+		
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("임시 비밀번호가 해당 메일로 전송되었습니다."));
 	}
 	
 	@GetMapping("/email/{channelNo}/{crewNo}")
 	 public ResponseEntity<Message> getEmails(@PathVariable("channelNo") String channelNo, @PathVariable("crewNo") String crewNo) {
-		
 		HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     
@@ -113,7 +113,6 @@ public class UserController {
     	message.setMessage("해당 채널&크루 유저의 이메일 리스트 조회");
     	message.setData(userService.findAllEmaillist(channelNo, crewNo));
     	return ResponseEntity.ok().headers(headers).body(message);
-
     }
 	
 	

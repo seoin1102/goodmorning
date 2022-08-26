@@ -7,12 +7,8 @@ import { setCHANNELFOCUS } from '../../../redux/focus';
 
 
 function ChannelSetting_info({onClickHandler,channelName, onClickModal, channelNo,onClickChannelInvite}) {
-  
-  const [name, setName] = useState(channelName);
-  const [value, setValue] = useState([]);
-
-  console.log("zffaf",channelNo);
-
+    const [name, setName] = useState(channelName);
+    const [value, setValue] = useState([]);
 
     return (
     <>

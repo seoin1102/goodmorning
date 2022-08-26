@@ -45,15 +45,12 @@ function Header() {
      */
     const initialChannel = useCallback(async(channelNo, userNo) => {
       const channels = await get(`/channel/${channelNo}/${userNo}`);
-      //console.log("no??????????????????", channels);
       dispatch(setChannel(channels));
       }, [channelNo])
 
     const initialFocus = useCallback(async(userNo) => {
-        // console.log("hhhhhhhhhhhhhhhhhh", userNo);
         const Focus = await get(`/channel/${userNo}`);
         const {no, name, crewNo, crewName} = Focus[0];
-        // console.log("kkkkkkkkkkkkkkkkkk", Focus[0]);
         dispatch(setCHANNELCREWFOCUS({
             channelName: name, 
             channelNo: no,
@@ -66,11 +63,8 @@ function Header() {
 
 
     const onChangeChannel = useCallback(async(channelNo, userNo) => {
-        // console.log(channelNo,"zzzz", userNo);
         const result = await get(`/channel/change/${channelNo}/${userNo}`);
-        // console.log("asdafaa",result[0]);
         const {no, name, crewNo, crewName} = result[0];
-        // console.log("no??????????????????", result);
         dispatch(setCHANNELCREWFOCUS({
             channelName: name, 
             channelNo: no,
@@ -94,16 +88,11 @@ function Header() {
     // }, [changeChannel])
     
     useEffect(() => {
-        if (channelNo === null){
-        initialFocus(userNo);
-        }
+        if (channelNo === null)
+            initialFocus(userNo);
         
-        if (channelNo !== null){
-        initialChannel(channelNo,userNo);
-        }
-
-        console.log("mount:header");
-        return () => (console.log('unmount:header'))
+        if (channelNo !== null)
+            initialChannel(channelNo,userNo);  
       }, [channelNo])
         
 

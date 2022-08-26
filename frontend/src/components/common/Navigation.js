@@ -23,8 +23,7 @@ function Navigation() {
         no: crewNo,
         name: crewName
     });
-    console.log("aaaaaaaaaaaaaaaa", crewList)
-    // console.log("Zz" + channelNo);
+
     /**
      * 크루 목록
      * @param channelNo 채널 번호
@@ -32,8 +31,9 @@ function Navigation() {
 
     const initialCrew = useCallback(async(channelNo, userNo) => {
         const crews = await get(`/crew/${channelNo}/${userNo}`);
-        console.log("uuuuuuuuuuuuuuuuuu", channelNo, userNo, crews)
         dispatch(setCrew(crews));
+        console.log('@@@@@@@@@', crews)
+        localStorage.setItem('crewList', JSON.stringify(crews));
     }, [channelNo])
 
     /**
@@ -44,27 +44,20 @@ function Navigation() {
     const onCreateCrew = useCallback(async(channelNo, crew, userNo) => {
         await post(`/crew/${channelNo}/${userNo}`, crew);
         dispatch(addCrew(crew));
-        console.log(channelNo+"::fsdfdsf "+ " user ::" + userNo + "crew ::" + crew)
     }, [])
 
     const onCreateChannel = useCallback(async(channel) => {
         const result = await post(`/channel`, channel);
-
-        console.log("############", result);
         dispatch(addChannel(result.data));
-        console.log(channel)
     }, [])
 
     const onClickCrew = async(crewNo, crewName) => {
-        console.log("#####", userNo, "aaaaaa", crewNo)
         const result = await putJson(`/crew/${crewNo}`, JSON.stringify({no: userNo}))
-        console.log("#####", result)
         if(result.data === 'success')
             setChangeCrew((prevState) => ({...prevState, no: crewNo, name: crewName}))
     }
 
     useEffect(() =>{
-        console.log("zzzzzzzzz" + changeCrew.no + "aaaaa" + changeCrew.name)
         dispatch(setCREWFOCUS({no: changeCrew.no, name: changeCrew.name}));
     }, [changeCrew])
 
@@ -72,13 +65,8 @@ function Navigation() {
      * 초기 화면
      */
     useEffect(() => {
-
-        if(channelNo !== null){
-        initialCrew(channelNo,userNo);
-        }
-        console.log("mount");
-
-        return () => (console.log('unmount'))
+        if(channelNo !== null)
+            initialCrew(channelNo, userNo);
     }, [channelNo])
 
     return (

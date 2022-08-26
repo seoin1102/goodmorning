@@ -19,7 +19,7 @@ function NavigationItem({navLink, crewName, secondary, crewNo, onClickCrew}) {
                 <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
             </ListItemIcon>
             <ListItemText primaryTypographyProps={{fontSize: '1rem', color: '#E2BA89', fontWeight: 'bold'}}  primary={crewName} />
-            <ListItemText secondary={secondary} align="right" / >
+            <ListItemText secondary={secondary} align="right" />
         </ListItemButton>
         {/* </List> */}
       

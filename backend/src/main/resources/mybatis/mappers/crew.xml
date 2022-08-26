@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="crew">	
+
+		<select id="getAllCrew" parameterType="long" resultType="crewvo">
+				<![CDATA[
+				select a.crew_no as no from crew_user as a, user as b where a.user_no = b.no and b.no = #{userNo};
+				]]>
+		</select>
+		
 		<select id="findAll" parameterType="map" resultType="crewvo">
 				<![CDATA[
 				select a.no, a.channel_no as channelNo, a.master_crew_user_no as masterCrewUserNo, 

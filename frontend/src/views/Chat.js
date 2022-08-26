@@ -8,9 +8,7 @@ function chat() {
 
     return (
         <SiteLayout styles={styles}>
-            <Grid item xs={10}>
-                <Chat />
-            </Grid>
+            <Chat />
         </SiteLayout>
     );
 }

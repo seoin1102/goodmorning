@@ -1,6 +1,7 @@
 package com.douzone.goodmorning.controller;
 
 import java.nio.charset.Charset;
+import java.util.List;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -35,39 +36,50 @@ public class CrewController {
 	private final ChannelService channelService;
 	
 	@Auth
+    @Transactional
+    @GetMapping("/crew/{userNo}")
+    public ResponseEntity<Message> allCrew(@PathVariable("userNo") Long userNo) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("크루유저목록 조회");
+    	message.setData(crewService.getAllCrew(userNo));
+    	return ResponseEntity.ok().headers(headers).body(message);
+    }
+	
+	@Auth
 	@Transactional
     @GetMapping("/crew/{channelNo}/{userNo}")
     public ResponseEntity<Message> crews(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo) {
-    	System.out.println("제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발" + channelNo + userNo);
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("크루목록 조회");
-    	message.setData(crewService.getCrew(channelNo, userNo));   	
-    	
+    	message.setData(crewService.getCrew(channelNo, userNo));   		
     	return ResponseEntity.ok().headers(headers).body(message);
     }
+	
 	@Transactional
     @PostMapping("/crew/{channelNo}/{userNo}")
     public ResponseEntity<Message> crew(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo, @RequestBody CrewVo crewVo) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
     	crewVo.setChannelNo(channelNo);
     	crewVo.setMasterCrewUserNo(userNo);
     	crewService.addCrew(crewVo);
     	Long crewNo = crewService.findMaster(channelNo, userNo);
     	crewService.addCrewUser(crewNo, userNo, 1L);
-    	
-    	HttpHeaders headers = new HttpHeaders();
-    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-    	
+    	    	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("크루추가 성공");
     	message.setData(crewVo);
     	return ResponseEntity.ok().headers(headers).body(message);
-
     }
     
 	// crew_user 관련 컨트롤러
@@ -82,20 +94,17 @@ public class CrewController {
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("크루유저목록 조회");
     	message.setData(crewService.getCrewUser(no));
-    	System.out.println(crewService.getCrewUser(no));
     	return ResponseEntity.ok().headers(headers).body(message);
-
     }
     
     @Transactional
     @PutMapping("/crew/{crewNo}")
     public ResponseEntity<Message> updateLastIn(@PathVariable("crewNo") String crewNo, @RequestBody UserVo userVo) {
-
-    	crewService.updateLastIn(crewNo, userVo.getNo());
-    	
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
+    	crewService.updateLastIn(crewNo, userVo.getNo());
+    	    	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("크루 마지막 접속 업데이트 성공");
@@ -106,12 +115,11 @@ public class CrewController {
     @Transactional
     @PutMapping("/crew/update")
     public ResponseEntity<Message> updateCrewName(@RequestBody CrewVo crewVo) {
-    	
-    	crewService.updateCrewName(crewVo);
-    	
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
+    	crewService.updateCrewName(crewVo);
+    	    	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("크루 이름 업데이트 성공");
@@ -122,14 +130,14 @@ public class CrewController {
     @Transactional
     @PostMapping("/crew/invite/{channelNo}/{crewNo}")
     public ResponseEntity<Message> inviteCrew(@PathVariable("channelNo") String channelNo, @PathVariable("crewNo") String crewNo, @RequestBody UserVo userVo) {
-
-    	int checkcount = channelService.checkUser(channelNo,userVo.getEmail());
-    	
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
+    	
+    	int checkcount = channelService.checkUser(channelNo,userVo.getEmail());
+    		
     	if(checkcount == 0) {
         	message.setMessage("유저가 채널에 존재하지 않습니다.");
         	message.setData("fail");

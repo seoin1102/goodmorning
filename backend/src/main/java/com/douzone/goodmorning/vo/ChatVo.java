@@ -11,7 +11,7 @@ public class ChatVo {
 	
     // 메시지 타입 : 입장, 채팅
     public enum MessageType {
-        ENTER, CHAT, DM, FILE, JENKINS, GITHUB, PROJECT, TASK
+        ENTER, CHAT, CONNECT, DM, FILE, JENKINS, GITHUB, PROJECT, TASK
     }
 	
     private MessageType type;

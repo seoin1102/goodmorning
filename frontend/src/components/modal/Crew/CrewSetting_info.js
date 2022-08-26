@@ -14,15 +14,15 @@ function CrewSetting_info({onClickModal, crewName, setTab, crewNo}) {
     const onClickHandler = async(crewName, crewNo) => {
       const updateCrew = JSON.stringify({
             no: crewNo,
-            name: crewName,
-
+            name: crewName
         })
+
         const result = await putJson(`/crew/update`, updateCrew);
         if (result.data === 'success'){
         dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
-        console.log("!!!!!!!!!!!!!!!", crewNo, crewName)
         dispatch(updateCREW({no: crewNo, name: crewName}))
         }
+        
         onClickModal();
     }
 

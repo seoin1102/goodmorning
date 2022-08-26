@@ -11,11 +11,8 @@ function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo
   let [tab, setTab] = useState(0);
 
   const onClickCrewInvite = async(user) => {
-    const userEmail = JSON.stringify({
-      email: user
-  })
-    const result = await postJson(`/crew/invite/${channelNo}/${crewNo}`, userEmail);
-    console.log(result);
+    const userEmail = JSON.stringify({email: user})
+    await postJson(`/crew/invite/${channelNo}/${crewNo}`, userEmail);
   }
 
 

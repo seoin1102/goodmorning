@@ -10,6 +10,7 @@ function ReservationMessage({modalShow, onClickModal}) {
     function onClickCheck() {
       console.log(value);
     }
+    
     return (
       <>
       <Modal show={modalShow} onHide={onClickModal}>

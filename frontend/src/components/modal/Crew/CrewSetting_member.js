@@ -3,10 +3,8 @@ import React, { useState } from 'react';
 import { Button, Dropdown, Form, ListGroup, Modal } from 'react-bootstrap';
 
 function CrewSetting_member({users, onClickModal, setTab, onClickCrewInvite}) {
+    const [value, setValue] = useState([]);
 
-  const [value, setValue] = useState([]);
-
-  console.log(users);
     return (
       <>
                

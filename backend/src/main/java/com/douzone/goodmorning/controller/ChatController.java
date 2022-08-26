@@ -60,10 +60,10 @@ public class ChatController {
     	String topic = Long.toString(chatVo.getCrewNo());
     	System.out.println("토픽값:" + topic);
     	
-    	// 0번. [ENTER]일 경우 메시지 리스너 등록(입장)
-    	if(ChatVo.MessageType.ENTER.equals(chatVo.getType())) 
+    	// 0번. [CONNECT]일 경우 메시지 리스너 등록
+    	if(ChatVo.MessageType.CONNECT.equals(chatVo.getType())) {
     		redisMessageListener.addMessageListener(redisSubscriber, new ChannelTopic(topic));
-    	
+    	}
     	// 1번. [CHAT]일 경우 클라이언트 => 서버로 전달
     	if(ChatVo.MessageType.CHAT.equals(chatVo.getType())) 
     		redisPublisher.publish(topic, chatVo);
