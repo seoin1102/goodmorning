@@ -18,6 +18,7 @@ public class ChatVo {
     private Long no;
     private Long crewNo;
     private Long userNo;
+    private String userName;
     private String sendDate;
     private String message;
 }

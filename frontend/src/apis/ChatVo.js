@@ -7,10 +7,11 @@
  * @returns JSON.stringify [chatVo] 객체
  */
 
-const defaultMsg = (crewNo, userNo, message='') => ({
+const defaultMsg = (crewNo, userNo, message='', userName) => ({
     crewNo: crewNo,
     userNo: userNo,
-    message: message
+    message: message,
+    userName: userName
 });
 
 /**
@@ -36,11 +37,11 @@ export const chatVo = (crewNo, userNo, message) => {
  * @returns [ENTER] JSON.stringify 객체
  */
 export const msgEnter = (crewNo, userNo, userName) => {
-    const msg = defaultMsg(crewNo, userNo, `${userName} 님이 입장하였습니다.`);
+    const msg = defaultMsg(crewNo, userNo, `${userName} 님이 입장하였습니다.`, userName);
     return JSON.stringify({
         ...msg, 
         type: 'ENTER',
-        sendDate: new Date().toISOString().slice(0, 19).replace('T', ' ')
+        sendDate: new Date(+new Date() + 3240 * 10000).toISOString().split("T")[0]
     });
 }
 
@@ -51,12 +52,12 @@ export const msgEnter = (crewNo, userNo, userName) => {
  * @param {*} message 크루를 구독중인 유저 전부에게 보낼 메시지
  * @returns [CHAT] JSON.stringify 객체
  */
-export const msgChat = (crewNo, userNo, message) => {
-    const msg = defaultMsg(crewNo, userNo, message);
+export const msgChat = (crewNo, userNo, message, userName) => {
+    const msg = defaultMsg(crewNo, userNo, message, userName);
     return JSON.stringify({
         ...msg,
         type: 'CHAT',
-        sendDate: new Date().toISOString().slice(0, 19).replace('T', ' ')
+        sendDate: new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ")
     });
 }
 
@@ -66,8 +67,8 @@ export const msgChat = (crewNo, userNo, message) => {
  * @param {*} userNo 현재 로그인 중인 유저 번호
  * @returns [CONNECT] JSON.stringify 객체
  */
-export const msgConnect = (crewNo, userNo) => {
-    const msg = defaultMsg(crewNo, userNo);
+export const msgConnect = (crewNo, userNo, userName) => {
+    const msg = defaultMsg(crewNo, userNo, userName);
     return JSON.stringify({
         ...msg, 
         type: 'CONNECT'

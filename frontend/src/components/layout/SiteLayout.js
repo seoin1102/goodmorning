@@ -17,6 +17,7 @@ import Navigation from '../common/Navigation';
 function SiteLayout({children}) {
     const client = useRef({});
     const authUser = JSON.parse(localStorage.getItem('authUser'))
+    
     const [sendMessage, setSendMessage] = useState("");
 
     const dispatch = useDispatch();
@@ -61,7 +62,7 @@ function SiteLayout({children}) {
         const crewList = await get(`/crew/${authUser.no}`);
         dispatch(setCHATALARM(crewList));
         console.log("!!!!!!!!!!!!!!!!!!", crewList);
-        await crewList.map(async (crew) => {
+        const result = await crewList.map(async (crew) => {
 
             const connectChat = msgConnect(crew.no, authUser.no);
             
@@ -70,18 +71,16 @@ function SiteLayout({children}) {
                 destination: `/pub/chat`, 
                 body: connectChat
             });
-
             
             // focus 안된 크루에 대한 메시지 알림 기능
             if(crew.no !== crewNo) {
-            const a = client.current.subscribe(`/sub/${crew.no}`, (data) => {
+            const unfoucs = client.current.subscribe(`/sub/${crew.no}`, (data) => {
                     //추후 작성
                 })
                 console.log("zzzzzadadafsfdag" + a.id);
             
-                return;
+                return {crewNo: crew.no, count: 0, subId: unfoucs};
             };
-            
 
             // focus 된 [채널/크루]의 전체 메시지 리스트 DB에서 가져와 출력
             const getChatList = await get(`/chat/${crewNo}`);
@@ -94,11 +93,10 @@ function SiteLayout({children}) {
                 dispatch(addChat(JSON.parse(data.body)));
             })
 
-            // console.log("zzzzzadadafsfdag" + JSON.stringify(b));
-
-            return ;
+            return {} ;
         })
-        
+
+        dispatch(setCHATALARM(result))
     };
 
     //  해당 크루에 속한 사람 전부에게 메시지 보내기(메시지 객체 생성 -> DB 저장 -> STOMP 통신))
@@ -120,12 +118,16 @@ function SiteLayout({children}) {
         if(result.data !== 'success')
             return;
         
-        const pubChat = msgChat(crewNo, authUser.no, sendMessage);
+        const pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name);
         client.current.publish({destination: `/pub/chat`, body: pubChat});
         
         setSendMessage("");
     };
 
+    ///// 시창이 코드 넣을 곳 ///////////
+
+
+    ///////////////////////////
     return (
         <div>
             <Grid container component={Paper}>
