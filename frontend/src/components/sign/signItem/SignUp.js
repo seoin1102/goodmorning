@@ -8,6 +8,9 @@ import emailIcon from '../../../assets/icons/email.svg'
 import lockIcon from '../../../assets/icons/lock.svg'
 import userIcon from '../../../assets/icons/user.svg'
 import peopleIcon from '../../../assets/icons/people.svg'
+import checkIcon from'../../../assets/icons/check.png'
+import closeIcon from'../../../assets/icons/close.png'
+import { height } from '@mui/system';
 
 function SignUp({callback,errormessage}) {
   const [checkemail, setcheckEmail] = useState("");
@@ -46,10 +49,13 @@ function SignUp({callback,errormessage}) {
                           <Form.Control className='form-control input-shadow' id="email" type="email" value={checkemail}  placeholder="이메일을 입력해주세요" onChange={onChangeEmailInput} required />
                             { checkemail === '' ?
                                 null :
-                                validEmail ?
-                                    <FontAwesomeIcon icon={faCheckCircle} style={{marginLeft:5,marginRight:5 , fontSize:35, color:'blue'}}/>: 
-                                    <FontAwesomeIcon icon={faTimesCircle} style={{marginLeft:5,marginRight:5, fontSize:35, color:'red'}}/>
+                                validEmail?
+                                <img src={checkIcon} style={{ marginLeft:5,marginRight:5 ,height:'35px'}}></img>:
+                                <img src={closeIcon} style={{ marginLeft:5,marginRight:5 ,height:'35px'}}></img>
+                                    //<FontAwesomeIcon icon={faCheckCircle} style={{marginLeft:5,marginRight:5 , fontSize:35, color:'blue'}}/>:
+                                    //<FontAwesomeIcon icon={faTimesCircle} style={{marginLeft:5,marginRight:5, fontSize:35, color:'red'}}/>
                             }
+   
                             <InputGroup.Text>
                               <img src={emailIcon}></img>
                             </InputGroup.Text>

@@ -96,6 +96,13 @@ export const catchAuth = (error) =>{
     }
 }
 
+export const getLocalStorageAuthUser = () =>{
 
+    if(!localStorage.getItem('authUser')){
+        location.href="/signin"
+    }else{
+        return JSON.parse(localStorage.getItem('authUser'));
+    }
+} 
 
 
