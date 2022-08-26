@@ -58,7 +58,7 @@ public class ChatController {
     public void message(@RequestBody ChatVo chatVo) {
     	
     	String topic = Long.toString(chatVo.getCrewNo());
-    	System.out.println("토픽값:" + topic);
+    	System.out.println("토픽값:" + chatVo);
     	
     	// 0번. [CONNECT]일 경우 메시지 리스너 등록
     	if(ChatVo.MessageType.CONNECT.equals(chatVo.getType())) {

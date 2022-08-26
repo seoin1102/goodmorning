@@ -53,4 +53,8 @@ public class CrewService {
 		return crewRepository.getAllCrew(userNo);
 	}
 
+	public int checkCrewUser(int userNo, String crewNo) {
+		return crewRepository.checkCrewUser(userNo,crewNo);
+	}
+
 }

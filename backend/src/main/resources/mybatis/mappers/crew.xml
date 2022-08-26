@@ -36,6 +36,12 @@
 				]]>
 		</select>
 		
+		<select id="checkCrewUser" parameterType="map" resultType="integer">
+				<![CDATA[
+				select count(*) from crew_user where user_no = #{userNo} and crew_no = #{crewNo};
+				]]>
+		</select>
+		
 		<insert id="insertcrewuser" parameterType="crewvo">
 				<![CDATA[
 				insert into crew_user values (null, #{crewNo}, #{userNo}, 1, now(), #{owner}, now());

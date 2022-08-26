@@ -151,6 +151,14 @@ public class CrewController {
     		return ResponseEntity.ok().headers(headers).body(message);
     	}
     	
+    	checkcount = crewService.checkCrewUser(userNo, crewNo);
+    	if(checkcount == 1) {
+    		message.setMessage("현재 크루에 유저가 존재 합니다.");
+        	message.setData("fail");
+    		return ResponseEntity.ok().headers(headers).body(message);
+    	}
+    	
+    	
     	crewService.addCrewUser(Long.valueOf(crewNo),Long.valueOf(userNo), 0L);
     	
     	message.setMessage("유저 초대에 성공하였습니다.");
