@@ -31,7 +31,7 @@ public class ChannelRepository {
 	}
 
 	@Transactional
-	public Object findFirst(Long userNo) {
+	public List<ChannelVo> findFirst(String userNo) {
 		return sqlSession.selectList("channel.findFirst", userNo);
 		
 	}
@@ -45,11 +45,33 @@ public class ChannelRepository {
 		return sqlSession.selectOne("channel.findByMasterChannelUserNo", masterChannelUserNo);
 	}
 
-	public void addChannelUser(Long masterChannelUserNo, Long channelNo) {
+	public void addChannelUser(Long masterChannelUserNo, Long channelNo, Long owner) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("masterChannelUserNo", masterChannelUserNo);
 		map.put("channelNo", channelNo);
+		map.put("owner", owner);
 		sqlSession.insert("channel.insertUser", map);
+	}
+
+	public List<ChannelVo> getChangeChannel(String channelNo, String userNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("channelNo", channelNo);
+		map.put("userNo", userNo);
+		return sqlSession.selectList("channel.getChangeChannel", map);
+	}
+
+	public int checkUser(String channelNo, String email) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("channelNo", channelNo);
+		map.put("email", email);
+		return sqlSession.selectOne("channel.checkUser", map);
+	}
+
+	public int findUserNoByEmail(String email) {	
+		if (null == sqlSession.selectOne("channel.findUserNoByEmail", email))
+			return 0;
+		
+		return sqlSession.selectOne("channel.findUserNoByEmail", email); 
 	}
 
 }

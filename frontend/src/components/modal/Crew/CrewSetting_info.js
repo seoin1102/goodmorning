@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { putJson } from '../../../apis/Axios';
+import { setCREWFOCUS } from '../../../redux/focus';
+import { updateCREW } from '../../../redux/crew';
 
-function CrewSetting_info() {
+function CrewSetting_info({onClickModal, crewName, setTab, crewNo}) {
 
+    const [name, setName] = useState(crewName);
     
+    const dispatch = useDispatch();
+
+    const onClickHandler = async(crewName, crewNo) => {
+      const updateCrew = JSON.stringify({
+            no: crewNo,
+            name: crewName
+        })
+
+        const result = await putJson(`/crew/update`, updateCrew);
+        if (result.data === 'success'){
+        dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
+        dispatch(updateCREW({no: crewNo, name: crewName}))
+        }
+        
+        onClickModal();
+    }
+
     return (
       <>
         <Modal.Body>
@@ -14,6 +36,8 @@ function CrewSetting_info() {
                     type="text"
                     placeholder="Crew Name"
                     autoFocus
+                    defaultValue={crewName}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -23,6 +47,18 @@ function CrewSetting_info() {
                   </Form.Group>
             </Form>
         </Modal.Body>
+        <Modal.Footer>
+          <Button 
+              variant="outline-dark"  
+              onClick={() => {onClickModal()
+                              setTab(0)
+                              }} >
+            취소
+          </Button>
+          <Button variant="outline-dark" onClick={()=> onClickHandler(name,crewNo)} >
+            변경사항 저장
+          </Button>
+      </Modal.Footer>
         
      </>
     );

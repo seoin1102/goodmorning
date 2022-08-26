@@ -9,7 +9,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import project from "../../redux/project";
@@ -30,6 +30,7 @@ function Row(props) {
             onClick={() => setOpen(!open)}
           >
             {open ? '△'  : '▽'}
+
           </IconButton>
         </TableCell>
 
@@ -49,9 +50,9 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
+              {/* <Typography variant="h6" gutterBottom component="div">
                 작업 목록
-              </Typography>
+              </Typography> */}
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>

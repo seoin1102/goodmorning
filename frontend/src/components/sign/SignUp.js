@@ -2,9 +2,10 @@ import React,{useState, Fragment} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SignUp from './signItem/SignUp'
 import {signup} from '../../redux/sign'
+import Swal from 'sweetalert2'
+import { fetchResponse, checkResponse } from '../../apis/Fetch';
 
-
-function SignContainer({callback}) {
+function SignContainer() {
 
     const [errormessage, seterrormessage] = useState("");
 
@@ -24,39 +25,28 @@ function SignContainer({callback}) {
 
 
     const insertSignUp = async function(email,name,passwd) {
-        try {
-            const data ={
-                email: email,
-                name: name,
-                passwd: passwd
-            }
-          const response = await fetch('/api/user/signUp', {
-            method: 'post',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify(data)
-          });
-    
+    try {
+              const data ={
+                  email: email,
+                  name: name,
+                  passwd: passwd
+              }
+              
+            const response = await fetchResponse('/api/user/signUp','post','jsonjsonHeader',JSON.stringify(data));
+            const json = await checkResponse(response);
 
-          if(!response.ok) {
-            throw new Error(`${response.status} ${response.statusText}`);
-          }
-
-          const json = await response.json();
-
-          if(json.result !== 'success') {
-            //throw new Error(`${json.result} ${json.message}`);  
-            throw new Error(`${json.message}`);  
-          }
-            callback("회원가입 되었습니다. 해당 이메일로 확인 메일이 전송되었습니다.","/signin");
-            //alert("회원가입 되었습니다. 해당 이메일로 확인 메일이 전송되었습니다.")
-            //location.href="/";
+            Swal.fire({
+              title:'회원가입 성공!',
+              text: "해당 이메일로 확인 메일이 전송되었습니다.",
+              icon: 'success',
+              confirmButtonText: '확인'
+            }).then((reuslt)=>{
+                if (reuslt.isConfirmed) {
+                  location.href="/signin";
+                 }
+              })
             seterrormessage('');
         } catch(err) {
-          //alert(err);
-          //callback(err.toString(),"");
           seterrormessage(err.toString());
         }
       }

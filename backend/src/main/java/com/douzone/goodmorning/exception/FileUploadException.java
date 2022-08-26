@@ -4,7 +4,7 @@ public class FileUploadException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	
 	public FileUploadException() {
-		super("GalleryServiceException Occurs");
+		super("ServiceException Occurs");
 	}
 
 	public FileUploadException(String message) {

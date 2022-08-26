@@ -4,9 +4,9 @@
 <mapper namespace="chat">	
 		<select id="findAllByCrewNo" parameterType="long" resultType="chatvo">
 				<![CDATA[
-				select no, crew_no as crewNo, user_no as userNo, send_date as sendDate, message 
-				from chat 
-				where crew_no = #{crewNo};
+				select a.no, a.crew_no as crewNo, a.user_no as userNo, a.send_date as sendDate, a.message, a.type, b.name as userName
+				from chat as a, user as b
+				where a.crew_no = #{crewNo} and a.user_no = b.no;
 				]]>
 		</select>
 		
@@ -14,7 +14,7 @@
 				<![CDATA[
 				insert
 					into chat 
-				values(null, #{crewNo }, #{userNo }, now(), #{message })
+				values(null, #{crewNo }, #{userNo }, now(), #{message }, #{type })
 				]]>
 		</insert>
 </mapper>

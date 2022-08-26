@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.goodmorning.repository.ChatRoomRepository;
+import com.douzone.goodmorning.security.Auth;
 import com.douzone.goodmorning.vo.ChatRoom;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class ChatRoomController {
 
     private final ChatRoomRepository chatRoomRepository;
-
+    @Auth
     @GetMapping("/room")
     public String rooms(Model model) {
     	System.out.println("페이지 입장");

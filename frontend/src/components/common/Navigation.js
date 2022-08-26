@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { get, post } from '../../apis/Axios';
+import { get, post, put, putJson } from '../../apis/Axios';
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import { setCrew, addCrew, deleteCrew } from '../../redux/crew';
 import Grid from '@mui/material/Grid';
@@ -23,7 +23,7 @@ function Navigation() {
         no: crewNo,
         name: crewName
     });
-    // console.log("Zz" + channelNo);
+
     /**
      * 크루 목록
      * @param channelNo 채널 번호
@@ -32,8 +32,10 @@ function Navigation() {
     const initialCrew = useCallback(async(channelNo, userNo) => {
         const crews = await get(`/crew/${channelNo}/${userNo}`);
         dispatch(setCrew(crews));
+        console.log('@@@@@@@@@', crews)
+        localStorage.setItem('crewList', JSON.stringify(crews));
     }, [channelNo])
- 
+
     /**
      * 크루 생성
      * @param {*} channelNo 크루를 생성할 채널 번호
@@ -42,42 +44,34 @@ function Navigation() {
     const onCreateCrew = useCallback(async(channelNo, crew, userNo) => {
         await post(`/crew/${channelNo}/${userNo}`, crew);
         dispatch(addCrew(crew));
-        console.log(channelNo+"::fsdfdsf "+ " user ::" + userNo + "crew ::" + crew)
     }, [])
 
     const onCreateChannel = useCallback(async(channel) => {
         const result = await post(`/channel`, channel);
-
-        console.log("############", result);
         dispatch(addChannel(result.data));
-        console.log(channel)
     }, [])
 
-    const onClickCrew = (crewNo,crewName) => {
-        setChangeCrew((prevState) => ({...prevState, no: crewNo, name: crewName}))
+    const onClickCrew = async(crewNo, crewName) => {
+        const result = await putJson(`/crew/${crewNo}`, JSON.stringify({no: userNo}))
+        if(result.data === 'success')
+            setChangeCrew((prevState) => ({...prevState, no: crewNo, name: crewName}))
     }
 
-
     useEffect(() =>{
-        console.log("zzzzzzzzz" + changeCrew.no + "aaaaa" + changeCrew.name)
         dispatch(setCREWFOCUS({no: changeCrew.no, name: changeCrew.name}));
     }, [changeCrew])
+
     /**
      * 초기 화면
      */
     useEffect(() => {
-
-        if(channelNo !== null){
-        initialCrew(channelNo,userNo);
-        }
-        console.log("mount");
-
-        return () => (console.log('unmount'))
+        if(channelNo !== null)
+            initialCrew(channelNo, userNo);
     }, [channelNo])
 
     return (
     <>
-        <Grid item xs={2} style={{ height: '840px',backgroundColor:"#3a4275"}}>
+        <Grid item xs={2} style={{ height: '840px',backgroundColor:"#283249"}}>
             <NavigationEct onCreateCrew={onCreateCrew} onCreateChannel={onCreateChannel}/>
             <NavigationCrew crewList={crewList} onClickCrew={onClickCrew} />
             <NavigationDM />

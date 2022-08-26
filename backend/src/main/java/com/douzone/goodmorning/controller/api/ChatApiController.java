@@ -44,6 +44,7 @@ public class ChatApiController {
     // 채팅 추가
     @PostMapping("/chat/{crewNo}/{userNo}")
     public ResponseEntity<Message> chatAdd(@PathVariable("crewNo") Long crewNo, @PathVariable("userNo") Long userNo, @RequestBody ChatVo chatVo) {
+    	System.out.println("!!!!!!!!!!!!!!!!!" + chatVo);
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	

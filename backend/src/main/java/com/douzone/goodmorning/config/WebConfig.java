@@ -17,7 +17,7 @@ import com.douzone.goodmorning.security.LoginInterceptor;
 import com.douzone.goodmorning.security.LogoutInterceptor;
 //import com.douzone.goodmorning.security.LogoutInterceptor;
 
-
+@PropertySource("classpath:config/WebConfig.properties")
 @SpringBootConfiguration
 @PropertySource("classpath:config/WebConfig.properties")
 public class WebConfig implements WebMvcConfigurer {

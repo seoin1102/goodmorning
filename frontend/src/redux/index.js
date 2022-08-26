@@ -7,6 +7,7 @@ import focus from './focus';
 import chat from './chat';
 import crewUser from './crewUser';
 import project from './project';
+import chatAlarm from './chatAlarm';
 
 const rootReducer = combineReducers({
     channel,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     focus,
     chat,
     crewUser,
-    project
+    project,
+    chatAlarm
 });
 
 export default rootReducer;

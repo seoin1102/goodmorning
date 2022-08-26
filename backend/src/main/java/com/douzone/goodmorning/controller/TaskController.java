@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.douzone.goodmorning.dto.JsonResult;
+import com.douzone.goodmorning.security.Auth;
 import com.douzone.goodmorning.service.TaskService;
 import com.douzone.goodmorning.vo.TaskVo;
 
@@ -33,9 +34,10 @@ public class TaskController {
 	 * @param userNo 채널 주인의 유저번호
 	 * @return 해당 유저가 소유한 유저 리스트
 	 */
-    
+
     @GetMapping("/pNo/{projectNo}")
     public ResponseEntity<JsonResult> findByProject(@PathVariable("projectNo") Long projectNo) {
+
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	

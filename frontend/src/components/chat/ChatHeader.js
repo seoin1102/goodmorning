@@ -1,27 +1,42 @@
 import { Divider, Grid, List, ListItem, ListItemText } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
+import { get } from '../../apis/Axios';
 import CrewSetting from '../modal/Crew/CrewSetting';
 
 function ChatHeader() {
 
+    const user = JSON.parse(localStorage.getItem('authUser'));
+    const userNo = user.no;
+
     const [crewModalIsOpen, setCrewModalIsOpen] = useState(false);
+    const {crewNo, crewName, channelNo} = useSelector(state => state.focus);
+    const [users, setUsers] = useState([]);
+
 
     const onClickCrewModal = useCallback(() => {
         setCrewModalIsOpen(prevCrewModalIsOpen => !prevCrewModalIsOpen);
-    }, [])
-    const crewName = useSelector(state => (state.focus.crewName), shallowEqual);
+        initialUser();
+    }, [channelNo, crewNo])
 
+    const onClickExitModal = useCallback(() => {
+        setCrewModalIsOpen(prevCrewModalIsOpen => !prevCrewModalIsOpen);
+    }, [])
+
+    const initialUser = useCallback(async() => {
+        const result = await get(`/user/email/${channelNo}/${crewNo}`);
+        setUsers(() => [].concat(result));
+    }, [users, channelNo, crewNo])
     return (
         <>
-            <Grid container style={{ padding: '10px 30px 0px 20px', backgroundColor:'#f7f7fa', borderBottom:'solid 2px black' }}>
+            <Grid container style={{ padding: '0px 30px -10px 20px', backgroundColor:'#f7f7fa', borderBottom:'solid 2px black' }}>
                 <Grid item xs={12}>
-                    <List>
+                    <List style={{ padding: '-8px auto'}}>
                         <ListItem button key="RemySharp"
-                            onClick={setCrewModalIsOpen}>
+                            onClick={onClickCrewModal}>
                             <ListItemText> #{crewName} </ListItemText>
                         </ListItem>
-                        <CrewSetting modalShow={crewModalIsOpen} onClickModal={onClickCrewModal} />
+                        <CrewSetting modalShow={crewModalIsOpen} onClickModal={onClickExitModal} users={users} crewName={crewName} channelNo={channelNo} crewNo={crewNo}/>
                     </List>
                     <Divider />
                 </Grid>

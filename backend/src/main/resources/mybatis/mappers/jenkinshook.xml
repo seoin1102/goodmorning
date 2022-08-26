@@ -3,7 +3,7 @@
 <mapper namespace="jenkinshook">
 	<insert id="insert" parameterType="map">
 		<![CDATA[
-			insert into jenkinshook values(null, #{fullUrl }, #{buildNumber}, #{duration}, #{status}, #{branch}, #{commit}, now(), #{projectNo})
+			insert into jenkinshook values(null, #{fullUrl }, #{buildNumber}, #{duration}, #{status}, #{branch}, #{commit}, now(), #{buildLog},#{projectNo})
 		]]>
 	</insert>
 	
