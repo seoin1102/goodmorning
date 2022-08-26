@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.douzone.goodmorning.dto.JsonResult;
+import com.douzone.goodmorning.security.Auth;
 import com.douzone.goodmorning.dto.Message;
 import com.douzone.goodmorning.dto.status.StatusEnum;
 import com.douzone.goodmorning.service.UserService;
@@ -33,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 	
 	private final UserService userService;
-	
+
 	@Transactional
 	@PostMapping("/signUp")
 	public ResponseEntity<JsonResult> singUp(@RequestBody UserVo vo){
@@ -68,15 +69,6 @@ public class UserController {
 	
 	@PostMapping("/signIn")
 	public void singIn(){
-		//ResponseEntity<JsonResult> 
-		// @RequestBody UserVo vo
-//		System.out.println(vo);
-//		UserVo result = userService.signIn(vo);
-//		System.out.println(result);
-//		if(result==null) {
-//			return ResponseEntity.status(HttpStatus.OK).body(JsonResult.fail("이메일 또는 패스워드가 잘못되었습니다.")); 
-//		}
-//		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("로그인 성공했습니다."));
 	}
 	
 	@GetMapping("/logout")
@@ -89,6 +81,9 @@ public class UserController {
 		
 		
 		UserVo authUser = userService.getEmailEnable(vo);
+		if(authUser==null) {
+			return ResponseEntity.status(HttpStatus.OK).body(JsonResult.fail("존재하지 않는 이메일 입니다."));
+		}
 		
 		if(!authUser.isEnable()) {
 			return ResponseEntity.status(HttpStatus.OK).body(JsonResult.fail("인증되지 않은 이메일 입니다."));

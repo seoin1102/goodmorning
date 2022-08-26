@@ -1,5 +1,5 @@
 import React, { useState, useEffect , memo} from "react";
-import PropTypes from 'prop-types';
+import PropTypes, { element } from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -12,33 +12,9 @@ import TableRow from '@mui/material/TableRow';
 // import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-
-function createData(name, start, end, description, status) {
-
-  return{
-    name, start, end, description, status
-  }
-  // return {
-  //   name,
-  //   calories,
-  //   fat,
-  //   carbs,
-  //   protein,
-  //   price,
-  //   history: [
-  //     {
-  //       date: '2020-01-05',
-  //       customerId: '11091700',
-  //       amount: 3,
-  //     },
-  //     {
-  //       date: '2020-01-02',
-  //       customerId: 'Anonymous',
-  //       amount: 1,
-  //     },
-  //   ],
-  // };
-}
+import project from "../../redux/project";
+import task from "../../redux/task";
+import moment from "moment";
 
 function Row(props) {
   const { row } = props;
@@ -53,24 +29,22 @@ function Row(props) {
             size="small"
             onClick={() => setOpen(!open)}
           >
-            {/* {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} */}
+            {open ? '△'  : '▽'}
+
           </IconButton>
         </TableCell>
 
         <TableCell component="th" scope="row">
-          {row.name}
+          {row.projectName}
         </TableCell>
         <TableCell align="right">{row.start}</TableCell>
         <TableCell align="right">{row.end}</TableCell>
         <TableCell align="right">{row.description}</TableCell>
         <TableCell align="right">{row.status}</TableCell> 
-        {/* <TableCell component="th" scope="row">
-          {row.name}
+        <TableCell component="th" scope="row">
+          {row.title}
         </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell> */}
+        
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -84,26 +58,24 @@ function Row(props) {
                   <TableRow>
                     <TableCell>작업명</TableCell>
                     <TableCell>담당자</TableCell>
-                    <TableCell align="right">시작일시</TableCell>
-                    <TableCell align="right">종료일시</TableCell>
-                    <TableCell align="right">상태</TableCell>
+                    <TableCell>시작일시</TableCell>
+                    <TableCell>종료일시</TableCell>
+                    <TableCell>상태</TableCell>
                   </TableRow>
                 </TableHead>
-                {/* <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
+                <TableBody>
+                  {row.task &&row.task.map((historyRow) => (
+                    <TableRow key={historyRow.id}>
                       <TableCell component="th" scope="row">
-                        {historyRow.date}
+                        {historyRow.title}
                       </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell>{historyRow.userName}</TableCell>
+                      <TableCell>{historyRow.start}</TableCell>
+                      <TableCell>{historyRow.end}</TableCell>
+                      <TableCell>{historyRow.status}</TableCell>
                     </TableRow>
                   ))}
-                </TableBody> */}
+                </TableBody>
               </Table>
             </Box>
           </Collapse>
@@ -113,47 +85,42 @@ function Row(props) {
   );
 }
 
-Row.propTypes = {
-  row: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      start: PropTypes.number.isRequired,
-      end: PropTypes.number.isRequired,
-      description: PropTypes.number.isRequired,
-      status: PropTypes.number.isRequired,
-    }).isRequired,
-  // row: PropTypes.shape({
-  //   calories: PropTypes.number.isRequired,
-  //   carbs: PropTypes.number.isRequired,
-  //   fat: PropTypes.number.isRequired,
-  //   history: PropTypes.arrayOf(
-  //     PropTypes.shape({
-  //       amount: PropTypes.number.isRequired,
-  //       customerId: PropTypes.string.isRequired,
-  //       date: PropTypes.string.isRequired,
-  //     }),
-  //   ).isRequired,
-  //   name: PropTypes.string.isRequired,
-  //   price: PropTypes.number.isRequired,
-  //   protein: PropTypes.number.isRequired,
-  // }).isRequired,
-};
 
-// const projectList = useSelector((state) => state.project, shallowEqual);
-// const rows = projectList.map((project)=>createData(project.name, project.start, project.end, project.description, project.status))
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 
-export default function CollapsibleTable() {
-  // const projectList = useSelector((state) => state.project, shallowEqual);
+export default function CollapsibleTable(props) {
+  const projectList = useSelector((state) => state.project, shallowEqual);
+  const taskList = useSelector((state) => state.task, shallowEqual);
+  const thisYear = moment(props.date).format('YYYY');
+  const lastYear = (moment(props.date).subtract(1, 'year').format('YYYY'))
+  const nextYear = (moment(props.date).add(1, 'year').format('YYYY'))
+
+  const filterdList = projectList.map(project=> {if(moment(project.start).format('YYYY') == thisYear){return project} }).filter(element=>element)
+  const nextYearList = projectList.map(project=> {if(moment(project.start).format('YYYY') == nextYear){return project} }).filter(element=>element)
+
+//   for(let i=0; i < filterdList.length; i++){
+//     const tasks = []
+//     for(let j=0; j <  taskList.length; j++){
+//       if(filterdList[i].no==taskList[j].projectNo){
+//         tasks.push(taskList[j])
+//         filterdList[i].task= tasks
+//       }   
+//     }
+//   }
+// console.log(filterdList)
+//   for(let i=0; i < nextYearList.length; i++){
+//     const tasks = []
+//     for(let j=0; j <  taskList.length; j++){
+//       if(nextYearList[i].no==taskList[j].projectNo){
+//         tasks.push(taskList[j])
+//         nextYearList[i].task= tasks
+//       }   
+//     }
+//   }
 
   return (
+    <>
     <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
+      <Table aria-label="collapsible table" >
         <TableHead>
           <TableRow>
             <TableCell />
@@ -165,11 +132,14 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
+          {filterdList.map((row) => (
+            <Row key={row.no} row={row} />
           ))}
+    
         </TableBody>
       </Table>
+
     </TableContainer>
+    </>
   );
 }

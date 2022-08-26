@@ -6,6 +6,7 @@ import sign from './sign';
 import focus from './focus';
 import chat from './chat';
 import crewUser from './crewUser';
+import project from './project';
 import chatAlarm from './chatAlarm';
 
 const rootReducer = combineReducers({
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     focus,
     chat,
     crewUser,
+    project,
     chatAlarm
 });
 

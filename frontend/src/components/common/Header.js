@@ -9,18 +9,17 @@ import CrewSetting from '../modal/Crew/CrewSetting';
 import HeaderItem from './header/HeaderItem';
 import HeaderSearch from './header/HeaderSearch';
 import HeaderUser from './header/HeaderUser';
+import {getLocalStorageAuthUser} from '../../apis/Fetch';
 
 
 function Header() {
-
-
-
+    
     // modal state
     const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
 
     //const [changeChannelNo, setChangeChannelNo] = useState(channelNo);
     //const [changeChannelName, setChangeChannelName] = useState(channelName);
-    const user = JSON.parse(localStorage.getItem('authUser'));
+    const user = getLocalStorageAuthUser();
     const userNo = user.no;
 
      const dispatch = useDispatch();

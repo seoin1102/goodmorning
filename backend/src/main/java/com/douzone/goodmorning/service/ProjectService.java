@@ -18,13 +18,13 @@ public class ProjectService {
 		return projectRepository.findAll(crewNo);
 	}
 	
-//	public Boolean updateTask(TaskVo taskVo) {
-//		return taskRepository.update(taskVo);
+//	public Boolean updateTask(ProjectVo projectVo) {
+//		return projectRepository.update(projectVo);
 //	}
-//
-//	public Boolean addTask(TaskVo taskVo) {
-//		return taskRepository.insert(taskVo);
-//	}
+
+	public Boolean addTask(ProjectVo projectVo) {
+		return projectRepository.insert(projectVo);
+	}
 //
 //	public Boolean deleteTask(Long id) {
 //		return taskRepository.delete(id);

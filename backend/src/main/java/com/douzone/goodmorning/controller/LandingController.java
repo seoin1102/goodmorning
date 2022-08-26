@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.douzone.goodmorning.security.Auth;
+
 @Controller
 public class LandingController {
 
@@ -13,6 +15,7 @@ public class LandingController {
 	public void returnNoFavicon() {
 	}
 	
+	@Auth
 	@RequestMapping("")
 	public String index() {
 		return "index";

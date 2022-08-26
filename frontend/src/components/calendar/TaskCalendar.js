@@ -24,10 +24,13 @@ function TaskCalendar(props) {
   // }
 
   // const groupedPeople = groupBy(taskList, 'title');
-
+  console.log("피곤카")
+ console.log(props.taskList)
+ console.log("피곤카")
 
   return (
-    <div className="demo-app-calendar" id="mycalendartest">
+    <div className="demo-app-calendar" id="mycalendartest"
+    style={{width: "900px",marginLeft:'2%', fontFamily:'Cascadia Code'}}>
       <FullCalendar
         defaultView="dayGridMonth"
         headerToolbar={{
@@ -43,7 +46,7 @@ function TaskCalendar(props) {
         events={props.taskList}
         eventClick={props.eventClickHandler}
         dateClick={props.dateClickHandler}
-        eventColor="rgba(47, 41, 41, 0.432)"
+        eventColor={props.taskList.color}
       /></div>
   );
 }

@@ -13,12 +13,13 @@ import com.douzone.goodmorning.dto.JsonResult;
 import com.douzone.goodmorning.vo.UserVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 public class AuthInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		//System.out.println("오스 인터셉터 들어온지 확인용");
+		System.out.println("오스 인터셉터 들어온지 확인용");
 		response.setContentType("application/json");
 	
 		// 1. Handler 종류 확인
@@ -48,7 +49,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 		
 		// 6. Handler Method에 @Auth가 붙어 있기 때문에 인증(Authentication) 여부 확인
 		HttpSession session = request.getSession();
-		String url = "http://localhost:9090/signin";
 		if(session == null) {
 			
 			//json 응답처리 

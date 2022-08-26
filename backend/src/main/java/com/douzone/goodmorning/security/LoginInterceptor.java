@@ -32,7 +32,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 		UserVo authUser = userService.getUser(email, passwd);
 		
 		
-		System.out.println(authUser);
 		
 		if(authUser == null) {
 			//request.setAttribute("email", email);
@@ -51,7 +50,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			
 			return false;
 		}
-		System.out.println("테스트" + authUser.isEnable());
+
 		if(!authUser.isEnable()) {
 			response.setStatus(HttpServletResponse.SC_OK);
 		
@@ -66,7 +65,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		}
 
 		/* session 처리 */
-		System.out.println(authUser);
+
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
 		

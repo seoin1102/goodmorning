@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.douzone.goodmorning.security.Auth;
 import com.douzone.goodmorning.service.RedisPublisher;
 import com.douzone.goodmorning.service.RedisSubscriber;
 import com.douzone.goodmorning.vo.ChatVo;

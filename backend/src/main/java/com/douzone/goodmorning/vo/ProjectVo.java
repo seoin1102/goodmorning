@@ -14,5 +14,6 @@ public class ProjectVo {
 	private String end;
 	private String description;
 	private String status;
+	private Long crewNo;
 
 }

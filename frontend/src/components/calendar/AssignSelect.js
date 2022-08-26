@@ -10,7 +10,7 @@ export default function AssignSelect(props) {
   const crewUserList = useSelector((state) => state.crewUser, shallowEqual);
 
 const onChange=(event, value)=>{
-    
+
     // 작업자가 있는 작업이라면 새로 업데이트된 작업자만 addedAssigns에 담는다.
     if(props.defaultValue.userName){
         const prevAssigns = [props.defaultValue]
@@ -22,6 +22,7 @@ const onChange=(event, value)=>{
     }else{
         const addedAssignNo = value.map((option)=> option.userNo)
         props.setAddedAssigns(addedAssignNo)
+
     }
 }
 
@@ -44,6 +45,7 @@ const onChange=(event, value)=>{
             placeholder="작업자를 입력해주세요"
           />
         )}
+        
       />
     </Stack>
   );
