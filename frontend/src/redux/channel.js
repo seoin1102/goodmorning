@@ -8,22 +8,14 @@ export const setChannel = (channels) => ({ type: SET_CHANNEL, channels});
 export const addChannel = (channel) => ({ type: ADD_CHANNEL, channel});
 export const deleteChannel = (channelNo) => ({ type: DELETE_CHANNEL, channelNo});
 
-const initialState = [
-  { 
-    no: '', 
-    name: '', 
-    description: '', 
-    creationDate: '', 
-    masterChannelUserNo: ''
-  }
-]
+const initialState = []
 
 const channel = (state = initialState, action) => {
   switch(action.type) {
       case SET_CHANNEL:
           return update(state, {$set: action.channels});
       case ADD_CHANNEL:
-          return update(state, {$push: action.channel});
+          return state.concat(action.channel);
       case DELETE_CHANNEL:
           return update(state, {$splice: [[action.channelNo], 1]});
       default:

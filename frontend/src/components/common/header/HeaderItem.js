@@ -4,12 +4,11 @@ import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import Modal from "react-modal";
 import ReactModal from "react-modal";
 
 ReactModal.setAppElement('body');
 
-function HeaderItem({itemName, customStyle, modalIsOpen, onClickModal, children}) {
+function HeaderItem({itemName, customStyle, onClickModal, children}) {
     
     return (
         <Grid item xs={2}>
@@ -17,20 +16,13 @@ function HeaderItem({itemName, customStyle, modalIsOpen, onClickModal, children}
                 <ListItem 
                     button key="RemySharp" 
                     style={customStyle}
-                    onClick={onClickModal}>
-                    <ListItemText >{itemName}</ListItemText>
+                    onClick={onClickModal}
+                    >
+                    <ListItemText style={{fontStyle:'10em'}}>{itemName}</ListItemText>
                 </ListItem>
-                <Modal
-                    isOpen={modalIsOpen}
-                    shouldCloseOnOverlayClick={ true }
-                    className="Modal"
-                    overlayClassName="Overlay"
-                    style={ {content: {width: 550}} }
-                    contentLabel="modal example">
                     {children}
-                </Modal>  
             </List>
-            <Divider />
+            <Divider/>
         </Grid>
     );
 }

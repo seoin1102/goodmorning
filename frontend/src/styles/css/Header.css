@@ -1,0 +1,10 @@
+.channel {
+    height:60px;
+    white-space:no-wrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.crew {
+    height: 60px;
+}

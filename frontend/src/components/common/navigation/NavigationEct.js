@@ -2,18 +2,27 @@ import React, { useState, useCallback } from 'react';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import AddChannel from '../../modal/AddChannel';
-import AddCrew from '../../modal/AddCrew';
+import AddChannel from '../../modal/Channel/AddChannel';
+import AddCrew from '../../modal/Crew/AddCrew';
 import Reserv from '../../modal/ReservationMessage';
-import '../../../styles/scss/modal/modal.scss';
-import NavigationEctItem from './NavigationEctItem';
 
-function NavigationEct() {
+import NavigationEctItem from './NavigationEctItem';
+import NavigationItem from './NavigationItem';
+import { Collapse, ListItemButton } from '@mui/material';
+import { NavLink } from 'react-router-dom';
+import arrowDownIcon from '../../../assets/icons/keyboard_arrow_down.svg';
+import arrowUpIcon from '../../../assets/icons/keyboard_arrow_up.svg';
+
+function NavigationEct({onCreateCrew, onCreateChannel}) {
     // modal state
     const [addChannelModalShow, setAddChannelModalShow] = useState(false);
     const [addCrewModalShow, setAddCrewModalShow] = useState(false);
     const [reservModalShow, setReservModalShow] = useState(false);
+    const [open, setOpen] = useState(true);
 
+    const handleClick = () => {
+        setOpen(!open);
+    };
     // modal click
     const onClickAddChannelModal = useCallback(() => {
         setAddChannelModalShow(prevAddChannelModalShow => !prevAddChannelModalShow);
@@ -27,20 +36,57 @@ function NavigationEct() {
         setReservModalShow(prevReservModalShow => !prevReservModalShow);
     }, [])
 
+    // const list = {
+    //   overflowY: "auto",
+    //   margin: 0,
+    //   padding: 0,
+    //   listStyle: "none",
+    //   height: "100%",
+    //   '&::-webkit-scrollbar': {
+    //     width: '0.4em'
+    //   },
+    //   '&::-webkit-scrollbar-track': {
+    //     boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+    //     webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+    //   },
+    //   '&::-webkit-scrollbar-thumb': {
+    //     backgroundColor: 'rgba(0,0,0,.1)',
+    //     outline: '1px solid slategrey'
+    //   }
+    // }
+
     return (
         <>
-        <List>
-            <Grid item xs={12} >캘린더 등 기타기능 여기!</Grid>
+        <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold',borderTop:'solid 1.5px white', borderBottom:'solid 1.5px white',color:'white'}}>
+        <Grid item xs={12} textAlign={'center'}> 기능 </Grid>
+        {open ? <img src={arrowUpIcon}/> : <img src={arrowDownIcon} />}
+        </ListItemButton>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+        <List style={{height: '200px', overflow: 'auto', listStyle: "none"}}>
+            
             <NavigationEctItem userName={"Remy Sharp"} itemName={"채널 생성"} onClickModal={onClickAddChannelModal}>
-                <AddChannel modalShow={addChannelModalShow} onClickModal={onClickAddChannelModal}/> 
+                <AddChannel modalShow={addChannelModalShow} onClickModal={onClickAddChannelModal} onCreateChannel={onCreateChannel} /> 
             </NavigationEctItem>
             <NavigationEctItem userName={"Alice"} itemName={"크루 생성"} onClickModal={onClickAddCrewModal}>
-                <AddCrew modalShow={addCrewModalShow} onClickModal={onClickAddCrewModal} /> 
+                <AddCrew modalShow={addCrewModalShow} onClickModal={onClickAddCrewModal} onCreateCrew={onCreateCrew} /> 
             </NavigationEctItem>
-            <NavigationEctItem userName={"Cindy Baker"} itemName={"예약메시지"} onClickModal={onClickReservModal}>
+            <NavigationEctItem userName={"Cindy Baker"} itemName={"예약 메시지"} onClickModal={onClickReservModal}>
                 <Reserv modalShow={reservModalShow} onClickModal={onClickReservModal}/> 
             </NavigationEctItem>
+
+            <NavLink to={"/calendar"} style={{textDecoration:'none', color: '#E2BA89'}}>
+            <NavigationEctItem crewName={"캘린더"}/>
+            </NavLink>
+            
+            <NavLink to={"/reservation"} style={{textDecoration:'none', color: '#E2BA89'}}>
+            <NavigationEctItem  crewName={"예약 메시지"} />
+            </NavLink>
+
+            <NavLink to={"/save"} style={{textDecoration:'none', color: '#E2BA89'}}>
+            <NavigationEctItem crewName={"저장된 메시지"} />
+            </NavLink>
         </List>
+        </Collapse>
         <Divider />
         </>
     );

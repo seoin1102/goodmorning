@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import {checkResponse, checkAuth, catchAuth } from './Fetch'
 const client = axios.create({baseURL: '/api'})
 
 /**
@@ -9,8 +9,21 @@ const client = axios.create({baseURL: '/api'})
  */
 export const get = async (url) => {
     try {
+        console.log("get 출력");
         let response =  await client.get(url);
+        checkAuth(response);
         return response.data.data;
+    } catch (error) {
+        console.error("Error >>", error);
+        catchAuth(error);
+    }    
+}
+
+export const getJson = async (url, data) => {
+    try {
+        let response =  await client.get(url, data, {headers: {'Content-Type': 'application/json'}
+    });
+        return response.data;
     } catch (error) {
         console.error("Error >>", error);
     }    
@@ -24,8 +37,52 @@ export const get = async (url) => {
  */
 export const post = async (url, data) => {
     try {
-        let response = await axios.post(url, data);
+        
+        let response = await client.post(url, data);
         return response.data;
+    } catch (error) {
+        console.error("Error >>", error);
+
+    }
+}
+
+export const postJson = async (url, data) => {
+  try {
+      let response = await client.post(url, data, {headers: {'Content-Type': 'application/json'}
+    });
+      return response.data;
+  } catch (error) {
+      console.error("Error >>", error);
+
+  }
+}
+
+export const putJson = async (url, data) => {
+    try {
+        let response = await client.put(url, data, {headers: {'Content-Type': 'application/json'}
+      });
+        return response.data;
+    } catch (error) {
+        console.error("Error >>", error);
+
+    }
+  }
+
+export const put = async (url, data) => {
+    try {
+        let response = await client.put(url, data);
+        return response.data;
+
+    } catch (error) {
+        console.error("Error >>", error);
+    }
+}
+
+export const remove = async (url, data) => {
+    try {
+        let response = await client.delete(url, data);
+        return response.data;
+
     } catch (error) {
         console.error("Error >>", error);
     }

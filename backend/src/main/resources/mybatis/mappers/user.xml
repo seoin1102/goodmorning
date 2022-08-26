@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+	<insert id="insert" parameterType="uservo">
+		<![CDATA[
+			insert into user values(null, #{email }, #{name }, #{passwd }, now(),#{enable }, null, null, null)
+		]]>
+	</insert>
+	
+	<select id="existsById" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+			select no,email,name from user where email=#{email }
+		]]>
+	</select>
+	
+	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+		select no ,email, name,enable
+		  from user
+		 where email=#{email }
+		   and passwd=#{passwd }
+		]]>
+	</select>
+	
+	<select id="findByEnable" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+		select no ,email, name,enable
+		  from user
+		 where email=#{email }
+		]]>
+	</select>
+	
+	<select id="findByUserNo" parameterType="string" resultType="int">
+		<![CDATA[
+		select no from user where email= #{email };
+		]]>
+	</select>
+	
+	<select id="findAllEmaillist" parameterType="map" resultType="uservo">
+		<![CDATA[
+		select a.no, a.name, a.email from user as a , channel_user as b, crew_user as c where a.no = b.user_no and a.no = c.user_no and b.channel_no = #{channelNo} and c.crew_no = #{crewNo};
+		]]>
+	</select>
+	
+	<update id="updateEnable" parameterType="verifivo">
+		<![CDATA[
+			update user set enable=true where email=#{email }
+		]]>
+	</update>
+	
+	<update id="updatePw" parameterType="map">
+		<![CDATA[
+			update user set passwd=#{token } where email=#{email }
+		]]>
+	</update>
+	
+</mapper>

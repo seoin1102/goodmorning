@@ -2,17 +2,69 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="crew">	
-		<select id="findAll" parameterType="long" resultType="crewvo">
+
+		<select id="getAllCrew" parameterType="long" resultType="crewvo">
 				<![CDATA[
-				select no, channel_no as channelNo, master_crew_user_no as masterCrewUserNo, creation_date as creationDate, name
-				from crew where channel_no = #{channelNo }
+				select a.crew_no as no from crew_user as a, user as b where a.user_no = b.no and b.no = #{userNo};
 				]]>
 		</select>
-		<insert id="insert" parameterType="channelvo">
+		
+		<select id="findAll" parameterType="map" resultType="crewvo">
 				<![CDATA[
-				insert
-					into channel
-				values(null, #{name }, #{description }, now(), #{masterChannelUserNo })
+				select a.no, a.channel_no as channelNo, a.master_crew_user_no as masterCrewUserNo, 
+				a.creation_date as creationDate, a.name 
+				from crew as a, crew_user as b  
+				where a.channel_no = #{channelNo} and b.crew_no = a.no and b.user_no = #{userNo};
+				]]>
+		</select>
+		
+		<select id="findCrewUser" parameterType="long" resultType="crewvo">
+				<![CDATA[
+				select a.user_no as userNo, b.name as userName  from crew_user a, user b where a.user_no = b.no and crew_no=#{no};
+				]]>
+		</select>
+		
+		<select id="findMaster" parameterType="map" resultType="Long">
+				<![CDATA[
+				select no from crew where channel_no = #{channelNo} and master_crew_user_no = #{userNo} order by no desc limit 1;
+				]]>
+		</select>
+		
+		<select id="findCrewNoByChannelNo" parameterType="string" resultType="Long">
+				<![CDATA[
+				select no from crew where channel_no = #{channelNo} order by no limit 1;
+				]]>
+		</select>
+		
+		<select id="checkCrewUser" parameterType="map" resultType="integer">
+				<![CDATA[
+				select count(*) from crew_user where user_no = #{userNo} and crew_no = #{crewNo};
+				]]>
+		</select>
+		
+		<insert id="insertcrewuser" parameterType="crewvo">
+				<![CDATA[
+				insert into crew_user values (null, #{crewNo}, #{userNo}, 1, now(), #{owner}, now());
 				]]>
 		</insert>
+
+		<insert id="insert" parameterType="crewvo">
+				<![CDATA[
+				insert
+					into crew 
+				values(null, #{channelNo }, #{masterCrewUserNo }, now(), #{name})
+				]]>
+		</insert>
+		
+		<update id="updateLastIn" parameterType ="map">
+		<![CDATA[
+				update crew_user set lastIn = now() where crew_no = #{crewNo} and user_no= #{userNo};
+				]]>
+		</update>
+		
+		<update id="updateCrewName" parameterType ="crewvo">
+			<![CDATA[
+				update crew set name = #{name} where no = #{no};
+				]]>
+		</update>
 </mapper>
