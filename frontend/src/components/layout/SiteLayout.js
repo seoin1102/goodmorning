@@ -6,6 +6,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import * as SockJS from "sockjs-client";
 import { get, postJson } from '../../apis/Axios';
 import { chatVo, msgChat, msgConnect } from '../../apis/ChatVo.js';
+import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import { addChat, setChat } from '../../redux/chat';
 import {setCHATALARM} from '../../redux/chatAlarm'
 import '../../styles/css/SiteLayout.css';
@@ -16,7 +17,7 @@ import Navigation from '../common/Navigation';
 
 function SiteLayout({children}) {
     const client = useRef({});
-    const authUser = JSON.parse(localStorage.getItem('authUser'))
+    const authUser = getLocalStorageAuthUser();
     
     const [sendMessage, setSendMessage] = useState("");
 
