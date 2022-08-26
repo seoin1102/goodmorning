@@ -35,6 +35,7 @@ public class CrewController {
     private final CrewService crewService;
 	private final ChannelService channelService;
 	
+
 	@Auth
     @Transactional
     @GetMapping("/crew/{userNo}")

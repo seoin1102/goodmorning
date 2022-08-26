@@ -2,8 +2,10 @@ import React, {Fragment, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {resetPw} from '../../redux/sign'
 import ResetPw from './signItem/ResetPw'
+import Swal from 'sweetalert2'
+import { fetchResponse, checkResponse } from '../../apis/Fetch';
 
-function ResetPwContainer({callback}) {
+function ResetPwContainer() {
 
     const { email } = useSelector(state => ({
         email: state.sign.email
@@ -24,33 +26,24 @@ function ResetPwContainer({callback}) {
                 email: email
             }
         
-          const response = await fetch('/api/user/resetPw', {
-            method: 'put',
-            headers: {
-            'Content-Type': 'application/json',  
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify(data)
-          });
-    
-          if(!response.ok) {
-            throw new Error(`${response.status} ${response.statusText}`);
-          }
+          const response = await fetchResponse('/api/user/resetPw','put','jsonjsonHeader',JSON.stringify(data));
+          const json = await checkResponse(response);
 
-          const json = await response.json();
+            Swal.fire({
+              title:'패스워드가 변경되었습니다!',
+              text: "해당 이메일로 임시 패스워드가 전송되었습니다.",
+              icon: 'success',
+              confirmButtonText: '확인'
+            }).then((reuslt)=>{
+                if (reuslt.isConfirmed) {
+                  location.href="/signin";
+                }
+              })
 
-          if(json.result !== 'success') {
-            throw new Error(`${json.message}`);  
-          }
-
-            callback("해당 메일로 임시 패스워드가 전송되었습니다.","/signin")
-            //localStorage.setItem('authUser',JSON.stringify(json.data));
             seterrormessage('');
 
         } catch(err) {
-          //console.log(typeof(err));
           seterrormessage(err.toString());
-          //callback(err.toString(),"")
         }
       }
 

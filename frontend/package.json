@@ -62,6 +62,7 @@
     "react-select": "^5.4.0",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
-    "sockjs-client": "^1.6.1"
+    "sockjs-client": "^1.6.1",
+    "sweetalert2": "^11.4.29"
   }
 }
