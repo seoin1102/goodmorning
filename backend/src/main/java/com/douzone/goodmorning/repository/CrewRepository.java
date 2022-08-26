@@ -75,6 +75,13 @@ public class CrewRepository {
 	public List<CrewVo> getAllCrew(Long userNo) {
 		return sqlSession.selectList("crew.getAllCrew",userNo);
 	}
+
+	public int checkCrewUser(int userNo, String crewNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("crewNo", crewNo);
+		map.put("userNo", userNo);
+		return sqlSession.selectOne("crew.checkCrewUser", map);
+	}
 	
 
 }

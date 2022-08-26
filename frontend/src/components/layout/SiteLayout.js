@@ -38,8 +38,8 @@ function SiteLayout({children}) {
     // 자원 할당(소켓 연결)
     const connect = () => {
         client.current = new StompJs.Client({
-            webSocketFactory: () => new SockJS("http://localhost:8080/ws-stomp"),
-            debug: function (str) {},
+            webSocketFactory: () => new SockJS("http://192.168.10.15:8080/ws-stomp"),
+            debug: function (str) {console.log(str)},
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
@@ -78,7 +78,7 @@ function SiteLayout({children}) {
             const unfoucs = client.current.subscribe(`/sub/${crew.no}`, (data) => {
                     //추후 작성
                 })
-                console.log("zzzzzadadafsfdag" + a.id);
+                // console.log("zzzzzadadafsfdag" + a.id);
             
                 return {crewNo: crew.no, count: 0, subId: unfoucs};
             };
