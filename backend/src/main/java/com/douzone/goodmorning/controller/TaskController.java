@@ -34,13 +34,22 @@ public class TaskController {
 	 * @return 해당 유저가 소유한 유저 리스트
 	 */
     
-    @GetMapping("/{projectNo}")
-    public ResponseEntity<JsonResult> taskList(@PathVariable("projectNo") Long projectNo) {
+    @GetMapping("/pNo/{projectNo}")
+    public ResponseEntity<JsonResult> findByProject(@PathVariable("projectNo") Long projectNo) {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
     	//System.out.println(taskService.getTask(projectNo));
-		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.getTask(projectNo)));
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.findByProject(projectNo)));
+    }
+    
+    @GetMapping("/cNo/{crewNo}")
+    public ResponseEntity<JsonResult> findByCrew(@PathVariable("crewNo") Long crewNo) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	//System.out.println(taskService.getTask(projectNo));
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.findByCrew(crewNo)));
     }
     
     @PutMapping("/{id}")

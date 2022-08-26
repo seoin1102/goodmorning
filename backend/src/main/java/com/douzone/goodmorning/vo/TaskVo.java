@@ -17,5 +17,7 @@ public class TaskVo {
 	private String userName;
 	private Long userNo;
 	private Long crewNo;
+	private String projectName;
+	private String color;
 
 }

@@ -15,8 +15,11 @@ import lombok.RequiredArgsConstructor;
 public class TaskRepository {
 	private final SqlSession sqlSession;
 
-	public List<TaskVo> findAll(Long projectNo) {
-		return sqlSession.selectList("task.findAll", projectNo);
+	public List<TaskVo> findByProject(Long projectNo) {
+		return sqlSession.selectList("task.findByProject", projectNo);
+	}
+	public List<TaskVo> findByCrew(Long crewNo) {
+		return sqlSession.selectList("task.findByCrew", crewNo);
 	}
 
 	public Boolean insert(TaskVo taskVo) {

@@ -18,9 +18,9 @@ public class ProjectRepository {
 		return sqlSession.selectList("project.findAll", crewNo);
 	}
 
-//	public Boolean insert(ProjectVo taskVo) {
-//		return sqlSession.insert("task.insert", taskVo) == 1;
-//	}
+	public Boolean insert(ProjectVo projectVo) {
+		return sqlSession.insert("project.insert", projectVo) == 1;
+	}
 //
 //	public Boolean update(ProjectVo taskVo) {
 //		return sqlSession.insert("task.update", taskVo) == 1;
