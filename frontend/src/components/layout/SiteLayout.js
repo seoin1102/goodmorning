@@ -78,7 +78,7 @@ function SiteLayout({children}) {
             const unfoucs = client.current.subscribe(`/sub/${crew.no}`, (data) => {
                     //추후 작성
                 })
-                console.log("zzzzzadadafsfdag" + a.id);
+                // console.log("zzzzzadadafsfdag" + a.id);
             
                 return {crewNo: crew.no, count: 0, subId: unfoucs};
             };
@@ -126,7 +126,6 @@ function SiteLayout({children}) {
     };
 
     ///// 시창이 코드 넣을 곳 ///////////
-
 
     ///////////////////////////
     return (
