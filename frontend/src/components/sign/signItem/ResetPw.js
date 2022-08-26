@@ -1,14 +1,9 @@
-import React from 'react'; 
-import {NavLink} from "react-router-dom";
+import React from 'react';
+import { NavLink } from "react-router-dom";
 
-import { Button, Form, Row, Col, Card, Dropdown, DropdownButton, InputGroup} from 'react-bootstrap';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons'
 import { Divider } from '@mui/material';
-import emailIcon from '../../../assets/icons/email.svg'
-import lockIcon from '../../../assets/icons/lock.svg'
-import userIcon from '../../../assets/icons/user.svg'
-import peopleIcon from '../../../assets/icons/people.svg'
+import { Button, Card, Col, Form, InputGroup } from 'react-bootstrap';
+import emailIcon from '../../../assets/icons/email.svg';
 
 function ResetPw({callback,errormessage}) {
   return (

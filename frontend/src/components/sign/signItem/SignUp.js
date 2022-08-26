@@ -1,16 +1,12 @@
-import React,{useState} from 'react'; 
-import {NavLink} from "react-router-dom";
-import { Button, Form, Row, Col, Card, Dropdown, DropdownButton, InputGroup} from 'react-bootstrap';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock, faEnvelopeOpen, faUser, faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 import { Divider } from '@mui/material';
-import emailIcon from '../../../assets/icons/email.svg'
-import lockIcon from '../../../assets/icons/lock.svg'
-import userIcon from '../../../assets/icons/user.svg'
-import peopleIcon from '../../../assets/icons/people.svg'
-import checkIcon from'../../../assets/icons/check.png'
-import closeIcon from'../../../assets/icons/close.png'
-import { height } from '@mui/system';
+import React, { useState } from 'react';
+import { Button, Card, Col, Form, InputGroup, Row } from 'react-bootstrap';
+import { NavLink } from "react-router-dom";
+import checkIcon from '../../../assets/icons/check.png';
+import closeIcon from '../../../assets/icons/close.png';
+import emailIcon from '../../../assets/icons/email.svg';
+import lockIcon from '../../../assets/icons/lock.svg';
+import peopleIcon from '../../../assets/icons/people.svg';
 
 function SignUp({callback,errormessage}) {
   const [checkemail, setcheckEmail] = useState("");

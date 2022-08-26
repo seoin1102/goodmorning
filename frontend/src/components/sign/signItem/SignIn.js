@@ -1,13 +1,10 @@
-import React from 'react'; 
-import {NavLink} from "react-router-dom";
-import { Button, Form, Row, Col, Card, Dropdown, DropdownButton, InputGroup} from 'react-bootstrap';
-import '../../../styles/css/body.css'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock, faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons'
-import emailIcon from'../../../assets/icons/email.svg'
-import lockIcon from'../../../assets/icons/lock.svg'
-import { border, borderColor } from '@mui/system';
 import { Divider } from '@mui/material';
+import React from 'react';
+import { Button, Card, Col, Form, InputGroup, Row } from 'react-bootstrap';
+import { NavLink } from "react-router-dom";
+import emailIcon from '../../../assets/icons/email.svg';
+import lockIcon from '../../../assets/icons/lock.svg';
+import '../../../styles/css/body.css';
 
 function SignIn({callback, errormessage}) {
   return (
