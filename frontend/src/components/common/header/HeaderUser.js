@@ -8,22 +8,18 @@ import { setChannel } from '../../../redux/channel';
 
 
 function HeaderUser({user, channelList, onChangeChannel}) {
-
-
-     console.log("채널:" ,channelList);
     const onClickLogout = async function() {
-        console.log("스토리지:" + localStorage.getItem('authUser'));
-        localStorage.setItem('authUser','');
+    localStorage.setItem('authUser','');
 
-        try {
+    try {
           const response = await fetch('/api/user/logout', {
-            method: 'get',
-            headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-              'Accept': 'application/json'
-            }
+              method: 'get',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json'
+              }
           });
-    
+
           if(!response.ok) {
             throw new Error(`${response.status} ${response.statusText}`);
           }
@@ -40,10 +36,9 @@ function HeaderUser({user, channelList, onChangeChannel}) {
             location.href="/signin"
 
         } catch(err) {
-          console.log(typeof(err));
           alert(err)
-        }
-      }
+      } 
+    }
 
 
     return (
@@ -60,15 +55,18 @@ function HeaderUser({user, channelList, onChangeChannel}) {
                               title="채널목록"
                               menuVariant="dark"
                             >
-                              {channelList.map((channel, index) => 
+                            {
+                              channelList.length !== 0 ?
+                              (
+                                channelList.map((channel, index) => 
                                 <NavDropdown.Item
                                 onClick={() => { 
-                                  return onChangeChannel(channel.no, channel.name)}}
+                                  return onChangeChannel(channel.no, user.no)}}
                                   key={index} >
-                                    {console.log("xxxxxxxxxxxxxxxxxxx", channel)}
                                     {channel.name}
-                                </NavDropdown.Item>
-                              )}
+                                </NavDropdown.Item>)
+                              ) : ''
+                            }
                             </NavDropdown>  
                                 <Nav.Link href="#home">내정보</Nav.Link>
                                 <Nav.Link href="#signin" onClick={onClickLogout}>Logout</Nav.Link>

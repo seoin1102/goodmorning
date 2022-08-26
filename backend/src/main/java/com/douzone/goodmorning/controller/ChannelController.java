@@ -1,6 +1,7 @@
 package com.douzone.goodmorning.controller;
 
 import java.nio.charset.Charset;
+import java.util.List;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.douzone.goodmorning.dto.Message;
 import com.douzone.goodmorning.dto.status.StatusEnum;
 import com.douzone.goodmorning.service.ChannelService;
+import com.douzone.goodmorning.service.CrewService;
 import com.douzone.goodmorning.vo.ChannelVo;
+import com.douzone.goodmorning.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class ChannelController {
 
     private final ChannelService channelService;
+    private final CrewService crewService;
   
 	/**
 	 * 채널 리스트 정보
@@ -55,7 +59,7 @@ public class ChannelController {
      * @return
      */
     @GetMapping("/channel/{userNo}")
-    public ResponseEntity<Message> channels(@PathVariable("userNo") Long userNo) {
+    public ResponseEntity<Message> channels(@PathVariable("userNo") String userNo) {   	
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
@@ -64,7 +68,25 @@ public class ChannelController {
     	message.setMessage("첫 채널목록 조회");
     	message.setData(channelService.getFirstChannel(userNo));
     	return ResponseEntity.ok().headers(headers).body(message);
-
+    }
+    
+    /**
+     * 
+     * @param channelNo
+     * @param userNo
+     * @return 채널 변경시 첫 크루 조회
+     * 
+     */
+    @GetMapping("/channel/change/{channelNo}/{userNo}")
+    public ResponseEntity<Message> changeChannels(@PathVariable("channelNo") String channelNo, @PathVariable("userNo") String userNo ) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("채널 변경시 첫 크루 조회");
+    	message.setData(channelService.getChangeChannel(channelNo,userNo));
+    	return ResponseEntity.ok().headers(headers).body(message);
     }
     
     /**
@@ -74,14 +96,13 @@ public class ChannelController {
     @Transactional
     @PostMapping("/channel")
     public ResponseEntity<Message> channel(@RequestBody ChannelVo channelVo) {
-    	channelService.addChannel(channelVo);
-    	Long channelNo = channelService.findByMasterChannelUserNo(channelVo.getMasterChannelUserNo());
-    	channelService.addChannelUser(channelVo.getMasterChannelUserNo(),channelNo);
-    	
-    	channelVo.setNo(channelNo);
-//    	System.out.println(channelVo);
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	channelService.addChannel(channelVo);
+    	Long channelNo = channelService.findByMasterChannelUserNo(channelVo.getMasterChannelUserNo());
+    	channelService.addChannelUser(channelVo.getMasterChannelUserNo(),channelNo, 1L);  	
+    	channelVo.setNo(channelNo);
     	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
@@ -93,18 +114,49 @@ public class ChannelController {
     @Transactional
     @PutMapping("/channel/{channelNo}")
     public ResponseEntity<Message> updateChannel(@PathVariable("channelNo") String channelNo, @RequestBody ChannelVo channelVo) {
-
-    	System.out.println(channelVo);
-    	channelService.updateChannel(channelVo);
-    	
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
+    	channelService.updateChannel(channelVo);
+    	    	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("채널업데이트 성공");
     	message.setData("success");
     	return ResponseEntity.ok().headers(headers).body(message);
     }
-
+    
+    @Transactional
+    @PostMapping("/channel/invite/{channelNo}")
+    public ResponseEntity<Message> inviteChannel(@PathVariable("channelNo") String channelNo, @RequestBody UserVo userVo) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	int checkcount = channelService.checkUser(channelNo,userVo.getEmail());
+    	    	
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	
+    	if(checkcount == 1) {
+        	message.setMessage("유저가 채널에 이미 존재합니다.");
+        	message.setData("fail");
+    		return ResponseEntity.ok().headers(headers).body(message);
+    	}
+    	
+    	int userNo = channelService.findUserNoByEmail(userVo.getEmail());
+    	
+    	if(userNo == 0 ) {
+        	message.setMessage("가입한 유저가 아닙니다.");
+        	message.setData("fail");
+    		return ResponseEntity.ok().headers(headers).body(message);
+    	}
+    	
+    	channelService.addChannelUser(Long.valueOf(userNo),Long.valueOf(channelNo), 0L);
+    	Long crewNo = channelService.findCrewNoByChannelNo(channelNo);
+    	crewService.addCrewUser(crewNo, Long.valueOf(userNo), 0L);
+    	
+    	message.setMessage("유저 초대에 성공하였습니다.");
+    	message.setData("success");
+    	return ResponseEntity.ok().headers(headers).body(message);
+    }
 }

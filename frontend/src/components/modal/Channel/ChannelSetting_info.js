@@ -1,62 +1,47 @@
 import { Autocomplete, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { get } from '../../../apis/Axios';
 import { setCHANNELFOCUS } from '../../../redux/focus';
 
 
-function ChannelSetting_info({onChangeHandler, channelName, onClickModal}) {
-  
-  const emaillist = [
-    { title: 'The Shawshank Redemption', year: 1994 },
-    { title: 'The Godfather', year: 1972 },
-    { title: 'The Godfather: Part II', year: 1974 },
-    { title: 'The Dark Knight', year: 2008 },
-    { title: '12 Angry Men', year: 1957 },
-    { title: "Schindler's List", year: 1993 },
-    { title: 'Pulp Fiction', year: 1994 },
-
-  ];
+function ChannelSetting_info({onClickHandler,channelName, onClickModal, channelNo,onClickChannelInvite}) {
+    const [name, setName] = useState(channelName);
+    const [value, setValue] = useState([]);
 
     return (
     <>
         <Modal.Body>
             <Form>
-                <Form.Group className="mb-3" controlId="crewForm.name">
+                <Form.Group className="mb-3" controlId="channelForm.name">
                   <Form.Label>채널 이름</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Crew Name"
-                    onChange={onChangeHandler}
-                    defaultValue={channelName}
                     autoFocus
-                  />
-                </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="crewForm.description"
-                >
-                  <Form.Label>채널 주제</Form.Label>
-                  <Form.Control as="textarea" rows={3} placeholder={"Crew Description"}/>
+                    onChange={(e) =>{
+                      setName(e.target.value)
+                    }}
+                    defaultValue={channelName}
+                    
+                    />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="crewForm.name">
+                <Form.Group className="mb-3" controlId="channelForm.invite">
                       <Form.Label>초대</Form.Label>
-                      <Autocomplete
-                        multiple
-                        limitTags={2}
-                        id="multiple-limit-tags"
-                        options={emaillist}
-                        getOptionLabel={(option) => option.title}
-                        // defaultValue={[emaillist[13], emaillist[12], emaillist[11]]}
-                        renderInput={(params) => (
-                          <TextField {...params} label="email" placeholder="example@gmail.com" />
-                        )}
-                        sx={{ width: '450px' }}
-                      />
+                      <Form.Control
+                    type="email"
+                    placeholder="example@gmail.com"
+                    autoFocus
+                    onChange={(e) =>{
+                      setValue(e.target.value)
+                    }}
+                    
+                    />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="crewForm.name">
-                <Button variant="outline-dark" onClick={onClickModal} >
+                <Form.Group className="mb-3" controlId="channelForm.footer">
+                <Button variant="outline-dark" onClick={() => onClickChannelInvite(channelNo,value)} >
                         전송
                       </Button>
                       </Form.Group>
@@ -67,14 +52,14 @@ function ChannelSetting_info({onChangeHandler, channelName, onClickModal}) {
                   </Form.Group>
             </Form>
         </Modal.Body>
-        {/* <Modal.Footer>
+        <Modal.Footer>
             <Button variant="outline-dark" onClick={onClickModal} >
               취소
             </Button>
-            <Button variant="outline-dark" onClick={onChangeValue} >
+            <Button variant="outline-dark" onClick={() => {onClickHandler(name)}} >
               변경사항 저장
             </Button>
-        </Modal.Footer> */}
+        </Modal.Footer>
         
     </>
     );

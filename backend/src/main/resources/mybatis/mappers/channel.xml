@@ -10,11 +10,12 @@
 				]]>
 		</select>
 		
-		<select id="findFirst" parameterType="long" resultType="channelvo">
+		<select id="findFirst" parameterType="string" resultType="channelvo">
 				<![CDATA[
-				select b.no, b.name
-				 from channel_user as a, channel as b 
-				  where b.no = a.channel_no and  a. user_no = #{userNo} limit 1;
+				select c.no as no, c.name as name, b.no as crewNo, b.name as crewName 
+				from crew_user as a , crew as b, channel as c 
+				where b.no = a.crew_no and b.channel_no = c.no and user_no = #{userNo} 
+				order by lastIn desc limit 1;
 				]]>
 		</select>
 		
@@ -24,6 +25,30 @@
 				from channel 
 				where master_channel_user_no = #{masterChannelUserNo}
 				order by no desc limit 1;
+				]]>
+		</select>
+		
+		<select id="getChangeChannel" parameterType="map" resultType="channelvo">
+				<![CDATA[
+				select c.no as no, c.name as name, b.no as crewNo, b.name as crewName, a.lastIn
+					from crew_user as a , crew as b, channel as c 
+				where b.no = a.crew_no 
+					and b.channel_no = c.no 
+					and user_no = #{userNo} 
+					and c.no = #{channelNo} 
+				order by lastIn desc limit 1;
+				]]>
+		</select>
+		
+		<select id="checkUser" parameterType="map" resultType="integer">
+				<![CDATA[
+				select count(*) from channel_user as a, user as b where b.email = #{email} and a.user_no = b.no and a.channel_no = #{channelNo};
+				]]>
+		</select>
+		
+		<select id="findUserNoByEmail" parameterType="string" resultType="integer">
+				<![CDATA[
+				select no from user where email = #{email};
 				]]>
 		</select>
 		
@@ -37,7 +62,7 @@
 		
 		<insert id="insertUser" parameterType="map">
 				<![CDATA[
-				insert into channel_user values (null, #{masterChannelUserNo}, #{channelNo}, now(), 1);
+				insert into channel_user values (null, #{masterChannelUserNo }, #{channelNo }, now(), #{owner });
 				]]>
 		</insert>
 		

@@ -8,9 +8,7 @@ export const setChannel = (channels) => ({ type: SET_CHANNEL, channels});
 export const addChannel = (channel) => ({ type: ADD_CHANNEL, channel});
 export const deleteChannel = (channelNo) => ({ type: DELETE_CHANNEL, channelNo});
 
-const initialState = [
-  {}
-]
+const initialState = []
 
 const channel = (state = initialState, action) => {
   switch(action.type) {

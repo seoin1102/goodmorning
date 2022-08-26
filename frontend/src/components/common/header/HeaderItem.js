@@ -12,7 +12,7 @@ function HeaderItem({itemName, customStyle, onClickModal, children}) {
     
     return (
         <Grid item xs={2}>
-            <List style={{background:'#3a4275'}}>
+            <List>
                 <ListItem 
                     button key="RemySharp" 
                     style={customStyle}

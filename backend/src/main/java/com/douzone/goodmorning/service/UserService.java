@@ -2,6 +2,7 @@ package com.douzone.goodmorning.service;
 
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.mail.javamail.JavaMailSender;
@@ -14,7 +15,6 @@ import com.douzone.goodmorning.repository.UserRepository;
 import com.douzone.goodmorning.repository.VerificationTokenRepository;
 import com.douzone.goodmorning.security.SHA256;
 import com.douzone.goodmorning.util.MailUtil;
-import com.douzone.goodmorning.vo.GithubHookVo;
 import com.douzone.goodmorning.vo.ChannelVo;
 import com.douzone.goodmorning.vo.CrewVo;
 import com.douzone.goodmorning.vo.UserVo;
@@ -169,22 +169,26 @@ public class UserService {
 		channelVo.setName(vo.getName() + "채널");
 		channelVo.setDescription(vo.getName() + "의 채널 입니다.");
 		channelVo.setMasterChannelUserNo(Long.valueOf(vo.getNo()));
-		System.out.println("channel : " + channelVo);
+//		System.out.println("channel : " + channelVo);
 		channelRepository.insert(channelVo);
 		Long channelNo = channelRepository.findByMasterChannelUserNo(Long.valueOf(vo.getNo()));
-		channelRepository.addChannelUser(channelVo.getMasterChannelUserNo(), channelNo);
+		channelRepository.addChannelUser(channelVo.getMasterChannelUserNo(), channelNo, 1L);
 		
 		CrewVo crewVo = new CrewVo();
 		crewVo.setName(vo.getName() + "의 크루");
 		crewVo.setMasterCrewUserNo(Long.valueOf(vo.getNo()));
 		crewVo.setChannelNo(channelNo);
-		System.out.println("crew : " + crewVo);
+//		System.out.println("crew : " + crewVo);
 		crewRepository.insert(crewVo);
 		Long crewNo = crewRepository.findMaster(channelNo, Long.valueOf(vo.getNo()));
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA     "+crewNo);
-		crewRepository.addCrewUser(crewNo, Long.valueOf(vo.getNo()));
+//		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA     "+crewNo);
+		crewRepository.addCrewUser(crewNo, Long.valueOf(vo.getNo()), 1L);
 		
 		
 		
+	}
+
+	public List<UserVo> findAllEmaillist(String channelNo, String crewNo) {
+		return userRepository.findAllEmaillist(channelNo, crewNo);
 	}
 }

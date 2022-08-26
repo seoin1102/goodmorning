@@ -19,6 +19,16 @@ export const get = async (url) => {
     }    
 }
 
+export const getJson = async (url, data) => {
+    try {
+        let response =  await client.get(url, data, {headers: {'Content-Type': 'application/json'}
+    });
+        return response.data;
+    } catch (error) {
+        console.error("Error >>", error);
+    }    
+}
+
 /**
  * axios POST(Create) 요청
  * @param {string} url api 서버 url [도메인 제외]
