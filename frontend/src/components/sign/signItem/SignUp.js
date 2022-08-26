@@ -91,9 +91,9 @@ function SignUp({callback,errormessage}) {
                       <div className='text-center'>
                         {
                           errormessage===''?
-                          <><br/><br/></>:
-                          <p style={{color:'red'}}>
-                            <br/><br/>{errormessage}
+                          <></>:
+                          <p style={{color:'red', marginTop:'-15px'}}>
+                            {errormessage}
                           </p>
                         }
                       </div>

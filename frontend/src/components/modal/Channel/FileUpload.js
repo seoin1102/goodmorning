@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import Modal from 'react-modal'
-import {Card,Row, Col,Button,InputGroup,Form } from 'react-bootstrap';
+//import Modal from 'react-modal'
+import {Modal,Card,Row, Col,Button,InputGroup,Form } from 'react-bootstrap';
 
 function FileUpload({modalShow,callback,FileUploadModalIsOpenCallback}) {
 
@@ -29,20 +29,16 @@ function FileUpload({modalShow,callback,FileUploadModalIsOpenCallback}) {
 
     return (
         <Modal  
-                isOpen={modalShow}
+                show={modalShow}
                 className={'Modal'}
-                onRequestClose={() => FileUploadModalIsOpenCallback(false)}
-                shouldCloseOnOverlayClick={true}
-                style={{content: {width: '30%', height: '50%'}}}
                 >
-                        <Col xs="auto" className="my-5">
-                            <Card.Text className="card-title text-uppercase text-center py-3">
-                                파일 업로드 
-                            </Card.Text>
+                <Modal.Header>
+                    <Modal.Title>파일 업로드</Modal.Title>
+                </Modal.Header>
+                    <Modal.Body>
                             <Form 
                                 onSubmit={handleSubmit}
                                 ref={refForm}>
-
                                 <InputGroup className="mb-3">
                                     <InputGroup.Text id="basic-addon1">파일 설명</InputGroup.Text>
                                     <Form.Control
@@ -61,7 +57,6 @@ function FileUpload({modalShow,callback,FileUploadModalIsOpenCallback}) {
                                 {/* <label>파일</label> */}
                                 <br/>
                                 <Form.Group controlId="formFile" className="mb-3">
-                                    <Form.Label>파일</Form.Label>
                                     <Form.Control 
                                     type={'file'}
                                     name={'uploadFile'}
@@ -72,10 +67,13 @@ function FileUpload({modalShow,callback,FileUploadModalIsOpenCallback}) {
                                     name={'uploadImage'}
                                     placeholder={'파일'}/> */}
                             </Form>
-                        </Col>
-                <div>
-                    <Row className="align-items-center">
-                        <Col sm='6'>
+                    </Modal.Body>
+                <Modal.Footer>
+                            <Button
+                                className='form-group text-right' 
+                                variant="outline-dark"  
+                                onClick={() => FileUploadModalIsOpenCallback(false)}>취소
+                            </Button>
                             <Button
                                 className='form-group text-right' 
                                 variant="outline-dark" 
@@ -84,17 +82,7 @@ function FileUpload({modalShow,callback,FileUploadModalIsOpenCallback}) {
                             }}>
                                 확인
                             </Button>
-                        </Col>
-                        <Col sm='6'>
-                            <Button
-                                className='form-group text-right' 
-                                variant="outline-dark"  
-                                onClick={() => FileUploadModalIsOpenCallback(false)}>취소
-                            </Button>
-                        </Col>
-                    </Row>
-
-                </div>
+                </Modal.Footer>
         </Modal>
     );
 }

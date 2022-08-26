@@ -31,7 +31,7 @@ public class CrewController {
     private final CrewService crewService;
 	
 
-	  @Auth
+	@Auth
     @GetMapping("/crew/{channelNo}/{userNo}")
     public ResponseEntity<Message> crews(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo) {
     	

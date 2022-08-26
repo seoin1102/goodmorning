@@ -10,7 +10,6 @@ import { border, borderColor } from '@mui/system';
 import { Divider } from '@mui/material';
 
 function SignIn({callback, errormessage}) {
-  console.log("테스트 : " + errormessage)
   return (
     <div className="SignIn">
         <div style={{padding:'0 35%'}}>
@@ -76,9 +75,9 @@ function SignIn({callback, errormessage}) {
         <div className='text-center'>
             {
               errormessage===''?
-              <><br/><br/></>:
+              <><br/></>:
               <p style={{color:'red'}}>
-                <br/><br/>{errormessage}
+                <br/>{errormessage}
               </p>
             }
         </div>

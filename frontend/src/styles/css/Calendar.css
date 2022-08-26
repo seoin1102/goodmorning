@@ -86,20 +86,6 @@ input{
   
 }
 
-.Modal {
-  position: fixed;
-  top: 200px;
-  right: 600px;
-
-  left: 600px;
-
-  z-index: 10000;
-  background-color: rgb(255, 255, 255);
-  padding: 30px;
-  border: 1px solid #00000027;
-  
-}
-
 .Overlay {
   z-index: 100;
 

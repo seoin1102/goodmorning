@@ -7,6 +7,8 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { setChat, addChat } from '../../redux/chat';
 import Message from './Message';
 import SendMessage from './SendMessage';
+import axios from "axios";
+import { fetchResponse, checkResponse, getfile } from '../../apis/Fetch';
 
 const Chat = () => {
     // const client = useRef({});
@@ -127,35 +129,17 @@ const Chat = () => {
     // };
 ////////////////////////////////////////////////////////////
 
+const [downloadurl, setdownloadurl] = useState("");
+
 const addFile = async function(comment, file) {
     try {
-        console.log("테스트 출력1 : " + comment);
-        console.log("테스트 출력2 : " + file);
-        
         // Create FormData
         const formData = new FormData();
         formData.append('comment', comment);
         formData.append('file', file);
 
-        // Post
-        const response = await fetch(`/api/fileManagement/upload`, {
-            method: 'post',
-            headers: { 
-                'Accept': 'application/json'
-            },
-            body: formData
-        });
-
-        //  리스폰스 응답이 200인지 체크
-        if (!response.ok) {
-            throw `${response.status} ${response.statusText}`;
-        }
-
-        // 응답은 200인데 서버쪽에서 보낸게 성공인지 체크 
-        const json = await response.json();
-        if (json.result !== 'success') {
-            throw json.message;
-        }
+        const response = await fetchResponse('/api/fileManagement/upload','post','multipartHeader',formData);
+        const json = await checkResponse(response);
 
         // 리랜더링(업데이트 해줘야함 나중에 추가 예정)
         //setImageList([json.data, ...imageList]);
@@ -164,39 +148,27 @@ const addFile = async function(comment, file) {
         console.error(err);
     }
 };
-
 
 const fileDownload = async function(fileName) {
     try {
-
-        // Post
-        const response = await fetch(`/api/fileManagement/upload`+fileName, {
-            method: 'post',
-            headers: { 
-                'Accept': 'application/json'
-            },
-            body: fileName
-        });
-
-        //  리스폰스 응답이 200인지 체크
-        if (!response.ok) {
-            throw `${response.status} ${response.statusText}`;
-        }
-
-        // 응답은 200인데 서버쪽에서 보낸게 성공인지 체크 
-        const json = await response.json();
-        if (json.result !== 'success') {
-            throw json.message;
-        }
+        
+        const response = await fetchResponse('/api/fileManagement/download/'+fileName,'post','multipartHeader',fileName);
+        const json = await checkResponse(response);
 
         // 리랜더링(업데이트 해줘야함 나중에 추가 예정)
         //setImageList([json.data, ...imageList]);
-        
+
+        const fileUrl = json.data.url;
+        let getfileName = json.data.url;
+        getfileName = fileName.split("/");
+
+        setdownloadurl(fileUrl)
+        getfile(fileUrl,getfileName);
+
     } catch (err) {
         console.error(err);
     }
 };
-
 
 ////////////////////////////////////////////////////////////
     return (
@@ -209,6 +181,8 @@ const fileDownload = async function(fileName) {
             //   onClickHandler={publish}
             //   text={sendMessage}
               addFilecallback={addFile}
+              fileDownloadcallback={fileDownload}
+              downloadurl={downloadurl}
               />
         </>
     );
