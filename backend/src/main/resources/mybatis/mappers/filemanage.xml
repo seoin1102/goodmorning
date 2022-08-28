@@ -4,7 +4,7 @@
 
 	<insert id="insert" parameterType="filevo">
 		<![CDATA[
-		insert into fileUpload values(null, #{url }, #{comment },1 ,15)
+		insert into fileUpload values(null, #{url }, #{comment },1,1,#{userNo},2)
 		]]>
 	  	<selectKey keyProperty="no" resultType="long" order="AFTER">
 			<![CDATA[
@@ -18,5 +18,22 @@
 		  select no, url, comment,chat_no as chatNo,user_no as userNo from fileUpload where url=#{url }
 		]]>
 	</select>
+	
+	<select id="findProjectName" parameterType="int" resultType="filevo">
+		<![CDATA[
+		  select project_name as projectName
+			from user, crew_user, crew, project 
+			where user.no=#{userNo} and user.no=crew_user.user_no and crew_user.crew_no = crew.no and crew.no = project.crew_no;
+		]]>
+	</select>
+	
+	<select id="findProjectCount" parameterType="int" resultType="int">
+		<![CDATA[
+		  select count(*)
+			from user, crew_user, crew, project 
+			where user.no=#{userNo} and user.no=crew_user.user_no and crew_user.crew_no = crew.no and crew.no = project.crew_no;
+		]]>
+	</select>
+	
 	
 </mapper>

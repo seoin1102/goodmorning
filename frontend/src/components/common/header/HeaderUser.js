@@ -19,7 +19,6 @@ function HeaderUser({user, channelList, onChangeChannel}) {
       } 
     }
 
-
     return (
         <Grid item xs={3}>
             <List>

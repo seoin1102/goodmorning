@@ -7,6 +7,7 @@ import Calendar from './views/Calendar';
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
 import ResetPw from './views/ResetPw';
+import FileShare from './views/FileShare';
 import Reservation from './views/Reservation';
 import Search from './views/Search';
 import SaveMessage from './views/SaveMessage';
@@ -18,9 +19,10 @@ export default function App() {
         {path:'chat/room', element: <Chat /> },
         {path:'modal/channel', element: <Channel />},
         {path:'calendar', element: <Calendar />},
-        {path:'/signin',element:<SignIn/>},
-        {path:'/signup',element:<SignUp/>},
-        {path:'/resetpw',element:<ResetPw/>},
+        {path:'signin',element:<SignIn/>},
+        {path:'signup',element:<SignUp/>},
+        {path:'resetpw',element:<ResetPw/>},
+        {path:'fileshare',element:<FileShare/>},
         {path:'reservation', element: <Reservation />},
         {path:'search', element: <Search />},
         {path:'save', element: <SaveMessage />},

@@ -1,5 +1,7 @@
 package com.douzone.goodmorning.service;
 
+import java.util.List;
+
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +25,18 @@ public class FileManagementService {
 	}
 
 	public FileManagementVo getFile(String filename) {
-		// TODO Auto-generated method stub
+		
 		return fileManagementRepository.findFile(filename);
+	}
+
+	public List<FileManagementVo> findProjectName(FileManagementVo fileManagementVo) {
+		
+		return fileManagementRepository.findProjectName(fileManagementVo);
+	}
+
+	public int findProjectCount(FileManagementVo fileManagementVo) {
+		
+		return fileManagementRepository.findPorjectCount(fileManagementVo);
 	}
 	
 }

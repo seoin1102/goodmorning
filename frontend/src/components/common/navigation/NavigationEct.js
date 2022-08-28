@@ -74,6 +74,10 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
                 <Reserv modalShow={reservModalShow} onClickModal={onClickReservModal}/> 
             </NavigationEctItem>
 
+            <NavLink to={"/fileshare"} style={{textDecoration:'none', color: '#E2BA89'}}>
+            <NavigationEctItem crewName={"파일 공유"}/>
+            </NavLink>
+
             <NavLink to={"/calendar"} style={{textDecoration:'none', color: '#E2BA89'}}>
             <NavigationEctItem crewName={"캘린더"}/>
             </NavLink>

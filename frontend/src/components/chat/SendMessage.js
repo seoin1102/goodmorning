@@ -33,7 +33,7 @@ function SendMessage({onChangeHandler, onClickHandler, text, addFilecallback, fi
                     Upload  
                 </Button>
                 <Button variant="outlined" component="label" onClick={() => {
-                    fileDownloadcallbackonClick("2022725367788.bmpr")}
+                    fileDownloadcallbackonClick("202272834459977.png")}
                 }>
                     임시다운로드 버튼  
                 </Button>

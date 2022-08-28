@@ -4,12 +4,14 @@ import ChatHeader from "./ChatHeader";
 import Message from './Message';
 import SendMessage from './SendMessage';
 import axios from "axios";
-import { fetchResponse, checkResponse, getfile } from '../../apis/Fetch';
+import { fetchResponse, checkResponse, getfile, getLocalStorageAuthUser } from '../../apis/Fetch';
 
 const Chat = ({ chatList, sendMessage, setSendMessage, publish}) => {
 
 
 const [downloadurl, setdownloadurl] = useState("");
+const user = getLocalStorageAuthUser();
+const userNo = user.no;
 
 const addFile = async function(comment, file) {
     try {
@@ -17,7 +19,7 @@ const addFile = async function(comment, file) {
         const formData = new FormData();
         formData.append('comment', comment);
         formData.append('file', file);
-
+        formData.append('userNo',userNo);
         const response = await fetchResponse('/api/fileManagement/upload','post','multipartHeader',formData);
         const json = await checkResponse(response);
 
