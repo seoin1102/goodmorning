@@ -3,10 +3,11 @@ import React, { useCallback, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { get } from '../../apis/Axios';
 import CrewSetting from '../modal/Crew/CrewSetting';
+import {getLocalStorageAuthUser} from '../../apis/Fetch';
 
 function ChatHeader() {
 
-    const user = JSON.parse(localStorage.getItem('authUser'));
+    const user = getLocalStorageAuthUser();
     const userNo = user.no;
 
     const [crewModalIsOpen, setCrewModalIsOpen] = useState(false);
