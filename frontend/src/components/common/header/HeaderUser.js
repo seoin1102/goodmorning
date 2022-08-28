@@ -8,9 +8,9 @@ import { setChannel } from '../../../redux/channel';
 
 
 function HeaderUser({user, channelList, onChangeChannel}) {
+
     const onClickLogout = async function() {
     localStorage.setItem('authUser','');
-
     try {
           const response = await fetch('/api/user/logout', {
               method: 'get',
@@ -31,10 +31,9 @@ function HeaderUser({user, channelList, onChangeChannel}) {
           }
 
             const message = json.message; 
-            // alert("");
-            localStorage.setItem('authUser','');
+            
             location.href="/signin"
-
+            localStorage.setItem('authUser','');
         } catch(err) {
           alert(err)
       } 
