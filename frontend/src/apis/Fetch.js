@@ -42,6 +42,26 @@ export const fetchResponse = async(url,methodType,headerType,sendData) => {
   }));
 }
 
+export const fetchGetResponse = async(url,methodType,headerType) => {
+    let header='';
+    switch(headerType){
+        case "formjsonHeader":
+            header = formjsonHeader;
+            break;
+        case "jsonjsonHeader":
+            header = jsonjsonHeader;
+            break;
+        case "multipartHeader":
+            header = multipartHeader;
+            break;
+    }
+
+    return (await fetch(url, {
+    method: methodType,
+    headers: header
+  }));
+}
+
 export const checkResponse = async(response) =>{
         if(!response.ok) {
             throw new Error(`${response.status} ${response.statusText}`);
