@@ -1,8 +1,13 @@
 import React from 'react';
-import FileShare from './fileshareItem/FileShare';
+import { getLocalStorageAuthUser } from '../../apis/Fetch';
+import FileShareDirectory from './fileshareItem/FileShareDirectory';
 function FileShareContainer(props) {
+
+    const user = getLocalStorageAuthUser();
+    const userNo = user.no;
+
     return (
-        <FileShare></FileShare>
+        <FileShareDirectory userNo={userNo}></FileShareDirectory>
     );
 }
 

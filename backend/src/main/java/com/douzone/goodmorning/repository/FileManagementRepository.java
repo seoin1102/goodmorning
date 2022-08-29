@@ -32,5 +32,13 @@ public class FileManagementRepository {
 		
 		return sqlSession.selectOne("filemanage.findProjectCount", fileManagementVo.getUserNo());
 	}
+
+	public List<FileManagementVo> findFileList(FileManagementVo fileManagementVo) {
+		return sqlSession.selectList("filemanage.findFileList", fileManagementVo.getProjectNo());
+	}
+
+	public int findFileCount(FileManagementVo fileManagementVo) {
+		return sqlSession.selectOne("filemanage.findFileCount", fileManagementVo.getProjectNo());
+	}
 	
 }

@@ -38,5 +38,14 @@ public class FileManagementService {
 		
 		return fileManagementRepository.findPorjectCount(fileManagementVo);
 	}
+
+	public List<FileManagementVo> findFileList(FileManagementVo fileManagementVo) {
+
+		return fileManagementRepository.findFileList(fileManagementVo);
+	}
+
+	public int findFileCount(FileManagementVo fileManagementVo) {
+		return fileManagementRepository.findFileCount(fileManagementVo);
+	}
 	
 }

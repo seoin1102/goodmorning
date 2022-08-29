@@ -4,54 +4,9 @@ import ChatHeader from "./ChatHeader";
 import Message from './Message';
 import SendMessage from './SendMessage';
 import axios from "axios";
-import { fetchResponse, checkResponse, getfile, getLocalStorageAuthUser } from '../../apis/Fetch';
+import { fetchResponse, checkResponse, getfile, getLocalStorageAuthUser, addFile, fileDownload } from '../../apis/Fetch';
 
 const Chat = ({ chatList, sendMessage, setSendMessage, publish}) => {
-
-
-const [downloadurl, setdownloadurl] = useState("");
-const user = getLocalStorageAuthUser();
-const userNo = user.no;
-
-const addFile = async function(comment, file) {
-    try {
-        // Create FormData
-        const formData = new FormData();
-        formData.append('comment', comment);
-        formData.append('file', file);
-        formData.append('userNo',userNo);
-        const response = await fetchResponse('/api/fileManagement/upload','post','multipartHeader',formData);
-        const json = await checkResponse(response);
-
-        // 리랜더링(업데이트 해줘야함 나중에 추가 예정)
-        //setImageList([json.data, ...imageList]);
-
-    } catch (err) {
-        console.error(err);
-    }
-};
-
-const fileDownload = async function(fileName) {
-    try {
-        
-        const response = await fetchResponse('/api/fileManagement/download/'+fileName,'post','multipartHeader',fileName);
-        const json = await checkResponse(response);
-
-        // 리랜더링(업데이트 해줘야함 나중에 추가 예정)
-        //setImageList([json.data, ...imageList]);
-
-        const fileUrl = json.data.url;
-        let getfileName = json.data.url;
-        getfileName = fileName.split("/");
-
-        setdownloadurl(fileUrl)
-        getfile(fileUrl,getfileName);
-
-    } catch (err) {
-        console.error(err);
-    }
-};
-
 
     return (
         
@@ -62,9 +17,6 @@ const fileDownload = async function(fileName) {
                onChangeHandler={(e) => setSendMessage(e.target.value)}
                onClickHandler={publish}
                text={sendMessage}
-               addFilecallback={addFile}
-               fileDownloadcallback={fileDownload}
-               downloadurl={downloadurl}
               />
         </Grid>
     );

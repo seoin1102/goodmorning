@@ -98,23 +98,38 @@ export const getfile = async function(fileUrl,fileName) {
     }
 };
 
+export async function projectDirectoryListdata(userNo,setPosts){
+    const data ={
+        userNo: userNo
+    }
+    const response =  await fetchResponse('api/fileManagement/fileshareDirectory','post','jsonjsonHeader',JSON.stringify(data));
+    const json = await checkResponse(response);
+    setPosts(json.data.data);
+};
+
+export async function projectFileListdata(projectNo,setPosts){
+    const data ={
+        projectNo: projectNo
+    }
+    const response =  await fetchResponse('api/fileManagement/fileshareFile','post','jsonjsonHeader',JSON.stringify(data));
+    const json = await checkResponse(response);
+    setPosts(json.data.data);
+};
+
+
 export const checkAuth = (response) =>{
-    console.log("여기까지 들어온지 테스트1 " + JSON.stringify(response.ok))
     if(response.ok !== undefined){
-        console.log("여기까지 들어온지 테스트2 " + response)
         const json = checkResponse(response)
     }
     else {
-        console.log("여기까지 들어온지 테스트3 " + response)
     }
-}
+};
 
 export const catchAuth = (error) =>{
     if(error.toString()=='인증이 되지 않았습니다.'){
-        console.log("테스트로그 나중에 삭제 "+error.toString());
         location.href="/signin"
     }
-}
+};
 
 export const getLocalStorageAuthUser = () =>{
 
@@ -123,6 +138,46 @@ export const getLocalStorageAuthUser = () =>{
     }else{
         return JSON.parse(localStorage.getItem('authUser'));
     }
-} 
+};
+
+
+export const addFile = async function(comment, file, projectNo,userNo) {
+    try {
+        // Create FormData
+        const formData = new FormData();
+        formData.append('comment', comment);
+        formData.append('file', file);
+        formData.append('projectNo', projectNo);
+        formData.append('userNo',userNo);
+        const response = await fetchResponse('/api/fileManagement/upload','post','multipartHeader',formData);
+        const json = await checkResponse(response);
+
+        // 리랜더링(업데이트 해줘야함 나중에 추가 예정)
+        //setImageList([json.data, ...imageList]);
+
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+export const fileDownload = async function(fileName) {
+    try {
+        
+        const response = await fetchResponse('/api/fileManagement/download/'+fileName,'post','multipartHeader',fileName);
+        const json = await checkResponse(response);
+
+        // 리랜더링(업데이트 해줘야함 나중에 추가 예정)
+        //setImageList([json.data, ...imageList]);
+
+        const fileUrl = json.data.url;
+        let getfileName = json.data.originFileName;
+        // getfileName = fileName.split("/");
+
+        getfile(fileUrl,getfileName);
+
+    } catch (err) {
+        console.error(err);
+    }
+};
 
 

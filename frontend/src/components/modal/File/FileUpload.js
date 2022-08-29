@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 //import Modal from 'react-modal'
-import {Modal,Card,Row, Col,Button,InputGroup,Form } from 'react-bootstrap';
+import {Modal,Card,Row, Col,Button,InputGroup,Form, FormSelect } from 'react-bootstrap';
+import { addFile,checkResponse, fetchResponse, getLocalStorageAuthUser, projectDirectoryListdata } from '../../../apis/Fetch';
 
-function FileUpload({modalShow,callback,FileUploadModalIsOpenCallback}) {
+function FileUpload({modalShow,FileUploadModalIsOpenCallback}) {
 
     const refForm = useRef(null);
 
@@ -22,10 +23,22 @@ function FileUpload({modalShow,callback,FileUploadModalIsOpenCallback}) {
 
         const comment = e.target['comment'].value;
         const file = e.target['uploadFile'].files[0];
+        const projectNo = e.target['selectProject'].value;
 
-        callback(comment, file);
+        addFile(comment, file, projectNo,userNo);
         FileUploadModalIsOpenCallback(false);
     }
+
+
+    const user = getLocalStorageAuthUser();
+    const userNo = user.no;
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        projectDirectoryListdata(userNo,setPosts);
+      }, []
+    );
+
 
     return (
         <Modal  
@@ -66,6 +79,11 @@ function FileUpload({modalShow,callback,FileUploadModalIsOpenCallback}) {
                                     type={'file'}
                                     name={'uploadImage'}
                                     placeholder={'파일'}/> */}
+                                <FormSelect name={'selectProject'} >
+                                    {posts.map(({projectNo,projectName},index) => (
+                                        <option key={index} value={projectNo}>{projectName}</option>
+                                    ))}
+                                </FormSelect>
                             </Form>
                     </Modal.Body>
                 <Modal.Footer>
