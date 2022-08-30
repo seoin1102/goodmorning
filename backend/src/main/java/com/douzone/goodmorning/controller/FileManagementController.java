@@ -85,7 +85,5 @@ public class FileManagementController {
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(map));
 	}
-	
-	
-	
+		
 }

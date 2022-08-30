@@ -6,7 +6,7 @@ import { checkResponse, fetchResponse, getLocalStorageAuthUser, projectFileListd
 import Pagination from '../../fileshare/fileshareItem/Pagination';
 import FileUpload from '../../modal/File/FileUpload'
 import '../../../styles/css/modal-90w.css'
-function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,posts,onClickFileUploadModal,FileUploadModalIsOpen,uploadModalIsOpen,userNo}) {
+function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,posts,onClickFileUploadModal,FileUploadModalIsOpen,uploadModalIsOpen,authUserNo}) {
 
     const [limit, setLimit] = useState(5);
     const [page, setPage] = useState(1);
@@ -47,7 +47,7 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,posts,onCl
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {posts.slice(offset, offset + limit).map(({postsUserNo,url,comment,originFileName,sendDate},index) => (
+                                    {posts.slice(offset, offset + limit).map(({userNo,url,comment,originFileName,sendDate},index) => (
                                         <tr key={index}>
                                             <td>{posts.length-offset-index}</td>
                                             <td>{originFileName}</td>
@@ -65,9 +65,11 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,posts,onCl
                                                 </Button> 
                                             </td>
                                             <td>
-                                                <Button variant="" component="label" style={{color:'red'}}>
-                                                    삭제
-                                                </Button>
+                                                {authUserNo==userNo?
+                                                    <Button variant="" component="label" style={{color:'red'}}>
+                                                        삭제
+                                                    </Button>:null
+                                                }
                                             </td>
                                         </tr>
                                     ))}
