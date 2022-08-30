@@ -160,6 +160,15 @@ export const addFile = async function(comment, file, projectNo,userNo) {
     }
 };
 
+export const delelteFile = async function(no) {
+    try {
+
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+
 export const fileDownload = async function(fileName) {
     try {
         
