@@ -5,19 +5,20 @@ import {Table,Modal,Card,Row, Col,Button,InputGroup,Form, FormSelect } from 'rea
 import { checkResponse, fetchResponse, getLocalStorageAuthUser, projectFileListdata,fileDownload } from '../../../apis/Fetch';
 import Pagination from '../../fileshare/fileshareItem/Pagination';
 import FileUpload from '../../modal/File/FileUpload'
-
-function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,posts,onClickFileUploadModal,FileUploadModalIsOpen,uploadModalIsOpen}) {
+import '../../../styles/css/modal-90w.css'
+function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,posts,onClickFileUploadModal,FileUploadModalIsOpen,uploadModalIsOpen,userNo}) {
 
     const [limit, setLimit] = useState(5);
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
 
     return (
+
         <div>
         <Modal  
                 show={modalShow}
                 className={'Modal'}
-                size="lg"
+                dialogClassName="modal-90w"
                 style={{textAlign:'center'}}
                 >
                 <Modal.Header>
@@ -25,7 +26,7 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,posts,onCl
                 </Modal.Header>
                     <Modal.Body>
                             <Form> 
-                                <Table striped style={{width:'100%', height:'50%'}}>
+                                <Table striped>
                                     <thead>
                                     <tr>
                                         <th>
@@ -40,17 +41,20 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,posts,onCl
                                                     <option value="100">100</option>
                                             </select> 
                                         </th>
+                                        <th>파일명</th>
+                                        <th>코멘트</th>
+                                        <th>업로드일</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {posts.slice(offset, offset + limit).map(({url,comment,originFileName,sendDate},index) => (
+                                    {posts.slice(offset, offset + limit).map(({postsUserNo,url,comment,originFileName,sendDate},index) => (
                                         <tr key={index}>
                                             <td>{posts.length-offset-index}</td>
                                             <td>{originFileName}</td>
-                                            <td>{comment}</td>
+                                            <td title={comment} style={{whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis',width:'auto', maxWidth:'250px'}}>{comment}</td>
                                             <td>{sendDate}</td>
                                             <td>
-                                                <Button variant="outlined" component="label" onClick={() => {
+                                                <Button variant="" component="label" onClick={() => {
                                                     { 
                                                         let spliturl = url;
                                                         spliturl=spliturl.split('/')
@@ -59,6 +63,11 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,posts,onCl
                                                     }}>
                                                         다운로드  
                                                 </Button> 
+                                            </td>
+                                            <td>
+                                                <Button variant="" component="label" style={{color:'red'}}>
+                                                    삭제
+                                                </Button>
                                             </td>
                                         </tr>
                                     ))}

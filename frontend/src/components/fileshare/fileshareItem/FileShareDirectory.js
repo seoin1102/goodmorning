@@ -87,6 +87,7 @@ function FileShareDirectory({userNo}) {
                 onClickFileUploadModal={onClickFileUploadModal}
                 FileUploadModalIsOpen={FileUploadModalIsOpen}
                 uploadModalIsOpen={uploadModalIsOpen}
+                userNo={userNo}
             />
         </Fragment>
 
