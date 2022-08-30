@@ -10,7 +10,7 @@ function MessageItem({align, message, time, name}) {
                 <Grid item xs={12} >
                     <ListItemText align={align} >{name}  {time}</ListItemText>
                     <ListItemText align={align} primary={message} sx={{}}></ListItemText>
-                    <ListItemText align={align} secondary={time}></ListItemText>
+                    {/* <ListItemText align={align} secondary={time}></ListItemText> */}
                 </Grid>
             </Grid>
         </ListItem>

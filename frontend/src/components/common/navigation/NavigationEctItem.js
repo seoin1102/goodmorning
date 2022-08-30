@@ -14,11 +14,11 @@ import AddCrew2 from '../../modal/Crew/AddCrew';
 function NavigationEctItem({userName, itemName, onClickModal, children}) {
     return (
     <>
-        <ListItem button key={userName} onClick={onClickModal}>
+        <ListItem button key={userName} onClick={onClickModal}  >
             <ListItemIcon>
                 <Avatar alt={userName} src="https://material-ui.com/static/images/avatar/2.jpg" />
             </ListItemIcon>
-            <ListItemText primary={itemName} >Cindy Baker</ListItemText>
+            <ListItemText primary={itemName} style={{textDecoration:'none', color: '#E2BA89'}}>Cindy Baker</ListItemText>
         </ListItem>
         {children}
     </>

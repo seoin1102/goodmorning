@@ -8,7 +8,7 @@ function Message({chatList}) {
    
     return (
     <>
-        <List style={{ height: '700px', overflow: 'auto', backgroundColor:'#f7f7fa' }}>
+        <List style={{ height: '650px', overflow: 'auto', backgroundColor:'#f7f7fa' }}>
             {chatList.map((chat, index, array) =>{
                 if(chatList !== undefined && chat.sendDate !== undefined){  
                     const date = chat.sendDate.split(" ")[0];

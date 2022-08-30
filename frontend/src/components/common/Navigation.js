@@ -4,7 +4,6 @@ import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import { setCrew, addCrew, deleteCrew } from '../../redux/crew';
 import Grid from '@mui/material/Grid';
 import NavigationCrew from './navigation/NavigationCrew';
-import NavigationDM from './navigation/NavigationDM';
 import NavigationEct from './navigation/NavigationEct';
 import { setCREWFOCUS } from '../../redux/focus';
 import { addChannel } from '../../redux/channel';
@@ -73,10 +72,9 @@ function Navigation() {
 
     return (
     <>
-        <Grid item xs={2} style={{ height: '840px',backgroundColor:"#283249"}}>
+        <Grid item xs={2} style={{ height: '842px',backgroundColor:"#283249"}}>
             <NavigationEct onCreateCrew={onCreateCrew} onCreateChannel={onCreateChannel}/>
             <NavigationCrew crewList={crewList} onClickCrew={onClickCrew} />
-            <NavigationDM />
         </Grid>
     </>
     );

@@ -4,7 +4,6 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { get } from '../../apis/Axios';
 import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import CrewSetting from '../modal/Crew/CrewSetting';
-import {getLocalStorageAuthUser} from '../../apis/Fetch';
 
 function ChatHeader() {
 
@@ -36,7 +35,8 @@ function ChatHeader() {
                 <Grid item xs={12}>
                     <List style={{ padding: '-8px auto'}}>
                         <ListItem button key="RemySharp"
-                            onClick={onClickCrewModal}>
+                            onClick={onClickCrewModal}
+                            style={{padding: '2px 0px 1px 10px'}}>
                             <ListItemText> #{crewName} </ListItemText>
                         </ListItem>
                         <CrewSetting modalShow={crewModalIsOpen} onClickModal={onClickExitModal} users={users} crewName={crewName} channelNo={channelNo} crewNo={crewNo}/>

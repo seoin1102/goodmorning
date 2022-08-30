@@ -17,7 +17,7 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
     // modal state
     const [addChannelModalShow, setAddChannelModalShow] = useState(false);
     const [addCrewModalShow, setAddCrewModalShow] = useState(false);
-    const [reservModalShow, setReservModalShow] = useState(false);
+    // const [reservModalShow, setReservModalShow] = useState(false);
     const [open, setOpen] = useState(true);
 
     const handleClick = () => {
@@ -32,9 +32,9 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
         setAddCrewModalShow(prevAddCrewModalShow => !prevAddCrewModalShow);
     }, [])
 
-    const onClickReservModal = useCallback(() => {
-        setReservModalShow(prevReservModalShow => !prevReservModalShow);
-    }, [])
+    // const onClickReservModal = useCallback(() => {
+    //     setReservModalShow(prevReservModalShow => !prevReservModalShow);
+    // }, [])
 
     // const list = {
     //   overflowY: "auto",
@@ -62,7 +62,7 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
         {open ? <img src={arrowUpIcon}/> : <img src={arrowDownIcon} />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
-        <List style={{height: '200px', overflow: 'auto', listStyle: "none"}}>
+        <List style={{height: '300px', overflow: 'auto', listStyle: "none"}}>
             
             <NavigationEctItem userName={"Remy Sharp"} itemName={"채널 생성"} onClickModal={onClickAddChannelModal}>
                 <AddChannel modalShow={addChannelModalShow} onClickModal={onClickAddChannelModal} onCreateChannel={onCreateChannel} /> 
@@ -70,9 +70,9 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
             <NavigationEctItem userName={"Alice"} itemName={"크루 생성"} onClickModal={onClickAddCrewModal}>
                 <AddCrew modalShow={addCrewModalShow} onClickModal={onClickAddCrewModal} onCreateCrew={onCreateCrew} /> 
             </NavigationEctItem>
-            <NavigationEctItem userName={"Cindy Baker"} itemName={"예약 메시지"} onClickModal={onClickReservModal}>
+            {/* <NavigationEctItem userName={"Cindy Baker"} itemName={"예약 메시지"} onClickModal={onClickReservModal}>
                 <Reserv modalShow={reservModalShow} onClickModal={onClickReservModal}/> 
-            </NavigationEctItem>
+            </NavigationEctItem> */}
 
 
             <NavLink to={"/fileshare"} style={{textDecoration:'none', color: '#E2BA89'}}>
@@ -80,14 +80,6 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
             </NavLink>
             <NavLink to={"/project"} style={{textDecoration:'none', color: '#E2BA89'}}>
             <NavigationEctItem itemName={"캘린더"}/>
-            </NavLink>
-            
-            <NavLink to={"/reservation"} style={{textDecoration:'none', color: '#E2BA89'}}>
-            <NavigationEctItem  itemName={"예약 메시지"} />
-            </NavLink>
-
-            <NavLink to={"/save"} style={{textDecoration:'none', color: '#E2BA89'}}>
-            <NavigationEctItem itemName={"저장된 메시지"} />
             </NavLink>
         </List>
         </Collapse>
