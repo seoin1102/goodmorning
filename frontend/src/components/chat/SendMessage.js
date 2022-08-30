@@ -46,7 +46,7 @@ function SendMessage({onChangeHandler, onClickHandler, text}) {
                   value={text}
                   />
             </Grid>
-            <Grid item xs={1} align="right">
+            <Grid item xs={1} align="center">
                 <Fab 
                   color="primary" 
                   aria-label="add"

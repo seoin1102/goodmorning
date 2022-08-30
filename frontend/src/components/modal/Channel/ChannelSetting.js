@@ -5,6 +5,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { post, postJson, putJson } from '../../../apis/Axios';
 import { setCHANNELFOCUS } from '../../../redux/focus';
 import ChannelSetting_info from './ChannelSetting_info';
+import ChannelSetting_member from './ChannelSetting_member';
 import Channelsetting_set from './Channelsetting_set';
 
 function ChannelSetting({modalShow, onClickModal,users}) {
@@ -47,9 +48,12 @@ function ChannelSetting({modalShow, onClickModal,users}) {
             onClickModal={onClickModal}
             // users={users}
             onClickChannelInvite={onClickChannelInvite} />
-        else if (tab === 1) return <Channelsetting_set 
+        else if (tab === 1) return <ChannelSetting_member 
                 onClickModal={onClickModal}
                 setTab={setTab} />
+        else if (tab === 2) return <Channelsetting_set 
+        onClickModal={onClickModal}
+        setTab={setTab} />
       }
     
     return (
@@ -66,6 +70,11 @@ function ChannelSetting({modalShow, onClickModal,users}) {
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="link-1" onClick={() => setTab(1)}>
+            멤버
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-1" onClick={() => setTab(2)}>
             설정
           </Nav.Link>
         </Nav.Item>

@@ -57,17 +57,17 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
 
     return (
         <>
-        <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold',borderTop:'solid 1.5px white', borderBottom:'solid 1.5px white',color:'white'}}>
+        <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold',borderTop:'solid 1px #555', borderBottom:'solid 1px #555',color:'white'}}>
         <Grid item xs={12} textAlign={'center'}> 기능 </Grid>
         {open ? <img src={arrowUpIcon}/> : <img src={arrowDownIcon} />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
         <List style={{height: '300px', overflow: 'auto', listStyle: "none"}}>
             
-            <NavigationEctItem userName={"Remy Sharp"} itemName={"채널 생성"} onClickModal={onClickAddChannelModal}>
+            {/* <NavigationEctItem userName={"Remy Sharp"} itemName={"채널 생성"} onClickModal={onClickAddChannelModal}>
                 <AddChannel modalShow={addChannelModalShow} onClickModal={onClickAddChannelModal} onCreateChannel={onCreateChannel} /> 
-            </NavigationEctItem>
-            <NavigationEctItem userName={"Alice"} itemName={"크루 생성"} onClickModal={onClickAddCrewModal}>
+            </NavigationEctItem> */}
+            <NavigationEctItem userName={"Alice"} itemName={"채널 생성"} onClickModal={onClickAddCrewModal}>
                 <AddCrew modalShow={addCrewModalShow} onClickModal={onClickAddCrewModal} onCreateCrew={onCreateCrew} /> 
             </NavigationEctItem>
             {/* <NavigationEctItem userName={"Cindy Baker"} itemName={"예약 메시지"} onClickModal={onClickReservModal}>
