@@ -19,8 +19,8 @@ function NavigationCrew({crewList, onClickCrew}) {
     
     return (
     <>
-        <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold',borderTop:'solid 1px #555', borderBottom:'solid 1px #555',color:'white'}}>
-        <Grid item xs={12} textAlign={'center'}>채널 목록</Grid>
+        <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold',borderTop:'solid 1px #555', borderBottom:'solid 1px #555',color:'#E2BA89'}}>
+        <Grid item xs={12} textAlign={'center'}>채널</Grid>
         {open ? <img src={arrowUpIcon}/> : <img src={arrowDownIcon} />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -33,7 +33,7 @@ function NavigationCrew({crewList, onClickCrew}) {
                 crewList.map((crew, index) => {
                     let count;
                 chatAlarmList.map((chatAlarm) => {
-                   
+                
                     if(crew.no === chatAlarm.crewNo) 
                         count = chatAlarm.count;                                       
                 })
