@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button   } from 'react-bootstrap';
 import { shallowEqual, useSelector } from 'react-redux';
+import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
 function AddCrew({modalShow, onClickModal, onCreateCrew}) {
   const [name,setName] = useState("");
-  const user = JSON.parse(localStorage.getItem('authUser'));
+  const user = getLocalStorageAuthUser();
   const userNo = user.no;
   const crew = {name}
   const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
@@ -40,7 +41,6 @@ function AddCrew({modalShow, onClickModal, onCreateCrew}) {
             </Button>
             <Button variant="outline-dark" type="button" onClick={(e) => {
                         onCreateCrew(channelNo,crew,userNo)
-                        console.log(crew)
                         onClickModal()
                        }} >
               저장

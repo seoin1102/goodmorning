@@ -16,21 +16,19 @@ const initialState = []
 const project = (state = initialState, action) => {
 
     switch (action.type) {
-        // case CHANGE_PROJECT:
-        //     let newCalendarEvents = [...state];
-        //     const clickedEventIdx = newCalendarEvents.findIndex(
-        //         (event) => event.id == action.project.id
-        //       );
-        //     newCalendarEvents[clickedEventIdx] = {...newCalendarEvents[clickedEventIdx],...action.project}
-        //     return update(state, { $set: newCalendarEvents});
         case SET_PROJECT:
-            return state.concat(action.projects);    
+            return update(state, { $set: action.projects });    
         case ADD_PROJECT:
             return update(state, { $push: action.project });
         case DELETE_PROJECT:  
             return update(state, { $splice: [[action.id, 1]] });
         case UPDATE_PROJECT:
-            return update(state, { [action.id]: { $set: action.project }})
+            return state.map((m, i) => {
+                if(i === action.id) {
+                    m = action.project;
+                }
+                return m;
+            })
         default:
             return state;
     }

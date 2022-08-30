@@ -3,7 +3,8 @@ import {useRoutes} from 'react-router';
 import Main from "./views/Main";
 import Chat from "./views/Chat";
 import Channel from "./components/modal/Channel/AddChannel";
-import Calendar from './views/Calendar';
+import Project from './views/Project';
+import Task from './views/Task';
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
 import ResetPw from './views/ResetPw';
@@ -17,7 +18,8 @@ export default function App() {
         {path:'/', element: <Chat/> },
         {path:'chat/room', element: <Chat /> },
         {path:'modal/channel', element: <Channel />},
-        {path:'calendar', element: <Calendar />},
+        {path:'project', element: <Project />},
+        {path:'task', element: <Task />},
         {path:'/signin',element:<SignIn/>},
         {path:'/signup',element:<SignUp/>},
         {path:'/resetpw',element:<ResetPw/>},

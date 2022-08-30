@@ -24,9 +24,6 @@ function TaskCalendar(props) {
   // }
 
   // const groupedPeople = groupBy(taskList, 'title');
-  console.log("피곤카")
- console.log(props.taskList)
- console.log("피곤카")
 
   return (
     <div className="demo-app-calendar" id="mycalendartest"

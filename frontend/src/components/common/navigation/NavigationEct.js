@@ -74,16 +74,16 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
                 <Reserv modalShow={reservModalShow} onClickModal={onClickReservModal}/> 
             </NavigationEctItem>
 
-            <NavLink to={"/calendar"} style={{textDecoration:'none', color: '#E2BA89'}}>
-            <NavigationEctItem crewName={"캘린더"}/>
+            <NavLink to={"/project"} style={{textDecoration:'none', color: '#E2BA89'}}>
+            <NavigationEctItem itemName={"캘린더"}/>
             </NavLink>
             
             <NavLink to={"/reservation"} style={{textDecoration:'none', color: '#E2BA89'}}>
-            <NavigationEctItem  crewName={"예약 메시지"} />
+            <NavigationEctItem  itemName={"예약 메시지"} />
             </NavLink>
 
             <NavLink to={"/save"} style={{textDecoration:'none', color: '#E2BA89'}}>
-            <NavigationEctItem crewName={"저장된 메시지"} />
+            <NavigationEctItem itemName={"저장된 메시지"} />
             </NavLink>
         </List>
         </Collapse>

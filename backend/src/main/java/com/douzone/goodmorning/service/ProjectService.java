@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.douzone.goodmorning.repository.ProjectRepository;
+import com.douzone.goodmorning.repository.TaskRepository;
 import com.douzone.goodmorning.vo.ProjectVo;
 
 import lombok.RequiredArgsConstructor;
@@ -13,22 +14,25 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class ProjectService {
 	private final ProjectRepository projectRepository;
-	
+	private final TaskRepository taskRepository;
+
 	public List<ProjectVo> getProject(Long crewNo) {
 		return projectRepository.findAll(crewNo);
 	}
 	
-//	public Boolean updateTask(ProjectVo projectVo) {
-//		return projectRepository.update(projectVo);
-//	}
+	public Boolean updateProject(ProjectVo projectVo) {
+		return projectRepository.update(projectVo);
+	}
 
-	public Boolean addTask(ProjectVo projectVo) {
+	public Boolean addProject(ProjectVo projectVo) {
 		return projectRepository.insert(projectVo);
 	}
-//
-//	public Boolean deleteTask(Long id) {
-//		return taskRepository.delete(id);
-//
-//	}
+
+
+	public Boolean deleteProject(Long id) {
+		taskRepository.delete(id);
+		return projectRepository.delete(id);
+
+	}
 
 }

@@ -8,12 +8,13 @@ import NavigationDM from './navigation/NavigationDM';
 import NavigationEct from './navigation/NavigationEct';
 import { setCREWFOCUS } from '../../redux/focus';
 import { addChannel } from '../../redux/channel';
+import { getLocalStorageAuthUser } from '../../apis/Fetch';
 
 function Navigation() {
 
     const dispatch = useDispatch();
     const crewList = useSelector(state => (state.crew), shallowEqual);
-    const user = JSON.parse(localStorage.getItem('authUser'));
+    const user = getLocalStorageAuthUser();
     const userNo = user.no;
     const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
 
