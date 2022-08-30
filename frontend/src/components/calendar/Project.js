@@ -35,10 +35,8 @@ export default function Project() {
   const dispatch = useDispatch();
   const crewList = useSelector(state => (state.crew), shallowEqual);
   const projectList = useSelector((state) => state.project, shallowEqual);
-  const [changeCrew, setChangeCrew] = useState({
-    no: crewNo,
-    name: crewName
-});
+  const [changeCrew, setChangeCrew] = useState();
+
   const initialProject= React.useCallback(
     async (crewNo) => {
       const getProjects = await get(`/project/${crewNo}`);
@@ -48,9 +46,21 @@ export default function Project() {
   );
 
   useEffect(() =>{
-    dispatch(setCREWFOCUS({no: changeCrew.no, name: changeCrew.name}));
+    setChangeCrew(crewNo)
 
-}, [changeCrew])
+}, [crewNo])
+
+
+const initialTasks = projectList.map((task,index) => ({
+  key:index,
+  start: new Date(task.start),
+  end: new Date(task.end),
+  name: task.projectName,
+  id: task.id,
+  progress: 30,
+  type: "project",
+  styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
+}));
   return (
     <div className="animated fadeIn p-4 demo-app">
       <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -76,6 +86,7 @@ export default function Project() {
           <NavDropdown.Item
           onClick={() => { 
             setChangeCrew((prevState) => ({...prevState, no: crew.no, name: crew.name}))
+            dispatch(setCREWFOCUS({no: crew.no, name: crew.name}));
 
             return initialProject(crew.no)}}
             key={index} >
@@ -85,8 +96,8 @@ export default function Project() {
       }
       </NavDropdown>  
         </Grid>
-        <ProjectChart changeCrew={changeCrew}/>
-        <CollapsibleTable date={date}/>
+        <ProjectChart changeCrew={changeCrew} projectList={projectList} initialTasks={initialTasks}/>
+        <CollapsibleTable date={date} projectList={projectList}/>
 
         </Paper>
       </Box>
