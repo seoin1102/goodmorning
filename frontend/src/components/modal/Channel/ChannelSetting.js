@@ -45,7 +45,7 @@ function ChannelSetting({modalShow, onClickModal,users}) {
             channelName={channelName}
             channelNo={channelNo}
             onClickModal={onClickModal}
-            users={users}
+            // users={users}
             onClickChannelInvite={onClickChannelInvite} />
         else if (tab === 1) return <Channelsetting_set 
                 onClickModal={onClickModal}

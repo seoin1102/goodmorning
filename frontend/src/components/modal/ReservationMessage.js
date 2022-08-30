@@ -8,7 +8,7 @@ function ReservationMessage({modalShow, onClickModal}) {
   const [value, setValue] = useState(new Date());
 
     function onClickCheck() {
-      console.log(value);
+      // console.log(value);
     }
     
     return (

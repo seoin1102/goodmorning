@@ -36,6 +36,12 @@
 				]]>
 		</select>
 		
+		<select id="findNoByCrewNo" parameterType="long" resultType="crewvo">
+				<![CDATA[
+				select user_no as userNo from crew_user where crew_no = #{crewNo};
+				]]>
+		</select>
+		
 		<select id="checkCrewUser" parameterType="map" resultType="integer">
 				<![CDATA[
 				select count(*) from crew_user where user_no = #{userNo} and crew_no = #{crewNo};

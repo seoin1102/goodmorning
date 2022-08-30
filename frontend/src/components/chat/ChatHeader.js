@@ -8,9 +8,8 @@ import CrewSetting from '../modal/Crew/CrewSetting';
 function ChatHeader() {
 
     const user = getLocalStorageAuthUser();
-    if(user !== ""){
     const userNo = user.no;
-    }
+  
 
     const [crewModalIsOpen, setCrewModalIsOpen] = useState(false);
     const {crewNo, crewName, channelNo} = useSelector(state => state.focus);

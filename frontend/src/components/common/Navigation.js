@@ -33,7 +33,7 @@ function Navigation() {
     const initialCrew = useCallback(async(channelNo, userNo) => {
         const crews = await get(`/crew/${channelNo}/${userNo}`);
         dispatch(setCrew(crews));
-        console.log('@@@@@@@@@', crews)
+        // console.log('@@@@@@@@@', crews)
         localStorage.setItem('crewList', JSON.stringify(crews));
     }, [channelNo])
 
@@ -43,8 +43,9 @@ function Navigation() {
      * @param {*} crew 생성할 크루 데이터
      */
     const onCreateCrew = useCallback(async(channelNo, crew, userNo) => {
-        await post(`/crew/${channelNo}/${userNo}`, crew);
-        dispatch(addCrew(crew));
+        const result = await post(`/crew/${channelNo}/${userNo}`, crew);
+        // console.log("############", result.data );
+        dispatch(addCrew(result.data));
     }, [])
 
     const onCreateChannel = useCallback(async(channel) => {

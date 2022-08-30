@@ -60,4 +60,8 @@ public class ChannelService {
 		return crewRepository.findCrewNoByChannelNo(channelNo);
 	}
 
+	public Long getChannelNo(Long crewNo, Long authUserNo) {
+		return channelRepository.findNoByCrewNoAndUserNo(crewNo,authUserNo);
+	}
+
 }
