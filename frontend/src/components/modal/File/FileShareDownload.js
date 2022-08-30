@@ -34,7 +34,7 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,posts,onCl
                                                 value={limit}
                                                 onChange={({ target: { value } }) => setLimit(Number(value))}>
                                                     <option value="5">5</option>
-                                                    <option value="12">12</option>
+                                                    <option value="10">10</option>
                                                     <option value="20">20</option>
                                                     <option value="50">50</option>
                                                     <option value="100">100</option>
@@ -54,7 +54,6 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,posts,onCl
                                                     { 
                                                         let spliturl = url;
                                                         spliturl=spliturl.split('/')
-                                                        console.log("테테스트" +spliturl);
                                                         return fileDownload(spliturl[3])
                                                     }
                                                     }}>
