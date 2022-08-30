@@ -21,14 +21,15 @@ public class ProjectRepository {
 	public Boolean insert(ProjectVo projectVo) {
 		return sqlSession.insert("project.insert", projectVo) == 1;
 	}
-//
-//	public Boolean update(ProjectVo taskVo) {
-//		return sqlSession.insert("task.update", taskVo) == 1;
-//	}
-//
-//	public Boolean delete(Long id) {
-//		return sqlSession.insert("task.delete", id) == 1;
-//
-//	}
+
+	public Boolean update(ProjectVo projectVo) {
+		return sqlSession.insert("project.update", projectVo) == 1;
+	}
+
+	public Boolean delete(Long id) {
+		sqlSession.insert("task.delete", id);
+		return sqlSession.insert("project.delete", id) == 1;
+
+	}
 
 }

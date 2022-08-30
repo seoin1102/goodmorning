@@ -22,6 +22,8 @@ function AddTask(props) {
   const [clickedEventUserNo,setClickedEvenUserNo] = useState()
   const [clickedProject, setClickedProject] = useState();
   const [clickedProjectNo, setClickedProjectNo] = useState();
+  const [clickedColor, setClickedColor] = useState();
+  const [clickedStatus, setClickedStatus] = useState();
 
   const [addedAssigns, setAddedAssigns]= useState([]);
   const [includesCheck, setIncludeCheck] = useState(true);
@@ -53,9 +55,9 @@ function AddTask(props) {
       end: moment(clickedEventEnd).format('YYYY-MM-DD HH:mm'),
       projectName:clickedProject,
       projectNo: clickedProjectNo,
-      crewNo: 40,
-      color: props.state.color,
-      status: props.state.status,
+      crewNo: props.crewNo,
+      color: clickedColor,
+      status: clickedStatus,
       id: clickedEventId}
     
 
@@ -68,6 +70,7 @@ function AddTask(props) {
           newCalendarEvents.map((event) => {ids.push(event.id)})
           const maxId = Math.max(...ids);
           const _addTask={...updatedTask, id: maxId + 1, userNo: assign, userName:userName}
+          
 
           post(`/task`, _addTask)
           dispatch(addTask([_addTask])                   );
@@ -138,7 +141,6 @@ function AddTask(props) {
     props.closeModal();
     props.setState('')
   }
-  console.log(clickedEventStart)
   return (
     <Modal className="addTaskModal" overlayClassName="Overlay" isOpen={props.modalIsOpen} contentLabel="Example Modal" ariaHideApp={false}>
       <Row>
@@ -193,9 +195,9 @@ function AddTask(props) {
         </Row>
         <Row>
         <Col><div><h6>진행 상황</h6>
-        <Status state={props.state} setState={props.setState}/></div></Col>
+        <Status state={props.state} setClickedStatus={setClickedStatus}/></div></Col>
         
-        <Col><h6>색상 설정</h6><div><ColorPicker state={props.state} setState={props.setState}/></div>
+        <Col><h6>색상 설정</h6><div><ColorPicker setClickedColor={setClickedColor}/></div>
         </Col>
         </Row>
         <Row>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Prev } from "react-bootstrap/esm/PageItem";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
@@ -8,7 +8,31 @@ function AssignCheckbox(props) {
   const crewUserList = useSelector((state) => state.crewUser, shallowEqual);
   // 체크된 아이템을 담을 배열
   const [checkItems, setCheckItems] = useState(crewUserList);
+  const crewNo = useSelector(state => (state.focus.crewNo), shallowEqual);
 
+
+  const initialTask = useCallback(
+    async (crewNo) => {
+      const getTasks = await get(`/task/cNo/${crewNo}`);
+      dispatch(setTask(getTasks));
+    },
+    [dispatch]
+  );
+
+  const initialCrew = useCallback(
+    async (crewNo) => {
+      const assignList = await get(`/crew/user/${crewNo}`);
+      dispatch(setCrewUser(assignList));},
+    [dispatch]
+  );
+
+  useEffect(() => {
+    initialTask(crewNo);
+  }, []);
+
+  useEffect(() => {
+    initialCrew(crewNo);
+  }, []);
   useEffect(() => {
     setCheckItems(crewUserList)
   }, [crewUserList]);

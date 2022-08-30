@@ -57,4 +57,8 @@ public class CrewService {
 		return crewRepository.checkCrewUser(userNo,crewNo);
 	}
 
+	public List<CrewVo> getUserNo(Long crewNo) {
+		return crewRepository.findNoByCrewNo(crewNo);
+	}
+
 }

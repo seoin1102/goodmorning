@@ -34,4 +34,9 @@
 				]]>
 		</delete>
 
+		<delete id="deleteByProjectNo" parameterType="long">
+				<![CDATA[
+				delete from task where project_no=#{projectNo};				
+				]]>
+		</delete>
 </mapper>

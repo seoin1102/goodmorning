@@ -1,14 +1,14 @@
-import React, {  useEffect, useCallback, useSelector  } from 'react';
+import React, {  useEffect, useCallback  } from 'react';
 import SiteLayout from '../components/layout/SiteLayout';
 import Task from '../components/calendar/Task'
 import Project from '../components/calendar/Project'
-import {useDispatch ,shallowEqual  } from 'react-redux';
+import {useDispatch ,shallowEqual , useSelector } from 'react-redux';
 import {get} from '../apis/Axios';
 import  { setTask } from '../redux/task';
 import { setCrewUser } from "../redux/crewUser";
 import { setProject } from "../redux/project";
 
-function Calendar() {
+function TaskCalendar() {
 
   const dispatch = useDispatch();
 
@@ -19,6 +19,8 @@ function Calendar() {
   //   },
   //   [dispatch]
   // );
+  const crewNo = useSelector(state => (state.focus.crewNo), shallowEqual);
+
 
   const initialTask = useCallback(
     async (crewNo) => {
@@ -30,8 +32,8 @@ function Calendar() {
 
 
   const initialCrew = useCallback(
-    async (no) => {
-      const assignList = await get(`/crew/user/${no}`);
+    async (crewNo) => {
+      const assignList = await get(`/crew/user/${crewNo}`);
       dispatch(setCrewUser(assignList));},
     [dispatch]
   );
@@ -39,28 +41,28 @@ function Calendar() {
   const initialProject= useCallback(
     async (crewNo) => {
       const getProjects = await get(`/project/${crewNo}`);
-      dispatch(setProject(getProjects)); },
+      dispatch(setProject(getProjects)); 
+      console.log(crewNo)},
     [dispatch]
   );
 
   useEffect(() => {
-    initialTask(40);
+    initialTask(crewNo);
   }, []);
 
   useEffect(() => {
-    initialCrew(40);
+    initialCrew(crewNo);
   }, []);
 
   useEffect(() => {
-    initialProject(40);
+    initialProject(crewNo);
   }, []);
 
   return (
     <SiteLayout>
-        {/* <Project/> */}
         <Task/>
     </SiteLayout>
   );
 }
 
-export default Calendar;
+export default TaskCalendar;

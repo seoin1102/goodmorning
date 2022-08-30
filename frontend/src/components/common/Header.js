@@ -13,7 +13,7 @@ import {getLocalStorageAuthUser} from '../../apis/Fetch';
 
 
 function Header() {
-    
+    const [totalSum, setTotalSum] = useState(0);
     // modal state
     const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
 
@@ -120,7 +120,7 @@ function Header() {
                 <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users}/>
             </HeaderItem>
             <HeaderSearch/>
-            <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel}/>
+            <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel} totalSum={totalSum} setTotalSum={setTotalSum}/>
         </Grid>
     );
 }

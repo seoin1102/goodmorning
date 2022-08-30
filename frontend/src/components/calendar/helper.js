@@ -1,51 +1,62 @@
-import React, { useState, useEffect, memo } from "react";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import moment from "moment";
+// import React, { useState, useEffect, memo,useCallback } from "react";
+// import { useSelector, useDispatch, shallowEqual } from "react-redux";
+// import moment from "moment";
+// import { setProject } from "../../redux/project";
 
-import {
-  Gantt,
-  Task,
-  EventOption,
-  StylingOption,
-  ViewMode,
-  DisplayOption,
-} from "gantt-task-react";
-import "../../styles/css/gantt.css";
-import project from "../../redux/project";
+// import {
+//   Gantt,
+//   Task,
+//   EventOption,
+//   StylingOption,
+//   ViewMode,
+//   DisplayOption,
+// } from "gantt-task-react";
+// import "../../styles/css/gantt.css";
+// import project from "../../redux/project";
 
-export function initTasks() {
-  const projectList = useSelector((state) => state.project, shallowEqual);
-  const taskList = useSelector((state) => state.task, shallowEqual);
+// export function initTasks() {
+//   const dispatch = useDispatch();
 
-  console.log(projectList)
+//   const crewNo = useSelector(state => (state.focus.crewNo), shallowEqual);
+//   const projectList = useSelector((state) => state.project, shallowEqual);
+//   const initialProject= useCallback(
+//     async (crewNo) => {
+//       const getProjects = await get(`/project/${crewNo}`);
+//       dispatch(setProject(getProjects)); 
+//       },
+//     [dispatch]
+//   );
 
-  const li = projectList.map((task) => ({
-    start: new Date(task.start),
-    end: new Date(task.end),
-    name: task.projectName,
-    id: task.no,
-    progress: 30,
-    type: "project",
-    styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
-  }));
+//   useEffect(() => {
+//     initialProject(crewNo);
+//   }, [projectList]);
 
- 
-  return li;
-}
-export function getStartEndDateForProject(tasks, projectId) {
-  const projectTasks = tasks.filter((t) => t.project === projectId);
-  let start = projectTasks[0].start;
+//   const li = projectList.map((task) => ({
+//     start: new Date(task.start),
+//     end: new Date(task.end),
+//     name: task.projectName,
+//     id: task.no,
+//     progress: 30,
+//     type: "project",
+//     styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
+//   }));
 
-  let end = projectTasks[0].end;
+//   return li;
+// }
+// export function getStartEndDateForProject(tasks, projectId) {
+//   const projectTasks = tasks.filter((t) => t.project === projectId);
+//   let start = projectTasks[0].start;
 
-  for (let i = 0; i < projectTasks.length; i++) {
-    const task = projectTasks[i];
-    if (start.getTime() > task.start.getTime()) {
-      start = task.start;
-    }
-    if (end.getTime() < task.end.getTime()) {
-      end = task.end;
-    }
-  }
-  return [start, end];
-}
+//   let end = projectTasks[0].end;
+
+//   for (let i = 0; i < projectTasks.length; i++) {
+//     const task = projectTasks[i];
+//     if (start.getTime() > task.start.getTime()) {
+//       start = task.start;
+//     }
+//     if (end.getTime() < task.end.getTime()) {
+//       end = task.end;
+//     }
+//   }
+//   return [start, end];
+// }

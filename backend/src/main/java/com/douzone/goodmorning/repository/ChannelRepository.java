@@ -74,4 +74,11 @@ public class ChannelRepository {
 		return sqlSession.selectOne("channel.findUserNoByEmail", email); 
 	}
 
+	public Long findNoByCrewNoAndUserNo(Long crewNo, Long authUserNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("crewNo", crewNo);
+		map.put("authUserNo", authUserNo);
+		return sqlSession.selectOne("channel.findNoByCrewNoAndUserNo", map);
+	}
+
 }

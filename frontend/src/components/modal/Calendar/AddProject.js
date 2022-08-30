@@ -22,33 +22,35 @@ import Button from 'react-bootstrap/Button';
 function AddProject(props) {
   
   const [state, setState] = useState()
-  const [clickedStart, setClickedStart] = useState(props.tasks.start)
+  const [clickedStart, setClickedStart] = useState()
   const [clickedEnd, setClickedEnd] = useState()
-  const [clickedName, setClickedName] = useState(props.tasks.name)
+  const [clickedName, setClickedName] = useState()
   const [clickedDescript, setClickedDescript] = useState()
 
   useEffect(()=>{
     
   },[])
   const projectList = useSelector((state) => state.project, shallowEqual);
+  const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
+
 
   const dispatch = useDispatch();
-  const taskList = useSelector(state => state.task, shallowEqual);
-  let newCalendarEvents = [...taskList];
   const [show, setShow] = useState(false);
-  console.log("$$$$$$$$$$$$$$$$$")
-console.log(props.tasks)
+  const ids = []
+  projectList.map((event) => {ids.push(event.id)})
+  const maxId = Math.max(...ids);
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("피군피군")
     const updatedTask={
       projectName: clickedName,
       start:moment(clickedStart).format('YYYY-MM-DD HH:mm'),
       end: moment(clickedEnd).format('YYYY-MM-DD HH:mm'),
       description: clickedDescript,
-      status: state.status,
-      crewNo: 40
+      status: state.status ?? 'Todo',
+      crewNo: crewNo,
+      id: maxId+1
     }
+
     post(`/project`,  updatedTask)
     dispatch(addProject([ updatedTask]));
     props.handleClose();
@@ -85,7 +87,7 @@ const descriptHandler =(e)=>{
                 type="text"
                 placeholder="프로젝트 이름을 입력해주세요."
                 autoFocus
-                value={props.tasks.name} onChange={nameHandler}
+                value={clickedName} onChange={nameHandler}
               />
             </Form.Group>
             <Form.Group

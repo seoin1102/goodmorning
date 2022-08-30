@@ -1,145 +1,227 @@
-import React, { useState, useEffect , memo} from "react";
-import PropTypes, { element } from 'prop-types';
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-// import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
+import * as React from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+import Snackbar from '@mui/material/Snackbar';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import project from "../../redux/project";
-import task from "../../redux/task";
 import moment from "moment";
+import AddProject from "../modal/Calendar/AddProject"
+import { NavLink } from "react-router-dom";
+import { NavDropdown } from 'react-bootstrap';
+import { setProject, updateProject, deleteProject } from "../../redux/project";
+import {get, put, remove} from '../../apis/Axios';
 
-function Row(props) {
-  const { row } = props;
-  const [open, setOpen] = useState(false);
 
-  return (
-    <>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? '△'  : '▽'}
-
-          </IconButton>
-        </TableCell>
-
-        <TableCell component="th" scope="row">
-          {row.projectName}
-        </TableCell>
-        <TableCell align="right">{row.start}</TableCell>
-        <TableCell align="right">{row.end}</TableCell>
-        <TableCell align="right">{row.description}</TableCell>
-        <TableCell align="right">{row.status}</TableCell> 
-        <TableCell component="th" scope="row">
-          {row.title}
-        </TableCell>
-        
-      </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              {/* <Typography variant="h6" gutterBottom component="div">
-                작업 목록
-              </Typography> */}
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>작업명</TableCell>
-                    <TableCell>담당자</TableCell>
-                    <TableCell>시작일시</TableCell>
-                    <TableCell>종료일시</TableCell>
-                    <TableCell>상태</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.task &&row.task.map((historyRow) => (
-                    <TableRow key={historyRow.id}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.title}
-                      </TableCell>
-                      <TableCell>{historyRow.userName}</TableCell>
-                      <TableCell>{historyRow.start}</TableCell>
-                      <TableCell>{historyRow.end}</TableCell>
-                      <TableCell>{historyRow.status}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-    </>
+const useFakeMutation = () => {
+  return React.useCallback(
+    (user) =>
+      new Promise((resolve, reject) =>
+        setTimeout(() => {
+          if (user.projectName?.trim() === '') {
+            reject();
+          } else {
+            resolve(user);
+          }
+        }, 200),
+      ),
+    [],
   );
+};
+
+function computeMutation(newRow, oldRow) {
+  if (newRow.projectName !== oldRow.projectName) {
+    return `프로젝트명이 '${oldRow.projectName}' 에서 '${newRow.projectName}으로'`;
+  }
+  if (newRow.start !== oldRow.start) {
+    return `시작일시가 '${oldRow.start || ''}' 에서 '${newRow.start || ''}으로'`;
+  }
+  if (newRow.end !== oldRow.end) {
+    return `종료일시가 '${oldRow.end || ''}' 에서 '${newRow.end || ''}으로'`;
+  }
+  if (newRow.description !== oldRow.description) {
+    return `설명이 '${oldRow.description || ''}' 에서 '${newRow.description || ''}으로'`;
+  }
+  if (newRow.status !== oldRow.status) {
+    return `상태가 '${oldRow.status || ''}' 에서 '${newRow.status || ''}으로'`;
+  }
+  return null;
 }
 
+export default function AskConfirmationBeforeSave(props) {
+  const [show, setShow] = React.useState(false);
+  const dispatch = useDispatch();
 
-
-export default function CollapsibleTable(props) {
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
   const projectList = useSelector((state) => state.project, shallowEqual);
-  const taskList = useSelector((state) => state.task, shallowEqual);
-  const thisYear = moment(props.date).format('YYYY');
-  const lastYear = (moment(props.date).subtract(1, 'year').format('YYYY'))
-  const nextYear = (moment(props.date).add(1, 'year').format('YYYY'))
+  const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
+  const [selectionModel, setSelectionModel] = React.useState([]);
 
-  const filterdList = projectList.map(project=> {if(moment(project.start).format('YYYY') == thisYear){return project} }).filter(element=>element)
-  const nextYearList = projectList.map(project=> {if(moment(project.start).format('YYYY') == nextYear){return project} }).filter(element=>element)
 
-//   for(let i=0; i < filterdList.length; i++){
-//     const tasks = []
-//     for(let j=0; j <  taskList.length; j++){
-//       if(filterdList[i].no==taskList[j].projectNo){
-//         tasks.push(taskList[j])
-//         filterdList[i].task= tasks
-//       }   
-//     }
-//   }
-// console.log(filterdList)
-//   for(let i=0; i < nextYearList.length; i++){
-//     const tasks = []
-//     for(let j=0; j <  taskList.length; j++){
-//       if(nextYearList[i].no==taskList[j].projectNo){
-//         tasks.push(taskList[j])
-//         nextYearList[i].task= tasks
-//       }   
-//     }
-//   }
+  const mutateRow = useFakeMutation();
+  const noButtonRef = React.useRef(null);
+  const [promiseArguments, setPromiseArguments] = React.useState(null);
 
+  const [snackbar, setSnackbar] = React.useState(null);
+
+  const handleCloseSnackbar = () => setSnackbar(null);
+
+  const processRowUpdate = React.useCallback(
+    (newRow, oldRow) =>
+      new Promise((resolve, reject) => {
+        const mutation = computeMutation(newRow, oldRow);
+        if (mutation) {
+          // Save the arguments to resolve or reject the promise later
+          setPromiseArguments({ resolve, reject, newRow, oldRow });
+        } else {
+          resolve(oldRow); // Nothing was changed
+        }
+      }),
+    [],
+  );
+
+  const handleNo = () => {
+    const { oldRow, resolve } = promiseArguments;
+    resolve(oldRow); // Resolve with the old row to not update the internal state
+    setPromiseArguments(null);
+  };
+
+  const handleYes = async () => {
+    const { newRow, oldRow, reject, resolve } = promiseArguments;
+
+    try {
+      // Make the HTTP request to save in the backend
+      const response = await mutateRow(newRow);
+      setSnackbar({ children: '성공적으로 저장됐습니다.', severity: 'success' });
+      const projectId = response.id
+
+      put(`/project/${projectId}`, {...response, start:moment(response.start).format('YYYY-MM-DD HH:mm'),end: moment(response.end).format('YYYY-MM-DD HH:mm'),crewNo:crewNo})
+      dispatch(updateProject(projectId,{...response, start:moment(response.start).format('YYYY-MM-DD HH:mm'),end: moment(response.end).format('YYYY-MM-DD HH:mm'),crewNo:crewNo}));
+      resolve(response);
+      setPromiseArguments(null);
+
+    } catch (error) {
+      setSnackbar({ children: "값을 입력해주세요.", severity: 'error' });
+      reject(oldRow);
+      setPromiseArguments(null);
+    }
+  };
+
+  const handleEntered = () => {
+    // The `autoFocus` is not used because, if used, the same Enter that saves
+    // the cell triggers "No". Instead, we manually focus the "No" button once
+    // the dialog is fully open.
+    // noButtonRef.current?.focus();
+  };
+
+  const handleDelete = () => {
+    console.log(selectionModel)
+
+    selectionModel.map((id)=>{
+      remove(`/project/${id}`,  id)
+      dispatch(deleteProject(id));
+      
+
+    })
+  }
+
+  const renderConfirmDialog = () => {
+    if (!promiseArguments) {
+      return null;
+    }
+
+    const { newRow, oldRow } = promiseArguments;
+    const mutation = computeMutation(newRow, oldRow);
+
+    return (
+      <Dialog
+        maxWidth="xs"
+        TransitionProps={{ onEntered: handleEntered }}
+        open={!!promiseArguments}
+      >
+        <DialogTitle>수정하시겠습니까?</DialogTitle>
+        <DialogContent dividers>
+          {`'네'를 선택하시면 ${mutation} 변경됩니다.`}
+        </DialogContent>
+        <DialogActions>
+          <Button ref={noButtonRef} onClick={handleNo}>
+            아니오
+          </Button>
+          <Button onClick={handleYes}>네</Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
+  const initialProject= React.useCallback(
+    async (crewNo) => {
+      const getProjects = await get(`/project/${crewNo}`);
+      dispatch(setProject(getProjects)); 
+      },
+    [dispatch]
+  );
   return (
-    <>
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table" >
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>프로젝트 명</TableCell>
-            <TableCell align="right">시작일시</TableCell>
-            <TableCell align="right">종료일시</TableCell>
-            <TableCell align="right">설명</TableCell>
-            <TableCell align="right">상태</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {filterdList.map((row) => (
-            <Row key={row.no} row={row} />
-          ))}
-    
-        </TableBody>
-      </Table>
+    <div style={{ height: 400, width: '100%' }}>
 
-    </TableContainer>
-    </>
+      <Button variant="primary" onClick={handleShow}>
+            프로젝트 추가
+      </Button><AddProject show={show} handleClose={handleClose}/> 
+      <Button variant="primary"  onClick={handleDelete}>
+            프로젝트 삭제
+      </Button>
+      <NavLink to={'/task'}>
+        <Button >
+          작업 설정
+        </Button>
+      </NavLink>
+      
+      {renderConfirmDialog()}
+      <DataGrid
+       checkboxSelection
+       onSelectionModelChange={(newSelectionModel) => {
+         setSelectionModel(newSelectionModel);
+       }}
+       selectionModel={selectionModel}
+        rows={projectList}
+        columns={columns}
+        processRowUpdate={processRowUpdate}
+        experimentalFeatures={{ newEditingApi: true }}
+      />
+      {!!snackbar && (
+        <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
+          <Alert {...snackbar} onClose={handleCloseSnackbar} />
+        </Snackbar>
+      )}
+    </div>
   );
 }
+
+const columns = [
+  { field: 'id', headerName: 'no', width: 50},
+  { field: 'projectName', headerName: '프로젝트 명', width: 140,editable: true},
+  { field: 'start', headerName: '시작일시', type:'dateTime', width: 150, editable: true},
+  { field: 'end', headerName: '종료일시', type:'dateTime', width: 150, editable: true},
+  {
+    field: 'description',
+    headerName: '설명',
+    type: 'string',
+    width: 180,
+    editable: true
+  },
+  {
+    field: 'status',
+    headerName: '상태',
+    description: 'This column has a value getter and is not sortable.',
+    type: 'singleSelect',
+    valueOptions: ['진행전', '진행중', '종료'],
+    sortable: false,
+    width: 70,
+    editable: true
+  },
+  
+
+];
+

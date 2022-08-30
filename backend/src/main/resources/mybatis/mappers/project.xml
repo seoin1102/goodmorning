@@ -4,7 +4,7 @@
 <mapper namespace="project">	
 		<select id="findAll" parameterType="long" resultType="projectvo">
 				<![CDATA[
-				select no, project_name as projectName, start_date as start, end_date as end, descrition as description, status from project where crew_no= #{crewNo};
+				select no as id, project_name as projectName, start_date as start, end_date as end, descrition as description, status from project where crew_no= #{crewNo};
 
 				]]>
 		</select>
@@ -16,13 +16,13 @@
 		
 		<update id="update" parameterType="projectvo">
 				<![CDATA[
-				update task set user_no=#{userNo}, task_name=#{title}, start_date=#{start}, end_date=#{end}, status="Todo" where no=#{id};
+				update project set project_name=#{projectName}, start_date=#{start}, end_date=#{end}, descrition=#{description}, status=#{status},crew_no=#{crewNo} where no=#{id}; 
 				]]>
 		</update>
 		
 		<delete id="delete" parameterType="long">
 				<![CDATA[
-				delete from task where no=#{id};				
+				delete from project where no=#{id};				
 				]]>
 		</delete>
 
