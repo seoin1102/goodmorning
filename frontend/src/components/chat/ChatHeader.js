@@ -4,7 +4,6 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { get } from '../../apis/Axios';
 import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import CrewSetting from '../modal/Crew/CrewSetting';
-import {getLocalStorageAuthUser} from '../../apis/Fetch';
 
 function ChatHeader() {
 
