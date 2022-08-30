@@ -71,9 +71,8 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
                                           sum = sum + chatAlarm.count;                                        
                                           totalSum2= totalSum2 +  chatAlarm.count;
                                           setTotalSum(totalSum2)
-                                      }  
+                                      }
                                   })
-                                  // setTotalSum(totalSum2);
                                 return (
                                 <NavDropdown.Item
                                 onClick={() => {
