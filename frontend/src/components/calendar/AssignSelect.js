@@ -35,7 +35,7 @@ const onChange=(event, value)=>{
         getOptionLabel={(option) => option.userName}
         filterSelectedOptions
         isOptionEqualToValue={(option, defaultValue) => props.defaultValue &&option.userName == defaultValue.userName}        
-        defaultValue={[props.defaultValue]}
+        defaultValue={[props.defaultValue || '']}
         
         onChange={onChange}
         renderInput={(params) => (

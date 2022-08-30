@@ -9,6 +9,7 @@ function ChatHeader() {
 
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
+  
 
     const [crewModalIsOpen, setCrewModalIsOpen] = useState(false);
     const {crewNo, crewName, channelNo} = useSelector(state => state.focus);

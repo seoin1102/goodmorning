@@ -38,6 +38,7 @@ function SiteLayout({children}) {
     // 자원 할당(소켓 연결)
     const connect = () => {
         client.current = new StompJs.Client({
+
             webSocketFactory: () => new SockJS("http://192.168.10.15:8080/ws-stomp"),
             debug: function (str) {},
             reconnectDelay: 5000,

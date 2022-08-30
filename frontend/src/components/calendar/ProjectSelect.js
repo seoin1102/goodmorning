@@ -14,8 +14,10 @@ export default function ProjectSelect(props) {
     event.preventDefault();
     const no = projectList.filter(project => project.projectName ==value)
     props.setClickedProject(value)
-    props.setClickedProjectNo(no[0].no)
-    props.setState({...props.state, projectName:value, projectNo:no[0].no})
+    props.setClickedProjectNo(no[0].id)
+  
+
+    // props.setState({...props.state, projectName:value, projectNo:no[0].id})
 }
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo,useCallback  } from "react";
 
 import { Col, Row } from "react-bootstrap";
 import FullCalendar from "@fullcalendar/react";
@@ -35,7 +35,20 @@ function Calendar() {
   const [clickedEventAssign, setClickedEventAssign] = useState("");
   const taskList = useSelector((state) => state.task, shallowEqual);
   const projectList = useSelector((state) => state.project, shallowEqual);
+  const crewNo = useSelector(state => (state.focus.crewNo), shallowEqual);
 
+
+  const initialTask = useCallback(
+    async (crewNo) => {
+      const getTasks = await get(`/task/cNo/${crewNo}`);
+      dispatch(setTask(getTasks));
+    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    initialTask(crewNo);
+  }, []);
   const [filteredTask, setFilteredTask] = useState([]);
   /////
 
@@ -45,6 +58,7 @@ function Calendar() {
 
   const openModal = () => {
     setIsOpen(true);
+    
   };
 
   function closeModal() {
@@ -56,7 +70,7 @@ function Calendar() {
 
     if (!modalIsOpen && isInitial &&taskList.length !==0) {
       setFilteredTask(taskList);
-      console.log(taskList);
+
       isInitial = false;
     }
   }, [taskList]);
@@ -134,6 +148,7 @@ function Calendar() {
         setClickedEventAssign={setClickedEventAssign}
         filteredTask={filteredTask}
         setFilteredTask={setFilteredTask}
+        crewNo={crewNo}
       />
     </div>
   );

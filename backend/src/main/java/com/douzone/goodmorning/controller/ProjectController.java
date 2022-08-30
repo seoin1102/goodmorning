@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.douzone.goodmorning.dto.JsonResult;
 import com.douzone.goodmorning.service.ProjectService;
+import com.douzone.goodmorning.service.TaskService;
 import com.douzone.goodmorning.vo.ProjectVo;
 
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,8 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class ProjectController {
     private final ProjectService projectService;
-  
+    private final TaskService taskService;
+
 	/**
 	 * 채널 리스트 정보
 	 * @param userNo 채널 주인의 유저번호
@@ -42,28 +44,29 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.getProject(crewNo)));
     }
     
-//    @PutMapping("/{id}")
-//    public ResponseEntity<JsonResult> update(@RequestBody TaskVo taskVo) {
-//    	HttpHeaders headers = new HttpHeaders();
-//    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-//    	 
-//		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.updateTask(taskVo)));
-//    }
-//    
+    @PutMapping("/{id}")
+    public ResponseEntity<JsonResult> update(@RequestBody ProjectVo projectVo) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	System.out.println(projectVo);
+    	System.out.println(projectService.updateProject(projectVo));
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.updateProject(projectVo)));
+    }
+    
     @PostMapping("")
     public ResponseEntity<JsonResult> add(@RequestBody ProjectVo projectVo) {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
-		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.addTask(projectVo)));
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.addProject(projectVo)));
     }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<JsonResult> delete(@PathVariable("id") Long id) {
-//    	HttpHeaders headers = new HttpHeaders();
-//    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-//    	
-//		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.deleteTask(id)));
-//    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<JsonResult> delete(@PathVariable("id") Long id) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	taskService.deleteTask(id);
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.deleteProject(id)));
+    }
     
 }

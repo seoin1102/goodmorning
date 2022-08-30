@@ -9,6 +9,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { resetCHATALARM } from '../../../redux/chatAlarm';
 
 
+
 function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum}) {
   
   const chatAlarmList = useSelector(state => (state.chatAlarm));
@@ -37,8 +38,9 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
 
             const message = json.message; 
             // alert("");
-            localStorage.setItem('authUser','');
             location.href="/signin"
+            localStorage.setItem('authUser','');
+
 
         } catch(err) {
           alert(err)

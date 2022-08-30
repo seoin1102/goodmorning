@@ -74,7 +74,8 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
                 <Reserv modalShow={reservModalShow} onClickModal={onClickReservModal}/> 
             </NavigationEctItem>
 
-            <NavLink to={"/calendar"} style={{textDecoration:'none', color: '#E2BA89'}}>
+
+            <NavLink to={"/project"} style={{textDecoration:'none', color: '#E2BA89'}}>
             <NavigationEctItem itemName={"캘린더"}/>
             </NavLink>
             

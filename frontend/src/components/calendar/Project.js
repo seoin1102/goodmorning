@@ -1,9 +1,12 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect } from 'react';
 import { Col, Row } from "react-bootstrap";
+import { NavDropdown } from 'react-bootstrap';
+import {get} from '../../apis/Axios';
 
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import CollapsibleTable from './ProjectTable'
+
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { CalendarPicker } from '@mui/x-date-pickers/CalendarPicker';
@@ -14,6 +17,8 @@ import project from "../../redux/project";
 import Button from '@mui/material/Button';
 import moment from "moment";
 import ProjectChart from './ProjectChart'
+import { setProject } from "../../redux/project";
+import { setCREWFOCUS } from '../../redux/focus';
 
 import Grid from '@mui/material/Grid';
 import { Paper } from '@mui/material';
@@ -22,11 +27,30 @@ const minDate = new Date('2018');
 const maxDate = new Date('2023');
 
 export default function Project() {
-  
+  const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
+  const crewName = useSelector(state => (state.focus.crewName), shallowEqual);
 
   const [date, setDate] = useState(new Date());
   const now = new Date();
+  const dispatch = useDispatch();
+  const crewList = useSelector(state => (state.crew), shallowEqual);
+  const projectList = useSelector((state) => state.project, shallowEqual);
+  const [changeCrew, setChangeCrew] = useState({
+    no: crewNo,
+    name: crewName
+});
+  const initialProject= React.useCallback(
+    async (crewNo) => {
+      const getProjects = await get(`/project/${crewNo}`);
+      dispatch(setProject(getProjects)); 
+      },
+    [dispatch]
+  );
 
+  useEffect(() =>{
+    dispatch(setCREWFOCUS({no: changeCrew.no, name: changeCrew.name}));
+
+}, [changeCrew])
   return (
     <div className="animated fadeIn p-4 demo-app">
       <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -42,10 +66,28 @@ export default function Project() {
             maxDate={maxDate}
             onChange={(newDate) => setDate(newDate)}
           />
-          
+           <NavDropdown
+        title="크루 선택"
+      >
+      {
+        crewList.length !== 0 ?
+        (
+          crewList.map((crew, index) => 
+          <NavDropdown.Item
+          onClick={() => { 
+            setChangeCrew((prevState) => ({...prevState, no: crew.no, name: crew.name}))
+
+            return initialProject(crew.no)}}
+            key={index} >
+              {crew.name}
+          </NavDropdown.Item>)
+        ) : ''
+      }
+      </NavDropdown>  
         </Grid>
-        <ProjectChart date={date}/>
+        <ProjectChart changeCrew={changeCrew}/>
         <CollapsibleTable date={date}/>
+
         </Paper>
       </Box>
       </LocalizationProvider>
