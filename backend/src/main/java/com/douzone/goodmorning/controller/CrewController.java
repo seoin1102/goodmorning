@@ -74,6 +74,7 @@ public class CrewController {
     	crewVo.setMasterCrewUserNo(userNo);
     	crewService.addCrew(crewVo);
     	Long crewNo = crewService.findMaster(channelNo, userNo);
+    	crewVo.setNo(crewNo);
     	crewService.addCrewUser(crewNo, userNo, 1L);
     	    	
     	Message message = new Message();

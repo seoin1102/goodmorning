@@ -82,6 +82,10 @@ public class CrewRepository {
 		map.put("userNo", userNo);
 		return sqlSession.selectOne("crew.checkCrewUser", map);
 	}
+
+	public List<CrewVo> findNoByCrewNo(Long crewNo) {
+		return sqlSession.selectList("crew.findNoByCrewNo", crewNo);
+	}
 	
 
 }

@@ -4,8 +4,7 @@ import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 
 function Message({chatList}) {
-    const  a= 'aaaaa bb';
-    console.log("%%%%%%", a.split(" ")[0], typeof a)
+    // console.log("이게왜됨", chatList);
    
     return (
     <>
@@ -24,13 +23,14 @@ function Message({chatList}) {
                     }
                 
                     return (<Fragment key={index}>
-                                {dateDivider}
+                                
                                 <MessageItem 
                                     align={"left"}
                                     message={chat.message} 
                                     time={time}
                                     name={chat.userName} 
                                     />
+                                    {dateDivider}
                             </Fragment>)
                 }
             })}

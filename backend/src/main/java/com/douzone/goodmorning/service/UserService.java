@@ -59,7 +59,7 @@ public class UserService {
 				"/" + token +
 				"' target='_blenk'>이메일 인증 확인</a>";
 		
-		//sendmail(setSubject,setText,vo.getEmail());
+		sendmail(setSubject,setText,vo.getEmail());
 		
 		return 1;
 		
@@ -121,7 +121,7 @@ public class UserService {
 					"<br/>임시 패스워드로 로그인 하신 후 변경하시면 됩니다.<br/>"+
 					"임시 패스워드 : "+ token;
 			
-			//sendmail(setSubject, setText, vo.getEmail());
+			sendmail(setSubject, setText, vo.getEmail());
 			
 			return userRepository.updatePw(vo.getEmail(),enctypt_token);
 			

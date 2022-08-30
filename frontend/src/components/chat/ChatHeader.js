@@ -2,11 +2,12 @@ import { Divider, Grid, List, ListItem, ListItemText } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { get } from '../../apis/Axios';
+import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import CrewSetting from '../modal/Crew/CrewSetting';
 
 function ChatHeader() {
 
-    const user = JSON.parse(localStorage.getItem('authUser'));
+    const user = getLocalStorageAuthUser();
     const userNo = user.no;
 
     const [crewModalIsOpen, setCrewModalIsOpen] = useState(false);
