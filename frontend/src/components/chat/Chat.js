@@ -10,6 +10,7 @@ const Chat = ({ chatList, sendMessage, setSendMessage, publish}) => {
 
 
 const [downloadurl, setdownloadurl] = useState("");
+
 const addFile = async function(comment, file) {
     try {
         // Create FormData

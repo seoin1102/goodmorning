@@ -127,7 +127,6 @@ function SiteLayout({children}) {
 
     ///// 시창이 코드 넣을 곳 ///////////
 
-
     ///////////////////////////
     return (
         <div>
