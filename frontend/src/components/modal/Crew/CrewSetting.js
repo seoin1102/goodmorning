@@ -5,6 +5,7 @@ import { postJson } from '../../../apis/Axios';
 import CrewSetting_info from './CrewSetting_info';
 import CrewSetting_member from './CrewSetting_member';
 import CrewSetting_set from './CrewSetting_set';
+import Swal from 'sweetalert2';
 
 function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo }) {
 
@@ -12,7 +13,19 @@ function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo
 
   const onClickCrewInvite = async(user) => {
     const userEmail = JSON.stringify({email: user})
-    await postJson(`/crew/invite/${channelNo}/${crewNo}`, userEmail);
+    const result = await postJson(`/crew/invite/${channelNo}/${crewNo}`, userEmail);
+    if(result.data == "success"){
+      Swal.fire({
+          icon: 'success',
+          title: '채널 초대에 성공하셨습니다.',
+        })
+    } else{
+      Swal.fire({
+          icon: 'error',
+          title: '채널 초대에 실패하셨습니다.',
+          text: '이메일을 다시 확인해 주세요.'
+        })
+      }
   }
 
 

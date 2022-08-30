@@ -18,17 +18,19 @@ function CrewSetting_member({users, onClickModal, setTab, onClickCrewInvite}) {
                     autoFocus
                     onChange={(e) =>{
                       setValue(e.target.value)
-                    }}
+                    }} 
+                    value={value}
                     
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="channelForm.footer">
-                <Button variant="outline-dark" onClick={() => onClickCrewInvite(value)} >
+                <Button variant="outline-dark" onClick={() => {onClickCrewInvite(value)
+                                                                setValue("")}} >
                         전송
                       </Button>
                       </Form.Group>
                       <Form.Group className="mb-3" controlId="user">
-                      <Form.Label>멤버</Form.Label>
+                      <Form.Label>채널 멤버</Form.Label>
                 <ListGroup style={{height:"200px",overflow:"auto"}}>
                   {users.map((user)=><ListGroup.Item key={user.no}>{user.name} ({user.email})</ListGroup.Item>)}
                 </ListGroup>

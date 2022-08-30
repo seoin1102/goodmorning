@@ -29,6 +29,7 @@ function ChatHeader() {
         const result = await get(`/user/email/${channelNo}/${crewNo}`);
         setUsers(() => [].concat(result));
     }, [users, channelNo, crewNo])
+    
     return (
         <>
             <Grid container style={{ padding: '0px 30px -10px 20px', backgroundColor:'#f7f7fa', borderBottom:'solid 2px black' }}>

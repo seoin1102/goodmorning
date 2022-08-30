@@ -43,6 +43,12 @@
 		]]>
 	</select>
 	
+	<select id="findAllEmaillistByChannelNo" parameterType="long" resultType="uservo">
+		<![CDATA[
+		select b.no, b.name, b.email from channel_user as a, user as b where a.user_no= b.no and a.channel_no = #{channelNo};
+		]]>
+	</select>
+	
 	<update id="updateEnable" parameterType="verifivo">
 		<![CDATA[
 			update user set enable=true where email=#{email }

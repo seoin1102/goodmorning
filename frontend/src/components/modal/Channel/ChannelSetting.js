@@ -7,14 +7,14 @@ import { setCHANNELFOCUS } from '../../../redux/focus';
 import ChannelSetting_info from './ChannelSetting_info';
 import ChannelSetting_member from './ChannelSetting_member';
 import Channelsetting_set from './Channelsetting_set';
+import Swal from 'sweetalert2';
 
 function ChannelSetting({modalShow, onClickModal,users}) {
     let [tab, setTab] = useState(0);
-
     const channelName = useSelector(state => {
       return state.focus.channelName;
     });
-
+    
     const channelNo = useSelector(state => {
       return state.focus.channelNo;
     });
@@ -37,20 +37,36 @@ function ChannelSetting({modalShow, onClickModal,users}) {
 
     const onClickChannelInvite = async(channelNo, user) => {
       const userEmail = JSON.stringify({email: user})
-      await postJson(`/channel/invite/${channelNo}`, userEmail);
+      const result = await postJson(`/channel/invite/${channelNo}`, userEmail);
+      console.log(result.data);
+      if(result.data == "success"){
+          Swal.fire({
+              icon: 'success',
+              title: '워크 스페이스 초대에 성공하셨습니다.',
+            })
+        } else{
+          Swal.fire({
+              icon: 'error',
+              title: '워크 스페이스 초대에 실패하셨습니다.',
+              text: '이메일을 다시 확인해 주세요.'
+            })
+          }
+      
     }
+    
 
     function TabContent() {
         if (tab === 0) return <ChannelSetting_info 
             onClickHandler={onClickHandler}
             channelName={channelName}
-            channelNo={channelNo}
             onClickModal={onClickModal}
-            // users={users}
-            onClickChannelInvite={onClickChannelInvite} />
+             />
         else if (tab === 1) return <ChannelSetting_member 
                 onClickModal={onClickModal}
-                setTab={setTab} />
+                setTab={setTab}
+                channelNo={channelNo}
+                users={users}
+                onClickChannelInvite={onClickChannelInvite} />
         else if (tab === 2) return <Channelsetting_set 
         onClickModal={onClickModal}
         setTab={setTab} />
@@ -73,8 +89,9 @@ function ChannelSetting({modalShow, onClickModal,users}) {
             멤버
           </Nav.Link>
         </Nav.Item>
+        
         <Nav.Item>
-          <Nav.Link eventKey="link-1" onClick={() => setTab(2)}>
+          <Nav.Link eventKey="link-2" onClick={() => setTab(2)}>
             설정
           </Nav.Link>
         </Nav.Item>

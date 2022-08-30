@@ -192,4 +192,8 @@ public class UserService {
 	public List<UserVo> findAllEmaillist(String channelNo, String crewNo) {
 		return userRepository.findAllEmaillist(channelNo, crewNo);
 	}
+
+	public Object findAllEmaillist(Long channelNo) {
+		return userRepository.findAllEmaillist(channelNo);
+	}
 }
