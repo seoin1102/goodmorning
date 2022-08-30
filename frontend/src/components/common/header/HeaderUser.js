@@ -7,40 +7,21 @@ import { Button, Container, Dropdown, DropdownButton, Nav, Navbar, NavDropdown }
 import { setChannel } from '../../../redux/channel';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { resetCHATALARM } from '../../../redux/chatAlarm';
-
+import { fetchGetResponse, checkResponse } from '../../../apis/Fetch';
 
 
 function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum}) {
   
   const chatAlarmList = useSelector(state => (state.chatAlarm));
   const dispatch = useDispatch();
-
-    const onClickLogout = async function() {
-      
+  
+  const onClickLogout = async function() {
     try {
-          const response = await fetch('/api/user/logout', {
-              method: 'get',
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Accept': 'application/json'
-              }
-          });
-
-          if(!response.ok) {
-            throw new Error(`${response.status} ${response.statusText}`);
-          }
-
-          const json = await response.json();
-
-          if(json.result !== 'success') {
-            throw new Error(`${json.result} ${json.message}`);
-          }
-
-            const message = json.message; 
-            // alert("");
-            location.href="/signin"
-            localStorage.setItem('authUser','');
-
+          const response =  await fetchGetResponse('/api/user/logout','get','formjsonHeader');
+          const json = await checkResponse(response);   
+          localStorage.setItem('authUser','');
+          location.href="/signin"
+    
 
         } catch(err) {
           alert(err)

@@ -15,4 +15,8 @@ public class FileManagementVo {
 	private String comment;
 	private int chatNo;
 	private int userNo;
+	private String projectName;
+	private int projectNo;
+	private String originFileName;
+	private String sendDate;
 }

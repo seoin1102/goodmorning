@@ -75,6 +75,9 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
             </NavigationEctItem>
 
 
+            <NavLink to={"/fileshare"} style={{textDecoration:'none', color: '#E2BA89'}}>
+            <NavigationEctItem itemName={"파일 공유"}/>
+            </NavLink>
             <NavLink to={"/project"} style={{textDecoration:'none', color: '#E2BA89'}}>
             <NavigationEctItem itemName={"캘린더"}/>
             </NavLink>

@@ -4,10 +4,11 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Fab from '@mui/material/Fab';
 import { Button } from '@mui/material';
-import FileUpload from '../modal/Channel/FileUpload'
+import FileUpload from '../modal/File/FileUpload'
 import { NavLink } from 'react-bootstrap';
+import { addFile,fileDownload } from '../../apis/Fetch';
 
-function SendMessage({onChangeHandler, onClickHandler, text, addFilecallback, fileDownloadcallback,downloadurl}) {
+function SendMessage({onChangeHandler, onClickHandler, text}) {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -20,20 +21,15 @@ function SendMessage({onChangeHandler, onClickHandler, text, addFilecallback, fi
         setModalIsOpen(isOpenStatus)
     }
 
-    const fileDownloadcallbackonClick = (filename) =>{
-        fileDownloadcallback(filename);
-    }
-
-
     return (
-        <>
+        <div>
         <Grid container style={{ padding: '10px 30px 10px 20px'}}>
             <Grid item xs={11} style={{direction:'rtl'}}>
                 <Button variant="outlined" component="label" onClick={onClickFileUploadModal}>
                     Upload  
                 </Button>
                 <Button variant="outlined" component="label" onClick={() => {
-                    fileDownloadcallbackonClick("2022725367788.bmpr")}
+                    fileDownload("2022729111552688.jpg")}
                 }>
                     임시다운로드 버튼  
                 </Button>
@@ -60,10 +56,10 @@ function SendMessage({onChangeHandler, onClickHandler, text, addFilecallback, fi
                 </Fab>
             </Grid>
         </Grid>
-        <FileUpload callback={addFilecallback} modalShow={modalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} >
+        <FileUpload modalShow={modalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} >
             <></>
         </FileUpload>
-        </>
+        </div>
     );
 }
 

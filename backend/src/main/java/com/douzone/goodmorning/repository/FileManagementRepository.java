@@ -1,5 +1,7 @@
 package com.douzone.goodmorning.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +21,24 @@ public class FileManagementRepository {
 
 	public FileManagementVo findFile(String filename) {
 		return sqlSession.selectOne("filemanage.findFile",filename);
+	}
+
+	public List<FileManagementVo> findProjectName(FileManagementVo fileManagementVo) {
+		
+		return sqlSession.selectList("filemanage.findProjectName", fileManagementVo.getUserNo());
+	}
+
+	public int findPorjectCount(FileManagementVo fileManagementVo) {
+		
+		return sqlSession.selectOne("filemanage.findProjectCount", fileManagementVo.getUserNo());
+	}
+
+	public List<FileManagementVo> findFileList(FileManagementVo fileManagementVo) {
+		return sqlSession.selectList("filemanage.findFileList", fileManagementVo.getProjectNo());
+	}
+
+	public int findFileCount(FileManagementVo fileManagementVo) {
+		return sqlSession.selectOne("filemanage.findFileCount", fileManagementVo.getProjectNo());
 	}
 	
 }
