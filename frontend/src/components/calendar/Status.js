@@ -9,6 +9,7 @@ function Status(props) {
   const [value, setValue] = useState();
 
   const handleChange = (event) => {
+    console.log(event.target.value)
     setValue(event.target.value);
     props.setClickedStatus(event.target.value)
   };
@@ -19,8 +20,8 @@ function Status(props) {
         row
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
-        value={value ?? "Todo"}
-        defaultValue={"Todo"}
+        value={props.clickedStatus}
+        defaultValue={ props.clickedStatus || "Todo"}
         onChange={handleChange}
       >
         <FormControlLabel value="Todo" control={<Radio />} label="진행전" />

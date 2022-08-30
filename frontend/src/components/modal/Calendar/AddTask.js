@@ -37,7 +37,8 @@ function AddTask(props) {
     setClickedEvenUserNo(userNo)
     setClickedProject(projectName)
     setClickedProjectNo(projectNo)
-
+    setClickedColor(color)
+    setClickedStatus(status)
   },[props])
 
   const dispatch = useDispatch();
@@ -81,6 +82,10 @@ function AddTask(props) {
       }
       if(includesCheck){ //기존 사람의 변경 및 삭제 여부.
         const filterTaskIdx = props.filteredTask.findIndex(event => event.id == id)
+        console.log("어떻게 변경됨?")
+        console.log(updatedTask)
+        console.log("어떻게 변경됨?")
+
         put(`/task/${clickedEventId}`, {...updatedTask,userNo:userNo})
         dispatch(updateTask(clickedEventIdx, {...updatedTask,userNo:userNo}));
 
@@ -195,9 +200,9 @@ function AddTask(props) {
         </Row>
         <Row>
         <Col><div><h6>진행 상황</h6>
-        <Status state={props.state} setClickedStatus={setClickedStatus}/></div></Col>
+        <Status state={props.state} clickedStatus={clickedStatus} setClickedStatus={setClickedStatus}/></div></Col>
         
-        <Col><h6>색상 설정</h6><div><ColorPicker setClickedColor={setClickedColor}/></div>
+        <Col><h6>색상 설정</h6><div><ColorPicker clickedColor={clickedColor} setClickedColor={setClickedColor}/></div>
         </Col>
         </Row>
         <Row>

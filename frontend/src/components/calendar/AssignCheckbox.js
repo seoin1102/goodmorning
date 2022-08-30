@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Prev } from "react-bootstrap/esm/PageItem";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import {setTask } from "../../redux/task"
+import {setCrewUser} from "../../redux/crewUser"
 
+import {get} from "../../apis/Axios"
 function AssignCheckbox(props) {
   const dispatch = useDispatch();
   const taskList = useSelector((state) => state.task, shallowEqual);

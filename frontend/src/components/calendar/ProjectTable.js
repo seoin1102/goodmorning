@@ -57,7 +57,6 @@ export default function AskConfirmationBeforeSave(props) {
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-  const projectList = useSelector((state) => state.project, shallowEqual);
   const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
   const [selectionModel, setSelectionModel] = React.useState([]);
 
@@ -156,13 +155,7 @@ export default function AskConfirmationBeforeSave(props) {
       </Dialog>
     );
   };
-  const initialProject= React.useCallback(
-    async (crewNo) => {
-      const getProjects = await get(`/project/${crewNo}`);
-      dispatch(setProject(getProjects)); 
-      },
-    [dispatch]
-  );
+  
   return (
     <div style={{ height: 400, width: '100%' }}>
 
@@ -185,7 +178,7 @@ export default function AskConfirmationBeforeSave(props) {
          setSelectionModel(newSelectionModel);
        }}
        selectionModel={selectionModel}
-        rows={projectList}
+        rows={props.projectList}
         columns={columns}
         processRowUpdate={processRowUpdate}
         experimentalFeatures={{ newEditingApi: true }}
