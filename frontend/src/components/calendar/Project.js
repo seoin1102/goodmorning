@@ -2,6 +2,7 @@ import React,{useState,useEffect } from 'react';
 import { Col, Row } from "react-bootstrap";
 import { NavDropdown } from 'react-bootstrap';
 import {get} from '../../apis/Axios';
+import Card from '@mui/material/Card';
 
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -67,17 +68,18 @@ const initialTasks = projectList.map((task,index) => ({
 
       <Box>
         <Paper>
-
+        <Card sx={{ minWidth: 275 }}>
         <Grid item xs={10} md={12}>
 
-        <YearPicker
+        {/* <YearPicker
             date={date}
             minDate={minDate}
             maxDate={maxDate}
             onChange={(newDate) => setDate(newDate)}
-          />
-           <NavDropdown
-        title="크루 선택"
+          /> */}
+           <NavDropdown style={{float:'right', border: '3px solid #f0f8ff69', fontSize:'15px', padding:'4px'}}
+      
+        title="채널 선택"
       >
       {
         crewList.length !== 0 ?
@@ -99,7 +101,9 @@ const initialTasks = projectList.map((task,index) => ({
         <ProjectChart changeCrew={changeCrew} projectList={projectList} initialTasks={initialTasks}/>
         <CollapsibleTable date={date} projectList={projectList}/>
 
+        </Card>
         </Paper>
+        
       </Box>
       </LocalizationProvider>
 

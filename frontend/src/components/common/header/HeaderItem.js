@@ -18,7 +18,7 @@ function HeaderItem({itemName, customStyle, onClickModal, children}) {
                     style={customStyle}
                     onClick={onClickModal}
                     >
-                    <ListItemText style={{fontStyle:'10em'}}>{itemName}</ListItemText>
+                    <ListItemText primaryTypographyProps={{textDecoration:'none' ,color: 'white', fontSize:'22px', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', fontFamily:'Happiness-Sans-Title'}} primary={itemName}></ListItemText>
                 </ListItem>
                     {children}
             </List>

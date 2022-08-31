@@ -98,8 +98,8 @@ export default function AskConfirmationBeforeSave(props) {
       setSnackbar({ children: '성공적으로 저장됐습니다.', severity: 'success' });
       const projectId = response.id
 
-      put(`/project/${projectId}`, {...response, start:moment(response.start).format('YYYY-MM-DD HH:mm'),end: moment(response.end).format('YYYY-MM-DD HH:mm'),crewNo:crewNo})
-      dispatch(updateProject(projectId,{...response, start:moment(response.start).format('YYYY-MM-DD HH:mm'),end: moment(response.end).format('YYYY-MM-DD HH:mm'),crewNo:crewNo}));
+      put(`/project/${projectId}`, {...response, start:moment(response.start).format('YYYY-MM-DD'),end: moment(response.end).format('YYYY-MM-DD'),crewNo:crewNo})
+      dispatch(updateProject(projectId,{...response, start:moment(response.start).format('YYYY-MM-DD'),end: moment(response.end).format('YYYY-MM-DD'),crewNo:crewNo}));
       resolve(response);
       setPromiseArguments(null);
 
@@ -195,8 +195,8 @@ export default function AskConfirmationBeforeSave(props) {
 const columns = [
   { field: 'id', headerName: 'no', width: 50},
   { field: 'projectName', headerName: '프로젝트 명', width: 140,editable: true},
-  { field: 'start', headerName: '시작일시', type:'dateTime', width: 150, editable: true},
-  { field: 'end', headerName: '종료일시', type:'dateTime', width: 150, editable: true},
+  { field: 'start', headerName: '시작일시', type:'date', width: 150, editable: true},
+  { field: 'end', headerName: '종료일시', type:'date', width: 150, editable: true},
   {
     field: 'description',
     headerName: '설명',

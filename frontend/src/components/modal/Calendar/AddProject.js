@@ -3,7 +3,7 @@ import React, { useState, useEffect, memo } from "react";
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import { Row, Col } from "react-bootstrap";
 
-import DatePicker from "react-datetime-picker";
+import DatePicker from "../../calendar/DatePicker";
 import "../../../styles/css/Calendar.css";
 import {put, post, remove} from '../../../apis/Axios';
 import moment from 'moment';
@@ -44,8 +44,8 @@ function AddProject(props) {
     e.preventDefault();
     const updatedTask={
       projectName: clickedName,
-      start:moment(clickedStart).format('YYYY-MM-DD HH:mm'),
-      end: moment(clickedEnd).format('YYYY-MM-DD HH:mm'),
+      start:moment(clickedStart).format('YYYY-MM-DD'),
+      end: moment(clickedEnd).format('YYYY-MM-DD'),
       description: clickedDescript,
       status: clickedStatus,
       crewNo: crewNo,
@@ -99,6 +99,7 @@ const descriptHandler =(e)=>{
               <br />
               <DatePicker value={clickedStart} onChange={startHandler}  disableClock={true} locale="ko-KO" />
               <br /><br />
+              
               <Form.Label>종료일시</Form.Label>
               <br />
               <DatePicker value={clickedEnd} onChange={endHandler}  disableClock={true} locale="ko-KO" />
