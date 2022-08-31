@@ -19,7 +19,7 @@ function NavigationItem({navLink, crewName, chatAlarmCount, crewNo, onClickCrew}
                     <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
                 </ListItemIcon> */}
                 
-                    <ListItemText primaryTypographyProps = {{fontSize: '1rem', color: '#E2BA89', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', width:'150px'}}  primary={crewName}/>
+                    <ListItemText primaryTypographyProps = {{fontSize: '1rem', color: 'white', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', width:'150px'}}  primary={crewName}/>
                   
                     <ListItemText secondary={<Badge 
                             badgeContent={!chatAlarmCount ? null : chatAlarmCount} 

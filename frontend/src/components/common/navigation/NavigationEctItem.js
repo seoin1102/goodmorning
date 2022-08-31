@@ -20,7 +20,7 @@ function NavigationEctItem({userName, itemName, onClickModal, children}) {
             {/* <ListItemIcon>
                 <Avatar alt={userName} src="https://material-ui.com/static/images/avatar/2.jpg" />
             </ListItemIcon> */}
-            <ListItemText primary={itemName} style={{textDecoration:'none', color: '#E2BA89'}}>Cindy Baker</ListItemText>
+            <ListItemText primary={itemName} style={{textDecoration:'none', color: 'white'}}>Cindy Baker</ListItemText>
         </ListItem>
         {children}
     </>

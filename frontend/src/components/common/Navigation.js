@@ -72,7 +72,7 @@ function Navigation() {
 
     return (
     <>
-        <Grid item xs={2} style={{ height: '842px',backgroundColor:"#283249"}}>
+        <Grid item xs={2} style={{ height: '842px',backgroundColor:"#1bc6d9"}}>
             <NavigationEct onCreateCrew={onCreateCrew} onCreateChannel={onCreateChannel}/>
             <NavigationCrew crewList={crewList} onClickCrew={onClickCrew} />
         </Grid>

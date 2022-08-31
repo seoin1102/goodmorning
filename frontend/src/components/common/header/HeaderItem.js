@@ -20,9 +20,7 @@ function HeaderItem({itemName, customStyle, onClickModal, children}) {
                     onClick={onClickModal}
                     >
                   
-                    <ListItemText primaryTypographyProps={{textDecoration:'none' ,color: '#E2BA89', fontSize:'20px', textAlign:'center', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}} primary={itemName}>
-                    
-                    </ListItemText>
+                    <ListItemText primaryTypographyProps={{textDecoration:'none' ,color: 'white', fontSize:'22px', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', fontWeight:'bold'}} primary={itemName}/>            
                     <img src={settings}/>
                 </ListItem>
                     {children}

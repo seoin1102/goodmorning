@@ -117,7 +117,7 @@ function Header() {
 
 
     return (
-        <Grid container style={{backgroundColor:'#283249', color:'white'}}>            
+        <Grid container style={{backgroundColor:'#1bc6d9', color:'white', borderBottom:'solid 1px #f7f7fa'}}>            
             <HeaderItem itemName={channelName} modalIsOpen={channelModalIsOpen} customStyle={channelStyle} onClickModal={onClickChannelModal}>
                 <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users}/>
             </HeaderItem>

@@ -57,7 +57,7 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
 
     return (
         <>
-        <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold',borderTop:'solid 1px #555', borderBottom:'solid 1px #555',color:'#E2BA89'}}>
+        <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold', borderBottom:'solid 0.5px #f7f7fa',color:'white'}}>
         <Grid item xs={12} textAlign={'center'}> 기능 </Grid>
         {open ? <img src={arrowUpIcon}/> : <img src={arrowDownIcon} />}
         </ListItemButton>
@@ -75,10 +75,10 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
             </NavigationEctItem> */}
 
 
-            <NavLink to={"/fileshare"} style={{textDecoration:'none', color: '#E2BA89'}}>
+            <NavLink to={"/fileshare"} style={{textDecoration:'none', color: 'white'}}>
             <NavigationEctItem itemName={"파일 공유"}/>
             </NavLink>
-            <NavLink to={"/project"} style={{textDecoration:'none', color: '#E2BA89'}}>
+            <NavLink to={"/project"} style={{textDecoration:'none', color: 'white'}}>
             <NavigationEctItem itemName={"캘린더"}/>
             </NavLink>
         </List>
