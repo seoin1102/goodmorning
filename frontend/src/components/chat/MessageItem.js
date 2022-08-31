@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -7,8 +7,17 @@ import '../../styles/css/msItem.css';
 import '../../assets/fonts/font.css'
 import hash2 from '../../assets/icons/user.png';
 import { Avatar, ListItemIcon } from '@mui/material';
+import { linkPreview } from '../../apis/LinkPreview';
 
 function MessageItem({align, message, time, name}) {
+    const test = async () => {
+      const result =await linkPreview('/');
+      console.log("aaaaaaaaaaaaaaaaaa", result)
+    }
+    useEffect(() => {
+        test();
+    }, [])
+
     return (
         <ListItem key="1" >
             <Grid container spacing={1}>
@@ -21,6 +30,7 @@ function MessageItem({align, message, time, name}) {
                 <Grid item xs={11.5} style={{width:'max-content', padding:'10px 50px 10px 30px', fontFamily:'SongMyung'}} >
                     <ListItemText align={align} style={{fontWeight:'bolder', fontFamily:'SongMyung'}} >{name}  {time}</ListItemText>
                     <ListItemText align={align} primary={message} sx={{}} ></ListItemText>
+
                 </Grid>
             </Grid>
         </ListItem>

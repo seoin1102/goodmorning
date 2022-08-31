@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {checkResponse, checkAuth, catchAuth } from './Fetch'
-const client = axios.create({baseURL: '/api'})
+const client = axios.create({baseURL: '/api'});
+//const client2 = axios.create({baseURL: '/shake-shack'});
 
 /**
  * axios GET(Read) 요청
@@ -18,6 +19,18 @@ export const get = async (url) => {
         catchAuth(error);
     }    
 }
+
+// export const getHtml = async (url) => {
+//   try {
+//       let response =  await client2.get(url);
+//       checkAuth(response);
+      
+//       return response.data;
+//   } catch (error) {
+//       console.error("Error >>", error);
+//       catchAuth(error);
+//   }    
+// }
 
 export const getJson = async (url, data) => {
     try {

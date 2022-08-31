@@ -6,7 +6,6 @@ import List from '@mui/material/List';
 function Message({chatList}) {
     const scrollRef = useRef(null);
     const scrollToBottom = useCallback(() => {
-        console.log("이게뭐노", scrollRef.current)
         scrollRef.current.scrollIntoView({behavior: 'smooth'})
     }, [chatList])
 

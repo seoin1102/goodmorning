@@ -38,8 +38,12 @@ module.exports = function(env) {
             host: '0.0.0.0',
             port: 9090,
             proxy: {
-              '/api': 'http://localhost:8080',
-              '/assets': 'http://localhost:8080'
+              '/api': {target: 'http://localhost:8080'},
+              '/assets': {target: 'http://localhost:8080'},
+              '/shake-shack': {
+                  target: 'https://github.com',
+                  secure: false,
+                  changeOrigin: true}
           },
             liveReload: true,
             hot: false,
