@@ -110,5 +110,17 @@ public class UserController {
     	return ResponseEntity.ok().headers(headers).body(message);
     }
 	
+	@GetMapping("/email/{channelNo}")
+	 public ResponseEntity<Message> getEmails(@PathVariable("channelNo") Long channelNo) {
+		HttpHeaders headers = new HttpHeaders();
+   	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+   
+   	Message message = new Message();
+   	message.setStatus(StatusEnum.OK);
+   	message.setMessage("해당 채널 유저의 이메일 리스트 조회");
+   	message.setData(userService.findAllEmaillist(channelNo));
+   	return ResponseEntity.ok().headers(headers).body(message);
+   }
+	
 	
 }

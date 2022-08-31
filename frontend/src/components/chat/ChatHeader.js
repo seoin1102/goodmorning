@@ -29,14 +29,17 @@ function ChatHeader() {
         const result = await get(`/user/email/${channelNo}/${crewNo}`);
         setUsers(() => [].concat(result));
     }, [users, channelNo, crewNo])
+    
     return (
         <>
-            <Grid container style={{ padding: '0px 30px -10px 20px', backgroundColor:'#f7f7fa', borderBottom:'solid 2px black' }}>
+            <Grid container style={{height:'52px', backgroundColor:'#f7f7fa', borderBottom:'solid 1px #555555'}}>
                 <Grid item xs={12}>
-                    <List style={{ padding: '-8px auto'}}>
+                    <List style={{ padding: '-20px auto'}}>
                         <ListItem button key="RemySharp"
-                            onClick={onClickCrewModal}>
-                            <ListItemText> #{crewName} </ListItemText>
+                            onClick={onClickCrewModal}
+                            style={{padding: '2px 0px 50px 10px'}} 
+                            >
+                            <ListItemText>{`# ${crewName}`} </ListItemText>
                         </ListItem>
                         <CrewSetting modalShow={crewModalIsOpen} onClickModal={onClickExitModal} users={users} crewName={crewName} channelNo={channelNo} crewNo={crewNo}/>
                     </List>

@@ -64,4 +64,9 @@ public class UserRepository {
 		
 		return sqlSession.selectList("user.findAllEmaillist", map);
 	}
+
+
+	public Object findAllEmaillist(Long channelNo) {
+		return sqlSession.selectList("user.findAllEmaillistByChannelNo", channelNo);
+	}
 }

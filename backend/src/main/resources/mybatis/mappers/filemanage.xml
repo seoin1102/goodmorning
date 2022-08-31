@@ -39,7 +39,7 @@
 	
 	<select id="findFileList"  parameterType="int" resultType="filevo">
 		<![CDATA[
-		  select fileUpload.no as no, fileUpload.url as url, fileUpload.comment as comment, fileUpload.origin_file_name as originFileName, chat.send_date as sendDate
+		  select fileUpload.no as no, fileUpload.url as url, fileUpload.comment as comment, fileUpload.origin_file_name as originFileName, chat.send_date as sendDate, fileUpload.user_no as userNo
 		  from fileUpload,chat 
 		  where project_no=#{projectNo } and fileUpload.chat_no = chat.no 
 		  order by no desc;

@@ -166,8 +166,8 @@ public class UserService {
 		int userNo = userRepository.findByUserNo(vo.getEmail());
 		vo.setNo(userNo);
 		ChannelVo channelVo = new ChannelVo();
-		channelVo.setName(vo.getName() + "채널");
-		channelVo.setDescription(vo.getName() + "의 채널 입니다.");
+		channelVo.setName(vo.getName() + "님의 워크스페이스");
+		channelVo.setDescription(vo.getName() + "님의 워크스페이스 입니다.");
 		channelVo.setMasterChannelUserNo(Long.valueOf(vo.getNo()));
 //		System.out.println("channel : " + channelVo);
 		channelRepository.insert(channelVo);
@@ -175,7 +175,8 @@ public class UserService {
 		channelRepository.addChannelUser(channelVo.getMasterChannelUserNo(), channelNo, 1L);
 		
 		CrewVo crewVo = new CrewVo();
-		crewVo.setName(vo.getName() + "의 크루");
+//		crewVo.setName(vo.getName() + "의 크루");
+		crewVo.setName("기본 채널");
 		crewVo.setMasterCrewUserNo(Long.valueOf(vo.getNo()));
 		crewVo.setChannelNo(channelNo);
 //		System.out.println("crew : " + crewVo);
@@ -190,5 +191,9 @@ public class UserService {
 
 	public List<UserVo> findAllEmaillist(String channelNo, String crewNo) {
 		return userRepository.findAllEmaillist(channelNo, crewNo);
+	}
+
+	public Object findAllEmaillist(Long channelNo) {
+		return userRepository.findAllEmaillist(channelNo);
 	}
 }

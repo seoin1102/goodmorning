@@ -57,7 +57,7 @@ function FileShareDirectory({userNo}) {
                             value={limit}
                             onChange={({ target: { value } }) => setLimit(Number(value))}>
                                 <option value="5">5</option>
-                                <option value="12">12</option>
+                                <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="50">50</option>
                                 <option value="100">100</option>
@@ -87,6 +87,7 @@ function FileShareDirectory({userNo}) {
                 onClickFileUploadModal={onClickFileUploadModal}
                 FileUploadModalIsOpen={FileUploadModalIsOpen}
                 uploadModalIsOpen={uploadModalIsOpen}
+                authUserNo={userNo}
             />
         </Fragment>
 

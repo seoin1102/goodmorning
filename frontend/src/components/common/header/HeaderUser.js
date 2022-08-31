@@ -8,12 +8,29 @@ import { setChannel } from '../../../redux/channel';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { resetCHATALARM } from '../../../redux/chatAlarm';
 import { fetchGetResponse, checkResponse } from '../../../apis/Fetch';
+import '../../../styles/css/DropDown.css';
+import { Badge } from '@mui/material';
 
 
 function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum}) {
   
   const chatAlarmList = useSelector(state => (state.chatAlarm));
   const dispatch = useDispatch();
+
+  // 고칠 코드
+  useEffect(() => {
+ 
+    let _totalSum2 = 0;
+    channelList.map((channel) => {
+    chatAlarmList.map((chatAlarm) => {
+          if(chatAlarm.channelNo == channel.no){
+              _totalSum2= _totalSum2 +  chatAlarm.count;
+              setTotalSum( _totalSum2);
+          }
+      })
+
+    })
+    }, [channelList, chatAlarmList])
   
   const onClickLogout = async function() {
     try {
@@ -22,11 +39,17 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
           localStorage.setItem('authUser','');
           location.href="/signin"
     
-
         } catch(err) {
           alert(err)
       } 
     }
+
+    const styles = {
+      fontSize: '1rem',
+      color: 'white', 
+      fontWeight: 'bold'
+    }
+
 
     return (
         <Grid item xs={3}>
@@ -36,24 +59,28 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
                             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                             <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="ms-auto">
-                            <Navbar.Brand style={{fontSize: '1rem', color: '#E2BA89', fontWeight: 'bold'}}>{user.name}</Navbar.Brand>
+                            <Navbar.Brand style={{fontSize: '1.2rem', color: 'white', fontWeight: 'bold'}}>{user.name}</Navbar.Brand>
+                            <Nav.Link href="#home" style={{fontSize: '1rem', color: 'white'}}>내정보</Nav.Link>
+                            <Badge 
+                            badgeContent={totalSum === 0 ? null : totalSum} 
+                            color="warning"  sx={{ "& .MuiBadge-badge": { fontSize: 15, height: 20, minWidth: 20, margin: '0px 20px 0px 0px' } }} anchorOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right',
+                            }} >
                             <NavDropdown
-                              id="nav-dropdown-dark-example"
-                              title={`채널목록${totalSum}`}
-                              menuVariant="dark"
+                              id="nav-dropdown"
+                              title={"채널목록"}
+                              menuVariant="white"
                             >
                           
-                            { 
+                          { 
                               channelList.length !== 0 ?                            
                              
                                 (channelList.map((channel, index) => {
                                   let sum = 0;
-                                  let totalSum2 = 0;
                                   chatAlarmList.map((chatAlarm) => {
                                       if(chatAlarm.channelNo == channel.no){
                                           sum = sum + chatAlarm.count;                                        
-                                          totalSum2= totalSum2 +  chatAlarm.count;
-                                          setTotalSum(totalSum2)
                                       }
                                   })
                                 return (
@@ -66,12 +93,14 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
                                 </NavDropdown.Item>)
                                 })) : ''
                             }
-                            </NavDropdown>  
-                                <Nav.Link href="#home">내정보</Nav.Link>
-                                <Nav.Link href="#signin" onClick={onClickLogout}>Logout</Nav.Link>
-
+                            </NavDropdown>
+                            </Badge>
+                                <Nav.Link href="#signin" onClick={onClickLogout} style={{fontSize: '1rem', color: 'white'}}>Logout</Nav.Link>
+                                
                             </Nav>
+                            
                             </Navbar.Collapse>
+                            
                         </Container>
                     </Navbar>
             </List>

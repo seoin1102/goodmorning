@@ -8,16 +8,6 @@ function CrewSetting_set({onClickModal,setTab}) {
       <>
         <Modal.Body>
             <Form>
-            <Form.Group className="mb-3">
-                <Button variant="outline-dark"  >
-                    초대 권한 설정
-                  </Button>
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                  <Button variant="outline-dark"  >
-                    강퇴 권한 설정
-                  </Button>
-                  </Form.Group>
                 <Form.Group className="mb-3">
                 <Button variant="outline-dark" >
                     이 크루 삭제
