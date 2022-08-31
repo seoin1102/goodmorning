@@ -1,10 +1,8 @@
 import { Grid } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import ChatHeader from "./ChatHeader";
 import Message from './Message';
 import SendMessage from './SendMessage';
-import axios from "axios";
-import { fetchResponse, checkResponse, getfile, getLocalStorageAuthUser, addFile, fileDownload } from '../../apis/Fetch';
 
 const Chat = ({ chatList, sendMessage, setSendMessage, publish}) => {
 
@@ -14,10 +12,10 @@ const Chat = ({ chatList, sendMessage, setSendMessage, publish}) => {
             <ChatHeader/>
             <Message chatList={chatList}/>
             <SendMessage 
-               onChangeHandler={(e) => setSendMessage(e.target.value)}
-               onClickHandler={publish}
-               text={sendMessage}
-              />
+                onChangeHandler={(e) => setSendMessage(e.target.value)}
+                onClickHandler={publish}
+                text={sendMessage}
+                />
         </Grid>
     );
 };
