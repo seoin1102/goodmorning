@@ -10,7 +10,7 @@ import { List, ListItemButton, Badge } from '@mui/material';
 
 
 function NavigationItem({navLink, crewName, chatAlarmCount, crewNo, onClickCrew}) {
- 
+
     return (
         <NavLink to={navLink} style={{textDecoration:'none'}}>
             <ListItemButton sx={{ pl: 4, padding: '8px 16px 8px 16px' }} onClick={() => {onClickCrew(crewNo,crewName)}}>
