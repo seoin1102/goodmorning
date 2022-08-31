@@ -9,7 +9,6 @@ function Status(props) {
   const [value, setValue] = useState();
 
   const handleChange = (event) => {
-    console.log(event.target.value)
     setValue(event.target.value);
     props.setClickedStatus(event.target.value)
   };

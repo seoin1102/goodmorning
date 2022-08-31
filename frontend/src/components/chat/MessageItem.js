@@ -2,6 +2,9 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import { TabContent } from 'react-bootstrap';
+import '../../styles/css/msItem.css';
+import '../../assets/fonts/font.css'
 import hash2 from '../../assets/icons/user.png';
 import { Avatar, ListItemIcon } from '@mui/material';
 
@@ -15,9 +18,9 @@ function MessageItem({align, message, time, name}) {
                         <Avatar alt={"null"} src={hash2} />
                     </ListItemIcon>
                 </Grid>
-                <Grid item xs={11.5}>
-                    <ListItemText align={align} >{name}  {time}</ListItemText>
-                    <ListItemText align={align} primary={message} sx={{}}></ListItemText>
+                <Grid item xs={11.5} style={{width:'max-content', padding:'10px 50px 10px 30px', fontFamily:'SongMyung'}} >
+                    <ListItemText align={align} style={{fontWeight:'bolder', fontFamily:'SongMyung'}} >{name}  {time}</ListItemText>
+                    <ListItemText align={align} primary={message} sx={{}} ></ListItemText>
                 </Grid>
             </Grid>
         </ListItem>

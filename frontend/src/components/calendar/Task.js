@@ -39,17 +39,17 @@ function Calendar() {
   const crewNo = useSelector(state => (state.focus.crewNo), shallowEqual);
 
 
-  const initialTask = useCallback(
-    async (crewNo) => {
-      const getTasks = await get(`/task/cNo/${crewNo}`);
-      dispatch(setTask(getTasks));
-    },
-    [dispatch]
-  );
+  // const initialTask = useCallback(
+  //   async (crewNo) => {
+  //     const getTasks = await get(`/task/cNo/${crewNo}`);
+  //     dispatch(setTask(getTasks));
+  //   },
+  //   [dispatch]
+  // );
 
-  useEffect(() => {
-    initialTask(crewNo);
-  }, []);
+  // useEffect(() => {
+  //   initialTask(crewNo);
+  // }, []);
   const [filteredTask, setFilteredTask] = useState([]);
   /////
 
@@ -131,6 +131,7 @@ function Calendar() {
             {/* <button className="addTaskBtn" onClick={openModal}>
               일정 추가
             </button> */}
+            
             <Checkbox
               filteredTask={filteredTask}
               setFilteredTask={setFilteredTask}

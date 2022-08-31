@@ -57,8 +57,10 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
 
     return (
         <>
+
         <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold', borderBottom:'solid 0.5px #f7f7fa',color:'white'}}>
-        <Grid item xs={12} textAlign={'center'}> 기능 </Grid>
+        <Grid item xs={12} textAlign={'center'} style={{fontFamily:'SUIT-Medium'}}> 기능 </Grid>
+
         {open ? <img src={arrowUpIcon}/> : <img src={arrowDownIcon} />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>

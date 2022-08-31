@@ -4,6 +4,7 @@ import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import List from '@mui/material/List';
 import { borderRadius } from '@mui/system';
+import { DAY_SIZE } from '@mui/x-date-pickers/internals/constants/dimensions';
 
 function HeaderSearch() {
 

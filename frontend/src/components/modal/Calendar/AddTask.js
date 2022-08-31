@@ -4,7 +4,9 @@ import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import { Row, Col } from "react-bootstrap";
 
 import Modal from "react-modal";
-import DatePicker from "react-datetime-picker";
+// import DatePicker from "react-datetime-picker";
+import DatePicker from "../../calendar/DatePicker";
+
 import "../../../styles/css/Calendar.css";
 import { addTask, deleteTask, updateTask } from '../../../redux/task';
 import {put, post, remove} from '../../../apis/Axios';
@@ -52,8 +54,8 @@ function AddTask(props) {
     const clickedEventId = props.state.id
     const updatedTask={
       title: clickedEventTitle,
-      start:moment(clickedEventStart).format('YYYY-MM-DD HH:mm'),
-      end: moment(clickedEventEnd).format('YYYY-MM-DD HH:mm'),
+      start:moment(clickedEventStart).format('YYYY-MM-DD'),
+      end: moment(clickedEventEnd).format('YYYY-MM-DD'),
       projectName:clickedProject,
       projectNo: clickedProjectNo,
       crewNo: props.crewNo,
@@ -102,7 +104,7 @@ function AddTask(props) {
         setClickedEventTitle("");
       }
     } else {
-      addedAssigns.map((assign)=>{
+        addedAssigns.map((assign)=>{
         const ids = []
         newCalendarEvents.map((event) => {ids.push(event.id)})
         const maxId = Math.max(...ids);
