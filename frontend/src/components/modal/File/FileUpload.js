@@ -1,13 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 //import Modal from 'react-modal'
 import {Modal,Card,Row, Col,Button,InputGroup,Form, FormSelect } from 'react-bootstrap';
-import { addFile,checkResponse, fetchResponse, getLocalStorageAuthUser, projectDirectoryListdata } from '../../../apis/Fetch';
+import { addFile,checkResponse, fetchResponse, getLocalStorageAuthUser, projectDirectoryListdata, projectFileListdata} from '../../../apis/Fetch';
+import { useSelector, useDispatch } from 'react-redux';
+import {fileFileData,fileFileUpload} from '../../../redux/file'
 
-function FileUpload({modalShow,FileUploadModalIsOpenCallback}) {
+function FileUpload({modalShow,FileUploadModalIsOpenCallback,uploadcheck}) {
 
     const refForm = useRef(null);
-
-    const handleSubmit = function (e) {
+    const dispatch = useDispatch();
+    
+    const handleSubmit = async function (e) {
         e.preventDefault();
 
         // Validation
@@ -24,8 +27,12 @@ function FileUpload({modalShow,FileUploadModalIsOpenCallback}) {
         const comment = e.target['comment'].value;
         const file = e.target['uploadFile'].files[0];
         const projectNo = e.target['selectProject'].value;
-
+        
         addFile(comment, file, projectNo,userNo);
+
+        uploadcheck(projectNo);
+
+
         FileUploadModalIsOpenCallback(false);
     }
 
@@ -34,8 +41,9 @@ function FileUpload({modalShow,FileUploadModalIsOpenCallback}) {
     const userNo = user.no;
     const [posts, setPosts] = useState([]);
 
-    useEffect(() => {
-        projectDirectoryListdata(userNo,setPosts);
+    useEffect(async() => {
+        const projectdatalist = await projectDirectoryListdata(userNo);
+        setPosts(projectdatalist);
       }, []
     );
 
@@ -60,25 +68,18 @@ function FileUpload({modalShow,FileUploadModalIsOpenCallback}) {
                                         name={'comment'}
                                         aria-label="Username"
                                         aria-describedby="basic-addon1"
+                                        required
                                     />
                                 </InputGroup>
-                                {/* <input
-                                    type={'text'}
-                                    name={'comment'}
-                                    placeholder={'설명(코멘트)'}/> */}
-
-                                {/* <label>파일</label> */}
                                 <br/>
                                 <Form.Group controlId="formFile" className="mb-3">
                                     <Form.Control 
-                                    type={'file'}
-                                    name={'uploadFile'}
-                                    placeholder={'파일'}/>
+                                        type={'file'}
+                                        name={'uploadFile'}
+                                        placeholder={'파일'}
+                                        required
+                                    />
                                 </Form.Group>
-                                {/* <input
-                                    type={'file'}
-                                    name={'uploadImage'}
-                                    placeholder={'파일'}/> */}
                                 <FormSelect name={'selectProject'} >
                                     {posts.map(({projectNo,projectName},index) => (
                                         <option key={index} value={projectNo}>{projectName}</option>

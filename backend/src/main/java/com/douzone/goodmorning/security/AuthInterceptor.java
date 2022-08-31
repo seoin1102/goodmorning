@@ -19,7 +19,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("오스 인터셉터 들어온지 확인용");
+		System.out.println("오스 인터셉터 들어온지 확인용+무한루프 걸렸는지 확인용");
 		response.setContentType("application/json");
 	
 		// 1. Handler 종류 확인

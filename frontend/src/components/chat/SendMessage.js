@@ -25,14 +25,14 @@ function SendMessage({onChangeHandler, onClickHandler, text}) {
         <div>
         <Grid container style={{ padding: '10px 30px 10px 20px'}}>
             <Grid item xs={11} style={{direction:'rtl'}}>
-                <Button variant="outlined" component="label" onClick={onClickFileUploadModal}>
+                {/* <Button variant="outlined" component="label" onClick={onClickFileUploadModal}>
                     Upload  
                 </Button>
                 <Button variant="outlined" component="label" onClick={() => {
                     fileDownload("2022729111552688.jpg")}
                 }>
                     임시다운로드 버튼  
-                </Button>
+                </Button> */}
             </Grid>
         </Grid>
         <Grid container style={{ padding: '0px 30px 10px 20px' }}>
@@ -56,9 +56,9 @@ function SendMessage({onChangeHandler, onClickHandler, text}) {
                 </Fab>
             </Grid>
         </Grid>
-        <FileUpload modalShow={modalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} >
+        {/* <FileUpload modalShow={modalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} >
             <></>
-        </FileUpload>
+        </FileUpload> */}
         </div>
     );
 }

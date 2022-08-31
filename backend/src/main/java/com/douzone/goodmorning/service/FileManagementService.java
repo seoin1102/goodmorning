@@ -47,5 +47,9 @@ public class FileManagementService {
 	public int findFileCount(FileManagementVo fileManagementVo) {
 		return fileManagementRepository.findFileCount(fileManagementVo);
 	}
+
+	public int deleteFile(FileManagementVo fileManagementVo) {
+		return fileManagementRepository.updateEnable(fileManagementVo);
+	}
 	
 }

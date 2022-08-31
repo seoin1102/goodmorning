@@ -19,4 +19,5 @@ public class FileManagementVo {
 	private int projectNo;
 	private String originFileName;
 	private String sendDate;
+	private String crewName;
 }

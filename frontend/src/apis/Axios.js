@@ -9,7 +9,6 @@ const client = axios.create({baseURL: '/api'})
  */
 export const get = async (url) => {
     try {
-        console.log("get 출력");
         let response =  await client.get(url);
         checkAuth(response);
         return response.data.data;

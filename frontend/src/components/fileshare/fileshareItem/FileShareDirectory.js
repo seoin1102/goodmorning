@@ -1,32 +1,48 @@
-import { height } from '@mui/system';
+import { height, margin } from '@mui/system';
 import React, { useState, useEffect, Fragment } from 'react';
 import { Button, Table, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import { checkResponse, fetchResponse, getLocalStorageAuthUser, projectDirectoryListdata,projectFileListdata} from '../../../apis/Fetch';
 import FileShareDownload from '../../modal/File/FileShareDownload'
 import FileUpload from '../../modal/File/FileUpload'
 import Pagination from './Pagination';
+import '../../../styles/css/Board.css'
+import { useSelector, useDispatch } from 'react-redux';
+import {fileDirectoryData,fileFileData} from '../../../redux/file'
+
 
 function FileShareDirectory({userNo}) {
-    
-    const [posts, setPosts] = useState([]);
     const [limit, setLimit] = useState(5);
     const [page, setPage] = useState(1);
-    const offset = (page - 1) * limit;
-
-    const [filePosts, setfilePosts] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [selectProject, setselectProject] =useState();
+    const [selectProject, setselectProject] = useState(null);
     const [uploadModalIsOpen, setuploadModalIsOpen] = useState(false);
+    const [isInitial, setInitial] = useState(false);
 
-    useEffect(() => {
-        projectDirectoryListdata(userNo,setPosts);
-      }, []
-    );
+    const dispatch = useDispatch();
+    const offset = (page - 1) * limit;
+    
+    useEffect(async () => {
+        const directoryListdata = await projectDirectoryListdata(userNo)
+        dispatch(fileDirectoryData(directoryListdata));
+        setInitial(true)
+    }, []);
 
+    const posts = useSelector(state => ({
+        directorydata: state.file.directorydata,
+    }));
+
+    const filePosts = useSelector( state => {
+        return ({
+        filedata: state.file.filedata,
+    })
+});
+    
     // modal click
-    const onClickModal = (e) => {
+    const onClickModal = async (e) => {
         setModalIsOpen(true)
-        setselectProject(e.target.id);
+        const FileListdata = await projectFileListdata(e.target.id);
+        dispatch(fileFileData(FileListdata));
+
     }
     
     const FileDownloadModalIsOpen = (isOpenStatus) => {
@@ -39,16 +55,11 @@ function FileShareDirectory({userNo}) {
     const FileUploadModalIsOpen = (isOpenStatus) => {
         setuploadModalIsOpen(isOpenStatus)
     }
-    
-    useEffect(() => {
-        projectFileListdata(selectProject,setfilePosts);
-      }, [selectProject,uploadModalIsOpen]
-    );
 
     return (
         <Fragment>
-            <div style={{width:'83%', textAlign:'center'}}>
-                <Table striped style={{width: '100%'}}>
+            <div style={{width:'83%', textAlign:'center', margin:'0 auto'}}>
+                <Table className='tbl-ex' striped style={{width: '100%'}}>
                     <thead>
                     <tr>
                         <th>
@@ -64,33 +75,58 @@ function FileShareDirectory({userNo}) {
                             </select> 
                         </th>
                         <th>프로젝트 명</th>
+                        <th>채널 명</th>
+                        <th>파일 목록</th>
                     </tr>
                     </thead>
                     <tbody>
-                        {posts.slice(offset, offset + limit).map(({projectNo,projectName},index) => (
-                            <tr key={index}>
-                                <td>{posts.length-offset-index}</td>
-                                <td onClick={onClickModal} id={projectNo}>{projectName}</td>
-                            </tr>
-                        ))}
+                    
+                    {
+                       
+                        isInitial ? 
+                            posts.directorydata.slice(offset, offset + limit).map(({projectNo,projectName,crewName},index) => (
+                                <tr key={index}>
+                                    <td>{posts.directorydata.length-offset-index}</td>
+                                    <td>{projectName}</td>
+                                    <td>{crewName}</td>
+                                    <td> 
+                                        <Button id={projectNo} variant="" component="label" onClick={onClickModal}>
+                                                    보기 
+                                        </Button> 
+                                    </td>
+                                </tr>
+                            )) :
+                            null
+                    }
                     </tbody>
                 </Table>
-                <Pagination
-                            total={posts.length}
-                            limit={limit}
-                            page={page}
-                            setPage={setPage}
-                />
+                {   
+                    isInitial ?
+                        <Pagination
+                                    total={posts.directorydata.length}
+                                    limit={limit}
+                                    page={page}
+                                    setPage={setPage}
+                        /> : null
+                        
+                }    
             </div>
-            <FileShareDownload modalShow={modalIsOpen} FileDownloadModalIsOpenCallback={FileDownloadModalIsOpen} 
-                posts={filePosts} 
-                onClickFileUploadModal={onClickFileUploadModal}
-                FileUploadModalIsOpen={FileUploadModalIsOpen}
-                uploadModalIsOpen={uploadModalIsOpen}
-                authUserNo={userNo}
-            />
-        </Fragment>
+            {console.log("ssssssss",filePosts)}
+            {   
+                (filePosts!==null&&filePosts!==undefined&&true)?
+                <FileShareDownload
+                    modalShow={modalIsOpen}
+                    FileDownloadModalIsOpenCallback={FileDownloadModalIsOpen} 
+                    onClickFileUploadModal={onClickFileUploadModal}
+                    FileUploadModalIsOpen={FileUploadModalIsOpen}
+                    uploadModalIsOpen={uploadModalIsOpen}
+                    authUserNo={userNo}
+                    posts={filePosts}
+                /> :
+                null
+            }    
 
+        </Fragment>
     );
 }
 export default FileShareDirectory;

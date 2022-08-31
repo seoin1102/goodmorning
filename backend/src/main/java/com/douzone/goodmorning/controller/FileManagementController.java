@@ -23,6 +23,7 @@ import com.douzone.goodmorning.service.FileManagementService;
 import com.douzone.goodmorning.service.FileUploadService;
 import com.douzone.goodmorning.service.UserService;
 import com.douzone.goodmorning.vo.FileManagementVo;
+import com.douzone.goodmorning.vo.UserVo;
 import com.fasterxml.jackson.annotation.JacksonInject.Value;
 
 import lombok.RequiredArgsConstructor;
@@ -66,7 +67,7 @@ public class FileManagementController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("count", count);
 		map.put("data",list);
-		System.out.println(map);
+		//System.out.println(map);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(map));
@@ -80,10 +81,25 @@ public class FileManagementController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("count", count);
 		map.put("data",list);
-		System.out.println(map);
+		//System.out.println(map);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(map));
 	}
+	
+	@PostMapping("/delete")
+	public ResponseEntity<JsonResult> upload(@RequestBody FileManagementVo fileManagementVo) {
+		int result = fileManagementService.deleteFile(fileManagementVo); 
+		if(result==-1) {
+			return ResponseEntity.status(HttpStatus.OK).body(JsonResult.fail("삭제 실패")); 
+		}
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(fileManagementVo));
+	}
+	
+
+	
 		
 }
