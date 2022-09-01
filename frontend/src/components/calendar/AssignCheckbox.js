@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Prev } from "react-bootstrap/esm/PageItem";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
+// import {setTask } from "../../redux/task"
+// import {setCrewUser} from "../../redux/crewUser"
 
+import {get} from "../../apis/Axios"
 function AssignCheckbox(props) {
   const dispatch = useDispatch();
   const taskList = useSelector((state) => state.task, shallowEqual);
@@ -11,28 +14,28 @@ function AssignCheckbox(props) {
   const crewNo = useSelector(state => (state.focus.crewNo), shallowEqual);
 
 
-  const initialTask = useCallback(
-    async (crewNo) => {
-      const getTasks = await get(`/task/cNo/${crewNo}`);
-      dispatch(setTask(getTasks));
-    },
-    [dispatch]
-  );
+  // const initialTask = useCallback(
+  //   async (crewNo) => {
+  //     const getTasks = await get(`/task/cNo/${crewNo}`);
+  //     dispatch(setTask(getTasks));
+  //   },
+  //   [dispatch]
+  // );
 
-  const initialCrew = useCallback(
-    async (crewNo) => {
-      const assignList = await get(`/crew/user/${crewNo}`);
-      dispatch(setCrewUser(assignList));},
-    [dispatch]
-  );
+  // const initialCrew = useCallback(
+  //   async (crewNo) => {
+  //     const assignList = await get(`/crew/user/${crewNo}`);
+  //     dispatch(setCrewUser(assignList));},
+  //   [dispatch]
+  // );
 
-  useEffect(() => {
-    initialTask(crewNo);
-  }, []);
+  // useEffect(() => {
+  //   initialTask(crewNo);
+  // }, []);
 
-  useEffect(() => {
-    initialCrew(crewNo);
-  }, []);
+  // useEffect(() => {
+  //   initialCrew(crewNo);
+  // }, []);
   useEffect(() => {
     setCheckItems(crewUserList)
   }, [crewUserList]);

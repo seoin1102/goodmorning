@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { putJson } from '../../../apis/Axios';
 import { setCREWFOCUS } from '../../../redux/focus';
 import { updateCREW } from '../../../redux/crew';
+import { Link } from 'react-router-dom';
 
-function CrewSetting_info({onClickModal, crewName, setTab, crewNo}) {
+function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDelete}) {
 
     const [name, setName] = useState(crewName);
     
@@ -31,18 +32,21 @@ function CrewSetting_info({onClickModal, crewName, setTab, crewNo}) {
         <Modal.Body>
             <Form>
                 <Form.Group className="mb-3" controlId="crewForm.name">
-                  <Form.Label>크루 이름</Form.Label>
+                  <Form.Label>채널 이름</Form.Label>
+                  {crewName === '기본 채널' ? <Form.Group className="mb-3" controlId="crewForm.name"> <Form.Label> {crewName} </Form.Label> </Form.Group> : 
                   <Form.Control
                     type="text"
-                    placeholder="Crew Name"
+                    placeholder="Channel Name"
                     autoFocus
                     defaultValue={crewName}
                     onChange={(e) => setName(e.target.value)}
-                  />
+                  />}
+                  
                 </Form.Group>
                 <Form.Group className="mb-3">
-                <Button variant="outline-dark"  >
-                    이 크루에서 나가기
+                <Button variant="outline-dark" 
+                        onClick={() => {onClickCrewDelete()}} >
+                    이 채널에서 나가기
                   </Button>
                   </Form.Group>
             </Form>

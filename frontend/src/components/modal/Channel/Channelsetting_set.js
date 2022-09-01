@@ -9,18 +9,8 @@ function ChannelSetting_member({onClickModal, onClickHandler,setTab}) {
     <>
          <Modal.Body>
             <Form>
-                <Form.Group className="mb-3">
-                <Button variant="outline-dark" onClick={onClickModal} >
-                  초대 권한 설정
-                  </Button>
-                  </Form.Group>
-                  <Form.Group  className="mb-3">
-                <Button variant="outline-dark"  onClick={onClickModal} >
-                  강퇴 권한 설정
-                  </Button>
-                </Form.Group>
                   <Button variant="outline-dark" onClick={onClickModal} >
-                  이 채널 삭제
+                  이 워크스페이스 삭제
                   </Button>
             </Form>
         </Modal.Body>

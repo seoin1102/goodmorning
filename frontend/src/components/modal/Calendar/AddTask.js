@@ -4,7 +4,9 @@ import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import { Row, Col } from "react-bootstrap";
 
 import Modal from "react-modal";
-import DatePicker from "react-datetime-picker";
+// import DatePicker from "react-datetime-picker";
+import DatePicker from "../../calendar/DatePicker";
+
 import "../../../styles/css/Calendar.css";
 import { addTask, deleteTask, updateTask } from '../../../redux/task';
 import {put, post, remove} from '../../../apis/Axios';
@@ -37,7 +39,8 @@ function AddTask(props) {
     setClickedEvenUserNo(userNo)
     setClickedProject(projectName)
     setClickedProjectNo(projectNo)
-
+    setClickedColor(color)
+    setClickedStatus(status)
   },[props])
 
   const dispatch = useDispatch();
@@ -51,8 +54,8 @@ function AddTask(props) {
     const clickedEventId = props.state.id
     const updatedTask={
       title: clickedEventTitle,
-      start:moment(clickedEventStart).format('YYYY-MM-DD HH:mm'),
-      end: moment(clickedEventEnd).format('YYYY-MM-DD HH:mm'),
+      start:moment(clickedEventStart).format('YYYY-MM-DD'),
+      end: moment(clickedEventEnd).format('YYYY-MM-DD'),
       projectName:clickedProject,
       projectNo: clickedProjectNo,
       crewNo: props.crewNo,
@@ -81,6 +84,10 @@ function AddTask(props) {
       }
       if(includesCheck){ //기존 사람의 변경 및 삭제 여부.
         const filterTaskIdx = props.filteredTask.findIndex(event => event.id == id)
+        console.log("어떻게 변경됨?")
+        console.log(updatedTask)
+        console.log("어떻게 변경됨?")
+
         put(`/task/${clickedEventId}`, {...updatedTask,userNo:userNo})
         dispatch(updateTask(clickedEventIdx, {...updatedTask,userNo:userNo}));
 
@@ -97,7 +104,7 @@ function AddTask(props) {
         setClickedEventTitle("");
       }
     } else {
-      addedAssigns.map((assign)=>{
+        addedAssigns.map((assign)=>{
         const ids = []
         newCalendarEvents.map((event) => {ids.push(event.id)})
         const maxId = Math.max(...ids);
@@ -195,9 +202,9 @@ function AddTask(props) {
         </Row>
         <Row>
         <Col><div><h6>진행 상황</h6>
-        <Status state={props.state} setClickedStatus={setClickedStatus}/></div></Col>
+        <Status state={props.state} clickedStatus={clickedStatus} setClickedStatus={setClickedStatus}/></div></Col>
         
-        <Col><h6>색상 설정</h6><div><ColorPicker setClickedColor={setClickedColor}/></div>
+        <Col><h6>색상 설정</h6><div><ColorPicker clickedColor={clickedColor} setClickedColor={setClickedColor}/></div>
         </Col>
         </Row>
         <Row>

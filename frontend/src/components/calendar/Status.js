@@ -19,8 +19,8 @@ function Status(props) {
         row
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
-        value={value ?? "Todo"}
-        defaultValue={"Todo"}
+        value={props.clickedStatus}
+        defaultValue={ props.clickedStatus || "Todo"}
         onChange={handleChange}
       >
         <FormControlLabel value="Todo" control={<Radio />} label="진행전" />

@@ -75,7 +75,7 @@ function SiteLayout({children}) {
             if(crew.no !== crewNo) {
                 // 이전 안읽은 메시지 카운트 가져오고
                 const result = await get(`/chat/count/${crew.no}/${authUser.no}`);
-                // console.log("###########")
+                // console.log("###########어떻게 받아오는거야ㅑㅑ", result)
                 dispatch(addCHATALARM({crewNo:crew.no, count:result.unReadCount, channelNo:result.channelNo}));
                 client.current.subscribe(`/sub/${crew.no}`, () => {dispatch(updateCHATALARM({crewNo:crew.no}))})
 
@@ -85,6 +85,7 @@ function SiteLayout({children}) {
             // focus 된 [채널/크루]의 전체 메시지 리스트 DB에서 가져와 출력
             const getChatList = await get(`/chat/${crewNo}`);
             dispatch(setChat(getChatList));
+            // console.log("야이이이이이",getChatList)
             dispatch(setCHATALARM({crewNo:crewNo}))
             // 읽음 업데이트
             await putUrl(`/chatUser/${crewNo}/${authUser.no}`);

@@ -9,6 +9,7 @@ import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import task, { setTask, addTask, deleteTask } from "../../redux/task";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import project from "../../redux/project";
+import {get} from "../../apis/Axios"
 
 import "../../styles/css/Calendar.css";
 
@@ -38,17 +39,17 @@ function Calendar() {
   const crewNo = useSelector(state => (state.focus.crewNo), shallowEqual);
 
 
-  const initialTask = useCallback(
-    async (crewNo) => {
-      const getTasks = await get(`/task/cNo/${crewNo}`);
-      dispatch(setTask(getTasks));
-    },
-    [dispatch]
-  );
+  // const initialTask = useCallback(
+  //   async (crewNo) => {
+  //     const getTasks = await get(`/task/cNo/${crewNo}`);
+  //     dispatch(setTask(getTasks));
+  //   },
+  //   [dispatch]
+  // );
 
-  useEffect(() => {
-    initialTask(crewNo);
-  }, []);
+  // useEffect(() => {
+  //   initialTask(crewNo);
+  // }, []);
   const [filteredTask, setFilteredTask] = useState([]);
   /////
 
@@ -130,6 +131,7 @@ function Calendar() {
             {/* <button className="addTaskBtn" onClick={openModal}>
               일정 추가
             </button> */}
+            
             <Checkbox
               filteredTask={filteredTask}
               setFilteredTask={setFilteredTask}

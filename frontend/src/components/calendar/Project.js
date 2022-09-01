@@ -2,6 +2,7 @@ import React,{useState,useEffect } from 'react';
 import { Col, Row } from "react-bootstrap";
 import { NavDropdown } from 'react-bootstrap';
 import {get} from '../../apis/Axios';
+import Card from '@mui/material/Card';
 
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -35,10 +36,8 @@ export default function Project() {
   const dispatch = useDispatch();
   const crewList = useSelector(state => (state.crew), shallowEqual);
   const projectList = useSelector((state) => state.project, shallowEqual);
-  const [changeCrew, setChangeCrew] = useState({
-    no: crewNo,
-    name: crewName
-});
+  const [changeCrew, setChangeCrew] = useState();
+
   const initialProject= React.useCallback(
     async (crewNo) => {
       const getProjects = await get(`/project/${crewNo}`);
@@ -48,26 +47,39 @@ export default function Project() {
   );
 
   useEffect(() =>{
-    dispatch(setCREWFOCUS({no: changeCrew.no, name: changeCrew.name}));
+    setChangeCrew(crewNo)
 
-}, [changeCrew])
+}, [crewNo])
+
+
+const initialTasks = projectList.map((task,index) => ({
+  key:index,
+  start: new Date(task.start),
+  end: new Date(task.end),
+  name: task.projectName,
+  id: task.id,
+  progress: 30,
+  type: "project",
+  styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
+}));
   return (
     <div className="animated fadeIn p-4 demo-app">
       <LocalizationProvider dateAdapter={AdapterDateFns}>
 
       <Box>
         <Paper>
-
+        <Card sx={{ minWidth: 275 }}>
         <Grid item xs={10} md={12}>
 
-        <YearPicker
+        {/* <YearPicker
             date={date}
             minDate={minDate}
             maxDate={maxDate}
             onChange={(newDate) => setDate(newDate)}
-          />
-           <NavDropdown
-        title="크루 선택"
+          /> */}
+           <NavDropdown style={{float:'right', border: '3px solid #f0f8ff69', fontSize:'15px', padding:'4px'}}
+      
+        title="채널 선택"
       >
       {
         crewList.length !== 0 ?
@@ -76,6 +88,7 @@ export default function Project() {
           <NavDropdown.Item
           onClick={() => { 
             setChangeCrew((prevState) => ({...prevState, no: crew.no, name: crew.name}))
+            dispatch(setCREWFOCUS({no: crew.no, name: crew.name}));
 
             return initialProject(crew.no)}}
             key={index} >
@@ -85,10 +98,12 @@ export default function Project() {
       }
       </NavDropdown>  
         </Grid>
-        <ProjectChart changeCrew={changeCrew}/>
-        <CollapsibleTable date={date}/>
+        <ProjectChart changeCrew={changeCrew} projectList={projectList} initialTasks={initialTasks}/>
+        <CollapsibleTable date={date} projectList={projectList}/>
 
+        </Card>
         </Paper>
+        
       </Box>
       </LocalizationProvider>
 

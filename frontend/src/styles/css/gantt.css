@@ -4,14 +4,16 @@
     border-top: #e6e4e4 1px solid;
     border-left: #e6e4e4 1px solid;
   }
-  
+  .calendar{
+    font-size: 15px;
+  }
   ._1nBOt {
     display: table-row;
     list-style: none;
   }
   
   ._2eZzQ {
-    border-right: 1px solid rgb(196, 196, 196);
+    border-right: 0.01px solid rgba(196, 196, 196, 0.582);
     opacity: 1;
     margin-left: -2px;
   }
@@ -24,7 +26,7 @@
   
   ._3ZbQT {
     display: table;
-    border-bottom: #e6e4e4 1px solid;
+    border-bottom: #e6e4e481 0.01px solid;
     border-left: #e6e4e4 1px solid;
   }
   
@@ -139,6 +141,7 @@
   
   ._RuwuK {
     stroke: #e6e4e4;
+    y2:"50";
   }
   
   ._9w8d5 {
@@ -171,6 +174,8 @@
     fill: #ffffff;
     stroke: #e0e0e0;
     stroke-width: 1.4;
+    border-left:0.01px solid rgba(173, 172, 172, 0.322); 
+    border-radius: 50%;
   }
   
   ._KxSXS {
@@ -265,6 +270,9 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
+    border-right:0.01px solid rgba(173, 172, 172, 0.322); 
+    border-Top:0.01px solid rgba(173, 172, 172, 0.151); 
+
   }
   
   ._3eULf {
@@ -274,6 +282,7 @@
     list-style: none;
     outline: none;
     position: relative;
+    border:0.1px solid rgb(173, 172, 172);
   }
   
   ._2k9Ys {

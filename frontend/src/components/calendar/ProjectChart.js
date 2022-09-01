@@ -1,102 +1,62 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { ViewMode, Gantt } from "gantt-task-react";
-import { ViewSwitcher } from "./view-switcher";
 import "../../styles/css/gantt.css";
-import AddProject from "../../components/modal/Calendar/AddProject"
-import Button from 'react-bootstrap/Button';
-import moment from 'moment';
-import { setProject } from "../../redux/project";
-import {get} from '../../apis/Axios';
-
-import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
-
-//Init
+import {Row, Col} from "react-bootstrap";
 
 let isInitial = true;
-const initTasks = () =>{
-  const dispatch = useDispatch();
-  const projectList = useSelector((state) => state.project, shallowEqual);
-  const crewNo = useSelector(state => (state.focus.crewNo, shallowEqual));
-  const initialProject= useCallback(
-    async (crewNo) => {
-      const getProjects = await get(`/project/${crewNo}`);
-      dispatch(setProject(getProjects)); 
-    },
-    [dispatch]
-  );
-  useEffect(() => {
-    initialProject(crewNo);
-  }, []);
 
-  const li = projectList.map((task,index) => ({
-    key:index,
-    start: new Date(task.start),
-    end: new Date(task.end),
-    name: task.projectName,
-    id: task.id,
-    progress: 30,
-    type: "project",
-    styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
-  }));
+export function  ProjectChart  (props) {
 
-  return li;
-}
-////////////////////////////////////////////////////////////////////////////
-export function  ProjectChart  () {
-  const dispatch = useDispatch();
-  const projectList = useSelector((state) => state.project, shallowEqual);
-  const crewNo = useSelector(state => (state.focus.crewNo, shallowEqual));
-
-  const initialProject= useCallback(
-    async (crewNo) => {
-      const getProjects = await get(`/project/${crewNo}`);
-      dispatch(setProject(getProjects)); 
-      },
-    [dispatch]
-  );
-  useEffect(() => {
-    initialProject(crewNo);
-    
-  }, []);
-
-  const [view, setView] = useState(ViewMode.Day);
-  const [tasks, setTasks] = useState([]);
+  const [view, setView] = useState(ViewMode.Month);
+  const [tasks, setTasks] = useState(props.initialTasks);
   const [isChecked, setIsChecked] = useState(true);
 
+  useEffect(() =>{
+    
+    setTasks(props.initialTasks)
+}, [props.initialTasks])
 
-  const initialTasks = initTasks();
-
-
-  
-  if (isInitial && initialTasks.length !== 0) {
-    setTasks(initialTasks);
+  if (isInitial&&tasks.length !== 0) {
+    setTasks(props.initialTasks);
     isInitial = false;
-
   }
 
   let columnWidth = 60;
   if (view === ViewMode.Month) {
-    columnWidth = 300;
+    columnWidth = 150;
   } else if (view === ViewMode.Week) {
     columnWidth = 250;
   }
+  const TaskListHeader = () => {
+    return (
+      <Row style={{ width: 400, marginTop: 18,marginBottom:8}}>
+        <Col breakPoint={{ xs: 3 }} style={{textAlign:"center", fontWeight:"bolder"}}>프로젝트 명</Col>
+        <Col breakPoint={{ xs: 3 }} style={{textAlign:"center"}}>시작 일시</Col>
+        <Col breakPoint={{ xs: 3 }} style={{textAlign:"center"}}>종료 일시</Col>
+        <Col breakPoint={{ xs: 3 }} style={{textAlign:"center"}}>종료 일시</Col>
 
+      </Row>
+    );
+  };
 
   return (
     <>
       {tasks.length !== 0 && (
         <div>
-  
           <h3>프로젝트 달력</h3>
           <Gantt
             tasks={tasks}
             viewMode={'Month'}
-         
-            listCellWidth={isChecked ? "130px" : ""}
+            listCellWidth={""}
             columnWidth={columnWidth}
             barBackgroundColor="red"
             rowHeight={50}
             fontSize={12}
+            locale={'kor'}
+            viewDate={new Date(2022, 8, 1)}
+            ganttHeight={500}
+            // TaskListHeader={TaskListHeader} 
+            preStepsCount={7}
           />
 
         </div>

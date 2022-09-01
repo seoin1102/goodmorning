@@ -8,6 +8,7 @@ import FileUpload from '../modal/File/FileUpload'
 import { NavLink } from 'react-bootstrap';
 import { addFile,fileDownload } from '../../apis/Fetch';
 import { useSelector, useDispatch } from 'react-redux';
+import send2 from '../../assets/icons/send2.svg';
 
 function SendMessage({onChangeHandler, onClickHandler, text}) {
 
@@ -55,13 +56,14 @@ function SendMessage({onChangeHandler, onClickHandler, text}) {
                   value={text}
                   />
             </Grid>
-            <Grid item xs={1} align="right">
+            <Grid item xs={1} align="center">
                 <Fab 
-                  color="primary" 
+                  sx={{backgroundColor: '#007A5A'}}
+                
                   aria-label="add"
                   onClick={onClickHandler}
                   >
-                  {"보내기"}
+                  <img src={send2}/>
                 </Fab>
             </Grid>
         </Grid>

@@ -13,7 +13,7 @@ export default function ColorPicker(props) {
 
   return (
     <>
-    <CirclePicker className='circle-picker' color={ state || '#4caf50'} onChange={ handleChange }/>
+    <CirclePicker className='circle-picker' color={ props.clickedColor} onChange={ handleChange }/>
     </>
     
     )

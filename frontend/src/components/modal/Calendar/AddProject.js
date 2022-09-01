@@ -3,7 +3,7 @@ import React, { useState, useEffect, memo } from "react";
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import { Row, Col } from "react-bootstrap";
 
-import DatePicker from "react-datetime-picker";
+import DatePicker from "../../calendar/DatePicker";
 import "../../../styles/css/Calendar.css";
 import {put, post, remove} from '../../../apis/Axios';
 import moment from 'moment';
@@ -26,6 +26,7 @@ function AddProject(props) {
   const [clickedEnd, setClickedEnd] = useState()
   const [clickedName, setClickedName] = useState()
   const [clickedDescript, setClickedDescript] = useState()
+  const [clickedStatus, setClickedStatus] = useState();
 
   useEffect(()=>{
     
@@ -43,10 +44,10 @@ function AddProject(props) {
     e.preventDefault();
     const updatedTask={
       projectName: clickedName,
-      start:moment(clickedStart).format('YYYY-MM-DD HH:mm'),
-      end: moment(clickedEnd).format('YYYY-MM-DD HH:mm'),
+      start:moment(clickedStart).format('YYYY-MM-DD'),
+      end: moment(clickedEnd).format('YYYY-MM-DD'),
       description: clickedDescript,
-      status: state.status ?? 'Todo',
+      status: clickedStatus,
       crewNo: crewNo,
       id: maxId+1
     }
@@ -75,7 +76,7 @@ const descriptHandler =(e)=>{
   return (
     <>
     
-      <Modal show={props.show} onHide={props.handleClose}>
+      <Modal show={props.show} onHide={props.handleClose} >
         <Modal.Header closeButton>
           <Modal.Title>프로젝트 추가</Modal.Title>
         </Modal.Header>
@@ -98,6 +99,7 @@ const descriptHandler =(e)=>{
               <br />
               <DatePicker value={clickedStart} onChange={startHandler}  disableClock={true} locale="ko-KO" />
               <br /><br />
+              
               <Form.Label>종료일시</Form.Label>
               <br />
               <DatePicker value={clickedEnd} onChange={endHandler}  disableClock={true} locale="ko-KO" />
@@ -108,7 +110,7 @@ const descriptHandler =(e)=>{
               <br /><br />
               <Form.Label>상태</Form.Label>
               <Stack spacing={3} sx={{ width: 500 }}>
-              <Status state={state} setState={setState}/>
+              <Status state={state} setClickedStatus={setClickedStatus} clickedStatus={clickedStatus}/>
             </Stack>
             </Form.Group>
           </Form>
