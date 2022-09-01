@@ -40,5 +40,9 @@ public class FileManagementRepository {
 	public int findFileCount(FileManagementVo fileManagementVo) {
 		return sqlSession.selectOne("filemanage.findFileCount", fileManagementVo.getProjectNo());
 	}
+
+	public int updateEnable(FileManagementVo fileManagementVo) {
+		return sqlSession.update("filemanage.updateEnable", fileManagementVo);
+	}
 	
 }

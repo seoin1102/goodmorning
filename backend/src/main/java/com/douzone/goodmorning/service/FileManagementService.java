@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.douzone.goodmorning.repository.ChannelRepository;
 import com.douzone.goodmorning.repository.CrewRepository;
@@ -46,6 +47,16 @@ public class FileManagementService {
 
 	public int findFileCount(FileManagementVo fileManagementVo) {
 		return fileManagementRepository.findFileCount(fileManagementVo);
+	}
+
+	public int deleteFile(FileManagementVo fileManagementVo) {
+		return fileManagementRepository.updateEnable(fileManagementVo);
+	}
+	
+	@Transactional
+	public List<FileManagementVo> addFileAndFindFileList(FileManagementVo fileManagementVo) {
+		fileManagementRepository.insert(fileManagementVo);
+		return fileManagementRepository.findFileList(fileManagementVo);
 	}
 	
 }

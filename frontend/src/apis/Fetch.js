@@ -98,22 +98,26 @@ export const getfile = async function(fileUrl,fileName) {
     }
 };
 
-export async function projectDirectoryListdata(userNo,setPosts){
+export async function projectDirectoryListdata(userNo){
     const data ={
         userNo: userNo
     }
     const response =  await fetchResponse('api/fileManagement/fileshareDirectory','post','jsonjsonHeader',JSON.stringify(data));
     const json = await checkResponse(response);
-    setPosts(json.data.data);
+    return json.data.data;
 };
 
-export async function projectFileListdata(projectNo,setPosts){
+
+export async function projectFileListdata(projectNo){
+
     const data ={
-        projectNo: projectNo
+         projectNo: projectNo
     }
-    const response =  await fetchResponse('api/fileManagement/fileshareFile','post','jsonjsonHeader',JSON.stringify(data));
+
+    const response =  await fetchResponse('/api/fileManagement/fileshareFile','post','jsonjsonHeader',JSON.stringify(data));
     const json = await checkResponse(response);
-    setPosts(json.data.data);
+    
+    return json.data.data;   
 };
 
 
@@ -151,7 +155,7 @@ export const addFile = async function(comment, file, projectNo,userNo) {
         formData.append('userNo',userNo);
         const response = await fetchResponse('/api/fileManagement/upload','post','multipartHeader',formData);
         const json = await checkResponse(response);
-
+        
         // 리랜더링(업데이트 해줘야함 나중에 추가 예정)
         //setImageList([json.data, ...imageList]);
 
@@ -160,13 +164,6 @@ export const addFile = async function(comment, file, projectNo,userNo) {
     }
 };
 
-export const delelteFile = async function(no) {
-    try {
-
-    } catch (err) {
-        console.error(err);
-    }
-};
 
 
 export const fileDownload = async function(fileName) {
@@ -188,5 +185,41 @@ export const fileDownload = async function(fileName) {
         console.error(err);
     }
 };
+
+export const deleteFile = async function(url,userNo) {
+    try {
+        const data ={
+            url: url,
+            userNo:userNo
+        }
+        const response = await fetchResponse('/api/fileManagement/delete','post','jsonjsonHeader',JSON.stringify(data));
+        const json = await checkResponse(response);
+
+    } catch(err) {
+        console.log(err.toString());
+    }
+  };
+
+
+
+  export const addFileAndFindFileList = async function(comment, file, projectNo,userNo) {
+    try {
+        // Create FormData
+        const formData = new FormData();
+        formData.append('comment', comment);
+        formData.append('file', file);
+        formData.append('projectNo', projectNo);
+        formData.append('userNo',userNo);
+        const response = await fetchResponse('/api/fileManagement/uploadAndFindFileList','post','multipartHeader',formData);
+
+        const json = await checkResponse(response);
+        return json.data.data;
+
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+
 
 
