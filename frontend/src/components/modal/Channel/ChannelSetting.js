@@ -9,7 +9,7 @@ import ChannelSetting_member from './ChannelSetting_member';
 import Channelsetting_set from './Channelsetting_set';
 import Swal from 'sweetalert2';
 
-function ChannelSetting({modalShow, onClickModal,users}) {
+function ChannelSetting({modalShow, onClickModal,users, initialUser}) {
     let [tab, setTab] = useState(0);
     const channelName = useSelector(state => {
       return state.focus.channelName;
@@ -51,8 +51,9 @@ function ChannelSetting({modalShow, onClickModal,users}) {
               text: '이메일을 다시 확인해 주세요.'
             })
           }
-      
+          initialUser();
     }
+
     
 
     function TabContent() {
@@ -66,10 +67,11 @@ function ChannelSetting({modalShow, onClickModal,users}) {
                 setTab={setTab}
                 channelNo={channelNo}
                 users={users}
-                onClickChannelInvite={onClickChannelInvite} />
-        else if (tab === 2) return <Channelsetting_set 
-        onClickModal={onClickModal}
-        setTab={setTab} />
+                onClickChannelInvite={onClickChannelInvite}
+                initialUser={initialUser} />
+        // else if (tab === 2) return <Channelsetting_set 
+        // onClickModal={onClickModal}
+        // setTab={setTab} />
       }
     
     return (
@@ -90,11 +92,11 @@ function ChannelSetting({modalShow, onClickModal,users}) {
           </Nav.Link>
         </Nav.Item>
         
-        <Nav.Item>
+        {/* <Nav.Item>
           <Nav.Link eventKey="link-2" onClick={() => setTab(2)}>
             설정
           </Nav.Link>
-        </Nav.Item>
+        </Nav.Item> */}
       </Nav>
       <TabContent />
       </Modal>

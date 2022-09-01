@@ -113,13 +113,13 @@ function Header() {
     const onClickChannelModal = useCallback(() => {
         setChannelModalIsOpen(prevChannelModalIsOpen => !prevChannelModalIsOpen);
         initialUser();
-    }, [channelNo])
+    }, [channelNo, users])
 
 
     return (
         <Grid container style={{backgroundColor:'#1bc6d9', color:'white', borderBottom:'solid 1px #f7f7fa'}}>            
             <HeaderItem itemName={channelName} modalIsOpen={channelModalIsOpen} customStyle={channelStyle} onClickModal={onClickChannelModal}>
-                <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users}/>
+                <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users} initialUser={initialUser}/>
             </HeaderItem>
             <HeaderSearch/>
             <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel} totalSum={totalSum} setTotalSum={setTotalSum}/>

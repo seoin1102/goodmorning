@@ -22,7 +22,7 @@ function AddCrew({modalShow, onClickModal, onCreateCrew}) {
                   <Form.Label>채널 이름</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Crew Name"
+                    placeholder="Channel Name"
                     autoFocus
                     onChange={(e) =>{
                       setName(e.target.value)

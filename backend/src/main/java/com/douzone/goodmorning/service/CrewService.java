@@ -61,4 +61,9 @@ public class CrewService {
 		return crewRepository.findNoByCrewNo(crewNo);
 	}
 
+	public void deleteCrewUser(Long crewNo, Long userNo) {
+		crewRepository.deleteCrewUser(crewNo,userNo);
+		
+	}
+
 }

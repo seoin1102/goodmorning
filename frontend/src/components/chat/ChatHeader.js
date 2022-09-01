@@ -41,7 +41,10 @@ function ChatHeader() {
                             >
                             <ListItemText>{`# ${crewName}`} </ListItemText>
                         </ListItem>
-                        <CrewSetting modalShow={crewModalIsOpen} onClickModal={onClickExitModal} users={users} crewName={crewName} channelNo={channelNo} crewNo={crewNo}/>
+                        <CrewSetting modalShow={crewModalIsOpen} onClickModal={onClickExitModal} 
+                                    users={users} crewName={crewName} 
+                                    channelNo={channelNo} crewNo={crewNo} 
+                                    initialUser={initialUser} userNo={userNo}/>
                     </List>
                     <Divider />
                 </Grid>

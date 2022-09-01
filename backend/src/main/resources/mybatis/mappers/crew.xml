@@ -73,4 +73,10 @@
 				update crew set name = #{name} where no = #{no};
 				]]>
 		</update>
+		
+		<delete id="deleteCrewUser" parameterType="map">
+			<![CDATA[
+				delete from crew_user where crew_no = #{crewNo} and user_no = #{userNo};
+				]]>
+		</delete>
 </mapper>

@@ -1,9 +1,13 @@
 import { Autocomplete, Divider, List, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Dropdown, Form, ListGroup, Modal } from 'react-bootstrap';
 
-function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickChannelInvite}) {
-    const [value, setValue] = useState([]);
+function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickChannelInvite, initialUser}) {
+    const [value, setValue] = useState();
+
+    useEffect(() => {
+      
+    },[users])
 
     return (
       <>
@@ -19,7 +23,7 @@ function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickCh
                 onChange={(e) =>{
                     setValue(e.target.value)
                 }}
-                value={value}
+                value={value || ''}
                 
                 />
             </Form.Group>
@@ -27,7 +31,7 @@ function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickCh
             <Button variant="outline-dark" onClick={() => {onClickChannelInvite(channelNo,value)
                                                             setValue("")}}
                                                  >
-                    전송
+                    추가
                     </Button>
                     </Form.Group>
                       <Form.Group className="mb-3" controlId="user">
@@ -42,10 +46,7 @@ function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickCh
           <Button variant="outline-dark"  onClick={() => {onClickModal()
                               setTab(0)
                               }} >
-            취소
-          </Button>
-          <Button variant="outline-dark"  >
-            변경사항 저장
+            확인
           </Button>
       </Modal.Footer>
   

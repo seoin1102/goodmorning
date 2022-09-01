@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
@@ -10,12 +10,19 @@ import { resetCHATALARM } from '../../../redux/chatAlarm';
 import { fetchGetResponse, checkResponse } from '../../../apis/Fetch';
 import '../../../styles/css/DropDown.css';
 import { Badge } from '@mui/material';
+import Profile from '../../modal/User/Profile';
 
 
 function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum}) {
   
+  const [profileModalShow, setProFileModalShow] = useState(false);
   const chatAlarmList = useSelector(state => (state.chatAlarm));
+  
   const dispatch = useDispatch();
+
+  const onClickProfileModal = useCallback(() => {
+    setProFileModalShow(prevprofileModalShow => !prevprofileModalShow);
+  }, [])
 
   // 고칠 코드
   useEffect(() => {
@@ -60,7 +67,8 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
                             <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="ms-auto">
                             <Navbar.Brand style={{fontSize: '1.2rem', color: 'white', fontWeight: 'bold'}}>{user.name}</Navbar.Brand>
-                            <Nav.Link href="#home" style={{fontSize: '1rem', color: 'white'}}>내정보</Nav.Link>
+                            <Nav.Link onClick={onClickProfileModal} style={{fontSize: '1rem', color: 'white'}}>내정보</Nav.Link>
+                            <Profile modalShow={profileModalShow} onClickModal={onClickProfileModal}/>
                             <Badge 
                             badgeContent={totalSum === 0 ? null : totalSum} 
                             color="warning"  sx={{ "& .MuiBadge-badge": { fontSize: 15, height: 20, minWidth: 20, margin: '0px 20px 0px 0px' } }} anchorOrigin={{
