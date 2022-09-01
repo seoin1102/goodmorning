@@ -105,7 +105,7 @@ public class CrewController {
     public ResponseEntity<Message> updateLastIn(@PathVariable("crewNo") String crewNo, @RequestBody UserVo userVo) {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-    	
+    	System.out.println("zzzzzzaaaa"+ userVo);
     	crewService.updateLastIn(crewNo, userVo.getNo());
     	    	
     	Message message = new Message();

@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Button, Form, Modal, Nav } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { postJson, remove } from '../../../apis/Axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { get, postJson, remove } from '../../../apis/Axios';
 import CrewSetting_info from './CrewSetting_info';
 import CrewSetting_member from './CrewSetting_member';
 import CrewSetting_set from './CrewSetting_set';
 import Swal from 'sweetalert2';
+import { setCHANNELCREWFOCUS } from '../../../redux/focus';
 
 function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo, initialUser, userNo }) {
 
   let [tab, setTab] = useState(0);
+  const dispatch = useDispatch();
 
   const onClickCrewInvite = async(user) => {
     const userEmail = JSON.stringify({email: user})
     const result = await postJson(`/crew/invite/${channelNo}/${crewNo}`, userEmail);
+    
     if(result.data == "success"){
       Swal.fire({
           icon: 'success',
@@ -28,6 +31,17 @@ function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo
       }
       initialUser();
   }
+  
+  const initialFocus = useCallback(async(userNo) => {
+    const Focus = await get(`/channel/${userNo}`);
+    const {no, name, crewNo, crewName} = Focus[0];
+    dispatch(setCHANNELCREWFOCUS({
+        channelName: name, 
+        channelNo: no,
+        crewName: crewName,
+        crewNo: crewNo
+    }))
+}, [])
 
   const onClickCrewDelete = async() => {
     if(crewName === '기본 채널'){
@@ -39,7 +53,8 @@ function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo
       }
     else{
     await remove(`/crew/delete/${crewNo}/${userNo}`);
-    window.location.replace("/");
+    onClickModal();
+    initialFocus(userNo);
     }
   }
 

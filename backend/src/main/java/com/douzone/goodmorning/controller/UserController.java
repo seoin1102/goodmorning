@@ -109,6 +109,7 @@ public class UserController {
     	return ResponseEntity.ok().headers(headers).body(message);
     }
 	
+	@Transactional
 	@GetMapping("/email/{channelNo}")
 	 public ResponseEntity<Message> getEmails(@PathVariable("channelNo") Long channelNo) {
 		HttpHeaders headers = new HttpHeaders();
@@ -121,5 +122,32 @@ public class UserController {
    	return ResponseEntity.ok().headers(headers).body(message);
    }
 	
+	@Transactional
+	@GetMapping("/info/{userNo}")
+	 public ResponseEntity<Message> getUser(@PathVariable("userNo") Long userNo) {
+		HttpHeaders headers = new HttpHeaders();
+  	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+  
+  	Message message = new Message();
+  	message.setStatus(StatusEnum.OK);
+  	message.setMessage("유저의 정보 조회");
+  	message.setData(userService.findUserByUserNo(userNo));
+  	return ResponseEntity.ok().headers(headers).body(message);
+	}
+	
+	@Transactional
+    @PutMapping("/update")
+    public ResponseEntity<Message> updateUser(@RequestBody UserVo userVo) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	userService.updateUser(userVo);
+    	    	
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("유저 정보 업데이트 성공");
+    	message.setData("success");
+    	return ResponseEntity.ok().headers(headers).body(message);
+    }
 	
 }

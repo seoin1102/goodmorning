@@ -197,8 +197,15 @@ public class UserService {
 		return userRepository.findAllEmaillist(channelNo);
 	}
 
+
 	public UserVo findProfile(UserVo vo) {
-		
 		return  userRepository.findProfile(vo);
+
+	public Object findUserByUserNo(Long userNo) {
+		return userRepository.findUserByUserNo(userNo);
+	}
+
+	public void updateUser(UserVo userVo) {
+		userRepository.updateUser(userVo);
 	}
 }

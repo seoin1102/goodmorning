@@ -36,7 +36,9 @@ function ChannelSetting_info({onClickHandler,channelName, onClickModal}) {
             <Button variant="outline-dark" onClick={onClickModal} >
               취소
             </Button>
-            <Button variant="outline-dark" onClick={() => {onClickHandler(name)}} >
+            <Button variant="outline-dark" onClick={() => {onClickHandler(name)}}
+                                           onKeyDown={(e) => { if(e.key === 'Enter') 
+                                           {onClickHandler(name)}}} >
               변경사항 저장
             </Button>
         </Modal.Footer>
