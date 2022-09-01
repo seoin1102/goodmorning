@@ -53,8 +53,9 @@ function FileUpload({modalShow,FileUploadModalIsOpenCallback,uploadcheck}) {
         <Modal  
                 show={modalShow}
                 className={'Modal'}
+                onHide={() =>  FileUploadModalIsOpenCallback(false)}
                 >
-                <Modal.Header>
+                <Modal.Header closeButton>
                     <Modal.Title>파일 업로드</Modal.Title>
                 </Modal.Header>
                     <Modal.Body>

@@ -36,6 +36,14 @@ function Profile({modalShow, onClickModal}) {
         </Modal.Header>
         <Form>
         <Modal.Body>
+                <Form.Group controlId="formFile" className="mb-3">
+                    <Form.Control 
+                        type={'file'}
+                        name={'uploadFile'}
+                        placeholder={'프로필 사진 업로드'}
+                         />
+                    </Form.Group>
+
                 <input type="file" id="input-file"/>
                 <Form.Group className="mb-3" controlId="crewForm.name">
                   <Form.Label>성명</Form.Label>

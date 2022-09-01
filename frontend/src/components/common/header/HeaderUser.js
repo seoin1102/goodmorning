@@ -11,6 +11,7 @@ import { fetchGetResponse, checkResponse } from '../../../apis/Fetch';
 import '../../../styles/css/DropDown.css';
 import { Badge } from '@mui/material';
 import Profile from '../../modal/User/Profile';
+import ProfileInfo from '../../modal/User/ProfileInfo';
 
 
 function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum}) {
@@ -68,7 +69,7 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
                             <Nav className="ms-auto">
                             <Navbar.Brand style={{fontSize: '1.2rem', color: 'white', fontWeight: 'bold'}}>{user.name}</Navbar.Brand>
                             <Nav.Link onClick={onClickProfileModal} style={{fontSize: '1rem', color: 'white'}}>내정보</Nav.Link>
-                            <Profile modalShow={profileModalShow} onClickModal={onClickProfileModal}/>
+                            <ProfileInfo modalShow={profileModalShow} onClickModal={onClickProfileModal}/>
                             <Badge 
                             badgeContent={totalSum === 0 ? null : totalSum} 
                             color="warning"  sx={{ "& .MuiBadge-badge": { fontSize: 15, height: 20, minWidth: 20, margin: '0px 20px 0px 0px' } }} anchorOrigin={{

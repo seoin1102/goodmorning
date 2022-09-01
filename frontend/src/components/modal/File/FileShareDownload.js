@@ -39,8 +39,9 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,onClickFil
                 className={'Modal'}
                 dialogClassName="modal-90w"
                 style={{textAlign:'center'}}
+                onHide={() => FileDownloadModalIsOpenCallback(false)}
                 >
-                <Modal.Header>
+                <Modal.Header closeButton>
                     <Modal.Title>파일 다운로드 </Modal.Title>
                 </Modal.Header>
                     <Modal.Body>

@@ -12,6 +12,7 @@ import com.douzone.goodmorning.repository.FileManagementRepository;
 import com.douzone.goodmorning.repository.UserRepository;
 import com.douzone.goodmorning.repository.VerificationTokenRepository;
 import com.douzone.goodmorning.vo.FileManagementVo;
+import com.douzone.goodmorning.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -58,5 +59,17 @@ public class FileManagementService {
 		fileManagementRepository.insert(fileManagementVo);
 		return fileManagementRepository.findFileList(fileManagementVo);
 	}
+	
+	@Transactional
+	public UserVo addProfileAndFindProfileUrl(UserVo userVo) {
+		fileManagementRepository.profileInsert(userVo);
+		return fileManagementRepository.findProfileUrl(userVo);
+		
+	}
+
+	
+	
+	
+	
 	
 }

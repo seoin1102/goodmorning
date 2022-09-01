@@ -118,7 +118,23 @@ public class FileManagementController {
 	}
 	
 	
+	@PostMapping("/editProfileImg")
+	public ResponseEntity<JsonResult> profileUpload(@RequestParam("file") MultipartFile file, UserVo userVo) {
+		userVo.setProfileUrl(FileUploadService.restoreImage(file));
+		userVo=fileManagementService.addProfileAndFindProfileUrl(userVo);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(userVo));
+	}
 	
+	@PostMapping("/ProfileImg")
+	public ResponseEntity<JsonResult> profileImg(@RequestParam("file") MultipartFile file, UserVo userVo) {
+		userVo.setProfileUrl(FileUploadService.restoreImage(file));
+		userVo=fileManagementService.addProfileAndFindProfileUrl(userVo);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(userVo));
+	}
 
 	
 		
