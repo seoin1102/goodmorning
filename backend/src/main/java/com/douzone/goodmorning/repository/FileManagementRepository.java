@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.douzone.goodmorning.vo.FileManagementVo;
+import com.douzone.goodmorning.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,6 +44,14 @@ public class FileManagementRepository {
 
 	public int updateEnable(FileManagementVo fileManagementVo) {
 		return sqlSession.update("filemanage.updateEnable", fileManagementVo);
+	}
+	
+	public boolean profileInsert(UserVo userVo) {
+		return 1 == sqlSession.insert("filemanage.profileInsert", userVo);
+	}
+
+	public UserVo findProfileUrl(UserVo userVo) {
+		return sqlSession.selectOne("user.findProfile",userVo);
 	}
 	
 }

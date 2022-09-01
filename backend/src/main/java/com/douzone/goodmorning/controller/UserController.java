@@ -75,7 +75,6 @@ public class UserController {
 	public void logout() {
 	}
 	
-	
 	@PutMapping("/resetPw")
 	public ResponseEntity<JsonResult> resetPw(@RequestBody UserVo vo) {
 		

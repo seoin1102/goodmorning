@@ -25,7 +25,6 @@ public class UserRepository {
 
 
 	public UserVo existsById(UserVo vo) {
-		System.out.println(vo);
 		return sqlSession.selectOne("user.existsById",vo);
 	}
 
@@ -68,5 +67,10 @@ public class UserRepository {
 
 	public Object findAllEmaillist(Long channelNo) {
 		return sqlSession.selectList("user.findAllEmaillistByChannelNo", channelNo);
+	}
+
+
+	public UserVo findProfile(UserVo vo) {
+		return sqlSession.selectOne("user.findProfile",vo);
 	}
 }

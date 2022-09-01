@@ -196,4 +196,9 @@ public class UserService {
 	public Object findAllEmaillist(Long channelNo) {
 		return userRepository.findAllEmaillist(channelNo);
 	}
+
+	public UserVo findProfile(UserVo vo) {
+		
+		return  userRepository.findProfile(vo);
+	}
 }
