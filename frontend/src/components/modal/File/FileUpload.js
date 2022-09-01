@@ -28,9 +28,9 @@ function FileUpload({modalShow,FileUploadModalIsOpenCallback,uploadcheck}) {
         const file = e.target['uploadFile'].files[0];
         const projectNo = e.target['selectProject'].value;
         
-        addFile(comment, file, projectNo,userNo);
+        //addFile(comment, file, projectNo,userNo);
 
-        uploadcheck(projectNo);
+        uploadcheck(comment, file, projectNo,userNo);
 
 
         FileUploadModalIsOpenCallback(false);

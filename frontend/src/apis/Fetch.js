@@ -145,7 +145,7 @@ export const getLocalStorageAuthUser = () =>{
 };
 
 
-export const addFile = async function(comment, file, projectNo,userNo,setPosts) {
+export const addFile = async function(comment, file, projectNo,userNo) {
     try {
         // Create FormData
         const formData = new FormData();
@@ -164,13 +164,6 @@ export const addFile = async function(comment, file, projectNo,userNo,setPosts) 
     }
 };
 
-export const delelteFile = async function(no) {
-    try {
-
-    } catch (err) {
-        console.error(err);
-    }
-};
 
 
 export const fileDownload = async function(fileName) {
@@ -209,6 +202,23 @@ export const deleteFile = async function(url,userNo) {
 
 
 
+  export const addFileAndFindFileList = async function(comment, file, projectNo,userNo) {
+    try {
+        // Create FormData
+        const formData = new FormData();
+        formData.append('comment', comment);
+        formData.append('file', file);
+        formData.append('projectNo', projectNo);
+        formData.append('userNo',userNo);
+        const response = await fetchResponse('/api/fileManagement/uploadAndFindFileList','post','multipartHeader',formData);
+
+        const json = await checkResponse(response);
+        return json.data.data;
+
+    } catch (err) {
+        console.error(err);
+    }
+};
 
 
 

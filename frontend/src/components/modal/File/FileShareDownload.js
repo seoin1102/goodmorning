@@ -2,7 +2,7 @@ import { margin, width } from '@mui/system';
 import React, { useState, useRef, useEffect } from 'react';
 //import Modal from 'react-modal'
 import {Table,Modal,Card,Row, Col,Button,InputGroup,Form, FormSelect } from 'react-bootstrap';
-import { checkResponse, fetchResponse, getLocalStorageAuthUser, projectFileListdata,fileDownload,deleteFile} from '../../../apis/Fetch';
+import { checkResponse, fetchResponse, getLocalStorageAuthUser, projectFileListdata,fileDownload,deleteFile,addFileAndFindFileList} from '../../../apis/Fetch';
 import Pagination from '../../fileshare/fileshareItem/Pagination';
 import FileUpload from '../../modal/File/FileUpload'
 import '../../../styles/css/modal-90w.css'
@@ -19,10 +19,10 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,onClickFil
     const offset = (page - 1) * limit;
     const [checkflagupload, setcheckflagupload] = useState(false);
 
-    const uploadcheck = async (projectNo)=> {
-        console.log("여기 들어옴 ㅇㅇ ")
-        const FileListdata = await projectFileListdata(projectNo);
-        console.log("oiioo=>", FileListdata)
+    const uploadcheck = async (comment, file, projectNo,userNo)=> {
+
+        const FileListdata = await addFileAndFindFileList(comment, file, projectNo,userNo);
+        console.log("기도합니다.." + JSON.stringify(FileListdata))
         dispatch(fileFileData(FileListdata));
     }
     const dispatch = useDispatch();
