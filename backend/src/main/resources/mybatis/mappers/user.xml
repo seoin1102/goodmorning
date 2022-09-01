@@ -49,6 +49,12 @@
 		]]>
 	</select>
 	
+	<select id="findUserByUserNo" parameterType="long" resultType="uservo">
+		<![CDATA[
+		select no, email, name, sign_up_date as signUpDate, job, phone as phoneNumber, profile_img as profileImg from user where no = #{userNo};
+		]]>
+	</select>
+	
 	<update id="updateEnable" parameterType="verifivo">
 		<![CDATA[
 			update user set enable=true where email=#{email }
@@ -58,6 +64,12 @@
 	<update id="updatePw" parameterType="map">
 		<![CDATA[
 			update user set passwd=#{token } where email=#{email }
+		]]>
+	</update>
+	
+	<update id="updateUser" parameterType="uservo">
+		<![CDATA[
+			update user set name = #{name}, job = #{job}, phone = #{phoneNumber} , profile_img = #{profileUrl} where no = #{no};
 		]]>
 	</update>
 	

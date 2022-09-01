@@ -18,7 +18,10 @@ public class UserVo {
 	private String email;
 	private String name;
 	private String passwd;
-	private String singUpDate;
+	private String signUpDate;
+	private String job;
+	private String phoneNumber;
+	private String profileUrl;
 	private boolean enable;
 	
 	
@@ -44,8 +47,17 @@ public class UserVo {
 	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
-	public void setSingUpDate(String singUpDate) {
-		this.singUpDate = singUpDate;
+	public void setSignUpDate(String signUpDate) {
+		this.signUpDate = signUpDate;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public void setProfileUrl(String profileUrl) {
+		this.profileUrl = profileUrl;
 	}
 	
 	

@@ -69,4 +69,14 @@ public class UserRepository {
 	public Object findAllEmaillist(Long channelNo) {
 		return sqlSession.selectList("user.findAllEmaillistByChannelNo", channelNo);
 	}
+
+
+	public Object findUserByUserNo(Long userNo) {
+		return sqlSession.selectList("user.findUserByUserNo", userNo);
+	}
+
+
+	public void updateUser(UserVo userVo) {
+		sqlSession.update("user.updateUser",userVo);
+	}
 }

@@ -196,4 +196,13 @@ public class UserService {
 	public Object findAllEmaillist(Long channelNo) {
 		return userRepository.findAllEmaillist(channelNo);
 	}
+
+	public Object findUserByUserNo(Long userNo) {
+		return userRepository.findUserByUserNo(userNo);
+	}
+
+	public void updateUser(UserVo userVo) {
+		userRepository.updateUser(userVo);
+		
+	}
 }

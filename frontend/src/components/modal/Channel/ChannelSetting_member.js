@@ -45,7 +45,10 @@ function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickCh
         <Modal.Footer>
           <Button variant="outline-dark"  onClick={() => {onClickModal()
                               setTab(0)
-                              }} >
+                              }}
+                              onKeyDown={(e) => { if(e.key === 'Enter') 
+                                           {onClickModal()
+                                            setTab(0)}}} >
             확인
           </Button>
       </Modal.Footer>
