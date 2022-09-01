@@ -41,11 +41,12 @@ function FileUpload({modalShow,FileUploadModalIsOpenCallback,uploadcheck}) {
     const userNo = user.no;
     const [posts, setPosts] = useState([]);
 
-    useEffect(async() => {
-        const projectdatalist = await projectDirectoryListdata(userNo);
-        setPosts(projectdatalist);
-      }, []
-    );
+    useEffect(()=>{
+        (async() => {
+            const projectdatalist = await projectDirectoryListdata(userNo);
+            setPosts(projectdatalist);
+            })();
+        }, []);
 
 
     return (

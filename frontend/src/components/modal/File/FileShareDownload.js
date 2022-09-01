@@ -22,7 +22,6 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,onClickFil
     const uploadcheck = async (comment, file, projectNo,userNo)=> {
 
         const FileListdata = await addFileAndFindFileList(comment, file, projectNo,userNo);
-        console.log("기도합니다.." + JSON.stringify(FileListdata))
         dispatch(fileFileData(FileListdata));
     }
     const dispatch = useDispatch();
@@ -31,7 +30,6 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,onClickFil
     // const posts = useSelector( state => ({
     //     filedata: state.file.filedata,
     // }));
-    console.log("---->1 "+posts.filedata)
     return (
         <div>
         <img src={downloadIcon} style={{height:'33px', display:'none'}} />

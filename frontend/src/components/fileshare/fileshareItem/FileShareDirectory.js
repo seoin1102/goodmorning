@@ -21,10 +21,14 @@ function FileShareDirectory({userNo}) {
     const dispatch = useDispatch();
     const offset = (page - 1) * limit;
     
-    useEffect(async () => {
-        const directoryListdata = await projectDirectoryListdata(userNo)
-        dispatch(fileDirectoryData(directoryListdata));
-        setInitial(true)
+
+
+    useEffect(()=>{
+        (async () => {
+                const directoryListdata = await projectDirectoryListdata(userNo)
+                dispatch(fileDirectoryData(directoryListdata));
+                setInitial(true)
+            })();
     }, []);
 
     const posts = useSelector(state => ({
@@ -111,7 +115,6 @@ function FileShareDirectory({userNo}) {
                         
                 }    
             </div>
-            {console.log("ssssssss",filePosts)}
             {   
                 (filePosts!==null&&filePosts!==undefined&&true)?
                 <FileShareDownload
