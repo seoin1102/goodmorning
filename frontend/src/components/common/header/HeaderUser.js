@@ -8,7 +8,6 @@ import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkResponse, fetchGetResponse } from '../../../apis/Fetch';
 import { resetCHATALARM } from '../../../redux/chatAlarm';
-import { fetchGetResponse, checkResponse } from '../../../apis/Fetch';
 import '../../../styles/css/DropDown.css';
 import { Badge } from '@mui/material';
 import ProfileInfo from '../../modal/User/ProfileInfo';
