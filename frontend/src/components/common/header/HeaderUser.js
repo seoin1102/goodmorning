@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
+
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import { Button, Container, Dropdown, DropdownButton, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { setChannel } from '../../../redux/channel';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkResponse, fetchGetResponse } from '../../../apis/Fetch';
 import { resetCHATALARM } from '../../../redux/chatAlarm';
 import { fetchGetResponse, checkResponse } from '../../../apis/Fetch';
 import '../../../styles/css/DropDown.css';
 import { Badge } from '@mui/material';
-
 import ProfileInfo from '../../modal/User/ProfileInfo';
 
 

@@ -195,12 +195,11 @@ public class UserService {
 		return userRepository.findAllEmaillist(channelNo);
 	}
 
-<<<<<<< HEAD
-=======
 
 	public UserVo findProfile(UserVo vo) {
-		return  userRepository.findProfile(vo);
-
+		return userRepository.findProfile(vo);
+	}
+	
 	public Object findUserByUserNo(Long userNo) {
 		return userRepository.findUserByUserNo(userNo);
 	}
@@ -208,5 +207,5 @@ public class UserService {
 	public void updateUser(UserVo userVo) {
 		userRepository.updateUser(userVo);
 	}
->>>>>>> a7c256b4721a210b022af37ee770f17375b72d03
+
 }
