@@ -1,8 +1,7 @@
-import { getHtml } from './Axios2';
+import { getGit } from './Axios';
 
-export const linkPreview = async (url) => {
-    const html =await getHtml();
-    console.log(html);
+export const linkPreview = async (url, gitData) => {
+    const html = (await getGit(url, gitData)).data;
     const metaTagOGRegex = /<meta[^>]*(?:property=[ '"]*og:([^'"]*))?[^>]*(?:content=["]([^"]*)["])?[^>]*>/gi;
     const matches = html.match(metaTagOGRegex);
     const meta = {};

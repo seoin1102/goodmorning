@@ -40,10 +40,7 @@ module.exports = function(env) {
             proxy: {
               '/api': {target: 'http://localhost:8080'},
               '/assets': {target: 'http://localhost:8080'},
-              '/shake-shack': {
-                  target: 'https://github.com',
-                  secure: false,
-                  changeOrigin: true}
+              '/html': {target: 'http://localhost:8080'}
           },
             liveReload: true,
             hot: false,

@@ -1,7 +1,8 @@
-import React, { Fragment, useCallback, useEffect, useRef } from 'react';
-import MessageItem from './MessageItem';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
+import React, { Fragment, useCallback, useEffect, useRef } from 'react';
+import MessageItem from './MessageItem';
+import SendPreviewMessage from './SendPreviewMessage';
 
 function Message({chatList}) {
     const scrollRef = useRef(null);
@@ -39,6 +40,7 @@ function Message({chatList}) {
                             </Fragment>)
                 }
             })}
+            <SendPreviewMessage />
             <div ref={scrollRef}></div>
         </List>
         <Divider />
