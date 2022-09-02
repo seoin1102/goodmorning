@@ -21,7 +21,6 @@ function Profile({ modalShow, onClickModal }) {
   const [isInitial, setInitial] = useState(false);
   const [url, seturl] = useState('');
 
-
   useEffect(() => {
     (async () => {
       const profileUrl = await getProfileImg(userNo)
@@ -102,9 +101,11 @@ function Profile({ modalShow, onClickModal }) {
               </Modal.Footer>
             </Form>
           </Modal>
+
           {/* <EditProfile modalShow={editProfileModalShow} onClickModal={onClickeditProfileModal} uploadcheck={uploadcheck}
             user={user} profile={profile} setProfile={setProfile} /> */}
             </>) 
+
                    : (null)}
       </>  
       );
