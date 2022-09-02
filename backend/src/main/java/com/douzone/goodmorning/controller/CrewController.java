@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -104,7 +105,7 @@ public class CrewController {
     public ResponseEntity<Message> updateLastIn(@PathVariable("crewNo") String crewNo, @RequestBody UserVo userVo) {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-    	
+    	System.out.println("zzzzzzaaaa"+ userVo);
     	crewService.updateLastIn(crewNo, userVo.getNo());
     	    	
     	Message message = new Message();
@@ -138,6 +139,8 @@ public class CrewController {
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	
+    	System.out.println("zzzzzzzzzzzz"+userVo);
+    	
     	int checkcount = channelService.checkUser(channelNo,userVo.getEmail());
     		
     	if(checkcount == 0) {
@@ -164,6 +167,21 @@ public class CrewController {
     	crewService.addCrewUser(Long.valueOf(crewNo),Long.valueOf(userNo), 0L);
     	
     	message.setMessage("유저 초대에 성공하였습니다.");
+    	message.setData("success");
+    	return ResponseEntity.ok().headers(headers).body(message);
+    }
+    
+    @Transactional
+    @DeleteMapping("/crew/delete/{crewNo}/{userNo}")
+    public ResponseEntity<Message> deleteCrewUser(@PathVariable("crewNo") Long crewNo, @PathVariable("userNo") Long userNo) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	crewService.deleteCrewUser(crewNo,userNo);
+   
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("크루 유저 삭제 성공");
     	message.setData("success");
     	return ResponseEntity.ok().headers(headers).body(message);
     }

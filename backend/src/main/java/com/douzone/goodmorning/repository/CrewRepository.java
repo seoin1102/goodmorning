@@ -86,6 +86,14 @@ public class CrewRepository {
 	public List<CrewVo> findNoByCrewNo(Long crewNo) {
 		return sqlSession.selectList("crew.findNoByCrewNo", crewNo);
 	}
+
+	public void deleteCrewUser(Long crewNo, Long userNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("crewNo", crewNo);
+		map.put("userNo", userNo);
+		sqlSession.delete("crew.deleteCrewUser", map);
+		
+	}
 	
 
 }

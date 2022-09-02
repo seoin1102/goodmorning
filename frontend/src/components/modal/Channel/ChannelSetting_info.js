@@ -14,10 +14,10 @@ function ChannelSetting_info({onClickHandler,channelName, onClickModal}) {
         <Modal.Body>
             <Form>
                 <Form.Group className="mb-3" controlId="channelForm.name">
-                  <Form.Label>채널 이름</Form.Label>
+                  <Form.Label>워크스페이스 이름</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Crew Name"
+                    placeholder="WorkSpace Name"
                     autoFocus
                     onChange={(e) =>{
                       setName(e.target.value)
@@ -36,7 +36,9 @@ function ChannelSetting_info({onClickHandler,channelName, onClickModal}) {
             <Button variant="outline-dark" onClick={onClickModal} >
               취소
             </Button>
-            <Button variant="outline-dark" onClick={() => {onClickHandler(name)}} >
+            <Button variant="outline-dark" onClick={() => {onClickHandler(name)}}
+                                           onKeyDown={(e) => { if(e.key === 'Enter') 
+                                           {onClickHandler(name)}}} >
               변경사항 저장
             </Button>
         </Modal.Footer>

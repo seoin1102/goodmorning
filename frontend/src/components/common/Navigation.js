@@ -49,7 +49,7 @@ function Navigation() {
 
     const onCreateChannel = useCallback(async(channel) => {
         const result = await post(`/channel`, channel);
-        dispatch(addChannel(result.data));
+        dispatch(addChannel(result.data));              
     }, [])
 
     const onClickCrew = async(crewNo, crewName) => {
@@ -68,7 +68,7 @@ function Navigation() {
     useEffect(() => {
         if(channelNo !== null)
             initialCrew(channelNo, userNo);
-    }, [channelNo])
+    }, [channelNo,crewNo])
 
     return (
     <>

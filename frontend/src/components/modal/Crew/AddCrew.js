@@ -22,7 +22,7 @@ function AddCrew({modalShow, onClickModal, onCreateCrew}) {
                   <Form.Label>채널 이름</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Crew Name"
+                    placeholder="Channel Name"
                     autoFocus
                     onChange={(e) =>{
                       setName(e.target.value)
@@ -38,8 +38,11 @@ function AddCrew({modalShow, onClickModal, onCreateCrew}) {
             <Button variant="outline-dark" type="button" onClick={(e) => {
                         onCreateCrew(channelNo,crew,userNo)
                         onClickModal()
-                       }} >
-              저장
+                       }}
+                       onKeyDown={(e) => { if(e.key === 'Enter') { 
+                        onCreateCrew(channelNo,crew,userNo)
+                        onClickModal()} }} >
+              생성
             </Button>
             
         </Modal.Footer>

@@ -23,6 +23,7 @@ import com.douzone.goodmorning.service.FileManagementService;
 import com.douzone.goodmorning.service.FileUploadService;
 import com.douzone.goodmorning.service.UserService;
 import com.douzone.goodmorning.vo.FileManagementVo;
+import com.douzone.goodmorning.vo.UserVo;
 import com.fasterxml.jackson.annotation.JacksonInject.Value;
 
 import lombok.RequiredArgsConstructor;
@@ -66,7 +67,7 @@ public class FileManagementController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("count", count);
 		map.put("data",list);
-		System.out.println(map);
+		//System.out.println(map);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(map));
@@ -80,10 +81,63 @@ public class FileManagementController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("count", count);
 		map.put("data",list);
-		System.out.println(map);
+		//System.out.println(map);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(map));
 	}
+	
+	@PostMapping("/delete")
+	public ResponseEntity<JsonResult> upload(@RequestBody FileManagementVo fileManagementVo) {
+		int result = fileManagementService.deleteFile(fileManagementVo); 
+		if(result==-1) {
+			return ResponseEntity.status(HttpStatus.OK).body(JsonResult.fail("삭제 실패")); 
+		}
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(fileManagementVo));
+	}
+	
+	@PostMapping("/uploadAndFindFileList")
+	public ResponseEntity<JsonResult> uploadAndFindFileList(@RequestParam("file") MultipartFile file,FileManagementVo fileManagementVo) {
+		
+		fileManagementVo.setUrl(FileUploadService.restoreImage(file));
+		fileManagementVo.setOriginFileName(file.getOriginalFilename());
+		
+		List<FileManagementVo> list =fileManagementService.addFileAndFindFileList(fileManagementVo); 
+		int count = fileManagementService.findFileCount(fileManagementVo);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("count", count);
+		map.put("data",list);
+
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(map));
+	}
+	
+	
+	@PostMapping("/editProfileImg")
+	public ResponseEntity<JsonResult> profileUpload(@RequestParam("file") MultipartFile file, UserVo userVo) {
+		System.out.println("여기 들어온지 확인용");
+		userVo.setProfileUrl(FileUploadService.restoreImage(file));
+		userVo=fileManagementService.profileUpdateAndFindProfileUrl(userVo);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(userVo));
+	}
+	
+	
+	@PostMapping("/profileImg")
+	public ResponseEntity<JsonResult> profileImg(@RequestBody UserVo userVo) {
+		userVo=fileManagementService.findProfileUrl(userVo);
+		System.out.println(userVo);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(userVo));
+	}
+
+	
 		
 }

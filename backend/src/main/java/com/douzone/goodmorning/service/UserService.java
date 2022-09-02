@@ -184,9 +184,7 @@ public class UserService {
 		Long crewNo = crewRepository.findMaster(channelNo, Long.valueOf(vo.getNo()));
 //		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA     "+crewNo);
 		crewRepository.addCrewUser(crewNo, Long.valueOf(vo.getNo()), 1L);
-		
-		
-		
+			
 	}
 
 	public List<UserVo> findAllEmaillist(String channelNo, String crewNo) {
@@ -196,4 +194,18 @@ public class UserService {
 	public Object findAllEmaillist(Long channelNo) {
 		return userRepository.findAllEmaillist(channelNo);
 	}
+
+
+	public UserVo findProfile(UserVo vo) {
+		return userRepository.findProfile(vo);
+	}
+	
+	public Object findUserByUserNo(Long userNo) {
+		return userRepository.findUserByUserNo(userNo);
+	}
+
+	public void updateUser(UserVo userVo) {
+		userRepository.updateUser(userVo);
+	}
+
 }

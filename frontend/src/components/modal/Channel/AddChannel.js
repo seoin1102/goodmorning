@@ -36,8 +36,11 @@ function AddChannel({modalShow, onClickModal,onCreateChannel}) {
                 취소
               </Button>
               <Button variant="outline-dark" onClick={() => {onCreateChannel(channel)
-                                                            onClickModal();}} >
-                저장
+                                                            onClickModal();}}
+                                            onKeyDown={(e) => { if(e.key === 'Enter') { 
+                                              onCreateChannel(channel)
+                                              onClickModal();} }} >
+                생성
               </Button>
           </Modal.Footer>
           </Form>

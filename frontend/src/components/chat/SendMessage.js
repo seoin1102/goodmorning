@@ -7,10 +7,20 @@ import { Button } from '@mui/material';
 import FileUpload from '../modal/File/FileUpload'
 import { NavLink } from 'react-bootstrap';
 import { addFile,fileDownload } from '../../apis/Fetch';
+import { useSelector, useDispatch } from 'react-redux';
 import send2 from '../../assets/icons/send2.svg';
+
 function SendMessage({onChangeHandler, onClickHandler, text}) {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
+
+
+    const uploadcheck = async (comment, file, projectNo,userNo)=> {
+
+        const FileListdata = await addFile(comment, file, projectNo,userNo);
+        
+        //dispatch(fileFileData(FileListdata));
+    }
 
     // modal click
     const onClickFileUploadModal = () => {
@@ -27,11 +37,6 @@ function SendMessage({onChangeHandler, onClickHandler, text}) {
             <Grid item xs={11} style={{direction:'rtl'}}>
                 <Button style={{margin:'10px', color:'#34d6ce',backgroundColor:'#eef2f8', border:'white'}} variant="outlined" component="label" onClick={onClickFileUploadModal}>
                     업로드  
-                </Button>
-                <Button style={{margin:'10px', color:'#34d6ce',backgroundColor:'#eef2f8', border:'white'}} variant="outlined" component="label" onClick={() => {
-                    fileDownload("2022729111552688.jpg")}
-                }>
-                    임시다운로드 버튼  
                 </Button>
             </Grid>
         </Grid>
@@ -57,7 +62,9 @@ function SendMessage({onChangeHandler, onClickHandler, text}) {
                 </Fab>
             </Grid>
         </Grid>
-        <FileUpload modalShow={modalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen}>
+
+        <FileUpload modalShow={modalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} uploadcheck={uploadcheck}>
+            <></>
 
         </FileUpload>
         </>
