@@ -18,7 +18,6 @@ function Profile({ modalShow, onClickModal }) {
   const [isInitial, setInitial] = useState(false);
   const [url, seturl] = useState('');
 
-
   useEffect(() => {
     (async () => {
       const profileUrl = await getProfileImg(userNo)
@@ -92,13 +91,14 @@ function Profile({ modalShow, onClickModal }) {
                 <Button variant="outline-dark" type="button" onClick={onClickModal}>
                   취소
                 </Button>
-                <Button variant="outline-dark" type="button" onClick={onEditClickModal}>
+                <Button variant="outline-dark" type="button" onClick={onClickeditProfileModal}>
                   프로필 편집
                 </Button>
 
               </Modal.Footer>
             </Form>
-          </Modal><EditProfile modalShow={editProfileModalShow} onClickModal={onClickeditProfileModal}
+          </Modal>
+          <EditProfile modalShow={editProfileModalShow} onClickModal={onClickeditProfileModal}
             user={user} profile={profile} setProfile={setProfile} /></>) 
                    : (null)}
       </>  
