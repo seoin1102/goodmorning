@@ -32,20 +32,15 @@ function SendMessage({onChangeHandler, onClickHandler, text}) {
     }
 
     return (
-        <div>
-        <Grid container style={{ padding: '10px 30px 10px 20px'}}>
+        <>
+        <Grid container style={{ padding: '10px 30px 10px 20px'}} sx={{backgroundColor:'#f7f7fa'}}>
             <Grid item xs={11} style={{direction:'rtl'}}>
-                <Button variant="outlined" component="label" onClick={onClickFileUploadModal}>
-                    Upload  
+                <Button style={{margin:'10px', color:'#34d6ce',backgroundColor:'#eef2f8', border:'white'}} variant="outlined" component="label" onClick={onClickFileUploadModal}>
+                    업로드  
                 </Button>
-                {/* <Button variant="outlined" component="label" onClick={() => {
-                    fileDownload("2022729111552688.jpg")}
-                }>
-                    임시다운로드 버튼  
-                </Button> */}
             </Grid>
         </Grid>
-        <Grid container style={{ padding: '0px 30px 10px 20px' }}>
+        <Grid container style={{ padding: '0px 30px 10px 20px' }}sx={{backgroundColor:'#f7f7fa'}}>
             <Grid item xs={11}>
                 <TextField
                   onChange={onChangeHandler}
@@ -58,7 +53,7 @@ function SendMessage({onChangeHandler, onClickHandler, text}) {
             </Grid>
             <Grid item xs={1} align="center">
                 <Fab 
-                  sx={{backgroundColor: '#007A5A'}}
+                  sx={{backgroundColor: '#34d6ce'}}
                 
                   aria-label="add"
                   onClick={onClickHandler}
@@ -67,10 +62,12 @@ function SendMessage({onChangeHandler, onClickHandler, text}) {
                 </Fab>
             </Grid>
         </Grid>
+
         <FileUpload modalShow={modalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} uploadcheck={uploadcheck}>
             <></>
+
         </FileUpload>
-        </div>
+        </>
     );
 }
 

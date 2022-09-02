@@ -1,112 +1,172 @@
-import React,{useState,useEffect } from 'react';
-import { Col, Row } from "react-bootstrap";
-import { NavDropdown } from 'react-bootstrap';
-import {get} from '../../apis/Axios';
-import Card from '@mui/material/Card';
+import React, { useState, useEffect } from "react";
+import { NavDropdown } from "react-bootstrap";
+import { get, remove } from "../../apis/Axios";
+import {Card, Box, Button, Grid, Paper} from "@mui/material";
+import { NavLink } from "react-router-dom";
 
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import CollapsibleTable from './ProjectTable'
+import CollapsibleTable from "./ProjectTable";
 
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { CalendarPicker } from '@mui/x-date-pickers/CalendarPicker';
-import { MonthPicker } from '@mui/x-date-pickers/MonthPicker';
-import { YearPicker } from '@mui/x-date-pickers/YearPicker';
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
+import { MonthPicker } from "@mui/x-date-pickers/MonthPicker";
+import { YearPicker } from "@mui/x-date-pickers/YearPicker";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import project from "../../redux/project";
-import Button from '@mui/material/Button';
-import moment from "moment";
-import ProjectChart from './ProjectChart'
-import { setProject } from "../../redux/project";
-import { setCREWFOCUS } from '../../redux/focus';
+import ProjectChart from "./ProjectChart";
+import { setProject, deleteProject } from "../../redux/project";
+import { setCREWFOCUS } from "../../redux/focus";
+import AddProject from "../modal/Calendar/AddProject";
 
-import Grid from '@mui/material/Grid';
-import { Paper } from '@mui/material';
-
-const minDate = new Date('2018');
-const maxDate = new Date('2023');
 
 export default function Project() {
-  const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
-  const crewName = useSelector(state => (state.focus.crewName), shallowEqual);
-
-  const [date, setDate] = useState(new Date());
-  const now = new Date();
-  const dispatch = useDispatch();
-  const crewList = useSelector(state => (state.crew), shallowEqual);
-  const projectList = useSelector((state) => state.project, shallowEqual);
+  const crewNo = useSelector((state) => state.focus.crewNo, shallowEqual);
+  const [show, setShow] = React.useState(false);
   const [changeCrew, setChangeCrew] = useState();
+  const [selectionModel, setSelectionModel] = React.useState([]);
+  const [date, setDate] = useState(new Date());
+  const dispatch = useDispatch();
+  const crewList = useSelector((state) => state.crew, shallowEqual);
+  const projectList = useSelector((state) => state.project, shallowEqual);
 
-  const initialProject= React.useCallback(
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+
+  const initialProject = React.useCallback(
     async (crewNo) => {
       const getProjects = await get(`/project/${crewNo}`);
-      dispatch(setProject(getProjects)); 
-      },
+      dispatch(setProject(getProjects));
+    },
     [dispatch]
   );
 
-  useEffect(() =>{
-    setChangeCrew(crewNo)
+  useEffect(() => {
+    setChangeCrew(crewNo);
+  }, [crewNo]);
 
-}, [crewNo])
+  const handleDelete = () => {
+    selectionModel.map((id) => {
+      const res = remove(`/project/${id}`, id);
+      console.log(res);
+      dispatch(deleteProject(id));
+    });
+  };
 
+  const columns = [
+    { type: "string", label: "Task ID" },
+    { type: "string", label: "Task Name" },
+    { type: "string", label: "Resource" },
+    { type: "date", label: "Start Date" },
+    { type: "date", label: "End Date" },
+    { type: "number", label: "기간" },
+    { type: "number", label: "작업진행률" },
+    { type: "string", label: "Dependencies" },
+  ];
+  const projects = projectList.map((i) => [
+    i.id,
+    i.projectName,
+    "#34d6ce",
+    new Date(i.start),
+    new Date(i.end),
+    null,
+    i.status,
+    null,
+  ]);
+  const data = [columns, ...projects];
 
-const initialTasks = projectList.map((task,index) => ({
-  key:index,
-  start: new Date(task.start),
-  end: new Date(task.end),
-  name: task.projectName,
-  id: task.id,
-  progress: 30,
-  type: "project",
-  styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
-}));
   return (
-    <div className="animated fadeIn p-4 demo-app">
+    <div
+      className="animated fadeIn p-4 demo-app"
+      style={{ fontFamily: "SUIT-Medium" }}
+    >
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-
-      <Box>
-        <Paper>
-        <Card sx={{ minWidth: 275 }}>
-        <Grid item xs={10} md={12}>
-
-        {/* <YearPicker
+        <Box>
+          <Paper>
+            <Card sx={{ minWidth: 275 }}>
+              <Grid item xs={10} md={12}>
+                {/* <YearPicker
             date={date}
             minDate={minDate}
             maxDate={maxDate}
             onChange={(newDate) => setDate(newDate)}
           /> */}
-           <NavDropdown style={{float:'right', border: '3px solid #f0f8ff69', fontSize:'15px', padding:'4px'}}
-      
-        title="채널 선택"
-      >
-      {
-        crewList.length !== 0 ?
-        (
-          crewList.map((crew, index) => 
-          <NavDropdown.Item
-          onClick={() => { 
-            setChangeCrew((prevState) => ({...prevState, no: crew.no, name: crew.name}))
-            dispatch(setCREWFOCUS({no: crew.no, name: crew.name}));
+                <div
+                  style={{
+                    float: "right",
+                    border: "3px solid #f0f8ff69",
+                    fontSize: "15px",
+                    padding: "4px",
+                  }}
+                >
+                  <NavDropdown
+                    style={{
+                      float: "right",
+                      border: "3px solid #f0f8ff69",
+                      fontSize: "15px",
+                      padding: "4px",
+                    }}
+                    title="채널 선택"
+                  >
+                    {crewList.length !== 0
+                      ? crewList.map((crew, index) => (
+                          <NavDropdown.Item
+                            onClick={() => {
+                              setChangeCrew((prevState) => ({
+                                ...prevState,
+                                no: crew.no,
+                                name: crew.name,
+                              }));
+                              dispatch(
+                                setCREWFOCUS({ no: crew.no, name: crew.name })
+                              );
 
-            return initialProject(crew.no)}}
-            key={index} >
-              {crew.name}
-          </NavDropdown.Item>)
-        ) : ''
-      }
-      </NavDropdown>  
-        </Grid>
-        <ProjectChart changeCrew={changeCrew} projectList={projectList} initialTasks={initialTasks}/>
-        <CollapsibleTable date={date} projectList={projectList}/>
-
-        </Card>
-        </Paper>
-        
-      </Box>
+                              return initialProject(crew.no);
+                            }}
+                            key={index}
+                          >
+                            {crew.name}
+                          </NavDropdown.Item>
+                        ))
+                      : ""}
+                  </NavDropdown>
+                  <Button
+                    variant="primary"
+                    onClick={handleShow}
+                    style={{ fontFamily: "SUIT-Medium" }}
+                  >
+                    프로젝트 추가
+                  </Button>
+                  <AddProject show={show} handleClose={handleClose} />
+                  <Button
+                    variant="primary"
+                    onClick={handleDelete}
+                    style={{ fontFamily: "SUIT-Medium" }}
+                  >
+                    프로젝트 삭제
+                  </Button>
+                  <AddProject show={show} handleClose={handleClose} />
+                  <NavLink style={{ textDecorationLine: "none" }} to={"/task"}>
+                    <Button
+                      style={{ fontFamily: "SUIT-Medium", color: "black" }}
+                    >
+                      작업 설정
+                    </Button>
+                  </NavLink>
+                </div>
+              </Grid>
+              <ProjectChart
+                changeCrew={changeCrew}
+                projectList={projectList}
+                data={data}
+              />
+              <CollapsibleTable
+                date={date}
+                projectList={projectList}
+                setSelectionModel={setSelectionModel}
+              />
+            </Card>
+          </Paper>
+        </Box>
       </LocalizationProvider>
-
     </div>
   );
 }

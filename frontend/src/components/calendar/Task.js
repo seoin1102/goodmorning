@@ -1,15 +1,15 @@
-import React, { useState, useEffect, memo,useCallback  } from "react";
+import React, { useState, useEffect} from "react";
 
 import { Col, Row } from "react-bootstrap";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
-
-import task, { setTask, addTask, deleteTask } from "../../redux/task";
+import { addTask } from "../../redux/task";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import project from "../../redux/project";
-import {get} from "../../apis/Axios"
+import {  Box, Card, Button, Paper } from "@mui/material";
+import { NavDropdown } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 import "../../styles/css/Calendar.css";
 
@@ -29,27 +29,15 @@ function Calendar() {
     end: "",
     status: "",
     crewNo: "",
-    projectName:"",
-    color:""
+    projectName: "",
+    color: "",
   });
   const [modalIsOpen, setIsOpen] = useState(false);
   const [clickedEventAssign, setClickedEventAssign] = useState("");
   const taskList = useSelector((state) => state.task, shallowEqual);
-  const projectList = useSelector((state) => state.project, shallowEqual);
-  const crewNo = useSelector(state => (state.focus.crewNo), shallowEqual);
+  const crewNo = useSelector((state) => state.focus.crewNo, shallowEqual);
+  const crewList = useSelector((state) => state.crew, shallowEqual);
 
-
-  // const initialTask = useCallback(
-  //   async (crewNo) => {
-  //     const getTasks = await get(`/task/cNo/${crewNo}`);
-  //     dispatch(setTask(getTasks));
-  //   },
-  //   [dispatch]
-  // );
-
-  // useEffect(() => {
-  //   initialTask(crewNo);
-  // }, []);
   const [filteredTask, setFilteredTask] = useState([]);
   /////
 
@@ -59,23 +47,20 @@ function Calendar() {
 
   const openModal = () => {
     setIsOpen(true);
-    
   };
 
   function closeModal() {
     setIsOpen(false);
-    setState((prevState) => ({ ...prevState, title: "",projectName:"" }));
+    setState((prevState) => ({ ...prevState, title: "", projectName: "" }));
   }
 
   useEffect(() => {
-
-    if (!modalIsOpen && isInitial &&taskList.length !==0) {
+    if (!modalIsOpen && isInitial && taskList.length !== 0) {
       setFilteredTask(taskList);
 
       isInitial = false;
     }
   }, [taskList]);
-
 
   const onClickAddTask = (task) => {
     dispatch(addTask(task));
@@ -97,9 +82,8 @@ function Calendar() {
       status: status,
       projectNo: projectNo,
       color: color,
-      projectName:projectName
+      projectName: projectName,
     };
- 
 
     if (end == null) {
       const clickedOnedayTask = { ...clickedTask, end: start };
@@ -116,42 +100,90 @@ function Calendar() {
   };
 
   return (
-    <div className="animated fadeIn p-4 demo-app">
-      <Row>
-        <Col lg={9} sm={12} md={12}>
-          <TaskCalendar
-            taskList={filteredTask}
-            eventClickHandler={eventClickHandler}
-            dateClickHandler={dateClickHandler}
-          />
-        </Col>
-        <Col lg={2}>
-          <div className="external-events">
-            <TaskList />
-            {/* <button className="addTaskBtn" onClick={openModal}>
-              일정 추가
-            </button> */}
+    <div
+      className="animated fadeIn p-4 demo-app"
+    >
+      <Box>
+        <Paper>
+          <Card sx={{ minWidth: 275 }}>
+            <div style={{display:'flex', justifyContent:"space-between", alignItems:"center"}}>
+              <h3 style={{ padding: "30px 0px 0px 50px", width: "200px" }}>
+                업무 달력
+              </h3>
+              <div style={{display:'flex',gap:"1rem"}}>
+                <NavDropdown
+                  style={{
+                    border: "3px solid #f0f8ff69",
+                    fontSize: "15px",
+                    padding: "4px",
+                  }}
+                  title="채널 선택"
+                >
+                  {crewList.length !== 0
+                    ? crewList.map((crew, index) => (
+                        <NavDropdown.Item
+                          onClick={() => {
+                            setChangeCrew((prevState) => ({
+                              ...prevState,
+                              no: crew.no,
+                              name: crew.name,
+                            }));
+                            dispatch(
+                              setCREWFOCUS({ no: crew.no, name: crew.name })
+                            );
+
+                            return initialProject(crew.no);
+                          }}
+                          key={index}
+                        >
+                          {crew.name}
+                        </NavDropdown.Item>
+                      ))
+                    : ""}
+                </NavDropdown>
+                <NavLink style={{ textDecorationLine: "none" }} to={"/project"}>
+                  <Button style={{ color: "black" }}>
+                    프로젝트로 돌아가기
+                  </Button>
+                </NavLink>
+              </div>
+            </div>
+            <div style={{display:'flex',gap:"1rem"}}>
             
-            <Checkbox
+            <Row style={{ padding: "30px" }}>
+              <div>
+                <Col lg={9} sm={12} md={12}>
+                  <TaskCalendar
+                    taskList={filteredTask}
+                    eventClickHandler={eventClickHandler}
+                    dateClickHandler={dateClickHandler}
+                  />
+                </Col>
+              </div>
+            </Row>
+            <div className="external-events">
+              <TaskList />
+              <Checkbox
+                filteredTask={filteredTask}
+                setFilteredTask={setFilteredTask}
+              />
+            </div></div>
+            <AddTask
+              modalIsOpen={modalIsOpen}
+              closeModal={closeModal}
+              taskList={filteredTask}
+              state={state}
+              setState={setState}
+              onClickAddTask={onClickAddTask}
+              clickedEventAssign={clickedEventAssign}
+              setClickedEventAssign={setClickedEventAssign}
               filteredTask={filteredTask}
               setFilteredTask={setFilteredTask}
+              crewNo={crewNo}
             />
-          </div>
-        </Col>
-      </Row>
-      <AddTask
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-        taskList={filteredTask}
-        state={state}
-        setState={setState}
-        onClickAddTask={onClickAddTask}
-        clickedEventAssign={clickedEventAssign}
-        setClickedEventAssign={setClickedEventAssign}
-        filteredTask={filteredTask}
-        setFilteredTask={setFilteredTask}
-        crewNo={crewNo}
-      />
+          </Card>
+        </Paper>
+      </Box>
     </div>
   );
 }
