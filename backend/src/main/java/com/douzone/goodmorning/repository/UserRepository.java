@@ -73,7 +73,8 @@ public class UserRepository {
 
 	public UserVo findProfile(UserVo vo) {
 		return sqlSession.selectOne("user.findProfile",vo);
-
+	}
+	
 	public Object findUserByUserNo(Long userNo) {
 		return sqlSession.selectList("user.findUserByUserNo", userNo);
 	}

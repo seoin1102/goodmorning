@@ -1,23 +1,27 @@
-import React, { useCallback,useState } from 'react';
-import { Modal, Form, Button   } from 'react-bootstrap';
-import { shallowEqual, useSelector } from 'react-redux';
+import React, { useCallback, useState } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
-import defaultProfileImg from '../../../assets/images/default2.png'
+import defaultProfileImg from '../../../assets/images/default2.png';
 import EditProfile from './Profile';
 
-function Profile({modalShow, onClickModal, onCreateCrew}) {
-  const [name,setName] = useState("");
+function Profile({modalShow, onClickModal}) {
+  // const [name,setName] = useState("");
   const user = getLocalStorageAuthUser();
-  const userNo = user.no;
-  const crew = {name}
-  const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
-
-  <img src={defaultProfileImg} for="input-file"></img>
-
+  const {name, job, phoneNumber} = user;
+  const [profile, setProfile] = useState({
+    name: name, 
+    job: job,
+    phoneNumber: phoneNumber})
+  
   const [editProfileModalShow, seteditProfileModalShow] = useState(false);
   const onClickeditProfileModal = useCallback(() => {
     seteditProfileModalShow(preveditProfileModalShow => !preveditProfileModalShow);
+    // console.log("aaaaaafdsfsf");
   }, [])
+
+  // useEffect(() => {
+  //   setProfile((prevProfile) => ({...prevProfile, name: name, job:job, phoneNumber: phoneNumber}))
+  // }, [])
 
   return (
     <>
@@ -63,7 +67,7 @@ function Profile({modalShow, onClickModal, onCreateCrew}) {
         </Modal.Footer>
         </Form>
     </Modal>
-    <EditProfile modalShow={editProfileModalShow} onClickModal={onClickeditProfileModal}/>
+    <EditProfile modalShow={editProfileModalShow} onClickModal={onClickeditProfileModal} user={user} profile={profile} setProfile={setProfile}/>
     </>
   );
 }

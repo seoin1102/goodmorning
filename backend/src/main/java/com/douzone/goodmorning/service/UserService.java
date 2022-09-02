@@ -199,8 +199,9 @@ public class UserService {
 
 
 	public UserVo findProfile(UserVo vo) {
-		return  userRepository.findProfile(vo);
-
+		return userRepository.findProfile(vo);
+	}
+	
 	public Object findUserByUserNo(Long userNo) {
 		return userRepository.findUserByUserNo(userNo);
 	}

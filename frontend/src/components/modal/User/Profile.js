@@ -1,32 +1,28 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { Modal, Form, Button   } from 'react-bootstrap';
 import { shallowEqual, useSelector } from 'react-redux';
 import { put, putJson } from '../../../apis/Axios';
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
-function Profile({modalShow, onClickModal}) {
-
+function Profile({modalShow, onClickModal,profile, setProfile}) {
   const user = getLocalStorageAuthUser();
-  const userNo = user.no;
 
-  const [name,setName] = useState("");
-  const [job,setJob] = useState("");
-  const [phoneNumber,setPhoneNumber] = useState("");
-  const userinfo = {no: userNo, name, job, phoneNumber};
+  // const [profile, setProfile] = useState({
+  //     name: null, 
+  //     job: null,
+  //     phoneNumber: null})
 
+  const {name, job, phoneNumber} = profile
+  const userinfo = {no: user.no, name, job, phoneNumber};
+  const setUser = {no: user.no, email:user.email, name, passwd: null, signUpDate:user.signUpDate, job, phoneNumber, profileUrl:user.profileUrl, enable: true};
+  
   const onClickUserUpdate = useCallback(async(userinfo) => {
-    const result = await put(`/user/update`, userinfo);
-    // if(result.data === 'success'){
-    //   location.
-    // }
-}, [])
-
-
-  
-  
-  const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
-
-  
+      const result = await put(`/user/update`, userinfo);
+      // if(result.data === 'success'){
+      localStorage.setItem('authUser',JSON.stringify(setUser));
+      onClickModal();
+      // }
+  }, [profile])
 
   return (
     <>
@@ -40,8 +36,7 @@ function Profile({modalShow, onClickModal}) {
                     <Form.Control 
                         type={'file'}
                         name={'uploadFile'}
-                        placeholder={'프로필 사진 업로드'}
-                         />
+                        placeholder={'프로필 사진 업로드'}/>
                     </Form.Group>
 
                 <input type="file" id="input-file"/>
@@ -52,7 +47,15 @@ function Profile({modalShow, onClickModal}) {
                     placeholder="Name"
                     autoFocus
                     onChange={(e) =>{
-                      setName(e.target.value)
+                      setProfile((prevProfile)=> ({
+                        ...prevProfile, 
+                        name: e.target.value
+                      }))
+                    }}
+                    defaultValue={user.name}
+                    onKeyDown={(e) => { 
+                      if(e.key === 'Enter') 
+                       { onClickUserUpdate(userinfo)}
                     }}
                   />
                 </Form.Group>
@@ -64,7 +67,7 @@ function Profile({modalShow, onClickModal}) {
                 placeholder="example@gmail.com"
                 autoFocus
                 readOnly
-                value="ggg"               
+                value={user.email}               
                 />
                 <Form.Label>이메일은 변경할 수 없습니다.</Form.Label>
                 </Form.Group>
@@ -76,7 +79,7 @@ function Profile({modalShow, onClickModal}) {
                     placeholder="CreateDate"
                     autoFocus
                     readOnly
-                    value="ggg"
+                    value={user.signUpDate}
                   />
                 </Form.Group>
 
@@ -87,8 +90,12 @@ function Profile({modalShow, onClickModal}) {
                     placeholder="Job"
                     autoFocus
                     onChange={(e) =>{
-                      setJob(e.target.value)
+                      setProfile((prevProfile)=> ({
+                        ...prevProfile, 
+                        job: e.target.value
+                      }))
                     }}
+                    defaultValue={user.job}
                   />
                 </Form.Group>
 
@@ -99,8 +106,12 @@ function Profile({modalShow, onClickModal}) {
                     placeholder="PhoneNumber"
                     autoFocus
                     onChange={(e) =>{
-                      setPhoneNumber(e.target.value)
+                      setProfile((prevProfile)=> ({
+                        ...prevProfile, 
+                        phoneNumber: e.target.value
+                      }))
                     }}
+                    defaultValue={user.phoneNumber}
                   />
                 </Form.Group>
             
@@ -111,12 +122,6 @@ function Profile({modalShow, onClickModal}) {
             </Button>
             <Button variant="outline-dark" type="button" onClick={(e) => {
                                                             onClickUserUpdate(userinfo)
-                                                            onClickModal()
-                                                          }}
-                                                          onKeyDown={(e) => { 
-                                                            if(e.key === 'Enter') 
-                                                             { onClickUserUpdate(userinfo) 
-                                                              onClickModal()}
                                                           }}
                        >
               저장
