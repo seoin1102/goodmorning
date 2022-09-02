@@ -38,8 +38,11 @@ function AddCrew({modalShow, onClickModal, onCreateCrew}) {
             <Button variant="outline-dark" type="button" onClick={(e) => {
                         onCreateCrew(channelNo,crew,userNo)
                         onClickModal()
-                       }} >
-              저장
+                       }}
+                       onKeyDown={(e) => { if(e.key === 'Enter') { 
+                        onCreateCrew(channelNo,crew,userNo)
+                        onClickModal()} }} >
+              생성
             </Button>
             
         </Modal.Footer>

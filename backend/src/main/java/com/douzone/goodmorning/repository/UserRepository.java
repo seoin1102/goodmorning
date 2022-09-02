@@ -71,4 +71,18 @@ public class UserRepository {
 
 
 
+<<<<<<< HEAD
+=======
+	public UserVo findProfile(UserVo vo) {
+		return sqlSession.selectOne("user.findProfile",vo);
+
+	public Object findUserByUserNo(Long userNo) {
+		return sqlSession.selectList("user.findUserByUserNo", userNo);
+	}
+
+	public void updateUser(UserVo userVo) {
+		sqlSession.update("user.updateUser",userVo);
+
+	}
+>>>>>>> a7c256b4721a210b022af37ee770f17375b72d03
 }

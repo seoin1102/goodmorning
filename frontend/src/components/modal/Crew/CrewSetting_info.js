@@ -56,10 +56,14 @@ function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDe
               variant="outline-dark"  
               onClick={() => {onClickModal()
                               setTab(0)
-                              }} >
+                              }}
+               >
             취소
           </Button>
-          <Button variant="outline-dark" onClick={()=> onClickHandler(name,crewNo)} >
+          <Button variant="outline-dark" onClick={()=> onClickHandler(name,crewNo)}
+                                         onKeyDown={(e) => { 
+                                        if(e.key === 'Enter') 
+                                         { onClickHandler(name,crewNo)}} }>
             변경사항 저장
           </Button>
       </Modal.Footer>

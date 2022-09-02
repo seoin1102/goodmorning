@@ -14,6 +14,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class UserVo {
+
 	   private int no;
 	   private String email;
 	   private String name;
@@ -60,5 +61,4 @@ public class UserVo {
 		public void setProfileUrl(String profileUrl) {
 			this.profileUrl = profileUrl;
 		}
-
 }
