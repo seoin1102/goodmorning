@@ -11,7 +11,7 @@ function SignIn({callback, errormessage}) {
     <div className="SignIn">
         <div style={{padding:'0 35%'}}>
       <Card bg='light' className='card card-authentication1 mx-auto my-5' >
-      <Card.Body style={{height: '600px' , backgroundColor:"#283249", color: '#E2BA89'}}>
+      <Card.Body style={{height: '600px' , backgroundColor:"#34d6ce", color: 'white'}}>
         <Form onSubmit={e => {
                   e.preventDefault();
                   callback(e.target.email.value, e.target.passwd.value);
@@ -20,7 +20,8 @@ function SignIn({callback, errormessage}) {
         <Card.Text className="card-title text-uppercase text-center py-3" style={{fontWeight:'bolder', fontSize:'30px'}}>
             Sign In
         </Card.Text>
-        
+        <Divider style={{backgroundColor: 'white', border: '1px solid white'}}/>
+
         <Form.Group className="form-group" style={{ width:'70%', margin:'60px auto 10px ',fontWeight:'bolder' }} >
             <Form.Label htmlFor="inlineFormInputGroup" >
                 Email address
@@ -61,7 +62,7 @@ function SignIn({callback, errormessage}) {
               <div className='text-center'>
                 <Button 
                     className='form-group text-center btn-xs' 
-                    style={{margin:'20px 0px -30px 0px' , width:'70%', height: '40px', color: '#E2BA89', backgroundColor: '#283249', border: '2px solid #E2BA89', marginTop:'120px', fontWeight:'bolder'}} 
+                    style={{margin:'20px 0px -30px 0px' , width:'70%', height: '40px', color: 'white', backgroundColor: '#34d6ce', border: '2px solid white', marginTop:'120px', fontWeight:'bolder'}} 
                     size='sm'
                     type="submit">
                         로그인
@@ -81,14 +82,14 @@ function SignIn({callback, errormessage}) {
         </Col>
       </Form>
       </Card.Body>
-      <Divider style={{backgroundColor: '#E2BA89'}}/>
-      <Card.Footer className="card-footer text-center py-3" style={{backgroundColor:"#283249"}} >
+      <Divider style={{backgroundColor: 'white'}}/>
+      <Card.Footer className="card-footer text-center py-3" style={{backgroundColor:"#34d6ce"}} >
           <Row className="align-items-center">
 
               <Col sm='6'>
               <NavLink to={'/ResetPw'}>
                 <Button 
-                    style={{color: '#E2BA89', backgroundColor: '#283249', border: '2px solid #E2BA89', fontWeight:'bolder'}}
+                    style={{color: 'white', backgroundColor: '#34d6ce', border: '2px solid white', fontWeight:'bolder'}}
                     className='form-group text-right' 
                      >
                     비밀번호 찾기
@@ -100,7 +101,7 @@ function SignIn({callback, errormessage}) {
                 <NavLink to={'/signup'}>
                   <Button 
                       className='mb-0' 
-                      style={{color: '#E2BA89', backgroundColor: '#283249', border: '2px solid #E2BA89', fontWeight:'bolder'}}>
+                      style={{color: 'white', backgroundColor: '#34d6ce', border: '2px solid white', fontWeight:'bolder'}}>
                   회원가입하기
                   </Button>
                 </NavLink>

@@ -1,41 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Prev } from "react-bootstrap/esm/PageItem";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
-// import {setTask } from "../../redux/task"
-// import {setCrewUser} from "../../redux/crewUser"
+import React, { useState, useEffect,  } from "react";
+import { useSelector, shallowEqual } from "react-redux";
 
-import {get} from "../../apis/Axios"
 function AssignCheckbox(props) {
-  const dispatch = useDispatch();
   const taskList = useSelector((state) => state.task, shallowEqual);
   const crewUserList = useSelector((state) => state.crewUser, shallowEqual);
   // 체크된 아이템을 담을 배열
   const [checkItems, setCheckItems] = useState(crewUserList);
-  const crewNo = useSelector(state => (state.focus.crewNo), shallowEqual);
 
-
-  // const initialTask = useCallback(
-  //   async (crewNo) => {
-  //     const getTasks = await get(`/task/cNo/${crewNo}`);
-  //     dispatch(setTask(getTasks));
-  //   },
-  //   [dispatch]
-  // );
-
-  // const initialCrew = useCallback(
-  //   async (crewNo) => {
-  //     const assignList = await get(`/crew/user/${crewNo}`);
-  //     dispatch(setCrewUser(assignList));},
-  //   [dispatch]
-  // );
-
-  // useEffect(() => {
-  //   initialTask(crewNo);
-  // }, []);
-
-  // useEffect(() => {
-  //   initialCrew(crewNo);
-  // }, []);
   useEffect(() => {
     setCheckItems(crewUserList)
   }, [crewUserList]);
@@ -47,7 +18,6 @@ function AssignCheckbox(props) {
       .map((task) => {
         return task;
       });
-
 
     if (checked) {
       // 단일 선택 시 체크된 아이템을 배열에 추가
@@ -86,7 +56,7 @@ function AssignCheckbox(props) {
           // 데이터 개수와 체크된 아이템의 개수가 다를 경우 선택 해제 (하나라도 해제 시 선택 해제)
           checked={checkItems.length === crewUserList.length ? true : false}
         />
-        목록
+        전체
       </div>
       {crewUserList.map((assign, key) => (
         <div key={key}>

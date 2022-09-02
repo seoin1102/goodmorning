@@ -26,7 +26,7 @@ function SignUp({callback,errormessage}) {
        <div style={{padding:'0 35%'}}>
     
         <Card bg='light' className='card card-authentication1 mx-auto my-4'>
-            <Card.Body style={{height: '625px', backgroundColor:"#283249", color: '#E2BA89'}}>
+            <Card.Body style={{height: '625px', backgroundColor:"#34d6ce", color: 'white'}}>
               <Form onSubmit={e => {
                   e.preventDefault();
                   callback(e.target.email.value, e.target.name.value, e.target.passwd.value);
@@ -36,6 +36,8 @@ function SignUp({callback,errormessage}) {
                     <Card.Text className="card-title text-uppercase text-center py-3" style={{fontWeight:'bolder', fontSize:'30px'}}>
                       Sign Up
                     </Card.Text>
+                    <Divider style={{backgroundColor: 'white', border: '1px solid white'}}/>
+
                     <Form.Group  className="form-group" style={{ width:'70%', margin:'40px auto 10px ',fontWeight:'bolder' }}>
                       <Form.Label htmlFor="inlineFormInputGroup">
                         Email address
@@ -86,7 +88,7 @@ function SignUp({callback,errormessage}) {
 
                     <div className='text-center'>
                       <Button className="btn btn-outline-dark" style={{margin:'50px 0px 30px 0px' , width:'70%', height: '40px',
-                          color: '#E2BA89', backgroundColor: '#283249', border: '2px solid #E2BA89',fontWeight:'bolder'}}
+                          color: 'white', backgroundColor: '#34d6ce', border: '2px solid white',fontWeight:'bolder'}}
                           size='sm' variant="outline-dark" type="submit">
                           회원가입
                       </Button>
@@ -103,15 +105,15 @@ function SignUp({callback,errormessage}) {
                 </Col>
             </Form>
           </Card.Body>
-          <Divider style={{backgroundColor: '#E2BA89'}}/>
-          <Card.Footer className="card-footer text-center py-3" style={{backgroundColor:"#283249"}} >
+          <Divider style={{backgroundColor: 'white'}}/>
+          <Card.Footer className="card-footer text-center py-3" style={{backgroundColor:"#34d6ce"}} >
             <Row className="align-items-center">
               <Col sm='6'>
-                <Card.Text style={{color: '#E2BA89', fontWeight:'bolder'}}>이미 회원이신가요?</Card.Text>
+                <Card.Text style={{color: 'white', fontWeight:'bolder'}}>이미 회원이신가요?</Card.Text>
               </Col>
               <Col sm='6'>
                 <NavLink to={'/signin'}>
-                  <Button style={{color: '#E2BA89', backgroundColor: '#283249', border: '2px solid #E2BA89', fontWeight:'bolder'}} >
+                  <Button style={{color: 'white', backgroundColor: '#34d6ce', border: '2px solid white', fontWeight:'bolder'}} >
                     로그인하기
                   </Button>
                 </NavLink>

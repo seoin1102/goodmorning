@@ -1,7 +1,5 @@
 import React from "react";
 import { useSelector,  shallowEqual } from "react-redux";
-
-
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
@@ -9,7 +7,7 @@ import Stack from "@mui/material/Stack";
 export default function AssignSelect(props) {
   const crewUserList = useSelector((state) => state.crewUser, shallowEqual);
 
-const onChange=(event, value)=>{
+  const onChange=(event, value)=>{
 
     // 작업자가 있는 작업이라면 새로 업데이트된 작업자만 addedAssigns에 담는다.
     if(props.defaultValue.userName){
