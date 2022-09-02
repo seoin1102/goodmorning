@@ -120,7 +120,6 @@ export async function projectFileListdata(projectNo){
     return json.data.data;   
 };
 
-
 export const checkAuth = (response) =>{
     if(response.ok !== undefined){
         const json = checkResponse(response)
@@ -214,6 +213,23 @@ export const deleteFile = async function(url,userNo) {
 
         const json = await checkResponse(response);
         return json.data.data;
+
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+
+export const updateProfileAndFindProfileurl = async function(file,userNo) {
+    try {
+        // Create FormData
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('userNo',userNo);
+        const response = await fetchResponse('/api/fileManagement/editProfileImg','post','multipartHeader',formData);
+
+        const json = await checkResponse(response);
+        return json.data.profileUrl;
 
     } catch (err) {
         console.error(err);

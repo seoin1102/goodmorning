@@ -61,11 +61,16 @@ public class FileManagementService {
 	}
 	
 	@Transactional
-	public UserVo addProfileAndFindProfileUrl(UserVo userVo) {
-		fileManagementRepository.profileInsert(userVo);
+	public UserVo profileUpdateAndFindProfileUrl(UserVo userVo) {
+		fileManagementRepository.profileUpdate(userVo);
 		return fileManagementRepository.findProfileUrl(userVo);
 		
 	}
+
+	public UserVo findProfileUrl(UserVo userVo) {
+		return fileManagementRepository.findProfileUrl(userVo);
+	}
+
 
 	
 	

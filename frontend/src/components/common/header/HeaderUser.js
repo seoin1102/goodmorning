@@ -10,7 +10,7 @@ import { resetCHATALARM } from '../../../redux/chatAlarm';
 import { fetchGetResponse, checkResponse } from '../../../apis/Fetch';
 import '../../../styles/css/DropDown.css';
 import { Badge } from '@mui/material';
-import Profile from '../../modal/User/Profile';
+
 import ProfileInfo from '../../modal/User/ProfileInfo';
 
 

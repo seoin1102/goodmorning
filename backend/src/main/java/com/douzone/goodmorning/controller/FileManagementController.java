@@ -120,17 +120,19 @@ public class FileManagementController {
 	
 	@PostMapping("/editProfileImg")
 	public ResponseEntity<JsonResult> profileUpload(@RequestParam("file") MultipartFile file, UserVo userVo) {
+		System.out.println("여기 들어온지 확인용");
 		userVo.setProfileUrl(FileUploadService.restoreImage(file));
-		userVo=fileManagementService.addProfileAndFindProfileUrl(userVo);
+		userVo=fileManagementService.profileUpdateAndFindProfileUrl(userVo);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(userVo));
 	}
 	
-	@PostMapping("/ProfileImg")
-	public ResponseEntity<JsonResult> profileImg(@RequestParam("file") MultipartFile file, UserVo userVo) {
-		userVo.setProfileUrl(FileUploadService.restoreImage(file));
-		userVo=fileManagementService.addProfileAndFindProfileUrl(userVo);
+	
+	@PostMapping("/profileImg")
+	public ResponseEntity<JsonResult> profileImg(@RequestBody UserVo userVo) {
+		userVo=fileManagementService.findProfileUrl(userVo);
+		System.out.println(userVo);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(userVo));

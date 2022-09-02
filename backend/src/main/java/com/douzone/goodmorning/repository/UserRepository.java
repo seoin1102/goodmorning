@@ -70,7 +70,5 @@ public class UserRepository {
 	}
 
 
-	public UserVo findProfile(UserVo vo) {
-		return sqlSession.selectOne("user.findProfile",vo);
-	}
+
 }

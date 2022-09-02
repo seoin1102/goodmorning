@@ -6,7 +6,7 @@
 		<![CDATA[
 		insert into fileUpload values(null, #{url }, #{comment },1,#{originFileName},now(),#{userNo},#{projectNo})
 		]]>
-	  	<selectKey keyProperty="no" resultType="long" order="AFTER">
+	  	<selectKey keyProperty="no" resultType="int" order="AFTER">
 			<![CDATA[
 		  	select last_insert_id()
 	  		]]>
@@ -61,20 +61,20 @@
 		]]>
 	</update>
 	
-	<insert id="profileInsert" parameterType="uservo">
+	<update id="profileupdate" parameterType="uservo">
 		<![CDATA[
-		insert into user(profile_img) values(#{profileUrl})
+		update user set profile_img=#{profileUrl} where no=#{no}
 		]]>
-	  	<selectKey keyProperty="no" resultType="long" order="AFTER">
+	  	<selectKey keyProperty="no" resultType="int" order="AFTER">
 			<![CDATA[
 		  	select last_insert_id()
 	  		]]>
 	  	</selectKey>		
-	</insert>
+	</update>
 	
-	<select id="findProfile" parameterType="uservo" resultType="uservo">
+	<select id="findProfileUrl" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			select profile_url from user where no=#{no }
+			select profile_img as profileUrl from user where no=#{no }
 		]]>
 	</select>
 	

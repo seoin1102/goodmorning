@@ -46,12 +46,12 @@ public class FileManagementRepository {
 		return sqlSession.update("filemanage.updateEnable", fileManagementVo);
 	}
 	
-	public boolean profileInsert(UserVo userVo) {
-		return 1 == sqlSession.insert("filemanage.profileInsert", userVo);
+	public boolean profileUpdate(UserVo userVo) {
+		return 1 == sqlSession.update("filemanage.profileupdate", userVo);
 	}
 
 	public UserVo findProfileUrl(UserVo userVo) {
-		return sqlSession.selectOne("user.findProfile",userVo);
+		return sqlSession.selectOne("filemanage.findProfileUrl",userVo);
 	}
 	
 }
