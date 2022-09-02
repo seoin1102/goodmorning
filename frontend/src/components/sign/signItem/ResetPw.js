@@ -10,7 +10,7 @@ function ResetPw({callback,errormessage}) {
     <div className="SignIn">
      <div style={{padding:'0 35%'}}>
         <Card bg='light' className='card card-authentication1 mx-auto my-5'>
-          <Card.Body style={{height: '430px' , backgroundColor:"#283249", color: '#E2BA89'}}>
+          <Card.Body style={{height: '430px' , backgroundColor:"#34d6ce", color: 'white'}}>
               <Form onSubmit={e => {
                         e.preventDefault();
                         callback(e.target.email.value);
@@ -32,7 +32,7 @@ function ResetPw({callback,errormessage}) {
                         </Form.Group>
                       <div className='text-center'>
                           <Button className="btn btn-light btn-block" style={{margin:'37px 0px -30px 0px' , width:'65%', height: '40px', 
-                              color: '#E2BA89', backgroundColor: '#283249', border: '2px solid #E2BA89',fontWeight:'bolder'}} size='sm' type="submit"  variant="outline-dark">
+                              color: 'white', backgroundColor: '#34d6ce', border: '2px solid white',fontWeight:'bolder'}} size='sm' type="submit"  variant="outline-dark">
                             비밀번호 수정
                           </Button>
                           <div className='text-center'>
@@ -48,10 +48,10 @@ function ResetPw({callback,errormessage}) {
                   </Col>
               </Form>
           </Card.Body>
-          <Divider style={{backgroundColor: '#E2BA89'}}/>
-          <Card.Footer className="card-footer text-center py-3" style={{backgroundColor:"#283249"}} >
+          <Divider style={{backgroundColor: 'white'}}/>
+          <Card.Footer className="card-footer text-center py-3" style={{backgroundColor:"#34d6ce"}} >
             <NavLink to={'/signin'}>
-                <Button style={{color: '#E2BA89', backgroundColor: '#283249', border: '2px solid #E2BA89', fontWeight:'bolder'}}>
+                <Button style={{color: 'white', backgroundColor: '#34d6ce', border: '2px solid white', fontWeight:'bolder'}}>
                   돌아가기
                 </Button>
             </NavLink>

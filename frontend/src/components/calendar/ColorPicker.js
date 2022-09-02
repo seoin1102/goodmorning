@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { CirclePicker   } from 'react-color';
+import { CirclePicker } from 'react-color';
 import '../../styles/css/Calendar.css'
 
 export default function ColorPicker(props) {

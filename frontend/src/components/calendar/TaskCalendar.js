@@ -3,7 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
-import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
+import { useSelector, shallowEqual  } from 'react-redux';
 
 import "../../styles/css/Calendar.css";
 
@@ -34,20 +34,20 @@ function TaskCalendar(props) {
 
   return (
     <div className="demo-app-calendar" id="mycalendartest"
-    style={{width: "900px",marginLeft:'2%', fontFamily:'Cascadia Code'}}>
+    style={{width: "750px",marginLeft:'2%', fontFamily:'Cascadia Code'}}>
       <FullCalendar
         defaultView="dayGridMonth"
         headerToolbar={{
           left: "prev,next today",
           center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+          right: "dayGridMonth",
         }}
         locale="ko"
         eventDurationEditable={true}
         editable={true}
         droppable={true}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        events={state}
+        events={props.taskList}
         eventClick={props.eventClickHandler}
         dateClick={props.dateClickHandler}
         eventColor={props.taskList.color}

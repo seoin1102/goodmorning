@@ -10,13 +10,13 @@
 		</select>
 		<insert id="insert" parameterType="projectvo">
 				<![CDATA[
-				insert into project value(null, #{projectName}, #{start}, #{end}, #{description}, #{status}, #{crewNo});
+				insert into project value(null, #{projectName}, #{start}, #{end}, #{description},0, #{crewNo});
 				]]>
 		</insert>
 		
 		<update id="update" parameterType="projectvo">
 				<![CDATA[
-				update project set project_name=#{projectName}, start_date=#{start}, end_date=#{end}, descrition=#{description}, status=#{status},crew_no=#{crewNo} where no=#{id}; 
+				update project set project_name=#{projectName}, start_date=#{start}, end_date=#{end}, descrition=#{description},crew_no=#{crewNo} where no=#{id}; 
 				]]>
 		</update>
 		

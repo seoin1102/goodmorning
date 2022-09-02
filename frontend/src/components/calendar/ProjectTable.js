@@ -1,19 +1,10 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import Snackbar from '@mui/material/Snackbar';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
-import Alert from '@mui/material/Alert';
+import { Snackbar, Dialog, DialogTitle, DialogContent, DialogActions, Button, Alert } from '@mui/material';
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import moment from "moment";
-import AddProject from "../modal/Calendar/AddProject"
-import { NavLink } from "react-router-dom";
-import { NavDropdown } from 'react-bootstrap';
-import { setProject, updateProject, deleteProject } from "../../redux/project";
-import {get, put, remove} from '../../apis/Axios';
+import { updateProject} from "../../redux/project";
+import { put } from '../../apis/Axios';
 
 
 const useFakeMutation = () => {
@@ -37,10 +28,10 @@ function computeMutation(newRow, oldRow) {
     return `프로젝트명이 '${oldRow.projectName}' 에서 '${newRow.projectName}으로'`;
   }
   if (newRow.start !== oldRow.start) {
-    return `시작일시가 '${oldRow.start || ''}' 에서 '${newRow.start || ''}으로'`;
+    return `시작일시가 '${moment(oldRow.start).format('YYYY-MM-DD') || ''}' 에서 '${moment(newRow.start).format('YYYY-MM-DD') || ''}으로'`;
   }
   if (newRow.end !== oldRow.end) {
-    return `종료일시가 '${oldRow.end || ''}' 에서 '${newRow.end || ''}으로'`;
+    return `종료일시가 '${moment(oldRow.end).format('YYYY-MM-DD')|| ''}' 에서 '${moment(newRow.end).format('YYYY-MM-DD') || ''}으로'`;
   }
   if (newRow.description !== oldRow.description) {
     return `설명이 '${oldRow.description || ''}' 에서 '${newRow.description || ''}으로'`;
@@ -58,7 +49,7 @@ export default function AskConfirmationBeforeSave(props) {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
-  const [selectionModel, setSelectionModel] = React.useState([]);
+  // const [selectionModel, setSelectionModel] = React.useState([]);
 
 
   const mutateRow = useFakeMutation();
@@ -111,22 +102,8 @@ export default function AskConfirmationBeforeSave(props) {
   };
 
   const handleEntered = () => {
-    // The `autoFocus` is not used because, if used, the same Enter that saves
-    // the cell triggers "No". Instead, we manually focus the "No" button once
-    // the dialog is fully open.
-    // noButtonRef.current?.focus();
+    
   };
-
-  const handleDelete = () => {
-    console.log(selectionModel)
-
-    selectionModel.map((id)=>{
-      remove(`/project/${id}`,  id)
-      dispatch(deleteProject(id));
-      
-
-    })
-  }
 
   const renderConfirmDialog = () => {
     if (!promiseArguments) {
@@ -159,25 +136,13 @@ export default function AskConfirmationBeforeSave(props) {
   return (
     <div style={{ height: 400, width: '100%' }}>
 
-      <Button variant="primary" onClick={handleShow}>
-            프로젝트 추가
-      </Button><AddProject show={show} handleClose={handleClose}/> 
-      <Button variant="primary"  onClick={handleDelete}>
-            프로젝트 삭제
-      </Button>
-      <NavLink to={'/task'}>
-        <Button >
-          작업 설정
-        </Button>
-      </NavLink>
-      
       {renderConfirmDialog()}
       <DataGrid
        checkboxSelection
        onSelectionModelChange={(newSelectionModel) => {
-         setSelectionModel(newSelectionModel);
+         props.setSelectionModel(newSelectionModel);
        }}
-       selectionModel={selectionModel}
+       selectionModel={props.selectionModel}
         rows={props.projectList}
         columns={columns}
         processRowUpdate={processRowUpdate}
@@ -194,7 +159,7 @@ export default function AskConfirmationBeforeSave(props) {
 
 const columns = [
   { field: 'id', headerName: 'no', width: 50},
-  { field: 'projectName', headerName: '프로젝트 명', width: 140,editable: true},
+  { field: 'projectName', headerName: '프로젝트 명', width: 200,editable: true},
   { field: 'start', headerName: '시작일시', type:'date', width: 150, editable: true},
   { field: 'end', headerName: '종료일시', type:'date', width: 150, editable: true},
   {
@@ -206,13 +171,11 @@ const columns = [
   },
   {
     field: 'status',
-    headerName: '상태',
+    headerName: '진행률',
     description: 'This column has a value getter and is not sortable.',
-    type: 'singleSelect',
-    valueOptions: ['진행전', '진행중', '종료'],
+    type: 'percent',
     sortable: false,
     width: 70,
-    editable: true
   },
   
 

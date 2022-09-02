@@ -8,17 +8,22 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 
-export default function DatePick() {
+export default function StartDatePick(props) {
   const [datePickerValue, setDatePickerValue] = React.useState(dayjs());
-
+  const startHandler = (value) => {
+    console.log(value.$d)
+    setDatePickerValue(value.$d);
+    props.setClickedStart(value.$d)
+  };
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={koLocale}>
       <Stack spacing={3}>
         
         <DatePicker
-          value={datePickerValue}
-          onChange={(newValue) => setDatePickerValue(newValue)}
+          value={props.clickedStart}
+          onChange={startHandler}
           renderInput={(params) => <TextField {...params} />}
+
         />
 
       </Stack>

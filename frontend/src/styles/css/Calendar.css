@@ -50,14 +50,17 @@ a[aria-label="토요일"]{
   margin:5px;
 }
 
-                    
+.modalButton{
+  background-color:'#34d6ce';
+  border-color:'white';
+}        
 
 .external-events{
   padding: 10px;
   width: 200px;
   height: auto;
   color: black;
-  border: 1px solid #000000;
+  border: 1px solid #ddd;
   text-align: center;
 }
 
@@ -115,3 +118,37 @@ input{
   width: 400px;
 }
 
+th.fc-timeline-slot{
+  color:red;
+}
+
+.fc .fc-button-primary{
+  background-color: #34d6ce;
+  border-color:white;
+}
+
+.fc .fc-button-primary:disabled{
+  background-color: #34d6ce;
+  border-color:white;
+}
+
+.fc .fc-button-primary:hover{
+  background-color: #34d6ce;
+  border-color:white;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active{
+  background-color: #34d6ce;
+  border-color:white;
+}
+
+.fc .fc-button-primary::before{
+  background-color: #34d6ce;
+  border-color:white;
+}
+
+.fc-button:focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.2rem #34d6ce;
+  box-shadow: 0 0 0 0.2rem #34d6ce;
+}

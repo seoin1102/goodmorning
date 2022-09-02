@@ -3,7 +3,9 @@ import React, { useState, useEffect, memo } from "react";
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import { Row, Col } from "react-bootstrap";
 
-import DatePicker from "../../calendar/DatePicker";
+import StartDatePicker from "../../calendar/StartDatePicker";
+import EndDatePicker from "../../calendar/EndDatePicker";
+
 import "../../../styles/css/Calendar.css";
 import {put, post, remove} from '../../../apis/Axios';
 import moment from 'moment';
@@ -26,7 +28,7 @@ function AddProject(props) {
   const [clickedEnd, setClickedEnd] = useState()
   const [clickedName, setClickedName] = useState()
   const [clickedDescript, setClickedDescript] = useState()
-  const [clickedStatus, setClickedStatus] = useState();
+  const [clickedStatus, setClickedStatus] = useState(0);
 
   useEffect(()=>{
     
@@ -55,6 +57,11 @@ function AddProject(props) {
     post(`/project`,  updatedTask)
     dispatch(addProject([ updatedTask]));
     props.handleClose();
+    setClickedStart(Date.now())
+    setClickedEnd(Date.now())
+    setClickedName('')
+    setClickedDescript('')
+    setClickedStatus(0)
   }
 
 
@@ -62,12 +69,14 @@ const nameHandler = (e) =>{
   setClickedName(e.target.value)
 }
 
-const startHandler = (date) => {
-  setClickedStart(date)
-}
-const endHandler = (date) => {
-  setClickedEnd(date)
-}
+// const startHandler = (date) => {
+//   setClickedStart(date.$d)
+//   console.log("스타트")
+//   console.log(clickedStart.$d)
+// }
+// const endHandler = (date) => {
+//   setClickedEnd(date.$d)
+// }
 
 const descriptHandler =(e)=>{
   setClickedDescript(e.target.value)
@@ -88,7 +97,7 @@ const descriptHandler =(e)=>{
                 type="text"
                 placeholder="프로젝트 이름을 입력해주세요."
                 autoFocus
-                value={clickedName} onChange={nameHandler}
+                value={clickedName || ''} onChange={nameHandler}
               />
             </Form.Group>
             <Form.Group
@@ -97,21 +106,16 @@ const descriptHandler =(e)=>{
             >
               <Form.Label>시작일시</Form.Label>
               <br />
-              <DatePicker value={clickedStart} onChange={startHandler}  disableClock={true} locale="ko-KO" />
+              <StartDatePicker clickedStart={clickedStart} setClickedStart={setClickedStart} disableClock={true} locale="ko-KO" />
               <br /><br />
               
               <Form.Label>종료일시</Form.Label>
               <br />
-              <DatePicker value={clickedEnd} onChange={endHandler}  disableClock={true} locale="ko-KO" />
+              <EndDatePicker clickedEnd={clickedEnd} setClickedEnd={setClickedEnd} disableClock={true} locale="ko-KO" />
               <br /><br />
               <Form.Label>설명</Form.Label>
               <br />
               <Form.Control as="textarea" rows={3} onChange={descriptHandler} value={clickedDescript}/>
-              <br /><br />
-              <Form.Label>상태</Form.Label>
-              <Stack spacing={3} sx={{ width: 500 }}>
-              <Status state={state} setClickedStatus={setClickedStatus} clickedStatus={clickedStatus}/>
-            </Stack>
             </Form.Group>
           </Form>
         </Modal.Body>

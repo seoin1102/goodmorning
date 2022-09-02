@@ -60,7 +60,7 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
                             <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="ms-auto">
                             <Navbar.Brand style={{fontSize: '1.2rem', color: 'white', fontWeight: 'bold'}}>{user.name}</Navbar.Brand>
-                            <Nav.Link href="#home" style={{fontSize: '1rem', color: 'white'}}>내정보</Nav.Link>
+                            <Nav.Link href="#home" style={{fontSize: '1rem', color: 'white', fontWeight: 'bold'}}>내정보</Nav.Link>
                             <Badge 
                             badgeContent={totalSum === 0 ? null : totalSum} 
                             color="warning"  sx={{ "& .MuiBadge-badge": { fontSize: 15, height: 20, minWidth: 20, margin: '0px 20px 0px 0px' } }} anchorOrigin={{
@@ -69,7 +69,7 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
                             }} >
                             <NavDropdown
                               id="nav-dropdown"
-                              title={"채널목록"}
+                              title={"워크스페이스 목록"}
                               menuVariant="white"
                             >
                           
@@ -95,7 +95,7 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
                             }
                             </NavDropdown>
                             </Badge>
-                                <Nav.Link href="#signin" onClick={onClickLogout} style={{fontSize: '1rem', color: 'white'}}>Logout</Nav.Link>
+                                <Nav.Link href="#signin" onClick={onClickLogout} style={{fontSize: '1rem', color: 'white', fontWeight: 'bold'}}>Logout</Nav.Link>
                                 
                             </Nav>
                             

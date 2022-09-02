@@ -4,8 +4,8 @@ import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import { Row, Col } from "react-bootstrap";
 
 import Modal from "react-modal";
-// import DatePicker from "react-datetime-picker";
-import DatePicker from "../../calendar/DatePicker";
+import StartDatePicker from "../../calendar/StartDatePicker";
+import EndDatePicker from "../../calendar/EndDatePicker";
 
 import "../../../styles/css/Calendar.css";
 import { addTask, deleteTask, updateTask } from '../../../redux/task';
@@ -19,8 +19,8 @@ import {FormControl, Button} from 'react-bootstrap'
 function AddTask(props) {
   const { title, start, end, id, userName, userNo, projectName, projectNo, color, status } = props.state
   const [clickedEventTitle, setClickedEventTitle] = useState()
-  const [clickedEventStart, setClickedEventStart] = useState()
-  const [clickedEventEnd, setClickedEventEnd] = useState()
+  const [clickedStart, setClickedStart] = useState()
+  const [clickedEnd, setClickedEnd] = useState()
   const [clickedEventUserNo,setClickedEvenUserNo] = useState()
   const [clickedProject, setClickedProject] = useState();
   const [clickedProjectNo, setClickedProjectNo] = useState();
@@ -34,8 +34,8 @@ function AddTask(props) {
   
   useEffect(()=>{
     setClickedEventTitle(title)
-    setClickedEventStart(start)
-    setClickedEventEnd(end)
+    setClickedStart(start)
+    setClickedEnd(end)
     setClickedEvenUserNo(userNo)
     setClickedProject(projectName)
     setClickedProjectNo(projectNo)
@@ -54,8 +54,8 @@ function AddTask(props) {
     const clickedEventId = props.state.id
     const updatedTask={
       title: clickedEventTitle,
-      start:moment(clickedEventStart).format('YYYY-MM-DD'),
-      end: moment(clickedEventEnd).format('YYYY-MM-DD'),
+      start:moment(clickedStart).format('YYYY-MM-DD'),
+      end: moment(clickedEnd).format('YYYY-MM-DD'),
       projectName:clickedProject,
       projectNo: clickedProjectNo,
       crewNo: props.crewNo,
@@ -134,12 +134,12 @@ function AddTask(props) {
     props.closeModal();
   }
 
-  const startDateChangeHandler = (date) => {
-    setClickedEventStart(date)
-  }
-  const endDateChangeHandler = (date) => {
-    setClickedEventEnd(date)
-  }
+  // const startDateChangeHandler = (date) => {
+  //   setClickedStart(date)
+  // }
+  // const endDateChangeHandler = (date) => {
+  //   setClickedEnd(date)
+  // }
   const titleChangeHandler = (e) => {
     setClickedEventTitle(e.target.value)
   }
@@ -149,7 +149,7 @@ function AddTask(props) {
     props.setState('')
   }
   return (
-    <Modal className="addTaskModal" overlayClassName="Overlay" isOpen={props.modalIsOpen} contentLabel="Example Modal" ariaHideApp={false}>
+    <Modal className="addTaskModal"  overlayClassName="Overlay" isOpen={props.modalIsOpen} contentLabel="Example Modal" ariaHideApp={false}>
       <Row>
         <Col sm={10}>
       <h5>업무명</h5>
@@ -165,10 +165,10 @@ function AddTask(props) {
       <Row>
         <Col sm={10}>
       <h6>시작 일자</h6>
-      <DatePicker value={clickedEventStart} onChange={startDateChangeHandler}  disableClock={true} locale="ko-KO" /></Col>
+      <StartDatePicker clickedStart={clickedStart} setClickedStart={setClickedStart}  disableClock={true} locale="ko-KO" /></Col>
       <Col>
         {/* {
-          clickedEventStart===null? 
+          clickedStart===null? 
           <p style={{color:'red'}}>안됩니다!</p>:
           <p style={{color:'blue'}}>됩니다!</p> 
         } */}
@@ -177,10 +177,10 @@ function AddTask(props) {
       <Row>
         <Col sm={10}>
       <h6>종료 일자</h6>
-      <DatePicker value={clickedEventEnd} onChange={endDateChangeHandler}  disableClock={true} locale="ko-KO" /></Col>
+      <EndDatePicker clickedEnd={clickedEnd} setClickedEnd={setClickedEnd}  disableClock={true} locale="ko-KO" /></Col>
       <Col>
       {/* {
-          clickedEventEnd===null? 
+          clickedEnd===null? 
           <p style={{color:'red'}}>안됩니다!</p>:
           <p style={{color:'blue'}}>됩니다!</p> 
         } */}
@@ -219,9 +219,10 @@ function AddTask(props) {
         } */}
          </Col>
          </Row>
-        <Button type="submit">등록</Button>
-        <button type="button" onClick={deleteEventHandler}>삭제</button>
-        <button type="button" onClick={closeEventHandler}>닫기</button>
+        <Button style={{marginTop: '10px', float:'right', borderColor:'#34d6ce',backgroundColor:'white'}} variant="outlined" type="button" onClick={closeEventHandler}>닫기</Button>
+        <Button style={{marginTop: '10px',marginRight: '5px',float:'right', borderColor:'#34d6ce',backgroundColor:'white'}} variant="outlined" type="button" onClick={deleteEventHandler}>삭제</Button>
+        <Button style={{marginTop: '10px',marginRight: '5px',float:'right', borderColor:'#34d6ce',backgroundColor:'white'}} variant="outlined" type="submit">등록</Button>
+
       </form>
     </Modal>
   )
