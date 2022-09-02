@@ -208,4 +208,9 @@ public class UserService {
 		userRepository.updateUser(userVo);
 	}
 
+	public void updateFileURL(String fileURL, Long userNo) {
+		userRepository.updateFileURL(fileURL, userNo);
+		
+	}
+
 }

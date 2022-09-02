@@ -69,7 +69,13 @@
 	
 	<update id="updateUser" parameterType="uservo">
 		<![CDATA[
-			update user set name = #{name}, job = #{job}, phone = #{phoneNumber} , profile_img = #{profileUrl} where no = #{no};
+			update user set name = #{name}, job = #{job}, phone = #{phoneNumber} where no = #{no};
+		]]>
+	</update>
+	
+	<update id="updateFileURL" parameterType="map">
+		<![CDATA[
+			update user set profile_img = #{fileURL} where no = #{userNo};
 		]]>
 	</update>
 	

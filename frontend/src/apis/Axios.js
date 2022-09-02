@@ -56,6 +56,17 @@ export const postJson = async (url, data) => {
   }
 }
 
+export const postFile = async (url, data) => {
+    try {
+        let response = await client.post(url, data, {headers: {'Content-Type': 'multipart/form-data'}
+      });
+        return response.data;
+    } catch (error) {
+        console.error("Error >>", error);
+  
+    }
+  }
+
 export const putJson = async (url, data) => {
     try {
         let response = await client.put(url, data, {headers: {'Content-Type': 'application/json'}
