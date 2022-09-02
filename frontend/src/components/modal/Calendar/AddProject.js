@@ -38,7 +38,9 @@ function AddProject(props) {
 
 
   const dispatch = useDispatch();
-  const [show, setShow] = useState(false);
+  const [gitName, setGitName] = useState();
+  const [repoName, setRepoName] = useState();
+
   const ids = []
   projectList.map((event) => {ids.push(event.id)})
   const maxId = Math.max(...ids);
@@ -82,10 +84,21 @@ const descriptHandler =(e)=>{
   setClickedDescript(e.target.value)
 }
 
+const [copySuccess, setCopySuccess] = useState(null);
+const copyToClipBoard = async copyMe => {
+   try {
+       await navigator.clipboard.writeText(copyMe);
+       setCopySuccess('Copied!');
+   } 
+   catch (err) {
+       setCopySuccess('Failed to copy!');
+   }
+};
+
+
   return (
     <>
-    
-      <Modal show={props.show} onHide={props.handleClose} >
+      <Modal show={props.show} onHide={props.handleClose} sx={{width:'140%'}}>
         <Modal.Header closeButton>
           <Modal.Title>프로젝트 추가</Modal.Title>
         </Modal.Header>
@@ -100,6 +113,25 @@ const descriptHandler =(e)=>{
                 value={clickedName || ''} onChange={nameHandler}
               />
             </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>깃 계정</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="깃계정 명을 입력해주세요."
+                autoFocus
+                value={gitName || ''} onChange={(e)=>{setGitName(e.target.value)}}
+              /> 
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>리포지토리 명</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="리포지토리 명을 입력해주세요."
+                autoFocus
+                value={repoName || ''} onChange={(e)=> {setRepoName(e.target.value)}}
+              /> 
+            </Form.Group>
+
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
@@ -107,16 +139,34 @@ const descriptHandler =(e)=>{
               <Form.Label>시작일시</Form.Label>
               <br />
               <StartDatePicker clickedStart={clickedStart} setClickedStart={setClickedStart} disableClock={true} locale="ko-KO" />
-              <br /><br />
+              <br />
               
               <Form.Label>종료일시</Form.Label>
               <br />
               <EndDatePicker clickedEnd={clickedEnd} setClickedEnd={setClickedEnd} disableClock={true} locale="ko-KO" />
-              <br /><br />
-              <Form.Label>설명</Form.Label>
               <br />
-              <Form.Control as="textarea" rows={3} onChange={descriptHandler} value={clickedDescript}/>
-            </Form.Group>
+            
+              <Form.Label>Git 훅 URL</Form.Label>
+              <div style={{display:'flex', justifyContent:"space-between"}}>
+              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"https://2698-1-252-13-218.jp.ngrok.io/api/githubhook/hookdata/"} disabled>
+                  
+              </Form.Control>
+              
+              
+
+              <Button onClick={(e) => copyToClipBoard("https://2698-1-252-13-218.jp.ngrok.io/api/githubhook/hookdata/")} >copy</Button>
+                          </div><br />     <br /> 
+
+              <Form.Label>젠킨스 훅 URL</Form.Label>
+              <br />
+              <div style={{display:'flex', justifyContent:"space-between"}}>
+              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"https://2698-1-252-13-218.jp.ngrok.io/api/jenkinsHook/hookdata"} disabled/>
+                <Button onClick={(e) => copyToClipBoard("https://2698-1-252-13-218.jp.ngrok.io/api/jenkinsHook/hookdata")} > 
+                  copy
+                </Button> 
+
+              </div> 
+              </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>

@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import React, { useCallback,useRef,useEffect, useReducer, useState } from 'react';
 import { Modal, Form, Button   } from 'react-bootstrap';
 import { shallowEqual, useSelector } from 'react-redux';
 import { put, putJson } from '../../../apis/Axios';
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
-function Profile({modalShow, onClickModal,profile, setProfile}) {
+function Profile({modalShow, onClickModal,profile, setProfile,uploadcheck}) {
   const user = getLocalStorageAuthUser();
 
   // const [profile, setProfile] = useState({
@@ -15,11 +15,14 @@ function Profile({modalShow, onClickModal,profile, setProfile}) {
   const {name, job, phoneNumber} = profile
   const userinfo = {no: user.no, name, job, phoneNumber};
   const setUser = {no: user.no, email:user.email, name, passwd: null, signUpDate:user.signUpDate, job, phoneNumber, profileUrl:user.profileUrl, enable: true};
-  
-  const onClickUserUpdate = useCallback(async(userinfo) => {
+  const refForm = useRef(null);
+  let file;
+
+  const onClickUserUpdate = useCallback(async(userinfo,file) => {
       const result = await put(`/user/update`, userinfo);
       // if(result.data === 'success'){
       localStorage.setItem('authUser',JSON.stringify(setUser));
+      await uploadcheck(file,userinfo.no);
       onClickModal();
       // }
   }, [profile])
@@ -36,10 +39,12 @@ function Profile({modalShow, onClickModal,profile, setProfile}) {
                     <Form.Control 
                         type={'file'}
                         name={'uploadFile'}
-                        placeholder={'프로필 사진 업로드'}/>
+                        placeholder={'프로필 사진 업로드'}
+                        ref={refForm}
+                        onChange={(e)=>{
+                          file = e.target['uploadFile'].files[0];
+                        }}/>
                     </Form.Group>
-
-                <input type="file" id="input-file"/>
                 <Form.Group className="mb-3" controlId="crewForm.name">
                   <Form.Label>성명</Form.Label>
                   <Form.Control

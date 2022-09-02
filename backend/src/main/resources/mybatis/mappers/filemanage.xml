@@ -24,7 +24,7 @@
 		<![CDATA[
 		  select project.no as projectNo ,project_name as projectName, crew.name as crewName
 			from user, crew_user, crew, project 
-			where user.no=#{userNo} and user.no=crew_user.user_no and crew_user.crew_no = crew.no and crew.no = project.crew_no
+			where user.no=#{userNo} and user.no=crew_user.user_no and crew_user.crew_no = crew.no and crew.no = project.crew_no and project.enable=1
 			order by projectNo desc
 		]]>
 	</select>
