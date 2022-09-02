@@ -92,7 +92,7 @@ function Profile({ modalShow, onClickModal }) {
                 <Button variant="outline-dark" type="button" onClick={onClickModal}>
                   취소
                 </Button>
-                <Button variant="outline-dark" type="button" onClick={onEditClickModal}>
+                <Button variant="outline-dark" type="button" onClick={onClickeditProfileModal}>
                   프로필 편집
                 </Button>
 
