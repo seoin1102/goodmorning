@@ -4,16 +4,16 @@ import * as StompJs from "@stomp/stompjs";
 import React, { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import * as SockJS from "sockjs-client";
-import { get, postJson, put, putUrl } from '../../apis/Axios';
-import { chatVo, msgChat, msgConnect } from '../../apis/ChatVo.js';
+import { get, postJson, putUrl } from '../../apis/Axios';
+import { chatVo, msgChat, msgConnect, chatPreviewVo, msgPreview } from '../../apis/ChatVo.js';
 import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import { addChat, setChat } from '../../redux/chat';
-import { setCHATALARM, addCHATALARM, updateCHATALARM, resetCHATALARM } from '../../redux/chatAlarm'
+import { addCHATALARM, resetCHATALARM, setCHATALARM, updateCHATALARM } from '../../redux/chatAlarm';
 import '../../styles/css/SiteLayout.css';
 import Chat from '../chat/Chat';
 import Header from '../common/Header';
 import Navigation from '../common/Navigation';
-// import Footer from './Footer';
+import Project from '../calendar/Project';
 
 function SiteLayout({children}) {
     const client = useRef({});
@@ -31,7 +31,6 @@ function SiteLayout({children}) {
         connect()
         
         return () => {
-            console.log("!!! 실행")
             disconnect()};
     }, [crewNo]);
 
@@ -39,7 +38,7 @@ function SiteLayout({children}) {
     const connect = () => {
         client.current = new StompJs.Client({
 
-            webSocketFactory: () => new SockJS("http://192.168.10.15:8080/ws-stomp"),
+            webSocketFactory: () => new SockJS("http://192.168.10.10:8080/ws-stomp"),
             debug: function (str) {},
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
@@ -91,13 +90,17 @@ function SiteLayout({children}) {
             await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
 
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)
-            client.current.subscribe(`/sub/${crewNo}`,async (data) => {
+            client.current.subscribe(`/sub/${crewNo}`,async (data) => {         
                 const result = await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
-                if(result.data === 'success')
-                    dispatch(addChat(JSON.parse(data.body)));
-                    dispatch(setCHATALARM({crewNo:crewNo}))
+
+                if(result.data !== 'success') 
+                    return;
+
+                dispatch(addChat(JSON.parse(data.body)));
+                dispatch(setCHATALARM({crewNo:crewNo}))            
             })
-                return;
+
+            return;
         })
     };
 
@@ -127,6 +130,22 @@ function SiteLayout({children}) {
         setSendMessage("");
     };
 
+    const publishLinkPreview = async(gitName, repoName) => {
+        if (!client.current.connected) 
+          return;
+
+          // 메시지 객체 생성 및 DB 저장
+          const addChat = chatPreviewVo(crewNo, authUser.no, `${gitName}/${repoName}`);
+          const result = await postJson(`/chat/${crewNo}/${authUser.no}`, addChat);
+
+          // DB INSERT 성공 시 STOMP 통신
+          if(result.data !== 'success')
+            return;
+          
+          const pubChat = msgPreview(crewNo, authUser.no, `${gitName}/${repoName}`, authUser.name);
+          client.current.publish({destination: `/pub/chat`, body: pubChat});
+    }
+
     ///// 시창이 코드 넣을 곳 ///////////
 
     ///////////////////////////
@@ -143,10 +162,15 @@ function SiteLayout({children}) {
                         setSendMessage={setSendMessage} 
                         publish={publish}
                         /> :
-                    children 
+                    (
+                        (children.type === Project) ?
+                        <Project 
+                            publishLinkPreview={publishLinkPreview}
+                            />:
+                        children
+                    )
                 }
             </Grid>
-            {/* <Footer/> */}
         </div>
     );
 }

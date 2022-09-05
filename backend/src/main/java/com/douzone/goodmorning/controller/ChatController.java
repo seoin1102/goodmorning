@@ -59,7 +59,7 @@ public class ChatController {
     public void message(@RequestBody ChatVo chatVo) {
     	
     	String topic = Long.toString(chatVo.getCrewNo());
-    	System.out.println("토픽값:" + chatVo);
+    	System.out.println("토픽값ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ" + chatVo);
     	
     	// 0번. [CONNECT]일 경우 메시지 리스너 등록
     	if(ChatVo.MessageType.CONNECT.equals(chatVo.getType())) {
@@ -67,6 +67,9 @@ public class ChatController {
     	}
     	// 1번. [CHAT]일 경우 클라이언트 => 서버로 전달
     	if(ChatVo.MessageType.CHAT.equals(chatVo.getType())) 
+    		redisPublisher.publish(topic, chatVo);
+    	
+    	if(ChatVo.MessageType.PREVIEW.equals(chatVo.getType())) 
     		redisPublisher.publish(topic, chatVo);
     }
 }

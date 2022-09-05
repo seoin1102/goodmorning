@@ -36,7 +36,6 @@ function Profile({ modalShow, onClickModal }) {
       }
       const response = await fetchResponse('/api/fileManagement/profileImg', 'post', 'jsonjsonHeader', JSON.stringify(data));
       const json = await checkResponse(response);
-      console.log(json);
       return json.data.profileUrl;
     } catch (err) {
       console.log(err);

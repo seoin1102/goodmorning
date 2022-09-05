@@ -10,7 +10,7 @@
 		</select>
 		<insert id="insert" parameterType="projectvo">
 				<![CDATA[
-				insert into project value(null, #{projectName}, #{start}, #{end}, #{description},0, #{crewNo});
+				insert into project value(null, #{projectName}, #{start}, #{end}, "test 설명", #{status}, 1, #{crewNo});
 				]]>
 		</insert>
 		

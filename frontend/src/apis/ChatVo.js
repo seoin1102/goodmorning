@@ -74,3 +74,20 @@ export const msgConnect = (crewNo, userNo, userName) => {
         type: 'CONNECT'
     });
 }
+
+export const chatPreviewVo = (crewNo, userNo, message) => {
+  const msg = defaultMsg(crewNo, userNo, message);
+  return JSON.stringify({
+      ...msg, 
+      type: 'PREVIEW'
+  });
+}
+
+export const msgPreview = (crewNo, userNo, message, userName) => {
+  const msg = defaultMsg(crewNo, userNo, message, userName);
+  return JSON.stringify({
+      ...msg, 
+      type: 'PREVIEW',
+      sendDate: new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ")
+  });
+}

@@ -19,11 +19,8 @@ function Header() {
     const [users, setUsers] = useState([]);
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
-
-    console.log("zzzzzzzzaaa" + JSON.stringify(user))
-
-     const dispatch = useDispatch();
-     const channelList = useSelector(state => (state.channel), shallowEqual);
+    const dispatch = useDispatch();
+    const channelList = useSelector(state => (state.channel), shallowEqual);
 
     const channelName = useSelector(state => {
         return state.focus.channelName;

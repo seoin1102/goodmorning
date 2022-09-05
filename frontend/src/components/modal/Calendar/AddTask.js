@@ -84,9 +84,6 @@ function AddTask(props) {
       }
       if(includesCheck){ //기존 사람의 변경 및 삭제 여부.
         const filterTaskIdx = props.filteredTask.findIndex(event => event.id == id)
-        console.log("어떻게 변경됨?")
-        console.log(updatedTask)
-        console.log("어떻게 변경됨?")
 
         put(`/task/${clickedEventId}`, {...updatedTask,userNo:userNo})
         dispatch(updateTask(clickedEventIdx, {...updatedTask,userNo:userNo}));
