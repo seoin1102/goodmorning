@@ -48,6 +48,12 @@
 				]]>
 		</select>
 		
+		<select id="findMasterCrewUserNo" parameterType="long" resultType="long">
+				<![CDATA[
+				select master_crew_user_no as masterCrewUserNo from crew where no = #{crewNo};
+				]]>
+		</select>
+		
 		<insert id="insertcrewuser" parameterType="crewvo">
 				<![CDATA[
 				insert into crew_user values (null, #{crewNo}, #{userNo}, 1, now(), #{owner}, now());

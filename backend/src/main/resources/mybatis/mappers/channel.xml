@@ -64,6 +64,13 @@
 				]]>
 		</select>
 		
+		<select id="findMasterChannelUserNo" parameterType="long" resultType="long">
+				<![CDATA[
+				select master_channel_user_no as masterChannelUserNo 
+				from channel where no = #{channelNo};
+				]]>
+		</select>
+		
 		<insert id="insert" parameterType="channelvo">
 				<![CDATA[
 				insert

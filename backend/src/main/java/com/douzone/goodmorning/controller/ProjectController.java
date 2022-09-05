@@ -70,4 +70,14 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.deleteProject(id)));
     }
     
+    
+    
+    @GetMapping("/gitCmdTest")
+    public ResponseEntity<JsonResult> gitTest() {
+    	projectService.execGit("ipconfig");
+    	return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("됬나?"));
+    } 
+    
+    
+    
 }

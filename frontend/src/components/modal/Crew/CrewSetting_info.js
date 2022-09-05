@@ -6,7 +6,7 @@ import { setCREWFOCUS } from '../../../redux/focus';
 import { updateCREW } from '../../../redux/crew';
 import { Link } from 'react-router-dom';
 
-function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDelete}) {
+function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDelete, userNo, masterCrewNo}) {
 
     const [name, setName] = useState(crewName);
     
@@ -23,7 +23,6 @@ function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDe
         dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
         dispatch(updateCREW({no: crewNo, name: crewName}))
         }
-        
         onClickModal();
     }
 
@@ -34,6 +33,7 @@ function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDe
                 <Form.Group className="mb-3" controlId="crewForm.name">
                   <Form.Label>채널 이름</Form.Label>
                   {crewName === '기본 채널' ? <Form.Group className="mb-3" controlId="crewForm.name"> <Form.Label> {crewName} </Form.Label> </Form.Group> : 
+                    masterCrewNo === userNo ?
                   <Form.Control
                     type="text"
                     placeholder="Channel Name"
@@ -43,7 +43,8 @@ function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDe
                     onKeyDown={(e) => { 
                       if(e.key === 'Enter') 
                        { onClickHandler(name,crewNo)}} }
-                    />}
+                    /> :  <Form.Group className="mb-3" controlId="crewForm.name"> <Form.Label> {crewName} </Form.Label> </Form.Group>
+                    }
                   
                 </Form.Group>
                 

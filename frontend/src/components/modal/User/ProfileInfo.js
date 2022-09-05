@@ -9,25 +9,27 @@ import channelIcon from '../../../assets/icons/channel.png'
 import phoneIcon from '../../../assets/icons/phone.png'
 
 function Profile({ modalShow, onClickModal }) {
+
   // const [name,setName] = useState("");
   const user = getLocalStorageAuthUser();
-  const { name, job, phoneNumber } = user;
+  const { name, job, phoneNumber, profileUrl } = user;
   const [profile, setProfile] = useState({
     name: name,
     job: job,
-    phoneNumber: phoneNumber
+    phoneNumber: phoneNumber,
+    profileUrl: profileUrl
   })
   const userNo = user.no;
   const [isInitial, setInitial] = useState(false);
   const [url, seturl] = useState('');
-
+  
   useEffect(() => {
     (async () => {
       const profileUrl = await getProfileImg(userNo)
       seturl(profileUrl);
       setInitial(true)
     })();
-  }, []);
+  }, [profile]);
 
   const getProfileImg = async function (userNo) {
     try {
@@ -42,15 +44,9 @@ function Profile({ modalShow, onClickModal }) {
     }
   }
 
-  const uploadcheck = async (file, userNo) => {
-    const updateProfileUrl = await updateProfileAndFindProfileurl(file, userNo);
-    seturl(updateProfileUrl);
-  }
-
   const [editProfileModalShow, seteditProfileModalShow] = useState(false);
   const onClickeditProfileModal = useCallback(() => {
     seteditProfileModalShow(preveditProfileModalShow => !preveditProfileModalShow);
-
   }, [])
 
   return (
@@ -77,15 +73,15 @@ function Profile({ modalShow, onClickModal }) {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="crewForm.name" style={{ textAlign: 'start'}}>
-                  <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={dateIcon} style={{width:'45px', heigh:'45px'}}></img> : {user.signUpDate ? user.signUpDate : '값이 없음'}</Form.Label>
+                  <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={dateIcon} style={{width:'40px', heigh:'40px'}}></img> : {user.signUpDate ? user.signUpDate : '값이 없음'}</Form.Label>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="crewForm.name" style={{ textAlign: 'start'}}>
-                  <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={channelIcon} style={{width:'45px', heigh:'45px'}}></img>: {user.job ? user.job : '등록하지 않았습니다!'}</Form.Label>
+                  <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={channelIcon} style={{width:'40px', heigh:'40px'}}></img>: {user.job ? user.job : '직함이 등록되지 않았습니다!'}</Form.Label>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="crewForm.name" style={{ textAlign: 'start'}}>
-                  <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={phoneIcon} style={{width:'45px', heigh:'45px'}}></img>: {user.phoneNumber ? user.phoneNumber : '등록하지 않았습니다!'}</Form.Label>
+                  <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={phoneIcon} style={{width:'40px', heigh:'40px'}}></img>: {user.phoneNumber ? user.phoneNumber : '전화번호가 등록되지 않았습니다!'}</Form.Label>
                 </Form.Group>
                 
               </Modal.Body>
@@ -100,11 +96,8 @@ function Profile({ modalShow, onClickModal }) {
               </Modal.Footer>
             </Form>
           </Modal>
-
-          {/* <EditProfile modalShow={editProfileModalShow} onClickModal={onClickeditProfileModal} uploadcheck={uploadcheck}
-            user={user} profile={profile} setProfile={setProfile} /> */}
-            </>) 
-
+          <EditProfile modalShow={editProfileModalShow} onClickModal={onClickeditProfileModal}
+            user={user} profile={profile} setProfile={setProfile} /></>) 
                    : (null)}
       </>  
       );

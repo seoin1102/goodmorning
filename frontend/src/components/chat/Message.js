@@ -29,13 +29,13 @@ function Message({chatList}) {
                     }
 
                     return (<Fragment key={index}>
-                                
                                 {chat.type === 'CHAT' ?
                                     <MessageItem 
                                         align={"left"}
                                         message={chat.message} 
                                         time={time}
-                                        name={chat.userName}/> :
+                                        name={chat.userName}
+                                        url={chat.profileUrl}/> :
                                 null}
                                 {chat.type === 'PREVIEW' ?
                                     <SendPreviewMessage
