@@ -1,14 +1,14 @@
-import React from 'react';
+import { Avatar, ListItemIcon } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import { TabContent } from 'react-bootstrap';
-import '../../styles/css/msItem.css';
-import '../../assets/fonts/font.css'
+import React from 'react';
+import '../../assets/fonts/font.css';
 import hash2 from '../../assets/icons/user.png';
-import { Avatar, ListItemIcon } from '@mui/material';
+import '../../styles/css/msItem.css';
 
 function MessageItem({align, message, time, name}) {
+
     return (
         <ListItem key="1" >
             <Grid container spacing={1}>

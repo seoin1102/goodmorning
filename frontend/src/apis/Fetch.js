@@ -227,8 +227,10 @@ export const updateProfileAndFindProfileurl = async function(file,userNo) {
         formData.append('file', file);
         formData.append('userNo',userNo);
         const response = await fetchResponse('/api/fileManagement/editProfileImg','post','multipartHeader',formData);
+        console.log("zzzzzzzzzzz"+response.data)
 
         const json = await checkResponse(response);
+        console.log(json.data);
         return json.data.profileUrl;
 
     } catch (err) {

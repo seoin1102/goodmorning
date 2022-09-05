@@ -4,6 +4,8 @@ package com.douzone.goodmorning.vo;
 
 import java.security.NoSuchAlgorithmException;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.douzone.goodmorning.security.SHA256;
 
 import lombok.Getter;
@@ -61,4 +63,5 @@ public class UserVo {
 		public void setProfileUrl(String profileUrl) {
 			this.profileUrl = profileUrl;
 		}
+		
 }

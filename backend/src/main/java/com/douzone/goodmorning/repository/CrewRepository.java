@@ -94,6 +94,9 @@ public class CrewRepository {
 		sqlSession.delete("crew.deleteCrewUser", map);
 		
 	}
-	
+
+	public Long findMasterCrewUserNo(Long crewNo) {
+		return sqlSession.selectOne("crew.findMasterCrewUserNo", crewNo);
+	}
 
 }
