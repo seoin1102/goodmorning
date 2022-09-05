@@ -55,6 +55,7 @@ public class ProjectController {
     
     @PostMapping("")
     public ResponseEntity<JsonResult> add(@RequestBody ProjectVo projectVo) {
+    	System.out.println("qqqqqqqqqqqqqq " + projectVo);
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	

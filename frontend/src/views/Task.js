@@ -38,13 +38,10 @@ function TaskCalendar() {
     [dispatch]
   );
 
-  const initialProject= useCallback(
-    async (crewNo) => {
+  const initialProject= useCallback(async (crewNo) => {
       const getProjects = await get(`/project/${crewNo}`);
-      dispatch(setProject(getProjects)); 
-      console.log(crewNo)},
-    [dispatch]
-  );
+      dispatch(setProject(getProjects))
+    },[dispatch]);
 
   useEffect(() => {
     initialTask(crewNo);

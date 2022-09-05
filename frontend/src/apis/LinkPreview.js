@@ -1,7 +1,12 @@
 import { getGit } from './Axios';
 
 export const linkPreview = async (url, gitData) => {
-    const html = (await getGit(url, gitData)).data;
+    const _html = (await getGit(url, gitData));
+    
+    if (_html.message !== 'success')
+        return;
+
+    const html = _html.data;
     const metaTagOGRegex = /<meta[^>]*(?:property=[ '"]*og:([^'"]*))?[^>]*(?:content=["]([^"]*)["])?[^>]*>/gi;
     const matches = html.match(metaTagOGRegex);
     const meta = {};

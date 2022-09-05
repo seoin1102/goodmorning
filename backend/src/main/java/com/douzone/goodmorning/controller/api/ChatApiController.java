@@ -94,7 +94,7 @@ public class ChatApiController {
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("[" + crewNo + " 크루]" +  "[" + authUserNo + " 유저]" +" 읽음 업데이트");
     	
-    	
+    	System.out.println("[크루]"+ crewNo + "[유저]" + authUserNo);
     	message.setData("success");
     	if(!chatService.updateChatUser(crewNo, authUserNo)) {
     		message.setData("fail");

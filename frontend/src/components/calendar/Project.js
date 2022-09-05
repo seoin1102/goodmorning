@@ -17,8 +17,7 @@ import { setProject, deleteProject } from "../../redux/project";
 import { setCREWFOCUS } from "../../redux/focus";
 import AddProject from "../modal/Calendar/AddProject";
 
-
-export default function Project() {
+export default function Project({publishLinkPreview}) {
   const crewNo = useSelector((state) => state.focus.crewNo, shallowEqual);
   const [show, setShow] = React.useState(false);
   const [changeCrew, setChangeCrew] = useState();
@@ -46,7 +45,6 @@ export default function Project() {
   const handleDelete = () => {
     selectionModel.map((id) => {
       const res = remove(`/project/${id}`, id);
-      console.log(res);
       dispatch(deleteProject(id));
     });
   };
@@ -135,7 +133,11 @@ export default function Project() {
                   >
                     프로젝트 추가
                   </Button>
-                  <AddProject show={show} handleClose={handleClose} />
+                  <AddProject 
+                      show={show} 
+                      handleClose={handleClose} 
+                      publishLinkPreview={publishLinkPreview}
+                      />
                   <Button
                     variant="primary"
                     onClick={handleDelete}

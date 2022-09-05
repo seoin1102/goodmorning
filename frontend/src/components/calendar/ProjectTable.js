@@ -173,7 +173,7 @@ const columns = [
     field: 'status',
     headerName: '진행률',
     description: 'This column has a value getter and is not sortable.',
-    type: 'percent',
+    type: 'string',
     sortable: false,
     width: 70,
   },
