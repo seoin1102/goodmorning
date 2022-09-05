@@ -132,7 +132,6 @@ public class FileManagementController {
 	@PostMapping("/profileImg")
 	public ResponseEntity<JsonResult> profileImg(@RequestBody UserVo userVo) {
 		userVo=fileManagementService.findProfileUrl(userVo);
-		System.out.println(userVo);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(userVo));

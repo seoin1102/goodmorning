@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import React, { useCallback,useRef,useEffect, useReducer, useState } from 'react';
 import { Modal, Form, Button   } from 'react-bootstrap';
 import { shallowEqual, useSelector } from 'react-redux';
 import { postFile, put, putJson } from '../../../apis/Axios';
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
-function Profile({modalShow, onClickModal,profile, setProfile}) {
+function Profile({modalShow, onClickModal,profile, setProfile,uploadcheck}) {
   const user = getLocalStorageAuthUser();
   const {name, job, phoneNumber, profileUrl} = profile
   const userinfo = {no: user.no, name, job, phoneNumber};
@@ -55,7 +55,6 @@ function Profile({modalShow, onClickModal,profile, setProfile}) {
                           }))
                         }}     
                         />
-                        
                     </Form.Group>
                 <Form.Group className="mb-3" controlId="crewForm.name">
                   <Form.Label>성명</Form.Label>

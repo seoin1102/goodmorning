@@ -143,7 +143,6 @@ export default function Project() {
                   >
                     프로젝트 삭제
                   </Button>
-                  <AddProject show={show} handleClose={handleClose} />
                   <NavLink style={{ textDecorationLine: "none" }} to={"/task"}>
                     <Button
                       style={{ fontFamily: "SUIT-Medium", color: "black" }}
