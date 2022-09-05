@@ -74,7 +74,7 @@ function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo
                           onClickModal={onClickModal} 
                           setTab={setTab}
                           onClickCrewInvite={onClickCrewInvite}
-                          initialUser={initialUser}/>
+                          />
       // else return <CrewSetting_set onClickModal={onClickModal} setTab={setTab}/>
     }
     

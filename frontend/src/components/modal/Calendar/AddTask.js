@@ -2,15 +2,12 @@
 import React, { useState, useEffect, memo } from "react";
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import { Row, Col } from "react-bootstrap";
-
 // import Modal from "react-modal";
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-
 import StartDatePicker from "../../calendar/StartDatePicker";
 import EndDatePicker from "../../calendar/EndDatePicker";
 import TextField from '@mui/material/TextField';
-
 import "../../../styles/css/Calendar.css";
 import { addTask, deleteTask, updateTask } from '../../../redux/task';
 import {put, post, remove} from '../../../apis/Axios';
@@ -20,6 +17,7 @@ import ProjectSelect from '../../calendar/ProjectSelect'
 import Status from "../../calendar/Status";
 import ColorPicker from '../../calendar/ColorPicker'
 import {FormControl, Button} from 'react-bootstrap'
+
 function AddTask(props) {
   const { title, start, end, id, userName, userNo, projectName, projectNo, color, status } = props.state
   const [clickedEventTitle, setClickedEventTitle] = useState()

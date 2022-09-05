@@ -1,52 +1,41 @@
 
-import React, { useState, useEffect, memo } from "react";
-import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
-import { Row, Col } from "react-bootstrap";
-
-import StartDatePicker from "../../calendar/StartDatePicker";
+import React, { memo, useEffect, useState } from "react";
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import EndDatePicker from "../../calendar/EndDatePicker";
-
-import "../../../styles/css/Calendar.css";
-import {put, post, remove} from '../../../apis/Axios';
+import StartDatePicker from "../../calendar/StartDatePicker";
 import moment from 'moment';
-import AssignSelect from '../../calendar/AssignSelect'
-import ProjectSelect from '../../calendar/ProjectSelect'
-import Status from "../../calendar/Status";
-import ColorPicker from '../../calendar/ColorPicker'
+import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
+import { post } from '../../../apis/Axios';
 import { addProject } from "../../../redux/project";
-import Button from 'react-bootstrap/Button';
+import "../../../styles/css/Calendar.css";
 import { Octokit } from "@octokit/core";
 
-function AddProject(props) {
+function AddProject({show, handleClose, publishLinkPreview}) {
   
-  const [state, setState] = useState()
   const [clickedStart, setClickedStart] = useState()
   const [clickedEnd, setClickedEnd] = useState()
   const [clickedName, setClickedName] = useState()
   const [clickedDescript, setClickedDescript] = useState()
   const [clickedStatus, setClickedStatus] = useState(0);
-
-  useEffect(()=>{
-    
-  },[])
-  const projectList = useSelector((state) => state.project, shallowEqual);
-  const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
-
-
-  const dispatch = useDispatch();
+  const [copySuccess, setCopySuccess] = useState(null);
   const [gitName, setGitName] = useState();
   const [repoName, setRepoName] = useState();
 
+  const projectList = useSelector((state) => state.project, shallowEqual);
+  const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
+
+  const dispatch = useDispatch();
+
   const ids = []
+
   projectList.map((event) => {ids.push(event.id)})
+
   const maxId = Math.max(...ids);
   const onSubmit = async (e) => {
     e.preventDefault();
+    // 폼 데이터 객체로 만들기
     const updatedTask={
       projectName: clickedName,
       start:moment(clickedStart).format('YYYY-MM-DD'),
@@ -56,6 +45,7 @@ function AddProject(props) {
       crewNo: crewNo,
       id: maxId+1
     }
+
 
     const octokit = new Octokit({
       auth: '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'
@@ -82,39 +72,40 @@ function AddProject(props) {
 
     post(`/project`,  updatedTask)
     dispatch(addProject([ updatedTask]));
-    props.handleClose();
+
+    // 폼 비우기
+    handleClose();
     setClickedStart(Date.now())
     setClickedEnd(Date.now())
     setClickedName('')
     setClickedDescript('')
     setClickedStatus(0)
-  }
 
+    publishLinkPreview(gitName, repoName);
+  }
 
 const nameHandler = (e) =>{
   setClickedName(e.target.value)
 }
 
-
 const descriptHandler =(e)=>{
   setClickedDescript(e.target.value)
 }
 
-const [copySuccess, setCopySuccess] = useState(null);
 const copyToClipBoard = async copyMe => {
-   try {
-       await navigator.clipboard.writeText(copyMe);
-       setCopySuccess('Copied!');
-   } 
-   catch (err) {
-       setCopySuccess('Failed to copy!');
-   }
+    try {
+      await navigator.clipboard.writeText(copyMe);
+      setCopySuccess('Copied!');
+    } 
+    catch (err) {
+        setCopySuccess('Failed to copy!');
+    }
 };
 
 
   return (
     <>
-      <Modal show={props.show} onHide={props.handleClose} sx={{width:'140%'}}>
+      <Modal show={show} onHide={handleClose} sx={{width:'140%'}}>
         <Modal.Header closeButton>
           <Modal.Title>프로젝트 추가</Modal.Title>
         </Modal.Header>
@@ -186,7 +177,7 @@ const copyToClipBoard = async copyMe => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={props.handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
           <Button variant="primary" onClick={onSubmit}>

@@ -38,7 +38,6 @@ function Profile({ modalShow, onClickModal }) {
       }
       const response = await fetchResponse('/api/fileManagement/profileImg', 'post', 'jsonjsonHeader', JSON.stringify(data));
       const json = await checkResponse(response);
-      // console.log(json);
       return json.data.profileUrl;
     } catch (err) {
       console.log(err);
@@ -48,7 +47,6 @@ function Profile({ modalShow, onClickModal }) {
   const [editProfileModalShow, seteditProfileModalShow] = useState(false);
   const onClickeditProfileModal = useCallback(() => {
     seteditProfileModalShow(preveditProfileModalShow => !preveditProfileModalShow);
-
   }, [])
 
   return (
@@ -79,11 +77,11 @@ function Profile({ modalShow, onClickModal }) {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="crewForm.name" style={{ textAlign: 'start'}}>
-                  <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={channelIcon} style={{width:'40px', heigh:'40px'}}></img>: {user.job ? user.job : '등록하지 않았습니다!'}</Form.Label>
+                  <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={channelIcon} style={{width:'40px', heigh:'40px'}}></img>: {user.job ? user.job : '직함이 등록되지 않았습니다!'}</Form.Label>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="crewForm.name" style={{ textAlign: 'start'}}>
-                  <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={phoneIcon} style={{width:'40px', heigh:'40px'}}></img>: {user.phoneNumber ? user.phoneNumber : '등록하지 않았습니다!'}</Form.Label>
+                  <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={phoneIcon} style={{width:'40px', heigh:'40px'}}></img>: {user.phoneNumber ? user.phoneNumber : '전화번호가 등록되지 않았습니다!'}</Form.Label>
                 </Form.Group>
                 
               </Modal.Body>
@@ -99,10 +97,12 @@ function Profile({ modalShow, onClickModal }) {
             </Form>
           </Modal>
 
-           {/* <EditProfile modalShow={editProfileModalShow} onClickModal={onClickeditProfileModal} uploadcheck={uploadcheck}
-            user={user} profile={profile} setProfile={setProfile} /> */}
-            </>) 
-
+          <EditProfile modalShow={editProfileModalShow} 
+              onClickModal={onClickeditProfileModal}
+              user={user} 
+              profile={profile} 
+              setProfile={setProfile}/>
+             </>) 
                    : (null)}
       </>  
       );

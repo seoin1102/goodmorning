@@ -11,7 +11,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 export default function EndDatePick(props) {
   const [datePickerValue, setDatePickerValue] = React.useState(dayjs());
   const endHandler = (value) => {
-    console.log(value.$d)
     setDatePickerValue(value.$d);
     props.setClickedEnd(value.$d)
   };

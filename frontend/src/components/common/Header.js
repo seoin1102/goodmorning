@@ -21,10 +21,8 @@ function Header() {
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
 
-    // console.log("zzzzzzzzaaa" + JSON.stringify(user))
-
-     const dispatch = useDispatch();
-     const channelList = useSelector(state => (state.channel), shallowEqual);
+    const dispatch = useDispatch();
+    const channelList = useSelector(state => (state.channel), shallowEqual);
 
     const channelName = useSelector(state => {
         return state.focus.channelName;
@@ -103,7 +101,7 @@ function Header() {
         
         if (channelNo !== null)
             initialChannel(channelNo,userNo);
-      }, [channelNo])
+      }, [channelNo,user])
         
 
     // css

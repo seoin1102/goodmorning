@@ -1,10 +1,9 @@
 package com.douzone.goodmorning.controller.api;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.charset.Charset;
-import java.util.List;
 
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.douzone.goodmorning.dto.LinkPreviewDto;
 import com.douzone.goodmorning.dto.Message;
 import com.douzone.goodmorning.dto.status.StatusEnum;
-import com.douzone.goodmorning.vo.CrewVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -54,8 +52,9 @@ public class HtmlController {
 
     	try {
     		doc = Jsoup.connect("https://github.com/"+linkPreviewDto.getGitId()+"/"+linkPreviewDto.getProjectName()).get();
-    	} catch (MalformedURLException e) {
+    	} catch (MalformedURLException | HttpStatusException e) {
     		message.setMessage("fail");
+    		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     		return ResponseEntity.ok().headers(headers).body(message);
     	}
     	

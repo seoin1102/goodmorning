@@ -1,39 +1,38 @@
 import { Box, Grid, Link, ListItem, ListItemText } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { linkPreview } from '../../apis/LinkPreview';
-import  '../../styles/css/textBox.css';
+import '../../styles/css/textBox.css';
 
-function SendPreviewMessage({message}) {
-    const [git, setGit] = useState(null);
+function SendPreviewMessage({align, time, name, message}) {
+    const [linkPreviewMetaOG, setLinkPreviewMetaOG] = useState(null);
 
-    const test = async () => {
-      const data = JSON.stringify({gitId: `shake-shack`, projectName:``})
-      const a = await linkPreview(`/html/github`, data);
-      setGit(a);
+    const metaOGCallback = async () => {
+      const gitData = message.split('/');
+
+      if (gitData[0] === 'undefined')
+          gitData[0] = ''
+
+      if (gitData[1] === 'undefined')
+          gitData[1] = ''
+
+      const gitJsonData = JSON.stringify({gitId: gitData[0], projectName: gitData[1]})
+      const metaOG = await linkPreview(`/html/github`, gitJsonData);
+      
+      setLinkPreviewMetaOG(metaOG);
     }
 
     useEffect(() => {
-        test();
+        metaOGCallback();
     }, [])
 
-  const t = () => {
-    if(!!git) {
+  const linkPreviewRender = () => {
+    if(!!linkPreviewMetaOG) {
     return <>
-              {/* <ListItem key="1" >
-                  <Grid container spacing={1}>
-                      <Grid item xs={3} >
-                      <Link href={git.url} underline={'none'}>
-                      <ListItemText align={null} primary={git.url} />
-                      </Link>
-                      </Grid>
-                  </Grid>
-                
-              </ListItem> */}
               <ListItem>
               
                   <Grid container spacing={0} >
                       <Grid item xs={1.4} sx={{borderColor: '#E1E8ED', borderStyle: 'solid', borderWidth: '2px 0px', backgroundColor: '#FFFFFF'}}>
-                          <Link href={git.url}  target="_blank" underline={'none'} color="inherit">
+                          <Link href={linkPreviewMetaOG.url}  target="_blank" underline={'none'} color="inherit">
                           <Box
                               component="img"
                               sx={{
@@ -42,8 +41,8 @@ function SendPreviewMessage({message}) {
                                 maxHeight: { xs: 175, md: 175 },
                                 maxWidth: { xs: 180, md: 180 },
                               }}
-                              alt={`${git["image:alt"]}`}
-                              src={`${git.image}`}
+                              alt={`${linkPreviewMetaOG["image:alt"]}`}
+                              src={`${linkPreviewMetaOG.image}`}
                               />
                               </Link>
                       </Grid>
@@ -61,7 +60,7 @@ function SendPreviewMessage({message}) {
                                       lineHeight: '35px',
                                       }} 
                                   style={{height: '60px', margin: '0',  padding: '9px 9px 0'}}>
-                                  {git.title}
+                                  {linkPreviewMetaOG.title}
                               </ListItemText>
                               </Grid>
                               <Grid item xs={12}>
@@ -76,7 +75,7 @@ function SendPreviewMessage({message}) {
                                         }} 
                                   style={{height: '70px', margin: '0', padding: '5px 9px'}}
                                   >
-                                  {git.description}
+                                  {linkPreviewMetaOG.description}
                               </ListItemText>
                               </Grid>
                               <Grid item xs={12}>
@@ -89,7 +88,7 @@ function SendPreviewMessage({message}) {
                                         fontFamily:'SongMyung'
                                         }} 
                                   style={{height: '45px', margin: '0', padding: '9px'}}>
-                                  {git.site_name}
+                                  {linkPreviewMetaOG.site_name}
                               </ListItemText>
                               </Grid>
                           </Grid>                                              
@@ -105,7 +104,7 @@ function SendPreviewMessage({message}) {
   }
 
   return (
-    t()
+      linkPreviewRender()
   );
 }
 

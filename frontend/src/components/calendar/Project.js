@@ -3,9 +3,7 @@ import { NavDropdown } from "react-bootstrap";
 import { get, remove } from "../../apis/Axios";
 import {Card, Box, Button, Grid, Paper} from "@mui/material";
 import { NavLink } from "react-router-dom";
-
 import CollapsibleTable from "./ProjectTable";
-
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
@@ -19,7 +17,8 @@ import { setCREWFOCUS } from "../../redux/focus";
 import AddProject from "../modal/Calendar/AddProject";
 
 
-function Project() {
+export default function Project({publishLinkPreview}) {
+
   const crewNo = useSelector((state) => state.focus.crewNo, shallowEqual);
   const [show, setShow] = React.useState(false);
   const [changeCrew, setChangeCrew] = useState();
@@ -58,7 +57,6 @@ function Project() {
   const handleDelete = () => {
     selectionModel.map((id) => {
       const res = remove(`/project/${id}`, id);
-      console.log(res);
       dispatch(deleteProject(id));
     });
   };
@@ -158,7 +156,11 @@ useEffect(()=>{
                   >
                     프로젝트 추가
                   </Button>
-                  <AddProject show={show} handleClose={handleClose} />
+                  <AddProject 
+                      show={show} 
+                      handleClose={handleClose} 
+                      publishLinkPreview={publishLinkPreview}
+                      />
                   <Button
                     variant="primary"
                     onClick={handleDelete}
@@ -194,4 +196,3 @@ useEffect(()=>{
     </div>
   );
 }
-export default Project
