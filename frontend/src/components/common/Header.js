@@ -103,7 +103,7 @@ function Header() {
         
         if (channelNo !== null)
             initialChannel(channelNo,userNo);
-      }, [channelNo])
+      }, [channelNo,user])
         
 
     // css

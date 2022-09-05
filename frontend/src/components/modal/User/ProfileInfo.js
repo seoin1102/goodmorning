@@ -78,11 +78,11 @@ function Profile({ modalShow, onClickModal }) {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="crewForm.name" style={{ textAlign: 'start'}}>
-                  <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={channelIcon} style={{width:'40px', heigh:'40px'}}></img>: {user.job ? user.job : '등록하지 않았습니다!'}</Form.Label>
+                  <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={channelIcon} style={{width:'40px', heigh:'40px'}}></img>: {user.job ? user.job : '직함이 등록되지 않았습니다!'}</Form.Label>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="crewForm.name" style={{ textAlign: 'start'}}>
-                  <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={phoneIcon} style={{width:'40px', heigh:'40px'}}></img>: {user.phoneNumber ? user.phoneNumber : '등록하지 않았습니다!'}</Form.Label>
+                  <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={phoneIcon} style={{width:'40px', heigh:'40px'}}></img>: {user.phoneNumber ? user.phoneNumber : '전화번호가 등록되지 않았습니다!'}</Form.Label>
                 </Form.Group>
                 
               </Modal.Body>

@@ -23,7 +23,6 @@ function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDe
         dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
         dispatch(updateCREW({no: crewNo, name: crewName}))
         }
-        
         onClickModal();
     }
 

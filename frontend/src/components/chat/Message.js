@@ -34,6 +34,7 @@ function Message({chatList}) {
                                     message={chat.message} 
                                     time={time}
                                     name={chat.userName}
+                                    url={chat.profileUrl}
                                     />
                                     {dateDivider}
                                 

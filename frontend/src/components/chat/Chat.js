@@ -5,7 +5,7 @@ import Message from './Message';
 import SendMessage from './SendMessage';
 
 const Chat = ({ chatList, sendMessage, setSendMessage, publish}) => {
-
+    
     return (
         
         <Grid item xs={10}>

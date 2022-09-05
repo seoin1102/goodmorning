@@ -21,4 +21,5 @@ public class ChatVo {
     private String userName;
     private String sendDate;
     private String message;
+    private String profileUrl;
 }
