@@ -48,7 +48,6 @@ function Profile({ modalShow, onClickModal }) {
   const [editProfileModalShow, seteditProfileModalShow] = useState(false);
   const onClickeditProfileModal = useCallback(() => {
     seteditProfileModalShow(preveditProfileModalShow => !preveditProfileModalShow);
-
   }, [])
 
   return (
@@ -101,7 +100,7 @@ function Profile({ modalShow, onClickModal }) {
 
           {/* <EditProfile modalShow={editProfileModalShow} onClickModal={onClickeditProfileModal} uploadcheck={uploadcheck}
             user={user} profile={profile} setProfile={setProfile} /> */}
-            </>) 
+            </>)
 
                    : (null)}
       </>  
