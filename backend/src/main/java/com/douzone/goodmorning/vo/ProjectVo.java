@@ -15,5 +15,7 @@ public class ProjectVo {
 	private String description;
 	private String status;
 	private Long crewNo;
+	private boolean enable;
+	private String crewName;
 
 }

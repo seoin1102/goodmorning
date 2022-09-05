@@ -13,7 +13,7 @@ import { NavLink } from 'react-router-dom';
 import arrowDownIcon from '../../../assets/icons/keyboard_arrow_down.svg';
 import arrowUpIcon from '../../../assets/icons/keyboard_arrow_up.svg';
 
-function NavigationEct({onCreateCrew, onCreateChannel}) {
+function NavigationEct({onCreateCrew, onCreateChannel, taskList}) {
     // modal state
     const [addChannelModalShow, setAddChannelModalShow] = useState(false);
     const [addCrewModalShow, setAddCrewModalShow] = useState(false);
@@ -81,7 +81,10 @@ function NavigationEct({onCreateCrew, onCreateChannel}) {
             <NavigationEctItem itemName={"파일 공유"}/>
             </NavLink>
             <NavLink to={"/project"} style={{textDecoration:'none', color: 'white'}}>
-            <NavigationEctItem itemName={"캘린더"}/>
+            <NavigationEctItem itemName={"프로젝트 달력"}/>
+            </NavLink>
+            <NavLink to={"/task"} style={{textDecoration:'none', color: 'white'}}>
+            <NavigationEctItem itemName={"업무 달력"}/>
             </NavLink>
         </List>
         </Collapse>

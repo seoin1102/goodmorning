@@ -12,19 +12,30 @@ export default function MyWidget(props) {
   return (
     <div>
       <h3 style={{ padding: "30px" }}>프로젝트 달력</h3>
-      {data !== null ? (
-        <div style={{ margin: "20px" }}>
+      {data.length >= 2 ? (
+        <div style={{ margin: "20px"}}>
           <Chart
             chartType="Gantt"
             data={data}
             width="100%"
-            height="400px"
+      height="50%"
             chartLanguage="ko"
+            legendToggle
+            options={options}
+
           />
         </div>
       ) : (
-        <>hi!!!!!!!!!!!!!</>
+        <div style={{width:'914px', height:'400px', textAlign:'center', padding:'20px'}}>채널을 선택하거나 프로젝트를 생성해주세요.</div>
       )}
     </div>
   );
 }
+export const options = {
+  gantt:{
+  labelMaxWidth:150,
+  labelStyle: {
+    fontSize: 11,
+   },
+   
+}};

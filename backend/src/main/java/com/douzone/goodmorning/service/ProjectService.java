@@ -21,8 +21,12 @@ public class ProjectService {
 	private final ProjectRepository projectRepository;
 	private final TaskRepository taskRepository;
 
-	public List<ProjectVo> getProject(Long crewNo) {
-		return projectRepository.findAll(crewNo);
+	public List<ProjectVo> findByCrew(Long crewNo) {
+		return projectRepository.findByCrew(crewNo);
+	}
+	
+	public List<ProjectVo> findByChannel(Long channelNo) {
+		return projectRepository.findByChannel(channelNo);
 	}
 	
 	public Boolean updateProject(ProjectVo projectVo) {

@@ -3,9 +3,13 @@ import React, { useState, useEffect, memo } from "react";
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
 import { Row, Col } from "react-bootstrap";
 
-import Modal from "react-modal";
+// import Modal from "react-modal";
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+
 import StartDatePicker from "../../calendar/StartDatePicker";
 import EndDatePicker from "../../calendar/EndDatePicker";
+import TextField from '@mui/material/TextField';
 
 import "../../../styles/css/Calendar.css";
 import { addTask, deleteTask, updateTask } from '../../../redux/task';
@@ -25,7 +29,7 @@ function AddTask(props) {
   const [clickedProject, setClickedProject] = useState();
   const [clickedProjectNo, setClickedProjectNo] = useState();
   const [clickedColor, setClickedColor] = useState();
-  const [clickedStatus, setClickedStatus] = useState();
+  const [clickedStatus, setClickedStatus] = useState("Todo");
 
   const [addedAssigns, setAddedAssigns]= useState([]);
   const [includesCheck, setIncludeCheck] = useState(true);
@@ -84,10 +88,6 @@ function AddTask(props) {
       }
       if(includesCheck){ //기존 사람의 변경 및 삭제 여부.
         const filterTaskIdx = props.filteredTask.findIndex(event => event.id == id)
-        console.log("어떻게 변경됨?")
-        console.log(updatedTask)
-        console.log("어떻게 변경됨?")
-
         put(`/task/${clickedEventId}`, {...updatedTask,userNo:userNo})
         dispatch(updateTask(clickedEventIdx, {...updatedTask,userNo:userNo}));
 
@@ -134,12 +134,6 @@ function AddTask(props) {
     props.closeModal();
   }
 
-  // const startDateChangeHandler = (date) => {
-  //   setClickedStart(date)
-  // }
-  // const endDateChangeHandler = (date) => {
-  //   setClickedEnd(date)
-  // }
   const titleChangeHandler = (e) => {
     setClickedEventTitle(e.target.value)
   }
@@ -149,81 +143,58 @@ function AddTask(props) {
     props.setState('')
   }
   return (
-    <Modal className="addTaskModal"  overlayClassName="Overlay" isOpen={props.modalIsOpen} contentLabel="Example Modal" ariaHideApp={false}>
-      <Row>
-        <Col sm={10}>
-      <h5>업무명</h5>
-        <input type="text" value={clickedEventTitle} onChange={titleChangeHandler} required/></Col>
-        <Col>
-        {/* {
-          clickedEventTitle===''? 
-          <p style={{color:'red'}}>안됩니다!</p>:
-          <p style={{color:'blue'}}>됩니다!</p> 
-        } */}
-        </Col>
-      </Row>
-      <Row>
-        <Col sm={10}>
-      <h6>시작 일자</h6>
-      <StartDatePicker clickedStart={clickedStart} setClickedStart={setClickedStart}  disableClock={true} locale="ko-KO" /></Col>
-      <Col>
-        {/* {
-          clickedStart===null? 
-          <p style={{color:'red'}}>안됩니다!</p>:
-          <p style={{color:'blue'}}>됩니다!</p> 
-        } */}
-        </Col>
-      </Row>
-      <Row>
-        <Col sm={10}>
-      <h6>종료 일자</h6>
-      <EndDatePicker clickedEnd={clickedEnd} setClickedEnd={setClickedEnd}  disableClock={true} locale="ko-KO" /></Col>
-      <Col>
-      {/* {
-          clickedEnd===null? 
-          <p style={{color:'red'}}>안됩니다!</p>:
-          <p style={{color:'blue'}}>됩니다!</p> 
-        } */}
-        </Col>
-        </Row>
-      <form onSubmit={onSubmit}>
-        <Row>
-          <Col sm={10}>
+    <Modal show={props.modalIsOpen} onHide={closeEventHandler} >
+      <Modal.Header closeButton>
+          <Modal.Title>업무 추가</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>업무명</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="업무 이름을 입력해주세요."
+                autoFocus
+                value={clickedEventTitle || ''} onChange={titleChangeHandler}
+              />
+            </Form.Group>
+      
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>시작일시</Form.Label>
+              <br />
+              <StartDatePicker clickedStart={clickedStart} setClickedStart={setClickedStart} disableClock={true} locale="ko-KO" />
+              <br />
+              
+              <Form.Label>종료일시</Form.Label>
+              <br />
+              <EndDatePicker clickedEnd={clickedEnd} setClickedEnd={setClickedEnd} disableClock={true} locale="ko-KO" />
+              <br />
+      
         <h6>프로젝트명</h6>
-        <ProjectSelect state={props.state || null} setState={props.setState} clickedProject={clickedProject} setClickedProject={setClickedProject} setClickedProjectNo={setClickedProjectNo}/>
-        </Col>
-        <Col sm={2}>
-        {/* {
-          (!clickedProject)? 
-          <p style={{color:'red'}}>안됩니다!</p>:
-          <p style={{color:'blue'}}>됩니다!</p> 
-        } */}
-         </Col>
-        </Row>
+        <ProjectSelect state={props.state || null} setState={props.setState} clickedProject={clickedProject} setClickedProject={setClickedProject} setClickedProjectNo={setClickedProjectNo} />
+    
+        <br/>
         <Row>
         <Col><div><h6>진행 상황</h6>
         <Status state={props.state} clickedStatus={clickedStatus} setClickedStatus={setClickedStatus}/></div></Col>
         
-        <Col><h6>색상 설정</h6><div><ColorPicker clickedColor={clickedColor} setClickedColor={setClickedColor}/></div>
+        <Col><h6>색상 설정</h6><div><ColorPicker clickedColor={clickedColor} setClickedColor={setClickedColor} /></div>
         </Col>
         </Row>
-        <Row>
-          <Col sm={10}>
-        <h6>책임자</h6></Col>
+       
+        <h6>책임자</h6>
         <AssignSelect defaultValue={props.state || null} addedAssigns={addedAssigns} setAddedAssigns={setAddedAssigns} includesCheck={includesCheck} setIncludeCheck={setIncludeCheck}/>
-        <Col sm={2}>
-        {/* {
-          (!props.state)? 
-          <p style={{color:'red'}}>안됩니다!</p>:
-          <p style={{color:'blue'}}>됩니다!</p> 
-        } */}
-         </Col>
-         </Row>
+        
         <Button style={{marginTop: '10px', float:'right', borderColor:'#34d6ce',backgroundColor:'white'}} variant="outlined" type="button" onClick={closeEventHandler}>닫기</Button>
         <Button style={{marginTop: '10px',marginRight: '5px',float:'right', borderColor:'#34d6ce',backgroundColor:'white'}} variant="outlined" type="button" onClick={deleteEventHandler}>삭제</Button>
-        <Button style={{marginTop: '10px',marginRight: '5px',float:'right', borderColor:'#34d6ce',backgroundColor:'white'}} variant="outlined" type="submit">등록</Button>
-
-      </form>
+        <Button style={{marginTop: '10px',marginRight: '5px',float:'right', borderColor:'#34d6ce',backgroundColor:'white'}} variant="outlined" type="submit" onClick={onSubmit}>등록</Button>
+        </Form.Group>
+        </Form>
+        </Modal.Body>
+     
     </Modal>
   )
 }
