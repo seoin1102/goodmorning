@@ -2,6 +2,7 @@ import React from "react";
 
 import { Chart } from "react-google-charts";
 import "../../styles/css/gantt.css";
+
 export default function MyWidget(props) {
   const [data, setData] = React.useState(props.data);
 
@@ -9,16 +10,17 @@ export default function MyWidget(props) {
     setData(props.data);
   }, [props.data]);
 
+
   return (
     <div>
       <h3 style={{ padding: "30px" }}>프로젝트 달력</h3>
       {data.length >= 2 ? (
-        <div style={{ margin: "20px"}}>
+        <div style={{ margin: "20px", height:"400px"}}>
           <Chart
             chartType="Gantt"
             data={data}
             width="100%"
-      height="50%"
+            height="100%"
             chartLanguage="ko"
             legendToggle
             options={options}

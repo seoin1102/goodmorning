@@ -183,11 +183,14 @@ useEffect(()=>{
                 changeCrew={changeCrew}
                 projectList={projectList}
                 data={data}
+                
               />
               <CollapsibleTable
                 date={date}
                 projectList={projectList}
                 setSelectionModel={setSelectionModel}
+                changeCrew={changeCrew}
+                data={data}     
               />
             </Card>
           </Paper>
