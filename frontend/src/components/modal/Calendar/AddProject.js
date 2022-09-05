@@ -69,14 +69,6 @@ const nameHandler = (e) =>{
   setClickedName(e.target.value)
 }
 
-// const startHandler = (date) => {
-//   setClickedStart(date.$d)
-//   console.log("스타트")
-//   console.log(clickedStart.$d)
-// }
-// const endHandler = (date) => {
-//   setClickedEnd(date.$d)
-// }
 
 const descriptHandler =(e)=>{
   setClickedDescript(e.target.value)
@@ -92,7 +84,7 @@ const descriptHandler =(e)=>{
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>프로젝트 명</Form.Label>
+              <Form.Label>프로젝트명</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="프로젝트 이름을 입력해주세요."

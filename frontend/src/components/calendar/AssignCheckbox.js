@@ -1,4 +1,4 @@
-import React, { useState, useEffect,  } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
 function AssignCheckbox(props) {
@@ -7,9 +7,15 @@ function AssignCheckbox(props) {
   // 체크된 아이템을 담을 배열
   const [checkItems, setCheckItems] = useState(crewUserList);
 
+  console.log("느어어어어어")
+  console.log(taskList)
   useEffect(() => {
     setCheckItems(crewUserList)
   }, [crewUserList]);
+
+  useEffect(() => {
+    handleAllCheck(true)
+  }, []);
 
   // 체크박스 단일 선택
   const handleSingleCheck = (checked, assign) => {
@@ -48,7 +54,7 @@ function AssignCheckbox(props) {
   };
   return (
     <>
-      <div>
+      <div style={{fontSize:'15px', fontWeight:'bold'}}>
         <input
           type="checkbox"
           name="select-all"
@@ -77,4 +83,4 @@ function AssignCheckbox(props) {
     </>
   );
 }
-export default AssignCheckbox
+export default memo(AssignCheckbox)
