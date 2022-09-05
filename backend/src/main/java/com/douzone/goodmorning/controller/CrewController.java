@@ -66,6 +66,19 @@ public class CrewController {
     }
 	
 	@Transactional
+	@GetMapping("/crew/master/{crewNo}")
+    public ResponseEntity<Message> masterChannelUserNo(@PathVariable("crewNo") Long crewNo) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("크루 셋팅 마스터 크루 유저 조회");
+    	message.setData(crewService.getMasterCrewUserNo(crewNo));
+    	return ResponseEntity.ok().headers(headers).body(message);
+    }
+	
+	@Transactional
     @PostMapping("/crew/{channelNo}/{userNo}")
     public ResponseEntity<Message> crew(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo, @RequestBody CrewVo crewVo) {
     	HttpHeaders headers = new HttpHeaders();

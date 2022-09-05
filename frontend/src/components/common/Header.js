@@ -17,6 +17,7 @@ function Header() {
     // modal state
     const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
     const [users, setUsers] = useState([]);
+    const [masterChannelNo, setMasterChannelNo] = useState(0);
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
 
@@ -42,6 +43,7 @@ function Header() {
      * 채널 목록
      * @param userNo 채널 번호
      */
+
     const initialChannel = useCallback(async(channelNo, userNo) => {
       const channels = await get(`/channel/${channelNo}/${userNo}`);
       dispatch(setChannel(channels));
@@ -64,6 +66,11 @@ function Header() {
         const result = await get(`/user/email/${channelNo}`);
         setUsers(() => [].concat(result));
     }, [users, channelNo])
+
+    const MasterChannelUserNo = useCallback(async() => {
+        const result = await get(`/channel/master/${channelNo}`);
+        setMasterChannelNo(result);
+    }, [masterChannelNo, channelNo])
 
     const onChangeChannel = useCallback(async(channelNo, userNo) => {
         const result = await get(`/channel/change/${channelNo}/${userNo}`);
@@ -115,13 +122,13 @@ function Header() {
     const onClickChannelModal = useCallback(() => {
         setChannelModalIsOpen(prevChannelModalIsOpen => !prevChannelModalIsOpen);
         initialUser();
-    }, [channelNo, users])
-
+        MasterChannelUserNo();
+    }, [channelNo, users, masterChannelNo])
 
     return (
         <Grid container style={{backgroundColor:'#1bc6d9', color:'white', borderBottom:'solid 1px #f7f7fa'}}>            
             <HeaderItem itemName={channelName} modalIsOpen={channelModalIsOpen} customStyle={channelStyle} onClickModal={onClickChannelModal}>
-                <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users} initialUser={initialUser}/>
+                <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users} initialUser={initialUser} masterChannelNo={masterChannelNo}/>
             </HeaderItem>
             <HeaderSearch/>
             <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel} totalSum={totalSum} setTotalSum={setTotalSum}/>

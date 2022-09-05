@@ -6,7 +6,7 @@ function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickCh
     const [value, setValue] = useState();
 
     useEffect(() => {
-      
+      console.log(users);
     },[users])
 
     return (

@@ -6,6 +6,7 @@ import EditProfile from './Profile';
 
 
 function Profile({ modalShow, onClickModal }) {
+
   // const [name,setName] = useState("");
   const user = getLocalStorageAuthUser();
   const { name, job, phoneNumber, profileUrl } = user;
@@ -25,7 +26,6 @@ function Profile({ modalShow, onClickModal }) {
       seturl(profileUrl);
       setInitial(true)
     })();
-
   }, [profile]);
 
   const getProfileImg = async function (userNo) {

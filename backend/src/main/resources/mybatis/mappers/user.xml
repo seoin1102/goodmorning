@@ -39,13 +39,13 @@
 	
 	<select id="findAllEmaillist" parameterType="map" resultType="uservo">
 		<![CDATA[
-		select a.no, a.name, a.email from user as a , channel_user as b, crew_user as c where a.no = b.user_no and a.no = c.user_no and b.channel_no = #{channelNo} and c.crew_no = #{crewNo};
+		select a.no, a.name, a.email, a.sign_up_date as signUpDate, a.job, a.phone as phoneNumber , a.profile_img as profileUrl from user as a , channel_user as b, crew_user as c where a.no = b.user_no and a.no = c.user_no and b.channel_no = #{channelNo} and c.crew_no = #{crewNo};
 		]]>
 	</select>
 	
 	<select id="findAllEmaillistByChannelNo" parameterType="long" resultType="uservo">
 		<![CDATA[
-		select b.no, b.name, b.email from channel_user as a, user as b where a.user_no= b.no and a.channel_no = #{channelNo};
+		select b.no, b.name, b.email, b.sign_up_date as signUpDate, b.job, b.phone as phoneNumber , b.profile_img as profileUrl from channel_user as a, user as b where a.user_no= b.no and a.channel_no = #{channelNo};
 		]]>
 	</select>
 	
