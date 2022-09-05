@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button   } from 'react-bootstrap';
 import { shallowEqual, useSelector } from 'react-redux';
+import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
 function AddCrew({modalShow, onClickModal, onCreateCrew}) {
   const [name,setName] = useState("");
-  const user = JSON.parse(localStorage.getItem('authUser'));
+  const user = getLocalStorageAuthUser();
   const userNo = user.no;
   const crew = {name}
   const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
@@ -13,25 +14,21 @@ function AddCrew({modalShow, onClickModal, onCreateCrew}) {
     <>
     <Modal show={modalShow} onHide={onClickModal}>
         <Modal.Header closeButton>
-            <Modal.Title>크루 생성</Modal.Title>
+            <Modal.Title>채널 생성</Modal.Title>
         </Modal.Header>
         <Form>
         <Modal.Body>
                 <Form.Group className="mb-3" controlId="crewForm.name">
-                  <Form.Label>크루 이름</Form.Label>
+                  <Form.Label>채널 이름</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Crew Name"
+                    placeholder="Channel Name"
                     autoFocus
                     onChange={(e) =>{
                       setName(e.target.value)
                     }}
                   />
                 </Form.Group>
-                  <Button variant="outline-dark" type="button" 
-                  onClick ={(e) =>{e.preventDefault}} >
-                    초대 권한 설정
-                  </Button>
             
         </Modal.Body>
         <Modal.Footer>
@@ -40,10 +37,12 @@ function AddCrew({modalShow, onClickModal, onCreateCrew}) {
             </Button>
             <Button variant="outline-dark" type="button" onClick={(e) => {
                         onCreateCrew(channelNo,crew,userNo)
-                        console.log(crew)
                         onClickModal()
-                       }} >
-              저장
+                       }}
+                       onKeyDown={(e) => { if(e.key === 'Enter') { 
+                        onCreateCrew(channelNo,crew,userNo)
+                        onClickModal()} }} >
+              생성
             </Button>
             
         </Modal.Footer>

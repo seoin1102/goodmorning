@@ -17,9 +17,10 @@ function SignContainer() {
     const { email, passwd } = useSelector(state => ({
         email: state.sign.email,
         passwd: state.sign.passwd
-      }));
-
-
+     }));
+    
+    console.log(email,passwd);
+    
     const dispatch = useDispatch();
          
     const onSignIn=(email,passwd) =>{

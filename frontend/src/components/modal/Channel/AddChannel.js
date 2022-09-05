@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button   } from 'react-bootstrap';
+import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
 function AddChannel({modalShow, onClickModal,onCreateChannel}) {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const user = JSON.parse(localStorage.getItem('authUser'));
+    const user = getLocalStorageAuthUser();
     const userNo = user.no;
 
     const channel = {name, description, masterChannelUserNo:userNo}
@@ -35,8 +36,11 @@ function AddChannel({modalShow, onClickModal,onCreateChannel}) {
                 취소
               </Button>
               <Button variant="outline-dark" onClick={() => {onCreateChannel(channel)
-                                                            onClickModal();}} >
-                저장
+                                                            onClickModal();}}
+                                            onKeyDown={(e) => { if(e.key === 'Enter') { 
+                                              onCreateChannel(channel)
+                                              onClickModal();} }} >
+                생성
               </Button>
           </Modal.Footer>
           </Form>

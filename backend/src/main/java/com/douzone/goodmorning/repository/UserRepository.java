@@ -25,7 +25,6 @@ public class UserRepository {
 
 
 	public UserVo existsById(UserVo vo) {
-		System.out.println(vo);
 		return sqlSession.selectOne("user.existsById",vo);
 	}
 
@@ -64,4 +63,35 @@ public class UserRepository {
 		
 		return sqlSession.selectList("user.findAllEmaillist", map);
 	}
+
+
+	public Object findAllEmaillist(Long channelNo) {
+		return sqlSession.selectList("user.findAllEmaillistByChannelNo", channelNo);
+	}
+
+
+
+
+	public UserVo findProfile(UserVo vo) {
+		return sqlSession.selectOne("user.findProfile",vo);
+	}
+	
+	public Object findUserByUserNo(Long userNo) {
+		return sqlSession.selectList("user.findUserByUserNo", userNo);
+	}
+
+	public void updateUser(UserVo userVo) {
+		sqlSession.update("user.updateUser",userVo);
+
+	}
+
+	public void updateFileURL(String fileURL, Long userNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("fileURL", fileURL);
+		map.put("userNo", userNo);
+		
+		sqlSession.update("user.updateFileURL", map);
+		
+	}
+
 }

@@ -4,9 +4,25 @@
 <mapper namespace="chat">	
 		<select id="findAllByCrewNo" parameterType="long" resultType="chatvo">
 				<![CDATA[
-				select a.no, a.crew_no as crewNo, a.user_no as userNo, a.send_date as sendDate, a.message, a.type, b.name as userName
-				from chat as a, user as b
-				where a.crew_no = #{crewNo} and a.user_no = b.no;
+				select a.no, a.crew_no as crewNo, a.send_date as sendDate, a.message, a.type, b.name as userName, profile_img as profileUrl from chat as a, user as b
+				where a.crew_no = #{crewNo} and a.user_no = b.no order by a.no;
+				]]>
+		</select>
+		
+		<select id="findNoByCrewNoAndUserNo" parameterType="map" resultType="long">
+				<![CDATA[
+				select no from chat 
+					where crew_no = #{crewNo} and user_no = #{userNo}
+				order by no desc limit 1;
+				]]>
+		</select>
+		<select id="findCountByCrewNoAndAuthUserNo" parameterType="map" resultType="long">
+				<![CDATA[
+				select count(a.no) from chat as a, chat_user as b 
+					where a.no = b.chat_no 
+				and a.crew_no = #{crewNo }
+					and b.user_no = #{authUserNo }
+				and b.check = 'UNREAD';
 				]]>
 		</select>
 		
@@ -14,7 +30,22 @@
 				<![CDATA[
 				insert
 					into chat 
-				values(null, #{crewNo }, #{userNo }, now(), #{message }, #{type })
+				values(null, #{crewNo }, #{userNo }, now(), #{message }, #{type})
 				]]>
 		</insert>
+		<insert id="insertChatUserByCrewNoAndChatNo" parameterType="map">
+				<![CDATA[
+				insert 
+					into chat_user 
+				values (null, #{userNo}, #{chatNo}, 'unread')
+				]]>
+		</insert>
+		<update id="updateChatUserByCrewNoAndAuthUserNo" parameterType ="map">
+		<![CDATA[
+				update chat as a, chat_user as b set b.`check` = "READ" 
+					where a.no = b.chat_no 
+				and a.crew_no = #{crewNo}
+					and b.user_no = #{authUserNo} and b.check = 'UNREAD'; 
+				]]>
+		</update>
 </mapper>

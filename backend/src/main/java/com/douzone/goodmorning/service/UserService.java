@@ -59,7 +59,7 @@ public class UserService {
 				"/" + token +
 				"' target='_blenk'>이메일 인증 확인</a>";
 		
-		//sendmail(setSubject,setText,vo.getEmail());
+		sendmail(setSubject,setText,vo.getEmail());
 		
 		return 1;
 		
@@ -121,7 +121,7 @@ public class UserService {
 					"<br/>임시 패스워드로 로그인 하신 후 변경하시면 됩니다.<br/>"+
 					"임시 패스워드 : "+ token;
 			
-			//sendmail(setSubject, setText, vo.getEmail());
+			sendmail(setSubject, setText, vo.getEmail());
 			
 			return userRepository.updatePw(vo.getEmail(),enctypt_token);
 			
@@ -166,8 +166,8 @@ public class UserService {
 		int userNo = userRepository.findByUserNo(vo.getEmail());
 		vo.setNo(userNo);
 		ChannelVo channelVo = new ChannelVo();
-		channelVo.setName(vo.getName() + "채널");
-		channelVo.setDescription(vo.getName() + "의 채널 입니다.");
+		channelVo.setName(vo.getName() + "님의 워크스페이스");
+		channelVo.setDescription(vo.getName() + "님의 워크스페이스 입니다.");
 		channelVo.setMasterChannelUserNo(Long.valueOf(vo.getNo()));
 //		System.out.println("channel : " + channelVo);
 		channelRepository.insert(channelVo);
@@ -175,7 +175,8 @@ public class UserService {
 		channelRepository.addChannelUser(channelVo.getMasterChannelUserNo(), channelNo, 1L);
 		
 		CrewVo crewVo = new CrewVo();
-		crewVo.setName(vo.getName() + "의 크루");
+//		crewVo.setName(vo.getName() + "의 크루");
+		crewVo.setName("기본 채널");
 		crewVo.setMasterCrewUserNo(Long.valueOf(vo.getNo()));
 		crewVo.setChannelNo(channelNo);
 //		System.out.println("crew : " + crewVo);
@@ -183,12 +184,33 @@ public class UserService {
 		Long crewNo = crewRepository.findMaster(channelNo, Long.valueOf(vo.getNo()));
 //		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA     "+crewNo);
 		crewRepository.addCrewUser(crewNo, Long.valueOf(vo.getNo()), 1L);
-		
-		
-		
+			
 	}
 
 	public List<UserVo> findAllEmaillist(String channelNo, String crewNo) {
 		return userRepository.findAllEmaillist(channelNo, crewNo);
 	}
+
+	public Object findAllEmaillist(Long channelNo) {
+		return userRepository.findAllEmaillist(channelNo);
+	}
+
+
+	public UserVo findProfile(UserVo vo) {
+		return userRepository.findProfile(vo);
+	}
+	
+	public Object findUserByUserNo(Long userNo) {
+		return userRepository.findUserByUserNo(userNo);
+	}
+
+	public void updateUser(UserVo userVo) {
+		userRepository.updateUser(userVo);
+	}
+
+	public void updateFileURL(String fileURL, Long userNo) {
+		userRepository.updateFileURL(fileURL, userNo);
+		
+	}
+
 }

@@ -2,14 +2,17 @@ import { Divider, Grid, List, ListItem, ListItemText } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { get } from '../../apis/Axios';
+import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import CrewSetting from '../modal/Crew/CrewSetting';
 
 function ChatHeader() {
 
-    const user = JSON.parse(localStorage.getItem('authUser'));
+    const user = getLocalStorageAuthUser();
     const userNo = user.no;
+  
 
     const [crewModalIsOpen, setCrewModalIsOpen] = useState(false);
+    const [masterCrewNo, setMasterCrewno] = useState(0);
     const {crewNo, crewName, channelNo} = useSelector(state => state.focus);
     const [users, setUsers] = useState([]);
 
@@ -17,7 +20,8 @@ function ChatHeader() {
     const onClickCrewModal = useCallback(() => {
         setCrewModalIsOpen(prevCrewModalIsOpen => !prevCrewModalIsOpen);
         initialUser();
-    }, [channelNo, crewNo])
+        MasterCrewUserNo();
+    }, [channelNo, crewNo,masterCrewNo])
 
     const onClickExitModal = useCallback(() => {
         setCrewModalIsOpen(prevCrewModalIsOpen => !prevCrewModalIsOpen);
@@ -27,16 +31,28 @@ function ChatHeader() {
         const result = await get(`/user/email/${channelNo}/${crewNo}`);
         setUsers(() => [].concat(result));
     }, [users, channelNo, crewNo])
+    
+    const MasterCrewUserNo = useCallback(async() => {
+        const result = await get(`/crew/master/${crewNo}`);
+        setMasterCrewno(result);
+    }, [masterCrewNo, crewNo])
+
     return (
         <>
-            <Grid container style={{ padding: '0px 30px -10px 20px', backgroundColor:'#f7f7fa', borderBottom:'solid 2px black' }}>
+            <Grid container style={{height:'52px', backgroundColor:'#f7f7fa', borderBottom:'solid 1px #555555'}}>
                 <Grid item xs={12}>
-                    <List style={{ padding: '-8px auto'}}>
+                    <List style={{ padding: '-20px auto'}}>
                         <ListItem button key="RemySharp"
-                            onClick={onClickCrewModal}>
-                            <ListItemText> #{crewName} </ListItemText>
+                            onClick={onClickCrewModal}
+                            style={{padding: '2px 0px 50px 10px'}} 
+                            >
+                            <ListItemText>{`# ${crewName}`} </ListItemText>
                         </ListItem>
-                        <CrewSetting modalShow={crewModalIsOpen} onClickModal={onClickExitModal} users={users} crewName={crewName} channelNo={channelNo} crewNo={crewNo}/>
+                        <CrewSetting modalShow={crewModalIsOpen} onClickModal={onClickExitModal} 
+                                    users={users} crewName={crewName} 
+                                    channelNo={channelNo} crewNo={crewNo} 
+                                    initialUser={initialUser} userNo={userNo}
+                                    masterCrewNo={masterCrewNo}/>
                     </List>
                     <Divider />
                 </Grid>

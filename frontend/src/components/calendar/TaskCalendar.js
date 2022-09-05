@@ -1,13 +1,16 @@
-import React,{memo} from "react";
+import React,{useState,useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
-import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
+import { useSelector, shallowEqual  } from 'react-redux';
 
 import "../../styles/css/Calendar.css";
 
 function TaskCalendar(props) {
+  const [state, setState] = useState(taskList)
+  const taskList = useSelector((state) => state.task, shallowEqual);
+
   // const taskList = useSelector(state => state.task, shallowEqual);
   // const tasks = []
 
@@ -24,19 +27,20 @@ function TaskCalendar(props) {
   // }
 
   // const groupedPeople = groupBy(taskList, 'title');
-  console.log("피곤카")
- console.log(props.taskList)
- console.log("피곤카")
+
+  useEffect(() => {
+    setState(props.taskList)
+  }, [state]);
 
   return (
     <div className="demo-app-calendar" id="mycalendartest"
-    style={{width: "900px",marginLeft:'2%', fontFamily:'Cascadia Code'}}>
+    style={{width: "750px",marginLeft:'2%', fontFamily:'Cascadia Code'}}>
       <FullCalendar
         defaultView="dayGridMonth"
         headerToolbar={{
           left: "prev,next today",
           center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+          right: "dayGridMonth",
         }}
         locale="ko"
         eventDurationEditable={true}

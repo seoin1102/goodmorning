@@ -4,12 +4,23 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Fab from '@mui/material/Fab';
 import { Button } from '@mui/material';
-import FileUpload from '../modal/Channel/FileUpload'
+import FileUpload from '../modal/File/FileUpload'
 import { NavLink } from 'react-bootstrap';
+import { addFile,fileDownload } from '../../apis/Fetch';
+import { useSelector, useDispatch } from 'react-redux';
+import send2 from '../../assets/icons/send2.svg';
 
-function SendMessage({onChangeHandler, onClickHandler, text, addFilecallback, fileDownloadcallback,downloadurl}) {
+function SendMessage({onChangeHandler, onClickHandler, text}) {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
+
+
+    const uploadcheck = async (comment, file, projectNo,userNo)=> {
+
+        const FileListdata = await addFile(comment, file, projectNo,userNo);
+        
+        //dispatch(fileFileData(FileListdata));
+    }
 
     // modal click
     const onClickFileUploadModal = () => {
@@ -20,26 +31,16 @@ function SendMessage({onChangeHandler, onClickHandler, text, addFilecallback, fi
         setModalIsOpen(isOpenStatus)
     }
 
-    const fileDownloadcallbackonClick = (filename) =>{
-        fileDownloadcallback(filename);
-    }
-
-
     return (
         <>
-        <Grid container style={{ padding: '10px 30px 10px 20px'}}>
+        <Grid container style={{ padding: '10px 30px 10px 20px'}} sx={{backgroundColor:'#f7f7fa'}}>
             <Grid item xs={11} style={{direction:'rtl'}}>
-                <Button variant="outlined" component="label" onClick={onClickFileUploadModal}>
-                    Upload  
-                </Button>
-                <Button variant="outlined" component="label" onClick={() => {
-                    fileDownloadcallbackonClick("2022725367788.bmpr")}
-                }>
-                    임시다운로드 버튼  
+                <Button style={{margin:'10px', color:'#34d6ce',backgroundColor:'#eef2f8', border:'white'}} variant="outlined" component="label" onClick={onClickFileUploadModal}>
+                    업로드  
                 </Button>
             </Grid>
         </Grid>
-        <Grid container style={{ padding: '0px 30px 10px 20px' }}>
+        <Grid container style={{ padding: '0px 30px 10px 20px' }}sx={{backgroundColor:'#f7f7fa'}}>
             <Grid item xs={11}>
                 <TextField
                   onChange={onChangeHandler}
@@ -50,18 +51,21 @@ function SendMessage({onChangeHandler, onClickHandler, text, addFilecallback, fi
                   value={text}
                   />
             </Grid>
-            <Grid item xs={1} align="right">
+            <Grid item xs={1} align="center">
                 <Fab 
-                  color="primary" 
+                  sx={{backgroundColor: '#34d6ce'}}
+                
                   aria-label="add"
                   onClick={onClickHandler}
                   >
-                  {"보내기"}
+                  <img src={send2}/>
                 </Fab>
             </Grid>
         </Grid>
-        <FileUpload callback={addFilecallback} modalShow={modalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} >
+
+        <FileUpload modalShow={modalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} uploadcheck={uploadcheck}>
             <></>
+
         </FileUpload>
         </>
     );

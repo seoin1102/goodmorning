@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class ChatService {
+	
 	private final ChatRepository chatRepository;
 	
 	public List<ChatVo> getMessageList(Long crewNo) {
@@ -22,4 +23,19 @@ public class ChatService {
 		return chatRepository.insertByCrewNoAndUserNo(chatVo);
 	}
 
+	public Long getLastChat(Long crewNo, Long userNo) {
+		return chatRepository.findNoByCrewNoAndUserNo(crewNo, userNo);
+	}
+
+	public Boolean insertChatUserByCrewNoAndChatNo(Long userNo, Long chatNo) {
+		return chatRepository.insertChatUserByCrewNoAndChatNo(userNo, chatNo);
+	}
+
+	public boolean updateChatUser(Long crewNo, Long authUserNo) {
+		return chatRepository.updateChatUserByCrewNoAndAuthUserNo(crewNo, authUserNo);
+	}
+
+	public Long getUnReadMessageCount(Long crewNo, Long authUserNo) {
+		return chatRepository.findCountByCrewNoAndAuthUserNo(crewNo, authUserNo);
+	}
 }

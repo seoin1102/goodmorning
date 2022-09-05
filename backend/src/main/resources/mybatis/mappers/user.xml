@@ -16,7 +16,7 @@
 	
 	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-		select no ,email, name,enable
+		select no ,email, name,enable,sign_up_date as signUpDate,job,phone as phoneNumber,profile_img as profileUrl
 		  from user
 		 where email=#{email }
 		   and passwd=#{passwd }
@@ -39,7 +39,19 @@
 	
 	<select id="findAllEmaillist" parameterType="map" resultType="uservo">
 		<![CDATA[
-		select a.no, a.name, a.email from user as a , channel_user as b, crew_user as c where a.no = b.user_no and a.no = c.user_no and b.channel_no = #{channelNo} and c.crew_no = #{crewNo};
+		select a.no, a.name, a.email, a.sign_up_date as signUpDate, a.job, a.phone as phoneNumber , a.profile_img as profileUrl from user as a , channel_user as b, crew_user as c where a.no = b.user_no and a.no = c.user_no and b.channel_no = #{channelNo} and c.crew_no = #{crewNo};
+		]]>
+	</select>
+	
+	<select id="findAllEmaillistByChannelNo" parameterType="long" resultType="uservo">
+		<![CDATA[
+		select b.no, b.name, b.email, b.sign_up_date as signUpDate, b.job, b.phone as phoneNumber , b.profile_img as profileUrl from channel_user as a, user as b where a.user_no= b.no and a.channel_no = #{channelNo};
+		]]>
+	</select>
+	
+	<select id="findUserByUserNo" parameterType="long" resultType="uservo">
+		<![CDATA[
+		select no, email, name, sign_up_date as signUpDate, job, phone as phoneNumber, profile_img as profileImg from user where no = #{userNo};
 		]]>
 	</select>
 	
@@ -52,6 +64,18 @@
 	<update id="updatePw" parameterType="map">
 		<![CDATA[
 			update user set passwd=#{token } where email=#{email }
+		]]>
+	</update>
+	
+	<update id="updateUser" parameterType="uservo">
+		<![CDATA[
+			update user set name = #{name}, job = #{job}, phone = #{phoneNumber} where no = #{no};
+		]]>
+	</update>
+	
+	<update id="updateFileURL" parameterType="map">
+		<![CDATA[
+			update user set profile_img = #{fileURL} where no = #{userNo};
 		]]>
 	</update>
 	

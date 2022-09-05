@@ -89,6 +89,18 @@ public class ChannelController {
     	return ResponseEntity.ok().headers(headers).body(message);
     }
     
+    @GetMapping("/channel/master/{channelNo}")
+    public ResponseEntity<Message> masterChannelUserNo(@PathVariable("channelNo") Long channelNo) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("채널 셋팅 마스터 채널 유저 조회");
+    	message.setData(channelService.getMasterChannelUserNo(channelNo));
+    	return ResponseEntity.ok().headers(headers).body(message);
+    }
+    
     /**
      * application/x-www-form-urlencoded로 전달 할 경우 ChannelVo channelVo로 받기
      * application/json로 전달 할 경우 @RequestBody ChannelVo channelVo로 받기

@@ -1,9 +1,13 @@
 import { Autocomplete, Divider, List, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Dropdown, Form, ListGroup, Modal } from 'react-bootstrap';
 
 function CrewSetting_member({users, onClickModal, setTab, onClickCrewInvite}) {
-    const [value, setValue] = useState([]);
+    const [value, setValue] = useState();
+
+    useEffect(() => {
+      // console.log("crew",users)
+    },[users])
 
     return (
       <>
@@ -18,17 +22,19 @@ function CrewSetting_member({users, onClickModal, setTab, onClickCrewInvite}) {
                     autoFocus
                     onChange={(e) =>{
                       setValue(e.target.value)
-                    }}
-                    
+                    }} 
+                    value={value || ''}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="channelForm.footer">
-                <Button variant="outline-dark" onClick={() => onClickCrewInvite(value)} >
+                <Button variant="outline-dark" onClick={() => {onClickCrewInvite(value)
+                                                                setValue("")
+                                                                }} >
                         전송
                       </Button>
                       </Form.Group>
                       <Form.Group className="mb-3" controlId="user">
-                      <Form.Label>멤버</Form.Label>
+                      <Form.Label>채널 멤버</Form.Label>
                 <ListGroup style={{height:"200px",overflow:"auto"}}>
                   {users.map((user)=><ListGroup.Item key={user.no}>{user.name} ({user.email})</ListGroup.Item>)}
                 </ListGroup>
@@ -38,11 +44,12 @@ function CrewSetting_member({users, onClickModal, setTab, onClickCrewInvite}) {
         <Modal.Footer>
           <Button variant="outline-dark"  onClick={() => {onClickModal()
                               setTab(0)
-                              }} >
-            취소
-          </Button>
-          <Button variant="outline-dark"  >
-            변경사항 저장
+                              }}
+                              onKeyDown={(e) => { 
+                                if(e.key === 'Enter') 
+                                 { onClickModal()
+                                  setTab(0)}}} >
+            확인
           </Button>
       </Modal.Footer>
   

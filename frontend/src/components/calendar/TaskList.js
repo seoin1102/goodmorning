@@ -1,14 +1,13 @@
 import React from "react";
 import "../../styles/css/Calendar.css";
-import task,{ setTask, addTask, deleteTask } from "../../redux/task";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 
-function TaskList(props) {
+function TaskList() {
   const taskList = useSelector((state) => state.task, shallowEqual);
 
   return (
     <div>
-      <strong> Events</strong>
+      <div style={{textAlign:'center'}}><strong>개인 업무</strong></div>
       {taskList.map((event, index) => (
         <div
           key={index}
@@ -16,7 +15,8 @@ function TaskList(props) {
           title={event.title}
           data={event.id}
           style={{
-            backgroundColor: event.color
+            backgroundColor: event.color,
+            textAlign:'left'
           }}
         >
           {event.title}

@@ -1,17 +1,21 @@
-import React, { useState, useEffect} from "react";
-import { Prev } from "react-bootstrap/esm/PageItem";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import React, { useState, useEffect, memo } from "react";
+import { useSelector, shallowEqual } from "react-redux";
 
 function AssignCheckbox(props) {
-  const dispatch = useDispatch();
   const taskList = useSelector((state) => state.task, shallowEqual);
   const crewUserList = useSelector((state) => state.crewUser, shallowEqual);
   // 체크된 아이템을 담을 배열
   const [checkItems, setCheckItems] = useState(crewUserList);
 
+
   useEffect(() => {
     setCheckItems(crewUserList)
   }, [crewUserList]);
+
+  useEffect(() => {
+    handleAllCheck(true)
+  }, []);
+
 
   // 체크박스 단일 선택
   const handleSingleCheck = (checked, assign) => {
@@ -20,7 +24,6 @@ function AssignCheckbox(props) {
       .map((task) => {
         return task;
       });
-
 
     if (checked) {
       // 단일 선택 시 체크된 아이템을 배열에 추가
@@ -51,7 +54,7 @@ function AssignCheckbox(props) {
   };
   return (
     <>
-      <div>
+      <div style={{fontSize:'15px', fontWeight:'bold'}}>
         <input
           type="checkbox"
           name="select-all"
@@ -59,7 +62,7 @@ function AssignCheckbox(props) {
           // 데이터 개수와 체크된 아이템의 개수가 다를 경우 선택 해제 (하나라도 해제 시 선택 해제)
           checked={checkItems.length === crewUserList.length ? true : false}
         />
-        목록
+        팀원 전체
       </div>
       {crewUserList.map((assign, key) => (
         <div key={key}>
@@ -80,4 +83,4 @@ function AssignCheckbox(props) {
     </>
   );
 }
-export default AssignCheckbox
+export default memo(AssignCheckbox)

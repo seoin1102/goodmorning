@@ -14,21 +14,26 @@ import lombok.RequiredArgsConstructor;
 public class ProjectRepository {
 	private final SqlSession sqlSession;
 
-	public List<ProjectVo> findAll(Long crewNo) {
-		return sqlSession.selectList("project.findAll", crewNo);
+	public List<ProjectVo> findByCrew(Long crewNo) {
+		return sqlSession.selectList("project.findByCrew", crewNo);
+	}
+	
+	public List<ProjectVo> findByChannel(Long channelNo) {
+		return sqlSession.selectList("project.findByChannel", channelNo);
 	}
 
 	public Boolean insert(ProjectVo projectVo) {
 		return sqlSession.insert("project.insert", projectVo) == 1;
 	}
-//
-//	public Boolean update(ProjectVo taskVo) {
-//		return sqlSession.insert("task.update", taskVo) == 1;
-//	}
-//
-//	public Boolean delete(Long id) {
-//		return sqlSession.insert("task.delete", id) == 1;
-//
-//	}
+
+	public Boolean update(ProjectVo projectVo) {
+		return sqlSession.insert("project.update", projectVo) == 1;
+	}
+
+	public Boolean delete(Long id) {
+		sqlSession.insert("task.delete", id);
+		return sqlSession.insert("project.delete", id) == 1;
+
+	}
 
 }

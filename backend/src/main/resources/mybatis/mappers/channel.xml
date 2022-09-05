@@ -15,7 +15,7 @@
 				select c.no as no, c.name as name, b.no as crewNo, b.name as crewName 
 				from crew_user as a , crew as b, channel as c 
 				where b.no = a.crew_no and b.channel_no = c.no and user_no = #{userNo} 
-				order by lastIn desc limit 1;
+				order by a.lastIn desc limit 1;
 				]]>
 		</select>
 		
@@ -49,6 +49,25 @@
 		<select id="findUserNoByEmail" parameterType="string" resultType="integer">
 				<![CDATA[
 				select no from user where email = #{email};
+				]]>
+		</select>
+		
+		<select id="findNoByCrewNoAndUserNo" parameterType="map" resultType="long">
+				<![CDATA[
+				select a.channel_no as channelNo from 
+					crew as a, 
+				(select channel_no from channel_user where user_no = #{authUserNo}) as b, 
+					(select crew_no from crew_user where user_no = #{authUserNo}) as c 
+				where a.channel_no = b.channel_no 
+					and a.no = c.crew_no 
+				and a.no = #{crewNo};
+				]]>
+		</select>
+		
+		<select id="findMasterChannelUserNo" parameterType="long" resultType="long">
+				<![CDATA[
+				select master_channel_user_no as masterChannelUserNo 
+				from channel where no = #{channelNo};
 				]]>
 		</select>
 		

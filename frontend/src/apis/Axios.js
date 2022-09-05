@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {checkResponse, checkAuth, catchAuth } from './Fetch'
-const client = axios.create({baseURL: '/api'})
+const client = axios.create({baseURL: '/api'});
 
 /**
  * axios GET(Read) 요청
@@ -9,7 +9,6 @@ const client = axios.create({baseURL: '/api'})
  */
 export const get = async (url) => {
     try {
-        console.log("get 출력");
         let response =  await client.get(url);
         checkAuth(response);
         return response.data.data;
@@ -17,6 +16,21 @@ export const get = async (url) => {
         console.error("Error >>", error);
         catchAuth(error);
     }    
+}
+
+export const getGit = async (url, data) => {
+  try {
+      let response =  await axios.post(url, data, {headers: {'Content-Type': 'application/json'}});
+      //let response =  await axios.get(`/git${url}`);
+      //let response =  await axios.get(`https://github.com/shake-shack/goodmorning`);
+    
+      checkAuth(response);
+      
+      return response.data;
+  } catch (error) {
+      console.error("Error >>", error);
+      catchAuth(error);
+  }    
 }
 
 export const getJson = async (url, data) => {
@@ -57,6 +71,17 @@ export const postJson = async (url, data) => {
   }
 }
 
+export const postFile = async (url, data) => {
+    try {
+        let response = await client.post(url, data, {headers: {'Content-Type': 'multipart/form-data'}
+      });
+        return response.data;
+    } catch (error) {
+        console.error("Error >>", error);
+  
+    }
+  }
+
 export const putJson = async (url, data) => {
     try {
         let response = await client.put(url, data, {headers: {'Content-Type': 'application/json'}
@@ -71,6 +96,16 @@ export const putJson = async (url, data) => {
 export const put = async (url, data) => {
     try {
         let response = await client.put(url, data);
+        return response.data;
+
+    } catch (error) {
+        console.error("Error >>", error);
+    }
+}
+
+export const putUrl = async (url) => {
+    try {
+        let response = await client.put(url);
         return response.data;
 
     } catch (error) {

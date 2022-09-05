@@ -8,12 +8,14 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ProjectVo {
-	private Long no;
+	private Long id;
 	private String projectName;
 	private String start;
 	private String end;
 	private String description;
 	private String status;
 	private Long crewNo;
+	private boolean enable;
+	private String crewName;
 
 }

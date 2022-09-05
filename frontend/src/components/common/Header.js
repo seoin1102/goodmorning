@@ -13,17 +13,16 @@ import {getLocalStorageAuthUser} from '../../apis/Fetch';
 
 
 function Header() {
-    
+    const [totalSum, setTotalSum] = useState(0);
     // modal state
     const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
-
-    //const [changeChannelNo, setChangeChannelNo] = useState(channelNo);
-    //const [changeChannelName, setChangeChannelName] = useState(channelName);
+    const [users, setUsers] = useState([]);
+    const [masterChannelNo, setMasterChannelNo] = useState(0);
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
 
-     const dispatch = useDispatch();
-     const channelList = useSelector(state => (state.channel), shallowEqual);
+    const dispatch = useDispatch();
+    const channelList = useSelector(state => (state.channel), shallowEqual);
 
     const channelName = useSelector(state => {
         return state.focus.channelName;
@@ -33,15 +32,16 @@ function Header() {
         return state.focus.channelNo;
     }, shallowEqual);
 
-    const [changeChannel, setChangeChannel] = useState({
-        no: channelNo,
-        name: channelName
-    })
+    // const [changeChannel, setChangeChannel] = useState({
+    //     no: channelNo,
+    //     name: channelName
+    // })
    
     /**
      * 채널 목록
      * @param userNo 채널 번호
      */
+
     const initialChannel = useCallback(async(channelNo, userNo) => {
       const channels = await get(`/channel/${channelNo}/${userNo}`);
       dispatch(setChannel(channels));
@@ -60,6 +60,15 @@ function Header() {
         // dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
     }, [])
 
+    const initialUser = useCallback(async() => {
+        const result = await get(`/user/email/${channelNo}`);
+        setUsers(() => [].concat(result));
+    }, [users, channelNo])
+
+    const MasterChannelUserNo = useCallback(async() => {
+        const result = await get(`/channel/master/${channelNo}`);
+        setMasterChannelNo(result);
+    }, [masterChannelNo, channelNo])
 
     const onChangeChannel = useCallback(async(channelNo, userNo) => {
         const result = await get(`/channel/change/${channelNo}/${userNo}`);
@@ -91,15 +100,15 @@ function Header() {
             initialFocus(userNo);
         
         if (channelNo !== null)
-            initialChannel(channelNo,userNo);  
-      }, [channelNo])
+            initialChannel(channelNo,userNo);
+      }, [channelNo,user])
         
 
     // css
     // 이넘 땜에 최적화 안됨 --> css 파일로 만들기
     const channelStyle = {height:'60px', whiteSpace:'no-wrap', overflow:'hidden', textOverflow:'ellipsis'};
     
-    const [users, setUsers] = useState([]);
+    
 
     // const initialUser = useCallback(async(userNo) => {
     //     const result = await get(`/user/email/${userNo}`);
@@ -110,17 +119,17 @@ function Header() {
     // modal click
     const onClickChannelModal = useCallback(() => {
         setChannelModalIsOpen(prevChannelModalIsOpen => !prevChannelModalIsOpen);
-        // initialUser(userNo);
-    }, [])
-
+        initialUser();
+        MasterChannelUserNo();
+    }, [channelNo, users, masterChannelNo])
 
     return (
-        <Grid container style={{backgroundColor:'#283249', color:'white'}}>            
+        <Grid container style={{backgroundColor:'#1bc6d9', color:'white', borderBottom:'solid 1px #f7f7fa'}}>            
             <HeaderItem itemName={channelName} modalIsOpen={channelModalIsOpen} customStyle={channelStyle} onClickModal={onClickChannelModal}>
-                <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users}/>
+                <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users} initialUser={initialUser} masterChannelNo={masterChannelNo}/>
             </HeaderItem>
             <HeaderSearch/>
-            <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel}/>
+            <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel} totalSum={totalSum} setTotalSum={setTotalSum}/>
         </Grid>
     );
 }

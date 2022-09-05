@@ -57,4 +57,17 @@ public class CrewService {
 		return crewRepository.checkCrewUser(userNo,crewNo);
 	}
 
+	public List<CrewVo> getUserNo(Long crewNo) {
+		return crewRepository.findNoByCrewNo(crewNo);
+	}
+
+	public void deleteCrewUser(Long crewNo, Long userNo) {
+		crewRepository.deleteCrewUser(crewNo,userNo);
+		
+	}
+
+	public Long getMasterCrewUserNo(Long crewNo) {
+		return crewRepository.findMasterCrewUserNo(crewNo);
+	}
+
 }
