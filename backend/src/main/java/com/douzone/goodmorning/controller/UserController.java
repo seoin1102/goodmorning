@@ -55,7 +55,7 @@ public class UserController {
 	@GetMapping("/mailAuthentication/{email}/{token}")
 	public void mailAuthentication(@PathVariable("email") String email, @PathVariable("token") String token, HttpServletResponse response) throws IOException {
 
-		String url = "http://localhost:9090/signin";
+		String url = "http://34.64.45.3:8080/signin";
 		VerificationTokenVo tokenVo = new VerificationTokenVo();
 		tokenVo.setEmail(email);
 		tokenVo.setToken(token);

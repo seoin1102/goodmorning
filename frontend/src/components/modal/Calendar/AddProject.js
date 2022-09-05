@@ -47,28 +47,28 @@ function AddProject({show, handleClose, publishLinkPreview}) {
     }
 
 
-    const octokit = new Octokit({
-      auth: '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'
-    })
+    // const octokit = new Octokit({
+    //   auth: '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'
+    // })
 
-    await octokit.request('POST /repos/tlckd/react-practices/hooks', {
-      owner: 'tlckd',
-      repo: 'react-practices',
-      name: 'web',
-      active: true,
-      events: [
-        'push',
-        'pull_request',
-        'create',
-        'delete',
+    // await octokit.request('POST /repos/tlckd/react-practices/hooks', {
+    //   owner: 'tlckd',
+    //   repo: 'react-practices',
+    //   name: 'web',
+    //   active: true,
+    //   events: [
+    //     'push',
+    //     'pull_request',
+    //     'create',
+    //     'delete',
 
-      ],
-      config: {
-        url: 'https://2698-1-252-13-218.jp.ngrok.io/api/githubhook/hookdata',
-        content_type: 'json',
-        insecure_ssl: '0'
-      }
-    })
+    //   ],
+    //   config: {
+    //     url: 'https://2698-1-252-13-218.jp.ngrok.io/api/githubhook/hookdata',
+    //     content_type: 'json',
+    //     insecure_ssl: '0'
+    //   }
+    // })
 
     post(`/project`,  updatedTask)
     dispatch(addProject([ updatedTask]));
@@ -155,20 +155,20 @@ const copyToClipBoard = async copyMe => {
             
               <Form.Label>Git 훅 URL</Form.Label>
               <div style={{display:'flex', justifyContent:"space-between"}}>
-              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"https://2698-1-252-13-218.jp.ngrok.io/api/githubhook/hookdata/"} disabled>
+              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"http://34.64.45.3/api/githubhook/hookdata/"} disabled>
                   
               </Form.Control>
               
               
 
-              <Button onClick={(e) => copyToClipBoard("https://2698-1-252-13-218.jp.ngrok.io/api/githubhook/hookdata/")} >copy</Button>
+              <Button onClick={(e) => copyToClipBoard("http://34.64.45.3/api/githubhook/hookdata/")} >copy</Button>
                           </div><br />     <br /> 
 
               <Form.Label>젠킨스 훅 URL</Form.Label>
               <br />
               <div style={{display:'flex', justifyContent:"space-between"}}>
-              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"https://2698-1-252-13-218.jp.ngrok.io/api/jenkinsHook/hookdata"} disabled/>
-                <Button onClick={(e) => copyToClipBoard("https://2698-1-252-13-218.jp.ngrok.io/api/jenkinsHook/hookdata")} > 
+              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"http://34.64.45.3/api/jenkinsHook/hookdata"} disabled/>
+                <Button onClick={(e) => copyToClipBoard("http://34.64.45.3/api/jenkinsHook/hookdata")} > 
                   copy
                 </Button> 
 
