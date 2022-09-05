@@ -101,7 +101,7 @@ public class FileManagementController {
 	
 	@PostMapping("/uploadAndFindFileList")
 	public ResponseEntity<JsonResult> uploadAndFindFileList(@RequestParam("file") MultipartFile file,FileManagementVo fileManagementVo) {
-		
+		System.out.println("zzzz"+file);
 		fileManagementVo.setUrl(FileUploadService.restoreImage(file));
 		fileManagementVo.setOriginFileName(file.getOriginalFilename());
 		
@@ -132,7 +132,6 @@ public class FileManagementController {
 	@PostMapping("/profileImg")
 	public ResponseEntity<JsonResult> profileImg(@RequestBody UserVo userVo) {
 		userVo=fileManagementService.findProfileUrl(userVo);
-		System.out.println(userVo);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(userVo));

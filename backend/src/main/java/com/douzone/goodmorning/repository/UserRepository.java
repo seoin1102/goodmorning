@@ -85,4 +85,13 @@ public class UserRepository {
 
 	}
 
+	public void updateFileURL(String fileURL, Long userNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("fileURL", fileURL);
+		map.put("userNo", userNo);
+		
+		sqlSession.update("user.updateFileURL", map);
+		
+	}
+
 }

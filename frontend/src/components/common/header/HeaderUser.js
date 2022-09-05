@@ -66,7 +66,7 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
                             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                             <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="ms-auto">
-                            <Navbar.Brand style={{fontSize: '1.2rem', color: 'white', fontWeight: 'bold'}}>{user.name}</Navbar.Brand>
+                            <Navbar.Brand style={{fontSize: '1.2rem', color: 'white', fontWeight: 'bold',overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', width:'120px', textAlign:'right'}}>{user.name}</Navbar.Brand>
 
                             <Nav.Link onClick={onClickProfileModal} style={{fontSize: '1rem', color: 'white'}}>내정보</Nav.Link>
                             <ProfileInfo modalShow={profileModalShow} onClickModal={onClickProfileModal}/>
