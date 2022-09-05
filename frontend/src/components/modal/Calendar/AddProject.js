@@ -20,6 +20,7 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import { addProject } from "../../../redux/project";
 import Button from 'react-bootstrap/Button';
+import { Octokit } from "@octokit/core";
 
 function AddProject(props) {
   
@@ -44,7 +45,7 @@ function AddProject(props) {
   const ids = []
   projectList.map((event) => {ids.push(event.id)})
   const maxId = Math.max(...ids);
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const updatedTask={
       projectName: clickedName,
@@ -55,6 +56,29 @@ function AddProject(props) {
       crewNo: crewNo,
       id: maxId+1
     }
+
+    const octokit = new Octokit({
+      auth: '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'
+    })
+
+    await octokit.request('POST /repos/tlckd/react-practices/hooks', {
+      owner: 'tlckd',
+      repo: 'react-practices',
+      name: 'web',
+      active: true,
+      events: [
+        'push',
+        'pull_request',
+        'create',
+        'delete',
+
+      ],
+      config: {
+        url: 'https://2698-1-252-13-218.jp.ngrok.io/api/githubhook/hookdata',
+        content_type: 'json',
+        insecure_ssl: '0'
+      }
+    })
 
     post(`/project`,  updatedTask)
     dispatch(addProject([ updatedTask]));

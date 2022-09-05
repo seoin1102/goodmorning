@@ -99,7 +99,7 @@ function Profile({ modalShow, onClickModal }) {
             </Form>
           </Modal>
 
-          {/* <EditProfile modalShow={editProfileModalShow} onClickModal={onClickeditProfileModal} uploadcheck={uploadcheck}
+           {/* <EditProfile modalShow={editProfileModalShow} onClickModal={onClickeditProfileModal} uploadcheck={uploadcheck}
             user={user} profile={profile} setProfile={setProfile} /> */}
             </>) 
 
