@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {checkResponse, checkAuth, catchAuth } from './Fetch'
-const client = axios.create({baseURL: 'https://34.64.45.3:8080/api'});
+const client = axios.create({baseURL: 'http://34.64.235.225:8080/api'});
 
 /**
  * axios GET(Read) 요청

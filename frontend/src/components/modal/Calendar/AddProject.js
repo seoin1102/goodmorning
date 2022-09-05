@@ -155,20 +155,20 @@ const copyToClipBoard = async copyMe => {
             
               <Form.Label>Git 훅 URL</Form.Label>
               <div style={{display:'flex', justifyContent:"space-between"}}>
-              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"http://34.64.45.3/api/githubhook/hookdata/"} disabled>
+              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"http://34.64.235.225:8080/api/githubhook/hookdata/"} disabled>
                   
               </Form.Control>
               
               
 
-              <Button onClick={(e) => copyToClipBoard("http://34.64.45.3/api/githubhook/hookdata/")} >copy</Button>
+              <Button onClick={(e) => copyToClipBoard("http://34.64.235.225:8080/api/githubhook/hookdata/")} >copy</Button>
                           </div><br />     <br /> 
 
               <Form.Label>젠킨스 훅 URL</Form.Label>
               <br />
               <div style={{display:'flex', justifyContent:"space-between"}}>
-              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"http://34.64.45.3/api/jenkinsHook/hookdata"} disabled/>
-                <Button onClick={(e) => copyToClipBoard("http://34.64.45.3/api/jenkinsHook/hookdata")} > 
+              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"http://34.64.235.225:8080/api/jenkinsHook/hookdata"} disabled/>
+                <Button onClick={(e) => copyToClipBoard("http://34.64.235.225:8080/api/jenkinsHook/hookdata")} > 
                   copy
                 </Button> 
 
