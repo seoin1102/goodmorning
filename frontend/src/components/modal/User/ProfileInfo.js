@@ -9,25 +9,27 @@ import channelIcon from '../../../assets/icons/channel.png'
 import phoneIcon from '../../../assets/icons/phone.png'
 
 function Profile({ modalShow, onClickModal }) {
+
   // const [name,setName] = useState("");
   const user = getLocalStorageAuthUser();
-  const { name, job, phoneNumber } = user;
+  const { name, job, phoneNumber, profileUrl } = user;
   const [profile, setProfile] = useState({
     name: name,
     job: job,
-    phoneNumber: phoneNumber
+    phoneNumber: phoneNumber,
+    profileUrl: profileUrl
   })
   const userNo = user.no;
   const [isInitial, setInitial] = useState(false);
   const [url, seturl] = useState('');
-
+  
   useEffect(() => {
     (async () => {
       const profileUrl = await getProfileImg(userNo)
       seturl(profileUrl);
       setInitial(true)
     })();
-  }, []);
+  }, [profile]);
 
   const getProfileImg = async function (userNo) {
     try {
@@ -36,16 +38,11 @@ function Profile({ modalShow, onClickModal }) {
       }
       const response = await fetchResponse('/api/fileManagement/profileImg', 'post', 'jsonjsonHeader', JSON.stringify(data));
       const json = await checkResponse(response);
-      console.log(json);
+      // console.log(json);
       return json.data.profileUrl;
     } catch (err) {
       console.log(err);
     }
-  }
-
-  const uploadcheck = async (file, userNo) => {
-    const updateProfileUrl = await updateProfileAndFindProfileurl(file, userNo);
-    seturl(updateProfileUrl);
   }
 
   const [editProfileModalShow, seteditProfileModalShow] = useState(false);

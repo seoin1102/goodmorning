@@ -3,11 +3,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { get } from '../../../apis/Axios';
+import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 import { setCHANNELFOCUS } from '../../../redux/focus';
 
 
-function ChannelSetting_info({onClickHandler,channelName, onClickModal}) {
+function ChannelSetting_info({onClickHandler,channelName, onClickModal, masterChannelNo}) {
     const [name, setName] = useState(channelName);
+    const user = getLocalStorageAuthUser();
 
     return (
     <>
@@ -15,6 +17,7 @@ function ChannelSetting_info({onClickHandler,channelName, onClickModal}) {
             <Form>
                 <Form.Group className="mb-3" controlId="channelForm.name">
                   <Form.Label>워크스페이스 이름</Form.Label>
+                  {masterChannelNo === user.no ? 
                   <Form.Control
                     type="text"
                     placeholder="WorkSpace Name"
@@ -24,7 +27,9 @@ function ChannelSetting_info({onClickHandler,channelName, onClickModal}) {
                     }}
                     defaultValue={channelName}
                     />
+                    :<Form.Group className="mb-3" controlId="crewForm.name"> <Form.Label> {channelName} </Form.Label> </Form.Group>}
                 </Form.Group>
+               
                   <Form.Group className="mb-3">
                 <Button variant="outline-dark" onClick={onClickModal} >
                     이 워크스페이스에서 나가기
