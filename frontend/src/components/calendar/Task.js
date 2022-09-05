@@ -1,15 +1,16 @@
-import React, { useState, useEffect,memo} from "react";
+import React, { useState, useEffect,memo, useCallback } from "react";
 
 import { Col, Row } from "react-bootstrap";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
-import { addTask } from "../../redux/task";
+import { setTask, addTask } from "../../redux/task";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {  Box, Card, Button, Paper } from "@mui/material";
 import { NavDropdown } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import { get } from '../../apis/Axios';
 
 import "../../styles/css/Calendar.css";
 
@@ -66,6 +67,10 @@ function Calendar() {
     dispatch(addTask(task));
   };
 
+  const initialTask = useCallback(async(crewNo)=>{
+    const getTasks = await get(`/task/cNo/${crewNo}`);
+    dispatch(setTask(getTasks));
+}, [dispatch])
   /////
   const eventClickHandler = (info) => {
     const { id, title, start, end } = info.event;
@@ -116,7 +121,7 @@ function Calendar() {
                     프로젝트로 돌아가기
                   </Button>
                 </NavLink> */}
-                <NavDropdown
+                {/* <NavDropdown
                   style={{
                     border: "3px solid #f0f8ff69",
                     fontSize: "15px",
@@ -128,16 +133,7 @@ function Calendar() {
                     ? crewList.map((crew, index) => (
                         <NavDropdown.Item
                           onClick={() => {
-                            setChangeCrew((prevState) => ({
-                              ...prevState,
-                              no: crew.no,
-                              name: crew.name,
-                            }));
-                            dispatch(
-                              setCREWFOCUS({ no: crew.no, name: crew.name })
-                            );
-
-                            return initialProject(crew.no);
+                            return initialTask(crew.no);
                           }}
                           key={index}
                         >
@@ -145,7 +141,7 @@ function Calendar() {
                         </NavDropdown.Item>
                       ))
                     : ""}
-                </NavDropdown>
+                </NavDropdown> */}
                 
               </div>
             </div>

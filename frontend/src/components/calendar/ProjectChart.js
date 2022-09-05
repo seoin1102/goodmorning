@@ -2,12 +2,14 @@ import React from "react";
 
 import { Chart } from "react-google-charts";
 import "../../styles/css/gantt.css";
+
 export default function MyWidget(props) {
   const [data, setData] = React.useState(props.data);
 
   React.useEffect(() => {
     setData(props.data);
   }, [props.data]);
+
 
   return (
     <div>
@@ -18,7 +20,7 @@ export default function MyWidget(props) {
             chartType="Gantt"
             data={data}
             width="100%"
-      height="50%"
+            height="50%"
             chartLanguage="ko"
             legendToggle
             options={options}

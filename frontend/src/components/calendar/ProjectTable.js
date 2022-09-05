@@ -43,13 +43,9 @@ function computeMutation(newRow, oldRow) {
 }
 
 export default function AskConfirmationBeforeSave(props) {
-  const [show, setShow] = React.useState(false);
   const dispatch = useDispatch();
 
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
   const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
-  // const [selectionModel, setSelectionModel] = React.useState([]);
   const projectList = useSelector((state) => state.project, shallowEqual);
 
 
@@ -88,10 +84,13 @@ export default function AskConfirmationBeforeSave(props) {
       // Make the HTTP request to save in the backend
       const response = await mutateRow(newRow);
       const projectId = response.id
+      console.log("******************")
+      console.log(projectList)
 
       put(`/project/${projectId}`, {...response, start:moment(response.start).format('YYYY-MM-DD'),end: moment(response.end).format('YYYY-MM-DD'),crewNo:crewNo})
-      get('')
       dispatch(updateProject(projectId,{...response, projectName:response.projectName, start:moment(response.start).format('YYYY-MM-DD'),end: moment(response.end).format('YYYY-MM-DD'),crewNo:crewNo}));
+      console.log(projectList)
+      console.log("******************")
       resolve(response);
       setPromiseArguments(null);
       setSnackbar({ children: '성공적으로 저장됐습니다.', severity: 'success' });
@@ -170,7 +169,7 @@ const columns = [
     headerName: '채널 이름',
     type: 'string',
     width: 180,
-    editable: true
+    editable: false
   },
   {
     field: 'status',
