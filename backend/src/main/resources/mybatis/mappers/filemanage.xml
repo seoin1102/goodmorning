@@ -41,7 +41,7 @@
 		<![CDATA[
 		  select fileUpload.no as no, fileUpload.url as url, fileUpload.comment as comment, fileUpload.origin_file_name as originFileName, date as sendDate, fileUpload.user_no as userNo, fileUpload.project_no as projectNo
 		  from fileUpload
-		  where fileUpload.project_no=#{projectNo } and enable=true
+		  where fileUpload.project_no=#{projectNo } and enable=true 
 		  order by no desc;
 		]]>
 	</select>
