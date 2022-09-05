@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect,memo} from "react";
 
 import { Col, Row } from "react-bootstrap";
 import FullCalendar from "@fullcalendar/react";
@@ -111,6 +111,11 @@ function Calendar() {
                 업무 달력
               </h3>
               <div style={{display:'flex',gap:"1rem"}}>
+              {/* <NavLink style={{ textDecorationLine: "none" }} to={"/project"}>
+                  <Button style={{ color: "black" }}>
+                    프로젝트로 돌아가기
+                  </Button>
+                </NavLink> */}
                 <NavDropdown
                   style={{
                     border: "3px solid #f0f8ff69",
@@ -141,11 +146,7 @@ function Calendar() {
                       ))
                     : ""}
                 </NavDropdown>
-                <NavLink style={{ textDecorationLine: "none" }} to={"/project"}>
-                  <Button style={{ color: "black" }}>
-                    프로젝트로 돌아가기
-                  </Button>
-                </NavLink>
+                
               </div>
             </div>
             <div style={{display:'flex',gap:"1rem"}}>
@@ -188,4 +189,4 @@ function Calendar() {
   );
 }
 
-export default Calendar;
+export default memo(Calendar);

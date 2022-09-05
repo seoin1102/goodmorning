@@ -7,7 +7,7 @@ function TaskList() {
 
   return (
     <div>
-      <strong>팀원</strong>
+      <div style={{textAlign:'center'}}><strong>팀원</strong></div>
       {taskList.map((event, index) => (
         <div
           key={index}

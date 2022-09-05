@@ -15,7 +15,7 @@ export default function ProjectSelect(props) {
 }
 
   return (
-    <Stack spacing={3} sx={{ width: 500 }}>
+    <Stack spacing={3} sx={{ width: 466 }}>
       <Autocomplete
         id="tags-outlined"
         options={projectList.map((option)=>option.projectName)}
@@ -24,7 +24,6 @@ export default function ProjectSelect(props) {
         renderInput={(params) => (
           <TextField
             {...params}
-            label="프로젝트"
             placeholder="프로젝트를 입력해주세요"
           />
         )}

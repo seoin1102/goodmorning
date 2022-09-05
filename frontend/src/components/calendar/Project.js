@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo, useMemo } from "react";
 import { NavDropdown } from "react-bootstrap";
 import { get, remove } from "../../apis/Axios";
 import {Card, Box, Button, Grid, Paper} from "@mui/material";
 import { NavLink } from "react-router-dom";
-
 import CollapsibleTable from "./ProjectTable";
-
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
@@ -14,10 +12,13 @@ import { YearPicker } from "@mui/x-date-pickers/YearPicker";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import ProjectChart from "./ProjectChart";
 import { setProject, deleteProject } from "../../redux/project";
+import { setTask} from "../../redux/task";
 import { setCREWFOCUS } from "../../redux/focus";
 import AddProject from "../modal/Calendar/AddProject";
 
+
 export default function Project({publishLinkPreview}) {
+
   const crewNo = useSelector((state) => state.focus.crewNo, shallowEqual);
   const [show, setShow] = React.useState(false);
   const [changeCrew, setChangeCrew] = useState();
@@ -26,14 +27,23 @@ export default function Project({publishLinkPreview}) {
   const dispatch = useDispatch();
   const crewList = useSelector((state) => state.crew, shallowEqual);
   const projectList = useSelector((state) => state.project, shallowEqual);
+  const taskList = useSelector((state) => state.task, shallowEqual);
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
   const initialProject = React.useCallback(
     async (crewNo) => {
-      const getProjects = await get(`/project/${crewNo}`);
+      const getProjects = await get(`/project/cNo/${crewNo}`);
       dispatch(setProject(getProjects));
+    },
+    [dispatch]
+  );
+
+  const initialTask = React.useCallback(
+    async (projectNo) => {
+      const getTasks = await get(`/task/pNo/${projectNo}`);
+      dispatch(setTask(getTasks));
     },
     [dispatch]
   );
@@ -42,10 +52,20 @@ export default function Project({publishLinkPreview}) {
     setChangeCrew(crewNo);
   }, [crewNo]);
 
+
+
   const handleDelete = () => {
     selectionModel.map((id) => {
       const res = remove(`/project/${id}`, id);
       dispatch(deleteProject(id));
+    });
+  };
+
+  const handleTask = () => {
+    selectionModel.map((id) => {
+      initialTask(projectList)
+
+
     });
   };
 
@@ -71,6 +91,14 @@ export default function Project({publishLinkPreview}) {
   ]);
   const data = [columns, ...projects];
 
+useEffect(()=>{
+  initialProject
+},[initialProject])
+
+useEffect(()=>{
+  initialTask
+},[initialTask])
+
   return (
     <div
       className="animated fadeIn p-4 demo-app"
@@ -81,12 +109,6 @@ export default function Project({publishLinkPreview}) {
           <Paper>
             <Card sx={{ minWidth: 275 }}>
               <Grid item xs={10} md={12}>
-                {/* <YearPicker
-            date={date}
-            minDate={minDate}
-            maxDate={maxDate}
-            onChange={(newDate) => setDate(newDate)}
-          /> */}
                 <div
                   style={{
                     float: "right",
@@ -121,6 +143,7 @@ export default function Project({publishLinkPreview}) {
                             }}
                             key={index}
                           >
+
                             {crew.name}
                           </NavDropdown.Item>
                         ))
@@ -145,13 +168,15 @@ export default function Project({publishLinkPreview}) {
                   >
                     프로젝트 삭제
                   </Button>
-                  <NavLink style={{ textDecorationLine: "none" }} to={"/task"}>
+
+                  {/* <NavLink style={{ textDecorationLine: "none" }} to={"/task"}>
                     <Button
                       style={{ fontFamily: "SUIT-Medium", color: "black" }}
+                      onClick={handleTask}
                     >
                       작업 설정
                     </Button>
-                  </NavLink>
+                  </NavLink> */}
                 </div>
               </Grid>
               <ProjectChart

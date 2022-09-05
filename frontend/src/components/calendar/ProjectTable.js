@@ -4,7 +4,7 @@ import { Snackbar, Dialog, DialogTitle, DialogContent, DialogActions, Button, Al
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import moment from "moment";
 import { updateProject} from "../../redux/project";
-import { put } from '../../apis/Axios';
+import { get, put } from '../../apis/Axios';
 
 
 const useFakeMutation = () => {
@@ -50,6 +50,7 @@ export default function AskConfirmationBeforeSave(props) {
   const handleClose = () => setShow(false);
   const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
   // const [selectionModel, setSelectionModel] = React.useState([]);
+  const projectList = useSelector((state) => state.project, shallowEqual);
 
 
   const mutateRow = useFakeMutation();
@@ -86,13 +87,14 @@ export default function AskConfirmationBeforeSave(props) {
     try {
       // Make the HTTP request to save in the backend
       const response = await mutateRow(newRow);
-      setSnackbar({ children: '성공적으로 저장됐습니다.', severity: 'success' });
       const projectId = response.id
 
       put(`/project/${projectId}`, {...response, start:moment(response.start).format('YYYY-MM-DD'),end: moment(response.end).format('YYYY-MM-DD'),crewNo:crewNo})
-      dispatch(updateProject(projectId,{...response, start:moment(response.start).format('YYYY-MM-DD'),end: moment(response.end).format('YYYY-MM-DD'),crewNo:crewNo}));
+      get('')
+      dispatch(updateProject(projectId,{...response, projectName:response.projectName, start:moment(response.start).format('YYYY-MM-DD'),end: moment(response.end).format('YYYY-MM-DD'),crewNo:crewNo}));
       resolve(response);
       setPromiseArguments(null);
+      setSnackbar({ children: '성공적으로 저장됐습니다.', severity: 'success' });
 
     } catch (error) {
       setSnackbar({ children: "값을 입력해주세요.", severity: 'error' });
@@ -148,6 +150,7 @@ export default function AskConfirmationBeforeSave(props) {
         processRowUpdate={processRowUpdate}
         experimentalFeatures={{ newEditingApi: true }}
       />
+      <Button>버튼</Button>
       {!!snackbar && (
         <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
           <Alert {...snackbar} onClose={handleCloseSnackbar} />
@@ -163,8 +166,8 @@ const columns = [
   { field: 'start', headerName: '시작일시', type:'date', width: 150, editable: true},
   { field: 'end', headerName: '종료일시', type:'date', width: 150, editable: true},
   {
-    field: 'description',
-    headerName: '설명',
+    field: 'crewName',
+    headerName: '채널 이름',
     type: 'string',
     width: 180,
     editable: true
@@ -176,8 +179,7 @@ const columns = [
     type: 'string',
     sortable: false,
     width: 70,
-  },
-  
+  }
 
 ];
 

@@ -96,8 +96,13 @@ function Profile({ modalShow, onClickModal }) {
               </Modal.Footer>
             </Form>
           </Modal>
-          <EditProfile modalShow={editProfileModalShow} onClickModal={onClickeditProfileModal}
-            user={user} profile={profile} setProfile={setProfile} /></>) 
+
+          <EditProfile modalShow={editProfileModalShow} 
+              onClickModal={onClickeditProfileModal}
+              user={user} 
+              profile={profile} 
+              setProfile={setProfile}/>
+             </>) 
                    : (null)}
       </>  
       );

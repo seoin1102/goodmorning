@@ -25,8 +25,8 @@ export default function AssignSelect(props) {
 }
 
   return (
-    <Stack spacing={3} sx={{ width: 500 }}>
-      <Autocomplete
+    <Stack spacing={3} sx={{ width: 466 }}>
+      {props.defaultValue && Object.keys(props.defaultValue).length > 4 ? (<Autocomplete
         multiple
         id="tags-outlined"
         options={crewUserList}
@@ -44,7 +44,26 @@ export default function AssignSelect(props) {
           />
         )}
         
+      />):(
+        <Autocomplete
+        multiple
+        id="tags-outlined"
+        options={crewUserList}
+        getOptionLabel={(option) => option.userName}
+        filterSelectedOptions
+        isOptionEqualToValue={(option, defaultValue) => props.defaultValue &&option.userName == defaultValue.userName}        
+        
+        onChange={onChange}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="작업자"
+            placeholder="작업자를 입력해주세요"
+          />
+        )}
+        
       />
+      )}
     </Stack>
   );
 }

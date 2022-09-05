@@ -21,6 +21,10 @@ public class TaskRepository {
 	public List<TaskVo> findByCrew(Long crewNo) {
 		return sqlSession.selectList("task.findByCrew", crewNo);
 	}
+	
+	public List<TaskVo> findByChannel(Long channelNo) {
+		return sqlSession.selectList("task.findByChannel", channelNo);
+	}
 
 	public Boolean insert(TaskVo taskVo) {
 		return sqlSession.insert("task.insert", taskVo) == 1;

@@ -22,6 +22,10 @@ public class TaskService {
 		return taskRepository.findByCrew(crewNo);
 	}
 	
+	public List<TaskVo> findByChannel(Long channelNo) {
+		return taskRepository.findByChannel(channelNo);
+	}
+	
 	public Boolean updateTask(TaskVo taskVo) {
 		return taskRepository.update(taskVo);
 	}

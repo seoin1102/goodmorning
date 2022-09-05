@@ -5,7 +5,11 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 
 function Status(props) {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("Todo");
+  
+  if(props.clickedStatus==null){
+    props.setClickedStatus('Todo')
+  }
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -19,7 +23,7 @@ function Status(props) {
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
         value={props.clickedStatus || "Todo"}
-        defaultValue={ props.clickedStatus || "Todo"}
+        defaultValue={"Todo"}
         onChange={handleChange}
       >
         <FormControlLabel value="Todo" control={<Radio />} label="진행전" />

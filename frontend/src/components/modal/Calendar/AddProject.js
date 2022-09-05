@@ -1,10 +1,8 @@
 
 import React, { memo, useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-
 import EndDatePicker from "../../calendar/EndDatePicker";
 import StartDatePicker from "../../calendar/StartDatePicker";
-
 import moment from 'moment';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -12,6 +10,7 @@ import Modal from 'react-bootstrap/Modal';
 import { post } from '../../../apis/Axios';
 import { addProject } from "../../../redux/project";
 import "../../../styles/css/Calendar.css";
+import { Octokit } from "@octokit/core";
 
 function AddProject({show, handleClose, publishLinkPreview}) {
   
@@ -34,8 +33,7 @@ function AddProject({show, handleClose, publishLinkPreview}) {
   projectList.map((event) => {ids.push(event.id)})
 
   const maxId = Math.max(...ids);
-
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     // 폼 데이터 객체로 만들기
     const updatedTask={
@@ -48,7 +46,30 @@ function AddProject({show, handleClose, publishLinkPreview}) {
       id: maxId+1
     }
 
-    // db 업데이트
+
+    const octokit = new Octokit({
+      auth: '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'
+    })
+
+    await octokit.request('POST /repos/tlckd/react-practices/hooks', {
+      owner: 'tlckd',
+      repo: 'react-practices',
+      name: 'web',
+      active: true,
+      events: [
+        'push',
+        'pull_request',
+        'create',
+        'delete',
+
+      ],
+      config: {
+        url: 'https://2698-1-252-13-218.jp.ngrok.io/api/githubhook/hookdata',
+        content_type: 'json',
+        insecure_ssl: '0'
+      }
+    })
+
     post(`/project`,  updatedTask)
     dispatch(addProject([ updatedTask]));
 
@@ -91,7 +112,7 @@ const copyToClipBoard = async copyMe => {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>프로젝트 명</Form.Label>
+              <Form.Label>프로젝트명</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="프로젝트 이름을 입력해주세요."
