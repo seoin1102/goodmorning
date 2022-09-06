@@ -17,7 +17,6 @@ import com.douzone.goodmorning.dto.status.StatusEnum;
 import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice
-@Slf4j
 public class GlobalExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	@ResponseBody
@@ -29,7 +28,7 @@ public class GlobalExceptionHandler {
 		// 1. 로깅(logging)
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
-		log.error(errors.toString());
+//		log.error(errors.toString());
     	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
