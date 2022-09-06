@@ -28,9 +28,32 @@ public class GitHubHookController {
 	
 	@PostMapping("/hookdata")
 
-	public void githubhook(@RequestHeader HashMap<String,String> headerData,@RequestBody HashMap<String, Object> data){
-		
-
+	public ResponseEntity<Message> githubhook(@RequestHeader HashMap<String, String> headerData, @RequestBody HashMap<String, Object> data){	
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("success");
+    	message.setData(headerData.get("x-github-event"));
+    	
+//		String key= headerData.get("x-github-event").toString();
+//		switch(key) {
+//			case "push":
+//				githubHookService.pushEventInsert(data,key);
+//				break;
+//			case "delete":
+//				githubHookService.deleteEventInsert(data,key);
+//				break;
+//			case "create":
+//				githubHookService.createEventInsert(data,key);
+//				break;	
+//			case "pull_request":
+//				githubHookService.pullReqeustEventInsert(data,key);
+//				break;	
+//		}
+    	
+    	
 //		System.out.println(data);
 //		System.out.println(data.values().toArray()[0]);
 //		System.out.println("================================");
@@ -58,37 +81,8 @@ public class GitHubHookController {
 //			System.out.println("밸류:" + value);
 //			}
 //		}
-
-
-	
-//    	HttpHeaders headers = new HttpHeaders();
-//    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-//    	
-//    	Message message = new Message();
-//    	message.setStatus(StatusEnum.OK);
-//    	message.setMessage("success");
-//    	message.setData(headerData.get("x-github-event"));
-    	
 		
-		String key= headerData.get("x-github-event");
-		switch(key) {
-			case "push":
-				githubHookService.pushEventInsert(data,key);
-				break;
-			case "delete":
-				githubHookService.deleteEventInsert(data,key);
-				break;
-			case "create":
-				githubHookService.createEventInsert(data,key);
-				break;	
-			case "pull_request":
-				githubHookService.pullReqeustEventInsert(data,key);
-				break;	
-		}
-		
-//		return ResponseEntity.ok().headers(headers).body(message);
-
-		
+		return ResponseEntity.ok().headers(headers).body(message);
 	}
 	
 	@PostMapping("/gitHookChatData")
