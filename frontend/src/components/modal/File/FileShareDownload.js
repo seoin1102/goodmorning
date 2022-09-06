@@ -82,7 +82,7 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,onClickFil
                                                                     { 
                                                                         let spliturl = url;
                                                                         spliturl=spliturl.split('/')
-                                                                        return fileDownload(spliturl[3])
+                                                                        return fileDownload(spliturl[2])
                                                                     }
                                                                     }}>
                                                                         <img src={downloadIcon} style={{height:'33px'}} />

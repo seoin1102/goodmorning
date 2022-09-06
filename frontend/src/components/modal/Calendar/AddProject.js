@@ -1,41 +1,55 @@
 
-import React, { memo, useEffect, useState } from "react";
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import EndDatePicker from "../../calendar/EndDatePicker";
+import React, { useState, useEffect, memo } from "react";
+import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
+import { Row, Col } from "react-bootstrap";
+
 import StartDatePicker from "../../calendar/StartDatePicker";
+import EndDatePicker from "../../calendar/EndDatePicker";
+
+import "../../../styles/css/Calendar.css";
+import {put, post, remove} from '../../../apis/Axios';
 import moment from 'moment';
-import Button from 'react-bootstrap/Button';
+import AssignSelect from '../../calendar/AssignSelect'
+import ProjectSelect from '../../calendar/ProjectSelect'
+import Status from "../../calendar/Status";
+import ColorPicker from '../../calendar/ColorPicker'
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { post } from '../../../apis/Axios';
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
 import { addProject } from "../../../redux/project";
-import "../../../styles/css/Calendar.css";
+import Button from 'react-bootstrap/Button';
 import { Octokit } from "@octokit/core";
+import { fetchResponse } from "../../../apis/Fetch";
 
-function AddProject({show, handleClose, publishLinkPreview}) {
+function AddProject(props) {
   
+  const [state, setState] = useState()
   const [clickedStart, setClickedStart] = useState()
   const [clickedEnd, setClickedEnd] = useState()
   const [clickedName, setClickedName] = useState()
   const [clickedDescript, setClickedDescript] = useState()
   const [clickedStatus, setClickedStatus] = useState(0);
-  const [copySuccess, setCopySuccess] = useState(null);
-  const [gitName, setGitName] = useState();
-  const [repoName, setRepoName] = useState();
 
+  useEffect(()=>{
+    
+  },[])
   const projectList = useSelector((state) => state.project, shallowEqual);
   const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
 
+
   const dispatch = useDispatch();
+  const [gitName, setGitName] = useState();
+  const [repoName, setRepoName] = useState();
+  const [gitToken, setgitToken] = useState();
 
   const ids = []
-
   projectList.map((event) => {ids.push(event.id)})
-
   const maxId = Math.max(...ids);
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    // 폼 데이터 객체로 만들기
     const updatedTask={
       projectName: clickedName,
       start:moment(clickedStart).format('YYYY-MM-DD'),
@@ -47,65 +61,71 @@ function AddProject({show, handleClose, publishLinkPreview}) {
     }
 
 
-    // const octokit = new Octokit({
-    //   auth: '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'
-    // })
+    const octokit = new Octokit({
+      auth: gitToken
+    })
+    const giturl='';
 
-    // await octokit.request('POST /repos/tlckd/react-practices/hooks', {
-    //   owner: 'tlckd',
-    //   repo: 'react-practices',
-    //   name: 'web',
-    //   active: true,
-    //   events: [
-    //     'push',
-    //     'pull_request',
-    //     'create',
-    //     'delete',
+    await octokit.request(`POST /user/repos`, {
+      name: clickedName,
+      private : true
+    })
 
-    //   ],
-    //   config: {
-    //     url: 'https://2698-1-252-13-218.jp.ngrok.io/api/githubhook/hookdata',
-    //     content_type: 'json',
-    //     insecure_ssl: '0'
-    //   }
-    // })
+    await octokit.request(`POST /repos/${gitName}/${clickedName}/hooks`, {
+      owner: gitName,
+      repo: clickedName,
+      name: 'web',
+      active: true,
+      events: [
+        'push',
+        'pull_request',
+        'create',
+        'delete',
+      ],
+      config: {
+        url: 'http://34.64.235.225:8080/api/githubhook/hookdata',
+        content_type: 'json',
+        insecure_ssl: '0'
+      }
+    })
+
 
     post(`/project`,  updatedTask)
     dispatch(addProject([ updatedTask]));
-
-    // 폼 비우기
-    handleClose();
+    props.handleClose();
     setClickedStart(Date.now())
     setClickedEnd(Date.now())
     setClickedName('')
     setClickedDescript('')
     setClickedStatus(0)
-
-    publishLinkPreview(gitName, repoName);
   }
+
 
 const nameHandler = (e) =>{
   setClickedName(e.target.value)
+  setRepoName(e.target.value)
 }
+
 
 const descriptHandler =(e)=>{
   setClickedDescript(e.target.value)
 }
 
+const [copySuccess, setCopySuccess] = useState(null);
 const copyToClipBoard = async copyMe => {
-    try {
-      await navigator.clipboard.writeText(copyMe);
-      setCopySuccess('Copied!');
-    } 
-    catch (err) {
-        setCopySuccess('Failed to copy!');
-    }
+   try {
+       await navigator.clipboard.writeText(copyMe);
+       setCopySuccess('Copied!');
+   } 
+   catch (err) {
+       setCopySuccess('Failed to copy!');
+   }
 };
 
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} sx={{width:'140%'}}>
+      <Modal show={props.show} onHide={props.handleClose} sx={{width:'140%'}}>
         <Modal.Header closeButton>
           <Modal.Title>프로젝트 추가</Modal.Title>
         </Modal.Header>
@@ -129,13 +149,22 @@ const copyToClipBoard = async copyMe => {
                 value={gitName || ''} onChange={(e)=>{setGitName(e.target.value)}}
               /> 
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>리포지토리 명</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="리포지토리 명을 입력해주세요."
                 autoFocus
                 value={repoName || ''} onChange={(e)=> {setRepoName(e.target.value)}}
+              /> 
+            </Form.Group> */}
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>깃 토큰</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="깃 토큰을 입력해주세요."
+                autoFocus
+                value={gitToken || ''} onChange={(e)=> {setgitToken(e.target.value)}}
               /> 
             </Form.Group>
 
@@ -153,17 +182,6 @@ const copyToClipBoard = async copyMe => {
               <EndDatePicker clickedEnd={clickedEnd} setClickedEnd={setClickedEnd} disableClock={true} locale="ko-KO" />
               <br />
             
-              <Form.Label>Git 훅 URL</Form.Label>
-              <div style={{display:'flex', justifyContent:"space-between"}}>
-              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"http://34.64.235.225:8080/api/githubhook/hookdata/"} disabled>
-                  
-              </Form.Control>
-              
-              
-
-              <Button onClick={(e) => copyToClipBoard("http://34.64.235.225:8080/api/githubhook/hookdata/")} >copy</Button>
-                          </div><br />     <br /> 
-
               <Form.Label>젠킨스 훅 URL</Form.Label>
               <br />
               <div style={{display:'flex', justifyContent:"space-between"}}>
@@ -177,7 +195,7 @@ const copyToClipBoard = async copyMe => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={props.handleClose}>
             Close
           </Button>
           <Button variant="primary" onClick={onSubmit}>
