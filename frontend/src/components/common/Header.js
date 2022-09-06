@@ -100,8 +100,8 @@ function Header() {
             initialFocus(userNo);
         
         if (channelNo !== null)
-            initialChannel(channelNo,userNo);
-      }, [channelNo,user])
+            initialChannel(channelNo, userNo);
+      }, [channelNo])
         
 
     // css
