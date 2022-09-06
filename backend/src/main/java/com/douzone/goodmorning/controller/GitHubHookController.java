@@ -62,7 +62,7 @@ public class GitHubHookController {
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("success");
-    	message.setData(headerData);
+    	message.setData(data);
     	
 		
 //		String key= headerData.get("X-GitHub-Event").toString();
