@@ -57,8 +57,7 @@ public class GitHubHookController {
 //		}
 		
 		
-		
-		String key= headerData.get("x-github-event").toString();
+		String key= headerData.get("X-GitHub-Event").toString();
 		switch(key) {
 			case "push":
 				githubHookService.pushEventInsert(data,key);
@@ -73,6 +72,8 @@ public class GitHubHookController {
 				githubHookService.pullReqeustEventInsert(data,key);
 				break;	
 		}
+		
+		
 		
 	}
 	
