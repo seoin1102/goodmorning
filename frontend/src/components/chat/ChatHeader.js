@@ -12,7 +12,7 @@ function ChatHeader() {
   
 
     const [crewModalIsOpen, setCrewModalIsOpen] = useState(false);
-    const [masterCrewNo, setMasterCrewno] = useState(0);
+    const [masterCrew, setMasterCrew] = useState(0);
     const {crewNo, crewName, channelNo} = useSelector(state => state.focus);
     const [users, setUsers] = useState([]);
 
@@ -20,8 +20,8 @@ function ChatHeader() {
     const onClickCrewModal = useCallback(() => {
         setCrewModalIsOpen(prevCrewModalIsOpen => !prevCrewModalIsOpen);
         initialUser();
-        MasterCrewUserNo();
-    }, [channelNo, crewNo,masterCrewNo])
+        MasterCrewUser();
+    }, [channelNo, crewNo,masterCrew])
 
     const onClickExitModal = useCallback(() => {
         setCrewModalIsOpen(prevCrewModalIsOpen => !prevCrewModalIsOpen);
@@ -32,10 +32,10 @@ function ChatHeader() {
         setUsers(() => [].concat(result));
     }, [users, channelNo, crewNo])
     
-    const MasterCrewUserNo = useCallback(async() => {
+    const MasterCrewUser = useCallback(async() => {
         const result = await get(`/crew/master/${crewNo}`);
-        setMasterCrewno(result);
-    }, [masterCrewNo, crewNo])
+        setMasterCrew(result[0]);
+    }, [masterCrew, crewNo])
 
     return (
         <>
@@ -52,7 +52,7 @@ function ChatHeader() {
                                     users={users} crewName={crewName} 
                                     channelNo={channelNo} crewNo={crewNo} 
                                     initialUser={initialUser} userNo={userNo}
-                                    masterCrewNo={masterCrewNo}/>
+                                    masterCrew={masterCrew}/>
                     </List>
                     <Divider />
                 </Grid>

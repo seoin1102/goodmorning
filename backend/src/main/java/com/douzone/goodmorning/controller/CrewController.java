@@ -74,7 +74,7 @@ public class CrewController {
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("크루 셋팅 마스터 크루 유저 조회");
-    	message.setData(crewService.getMasterCrewUserNo(crewNo));
+    	message.setData(crewService.getMasterCrewUser(crewNo));
     	return ResponseEntity.ok().headers(headers).body(message);
     }
 	

@@ -66,8 +66,8 @@ public class CrewService {
 		
 	}
 
-	public Long getMasterCrewUserNo(Long crewNo) {
-		return crewRepository.findMasterCrewUserNo(crewNo);
+	public List<CrewVo> getMasterCrewUser(Long crewNo) {
+		return crewRepository.findMasterCrewUser(crewNo);
 	}
 
 }

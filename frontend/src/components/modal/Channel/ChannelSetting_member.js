@@ -5,10 +5,6 @@ import { Button, Dropdown, Form, ListGroup, Modal } from 'react-bootstrap';
 function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickChannelInvite}) {
     const [value, setValue] = useState();
 
-    useEffect(() => {
-      console.log("channelMember")
-    },[])
-
     return (
       <>
                

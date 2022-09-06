@@ -8,7 +8,7 @@ import CrewSetting_set from './CrewSetting_set';
 import Swal from 'sweetalert2';
 import { setCHANNELCREWFOCUS } from '../../../redux/focus';
 
-function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo, initialUser, userNo, masterCrewNo }) {
+function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo, initialUser, userNo, masterCrew }) {
 
   let [tab, setTab] = useState(0);
   const dispatch = useDispatch();
@@ -65,7 +65,7 @@ function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo
                             setTab={setTab}
                             crewNo={crewNo}
                             onClickCrewDelete={onClickCrewDelete}
-                            masterCrewNo={masterCrewNo}
+                            masterCrew={masterCrew}
                             userNo={userNo}
 
                             />

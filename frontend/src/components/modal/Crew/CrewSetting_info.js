@@ -6,7 +6,7 @@ import { setCREWFOCUS } from '../../../redux/focus';
 import { updateCREW } from '../../../redux/crew';
 import { Link } from 'react-router-dom';
 
-function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDelete, userNo, masterCrewNo}) {
+function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDelete, userNo, masterCrew}) {
 
     const [name, setName] = useState(crewName);
     
@@ -33,7 +33,8 @@ function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDe
                 <Form.Group className="mb-3" controlId="crewForm.name">
                   <Form.Label>채널 이름</Form.Label>
                   {crewName === '기본 채널' ? <Form.Group className="mb-3" controlId="crewForm.name"> <Form.Label> {crewName} </Form.Label> </Form.Group> : 
-                    masterCrewNo === userNo ?
+                    masterCrew.masterCrewUserNo
+                    === userNo ?
                   <Form.Control
                     type="text"
                     placeholder="Channel Name"
@@ -47,7 +48,26 @@ function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDe
                     }
                   
                 </Form.Group>
-                
+                <Form.Group className="mb-3" controlId="crewForm.name">
+                  <Form.Label>만든 사람 </Form.Label><br/>
+                  <Form.Control
+                    type="text"
+                    placeholder="Create User"
+                    autoFocus
+                    defaultValue={masterCrew.name + " " + masterCrew.email}
+                    readOnly
+                    />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="crewForm.name">
+                  <Form.Label>생성 날짜 </Form.Label><br/>
+                  <Form.Control
+                    type="text"
+                    placeholder="Creation Date"
+                    autoFocus
+                    defaultValue={masterCrew.creationDate}
+                    readOnly
+                    />
+                    </Form.Group>
                 <Form.Group className="mb-3">
                 <Button variant="outline-dark" 
                         onClick={() => {onClickCrewDelete()}} >

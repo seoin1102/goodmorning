@@ -17,7 +17,7 @@ function Header() {
     // modal state
     const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
     const [users, setUsers] = useState([]);
-    const [masterChannelNo, setMasterChannelNo] = useState(0);
+    const [masterChannelUser, setMasterChannelUser] = useState([]);
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
 
@@ -67,8 +67,8 @@ function Header() {
 
     const MasterChannelUserNo = useCallback(async() => {
         const result = await get(`/channel/master/${channelNo}`);
-        setMasterChannelNo(result);
-    }, [masterChannelNo, channelNo])
+        setMasterChannelUser(result[0]);
+    }, [masterChannelUser, channelNo])
 
     const onChangeChannel = useCallback(async(channelNo, userNo) => {
         const result = await get(`/channel/change/${channelNo}/${userNo}`);
@@ -99,12 +99,12 @@ function Header() {
         setChannelModalIsOpen(prevChannelModalIsOpen => !prevChannelModalIsOpen);
         initialUser();
         MasterChannelUserNo();
-    }, [channelNo, users, masterChannelNo])
+    }, [channelNo, users, masterChannelUser])
 
     return (
         <Grid container style={{backgroundColor:'#1bc6d9', color:'white', borderBottom:'solid 0.5px #5CD1E5'}}>            
             <HeaderItem itemName={channelName} modalIsOpen={channelModalIsOpen} customStyle={channelStyle} onClickModal={onClickChannelModal}>
-                <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users} initialUser={initialUser} masterChannelNo={masterChannelNo}/>
+                <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users} initialUser={initialUser} masterChannelUser={masterChannelUser}/>
             </HeaderItem>
             <HeaderSearch/>
             <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel} totalSum={totalSum} setTotalSum={setTotalSum}/>

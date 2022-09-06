@@ -95,8 +95,8 @@ public class CrewRepository {
 		
 	}
 
-	public Long findMasterCrewUserNo(Long crewNo) {
-		return sqlSession.selectOne("crew.findMasterCrewUserNo", crewNo);
+	public List<CrewVo> findMasterCrewUser(Long crewNo) {
+		return sqlSession.selectList("crew.findMasterCrewUser", crewNo);
 	}
 
 }
