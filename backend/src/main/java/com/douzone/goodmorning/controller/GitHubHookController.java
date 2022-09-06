@@ -1,13 +1,19 @@
 package com.douzone.goodmorning.controller;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.douzone.goodmorning.dto.Message;
+import com.douzone.goodmorning.dto.status.StatusEnum;
 import com.douzone.goodmorning.service.GithubHookService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +28,7 @@ public class GitHubHookController {
 	
 	@PostMapping("/hookdata")
 
-	public void githubhook(@RequestHeader HashMap<String,Object> headerData,@RequestBody HashMap<String, Object> data){
+	public ResponseEntity<Message> githubhook(@RequestHeader HashMap<String,Object> headerData,@RequestBody HashMap<String, Object> data){
 		
 
 //		System.out.println(data);
@@ -54,32 +60,36 @@ public class GitHubHookController {
 //		}
 
 
-//    	HttpHeaders headers = new HttpHeaders();
-//    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-//    	
-//    	Message message = new Message();
-//    	message.setStatus(StatusEnum.OK);
-//    	message.setMessage("success");
-//    	message.setData(headerData);
+		
+
+		
+	
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	Message message = new Message();
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("success");
+    	message.setData(headerData.get("x-github-event"));
     	
 		
-		String key= headerData.get("x-github-event").toString();
-		switch(key) {
-			case "push":
-				githubHookService.pushEventInsert(data,key);
-				break;
-			case "delete":
-				githubHookService.deleteEventInsert(data,key);
-				break;
-			case "create":
-				githubHookService.createEventInsert(data,key);
-				break;	
-			case "pull_request":
-				githubHookService.pullReqeustEventInsert(data,key);
-				break;	
-		}
+//		String key= headerData.get(""x-github-event").toString();
+//		switch(key) {
+//			case "push":
+//				githubHookService.pushEventInsert(data,key);
+//				break;
+//			case "delete":
+//				githubHookService.deleteEventInsert(data,key);
+//				break;
+//			case "create":
+//				githubHookService.createEventInsert(data,key);
+//				break;	
+//			case "pull_request":
+//				githubHookService.pullReqeustEventInsert(data,key);
+//				break;	
+//		}
 		
-//		return ResponseEntity.ok().headers(headers).body(message);
+		return ResponseEntity.ok().headers(headers).body(message);
 
 		
 	}
