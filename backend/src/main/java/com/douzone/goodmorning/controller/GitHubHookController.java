@@ -27,11 +27,11 @@ public class GitHubHookController {
 	
 	@PostMapping("/hookdata")
 	public void githubhook(@RequestHeader HashMap<String,Object> headerData,@RequestBody HashMap<String, Object> data){
-		
+
 //		System.out.println(data);
 //		System.out.println(data.values().toArray()[0]);
 //		System.out.println("================================");
-		
+//		
 //		for(Entry<String, Object> entry : headerData.entrySet()) {
 //			if(!"null".equals(entry.getKey())) {
 //			String key = entry.getKey();
@@ -55,9 +55,9 @@ public class GitHubHookController {
 //			System.out.println("밸류:" + value);
 //			}
 //		}
+//		
 		
-		
-		String key= headerData.get("X-GitHub-Event").toString();
+		String key= headerData.get("x-github-event").toString();
 		switch(key) {
 			case "push":
 				githubHookService.pushEventInsert(data,key);
