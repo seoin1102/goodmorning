@@ -8,7 +8,7 @@ spring:
 spring:
 
    mvc:
-      static-path-pattern: /assets/**
+      static-path-pattern: /**
       throw-exception-if-no-handler-found: true
    web:
       resources:
