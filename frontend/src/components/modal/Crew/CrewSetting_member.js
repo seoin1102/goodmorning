@@ -6,7 +6,7 @@ function CrewSetting_member({users, onClickModal, setTab, onClickCrewInvite}) {
     const [value, setValue] = useState();
 
     useEffect(() => {
-      // console.log("crew",users)
+      console.log("crew",users)
     },[users])
 
     return (

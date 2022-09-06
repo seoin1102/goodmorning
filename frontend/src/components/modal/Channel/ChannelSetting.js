@@ -67,13 +67,16 @@ function ChannelSetting({modalShow, onClickModal,users, initialUser, masterChann
                 setTab={setTab}
                 channelNo={channelNo}
                 users={users}
-                onClickChannelInvite={onClickChannelInvite}
-                initialUser={initialUser} />
+                onClickChannelInvite={onClickChannelInvite} />
         // else if (tab === 2) return <Channelsetting_set 
         // onClickModal={onClickModal}
         // setTab={setTab} />
       }
-    
+
+      useEffect(() => {
+        console.log("channelSet")
+      },[])
+
     return (
         <>
         <Modal show={modalShow} onHide={onClickModal} backdrop="static">

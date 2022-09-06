@@ -11,6 +11,10 @@ function ChannelSetting_info({onClickHandler,channelName, onClickModal, masterCh
     const [name, setName] = useState(channelName);
     const user = getLocalStorageAuthUser();
 
+    useEffect(() => {
+      console.log("channelinfo")
+    },[])
+
     return (
     <>
         <Modal.Body>
@@ -26,6 +30,8 @@ function ChannelSetting_info({onClickHandler,channelName, onClickModal, masterCh
                       setName(e.target.value)
                     }}
                     defaultValue={channelName}
+                    onKeyDown={(e) => { if(e.key === 'Enter') 
+                                           {onClickHandler(name)}}}
                     />
                     :<Form.Group className="mb-3" controlId="crewForm.name"> <Form.Label> {channelName} </Form.Label> </Form.Group>}
                 </Form.Group>
@@ -42,8 +48,7 @@ function ChannelSetting_info({onClickHandler,channelName, onClickModal, masterCh
               취소
             </Button>
             <Button variant="outline-dark" onClick={() => {onClickHandler(name)}}
-                                           onKeyDown={(e) => { if(e.key === 'Enter') 
-                                           {onClickHandler(name)}}} >
+                                            >
               변경사항 저장
             </Button>
         </Modal.Footer>

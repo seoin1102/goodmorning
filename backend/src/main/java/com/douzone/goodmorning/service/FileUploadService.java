@@ -13,7 +13,7 @@ import com.douzone.goodmorning.vo.FileManagementVo;
 
 @Service
 public class FileUploadService {
-	private static String SAVE_PATH = "/goodmorning-uploads";
+	private static String SAVE_PATH = "/goodmorning-uploads/file";
 	private static String URL_BASE = "/assets/file";	
 	
 	public String restoreImage(MultipartFile file) throws FileUploadException {

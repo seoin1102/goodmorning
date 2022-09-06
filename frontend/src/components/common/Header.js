@@ -79,21 +79,7 @@ function Header() {
             crewName: crewName,
             crewNo: crewNo
         }))
-        // dispatch(setCHANNELFOCUS({name: name, no: no}));
-        // dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
     }, [])
-
-    // const onChangeChannel = (channelNo, channelName) => {
-    //     setChangeChannel((prevState) => ({...prevState, no: channelNo, name: channelName}))
-    //     // setChangeChannelNo(channelNo);
-    //     // setChangeChannelName(channelName);
-    //     //dispatch(setCHANNELFOCUS({no: changeChannelNo, name: changeChannelName}));
-    //    // console.log("sdafasf ",changeChannelNo," asdafaf",changeChannelName);
-    // }
-
-    // useEffect(() =>{
-    //     dispatch(setCHANNELFOCUS({no: changeChannel.no, name: changeChannel.name}));
-    // }, [changeChannel])
     
     useEffect(() => {
         if (channelNo === null)
@@ -101,21 +87,13 @@ function Header() {
         
         if (channelNo !== null)
             initialChannel(channelNo,userNo);
-      }, [channelNo,user])
+      }, [channelNo])
         
 
     // css
     // 이넘 땜에 최적화 안됨 --> css 파일로 만들기
     const channelStyle = {height:'60px', whiteSpace:'no-wrap', overflow:'hidden', textOverflow:'ellipsis'};
-    
-    
 
-    // const initialUser = useCallback(async(userNo) => {
-    //     const result = await get(`/user/email/${userNo}`);
-    //     console.log(result);
-    //     setUsers((prevUsers) => prevUsers.concat(result));
-
-    // }, [users])
     // modal click
     const onClickChannelModal = useCallback(() => {
         setChannelModalIsOpen(prevChannelModalIsOpen => !prevChannelModalIsOpen);
@@ -124,7 +102,7 @@ function Header() {
     }, [channelNo, users, masterChannelNo])
 
     return (
-        <Grid container style={{backgroundColor:'#1bc6d9', color:'white', borderBottom:'solid 1px #f7f7fa'}}>            
+        <Grid container style={{backgroundColor:'#1bc6d9', color:'white', borderBottom:'solid 0.5px #5CD1E5'}}>            
             <HeaderItem itemName={channelName} modalIsOpen={channelModalIsOpen} customStyle={channelStyle} onClickModal={onClickChannelModal}>
                 <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users} initialUser={initialUser} masterChannelNo={masterChannelNo}/>
             </HeaderItem>

@@ -38,7 +38,7 @@ function SiteLayout({children}) {
     const connect = () => {
         client.current = new StompJs.Client({
 
-            webSocketFactory: () => new SockJS("http://192.168.10.10:8080/ws-stomp"),
+            webSocketFactory: () => new SockJS("http://192.168.10.15:8080/ws-stomp"),
             debug: function (str) {},
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
@@ -96,9 +96,9 @@ function SiteLayout({children}) {
                     return;
 
                 dispatch(addChat(JSON.parse(data.body)));
+                console.log("데이터바디!!",data.body);
                 dispatch(setCHATALARM({crewNo:crewNo}))            
             })
-
             return;
         })
     };
@@ -123,9 +123,8 @@ function SiteLayout({children}) {
         if(result.data !== 'success')
             return;
         
-        const pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name);
+        const pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name, authUser.profileUrl);
         client.current.publish({destination: `/pub/chat`, body: pubChat});
-        
         setSendMessage("");
     };
 

@@ -2,12 +2,12 @@ import { Autocomplete, Divider, List, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Button, Dropdown, Form, ListGroup, Modal } from 'react-bootstrap';
 
-function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickChannelInvite, initialUser}) {
+function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickChannelInvite}) {
     const [value, setValue] = useState();
 
     useEffect(() => {
-      console.log(users);
-    },[users])
+      console.log("channelMember")
+    },[])
 
     return (
       <>
@@ -19,12 +19,11 @@ function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickCh
                     <Form.Control
                 type="email"
                 placeholder="example@gmail.com"
-                autoFocus
+                
                 onChange={(e) =>{
                     setValue(e.target.value)
                 }}
                 value={value || ''}
-                
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="channelForm.footer">

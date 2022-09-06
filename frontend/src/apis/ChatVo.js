@@ -7,11 +7,12 @@
  * @returns JSON.stringify [chatVo] 객체
  */
 
-const defaultMsg = (crewNo, userNo, message='', userName) => ({
+const defaultMsg = (crewNo, userNo, message='', userName, profileUrl) => ({
     crewNo: crewNo,
     userNo: userNo,
     message: message,
-    userName: userName
+    userName: userName,
+    profileUrl: profileUrl
 });
 
 /**
@@ -52,8 +53,8 @@ export const msgEnter = (crewNo, userNo, userName) => {
  * @param {*} message 크루를 구독중인 유저 전부에게 보낼 메시지
  * @returns [CHAT] JSON.stringify 객체
  */
-export const msgChat = (crewNo, userNo, message, userName) => {
-    const msg = defaultMsg(crewNo, userNo, message, userName);
+export const msgChat = (crewNo, userNo, message, userName, profileUrl) => {
+    const msg = defaultMsg(crewNo, userNo, message, userName, profileUrl);
     return JSON.stringify({
         ...msg,
         type: 'CHAT',
