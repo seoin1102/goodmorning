@@ -38,20 +38,21 @@ public class GitHubHookController {
     	message.setData(headerData.get("x-github-event"));
     	
 		String key= headerData.get("x-github-event");
-//		switch(key) {
-//			case "push":
-//				githubHookService.pushEventInsert(data,key);
-//				break;
-//			case "delete":
-//				githubHookService.deleteEventInsert(data,key);
-//				break;
-//			case "create":
-//				githubHookService.createEventInsert(data,key);
-//				break;	
-//			case "pull_request":
-//				githubHookService.pullReqeustEventInsert(data,key);
-//				break;	
-//		}
+		
+		switch(key) {
+			case "push":
+				githubHookService.pushEventInsert(data, key);
+				break;
+			case "delete":
+				githubHookService.deleteEventInsert(data,key);
+				break;
+			case "create":
+				githubHookService.createEventInsert(data,key);
+				break;	
+			case "pull_request":
+				githubHookService.pullReqeustEventInsert(data,key);
+				break;	
+		}
     	
     	
 //		System.out.println(data);
