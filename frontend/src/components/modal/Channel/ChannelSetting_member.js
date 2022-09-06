@@ -1,9 +1,18 @@
 import { Autocomplete, Divider, List, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Dropdown, Form, ListGroup, Modal } from 'react-bootstrap';
 
 function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickChannelInvite}) {
     const [value, setValue] = useState();
+    const [profileModalShow, setProFileModalShow] = useState(false);
+  
+    const onClickProfileModal = useCallback(() => {
+      setProFileModalShow(prevprofileModalShow => !prevprofileModalShow);
+    }, [])
+
+    useEffect(() => {
+
+    },[users])
 
     return (
       <>

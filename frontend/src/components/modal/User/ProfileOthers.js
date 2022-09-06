@@ -8,60 +8,29 @@ import dateIcon from '../../../assets/icons/date.png'
 import channelIcon from '../../../assets/icons/channel.png'
 import phoneIcon from '../../../assets/icons/phone.png'
 
-function Profileinfo({ modalShow, onClickModal }) {
+function ProfileOthers({ modalShow, onClickModal, user}) {
 
-  // const [name,setName] = useState("");
-  const user = getLocalStorageAuthUser();
-  const { name, job, phoneNumber, profileUrl } = user;
-  const [profile, setProfile] = useState({
-    name: name,
-    job: job,
-    phoneNumber: phoneNumber,
-    profileUrl: profileUrl
-  })
-  const userNo = user.no;
+  
   const [isInitial, setInitial] = useState(false);
-  const [url, seturl] = useState('');
   
   useEffect(() => {
-    (async () => {
-      const profileUrl = await getProfileImg(userNo)
-      seturl(profileUrl);
       setInitial(true)
-    })();
-  }, [profile]);
+  }, []);
 
-  const getProfileImg = async function (userNo) {
-    try {
-      const data = {
-        no: userNo
-      }
-      const response = await fetchResponse('/api/fileManagement/profileImg', 'post', 'jsonjsonHeader', JSON.stringify(data));
-      const json = await checkResponse(response);
-      return json.data.profileUrl;
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  const [editProfileModalShow, seteditProfileModalShow] = useState(false);
-  const onClickeditProfileModal = useCallback(() => {
-    seteditProfileModalShow(preveditProfileModalShow => !preveditProfileModalShow);
-  }, [])
-
+  
   return (
     <>
       {
         isInitial ?
       (<><Modal show={modalShow} onHide={onClickModal}>
             <Modal.Header closeButton>
-              <Modal.Title>내 프로필</Modal.Title>
+              <Modal.Title>{user.name} 프로필</Modal.Title>
             </Modal.Header>
             <Form>
               <Modal.Body>
 
                 <div style={{ textAlign: 'center'}}>
-                  <img src={url} name='profileImg' style={{overflow: 'hidden', width:'230px', height:'230px', objectFit:'cover', borderRadius:'60%'}}></img>
+                  <img src={user.profileUrl} name='profileImg' style={{overflow: 'hidden', width:'230px', height:'230px', objectFit:'cover', borderRadius:'60%'}}></img>
                 </div>
 
                 <Form.Group className="mb-3" controlId="crewForm.name" style={{ textAlign: 'center', marginTop:'7px' }}>
@@ -89,23 +58,17 @@ function Profileinfo({ modalShow, onClickModal }) {
                 <Button variant="outline-dark" type="button" onClick={onClickModal}>
                   취소
                 </Button>
-                <Button variant="outline-dark" type="button" onClick={onClickeditProfileModal}>
-                  프로필 편집
-                </Button>
+
 
               </Modal.Footer>
             </Form>
           </Modal>
 
-          <EditProfile modalShow={editProfileModalShow} 
-              onClickModal={onClickeditProfileModal}
-              user={user} 
-              profile={profile} 
-              setProfile={setProfile}/>
+        
              </>) 
                    : (null)}
       </>  
       );
 
 }
-export default Profileinfo;
+export default ProfileOthers;
