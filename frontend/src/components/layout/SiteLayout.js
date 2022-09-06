@@ -38,7 +38,7 @@ function SiteLayout({children}) {
     const connect = () => {
         client.current = new StompJs.Client({
 
-            webSocketFactory: () => new SockJS("http://192.168.10.10:8080/ws-stomp"),
+            webSocketFactory: () => new SockJS("http://localhost:8080/ws-stomp"),
             debug: function (str) {},
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,

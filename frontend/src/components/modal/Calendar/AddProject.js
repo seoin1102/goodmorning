@@ -21,6 +21,7 @@ import Stack from "@mui/material/Stack";
 import { addProject } from "../../../redux/project";
 import Button from 'react-bootstrap/Button';
 import { Octokit } from "@octokit/core";
+import { fetchResponse } from "../../../apis/Fetch";
 
 function AddProject(props) {
   
@@ -46,6 +47,7 @@ function AddProject(props) {
   const ids = []
   projectList.map((event) => {ids.push(event.id)})
   const maxId = Math.max(...ids);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const updatedTask={
@@ -59,24 +61,14 @@ function AddProject(props) {
     }
 
     const octokit = new Octokit({
-      auth: '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'
+      auth: gitToken
     })
     const giturl='';
 
     await octokit.request(`POST /user/repos`, {
       name: clickedName,
-      private : false
+      private : true
     })
-    
-    // await octokit.request(`POST /repos/tlckd/testtlckd/generate`, {
-    //   template_owner: gitName,
-    //   template_repo: clickedName,
-    //   owner: gitName,
-    //   name: clickedName,
-    //   description: 'This is your first repository',
-    //   include_all_branches: false,
-    //   'private': true
-    // })
 
     await octokit.request(`POST /repos/${gitName}/${clickedName}/hooks`, {
       owner: gitName,
@@ -88,10 +80,9 @@ function AddProject(props) {
         'pull_request',
         'create',
         'delete',
-
       ],
       config: {
-        url: 'https://2698-1-252-13-218.jp.ngrok.io/api/githubhook/hookdata',
+        url: 'http://34.64.235.225:8080/api/githubhook/hookdata',
         content_type: 'json',
         insecure_ssl: '0'
       }
@@ -110,6 +101,7 @@ function AddProject(props) {
 
 const nameHandler = (e) =>{
   setClickedName(e.target.value)
+  setRepoName(e.target.value)
 }
 
 
@@ -188,17 +180,6 @@ const copyToClipBoard = async copyMe => {
               <EndDatePicker clickedEnd={clickedEnd} setClickedEnd={setClickedEnd} disableClock={true} locale="ko-KO" />
               <br />
             
-              <Form.Label>Git 훅 URL</Form.Label>
-              <div style={{display:'flex', justifyContent:"space-between"}}>
-              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"https://2698-1-252-13-218.jp.ngrok.io/api/githubhook/hookdata/"} disabled>
-                  
-              </Form.Control>
-              
-              
-
-              <Button onClick={(e) => copyToClipBoard("https://2698-1-252-13-218.jp.ngrok.io/api/githubhook/hookdata/")} >copy</Button>
-                          </div><br />     <br /> 
-
               <Form.Label>젠킨스 훅 URL</Form.Label>
               <br />
               <div style={{display:'flex', justifyContent:"space-between"}}>
