@@ -60,6 +60,7 @@ function AddProject(props) {
       id: maxId+1
     }
 
+
     const octokit = new Octokit({
       auth: gitToken
     })
@@ -87,6 +88,7 @@ function AddProject(props) {
         insecure_ssl: '0'
       }
     })
+
 
     post(`/project`,  updatedTask)
     dispatch(addProject([ updatedTask]));
@@ -183,8 +185,8 @@ const copyToClipBoard = async copyMe => {
               <Form.Label>젠킨스 훅 URL</Form.Label>
               <br />
               <div style={{display:'flex', justifyContent:"space-between"}}>
-              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"https://2698-1-252-13-218.jp.ngrok.io/api/jenkinsHook/hookdata"} disabled/>
-                <Button onClick={(e) => copyToClipBoard("https://2698-1-252-13-218.jp.ngrok.io/api/jenkinsHook/hookdata")} > 
+              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"http://34.64.235.225:8080/api/jenkinsHook/hookdata"} disabled/>
+                <Button onClick={(e) => copyToClipBoard("http://34.64.235.225:8080/api/jenkinsHook/hookdata")} > 
                   copy
                 </Button> 
 

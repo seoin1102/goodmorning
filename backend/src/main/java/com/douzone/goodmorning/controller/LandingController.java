@@ -26,4 +26,3 @@ public class LandingController {
 	public String signin() {
 		return "index";
 	}
-}
