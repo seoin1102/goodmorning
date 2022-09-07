@@ -23,6 +23,7 @@ function Message({chatList}) {
                     
                     if(array.length > index + 1) {
                         if (chat.sendDate.split(" ")[0] !== array[index + 1].sendDate.split(" ")[0]){
+                            console.log(chat.sendDate.split(" ")[0], "           ", array[index + 1].sendDate.split(" ")[0])
                             dateDivider = <Divider>{date.slice(0, date.length - 1) + String(Number(date.charAt(date.length-1)) + 1)}</Divider>
                         }
                         else null;
