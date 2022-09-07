@@ -36,7 +36,7 @@ function Header() {
     //     no: channelNo,
     //     name: channelName
     // })
-   
+  
     /**
      * 채널 목록
      * @param userNo 채널 번호
