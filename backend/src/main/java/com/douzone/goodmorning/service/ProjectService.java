@@ -44,9 +44,7 @@ public class ProjectService {
 	}
 	
 	
-public void execGit(String cmd){
-		String giturl = "C:\\Program Files\\Git\\git-cmd.exe";
-		String testurl = "C:\\Program Files\\Oracle\\VirtualBox\\VirtualBox.exe";
+public void execCMD(String cmd){
 		Runtime rt = Runtime.getRuntime();
 		Process pc = null;
 		StringBuffer successOutput = new StringBuffer();
