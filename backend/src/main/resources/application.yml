@@ -48,7 +48,20 @@ mybatis:
    config-location: classpath:mybatis/configuration.xml
 
 # logging
-  
+   pattern:
+      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   logback:
+      rollingpolicy:
+         file-name-pattern: "logs/${spring.application.name}.%d{yyyy-MM-dd}.%i.log.zip"
+   file:
+      name: logs/${spring.application.name}.log
+      max-history: 30
+   level:
+      root: INFO
+      me:
+         kickscar:
+            mysite:
+               exception: ERROR         
 ---
 # development profile: spring boot configuration
 spring:

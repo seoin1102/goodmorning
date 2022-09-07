@@ -16,6 +16,7 @@ import com.douzone.goodmorning.dto.status.StatusEnum;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	@ExceptionHandler(Exception.class)
@@ -28,11 +29,11 @@ public class GlobalExceptionHandler {
 		// 1. 로깅(logging)
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
-//		log.error(errors.toString());
+		log.error(errors.toString());
     	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
-    	message.setMessage("첫 채널목록 조회");
+    	message.setMessage("global exception");
     	message.setData(errors.toString());
     	
 		
