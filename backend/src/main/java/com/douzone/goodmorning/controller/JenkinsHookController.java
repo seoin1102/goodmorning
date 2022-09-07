@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class JenkinsHookController {
 	
 	private final JenkinsHookService jenkinsHookService;
 	
-	@PostMapping("/hookdata")
+	@GetMapping("/hookdata")
 	public void jenkinshook(@RequestBody HashMap<String, Object> data) {
 		
 		for(Entry<String, Object> entry : data.entrySet()) {
