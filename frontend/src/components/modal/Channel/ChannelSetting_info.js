@@ -36,7 +36,7 @@ function ChannelSetting_info({onClickHandler,channelName, onClickModal, masterCh
                   <Form.Control
                     type="text"
                     placeholder="WorkSpace Name"
-                    autoFocus
+                    
                     defaultValue={masterChannelUser.name + " " + masterChannelUser.email}
                     readOnly
                     />
@@ -46,7 +46,7 @@ function ChannelSetting_info({onClickHandler,channelName, onClickModal, masterCh
                   <Form.Control
                     type="text"
                     placeholder="WorkSpace Name"
-                    autoFocus
+                    
                     defaultValue={masterChannelUser.creationDate}
                     readOnly
                     />

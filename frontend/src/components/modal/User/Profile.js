@@ -78,7 +78,7 @@ function Profile({modalShow, onClickModal,profile, setProfile,uploadcheck}) {
                     <Form.Control
                 type="email"
                 placeholder="example@gmail.com"
-                autoFocus
+                
                 readOnly
                 value={user.email}               
                 />
@@ -90,7 +90,7 @@ function Profile({modalShow, onClickModal,profile, setProfile,uploadcheck}) {
                   <Form.Control
                     type="text"
                     placeholder="CreateDate"
-                    autoFocus
+                    
                     readOnly
                     value={user.signUpDate}
                   />
@@ -101,7 +101,7 @@ function Profile({modalShow, onClickModal,profile, setProfile,uploadcheck}) {
                   <Form.Control
                     type="text"
                     placeholder="Job"
-                    autoFocus
+                    
                     onChange={(e) =>{
                       setProfile((prevProfile)=> ({
                         ...prevProfile, 
@@ -118,7 +118,7 @@ function Profile({modalShow, onClickModal,profile, setProfile,uploadcheck}) {
                   <Form.Control
                     type="text"
                     placeholder="PhoneNumber"
-                    autoFocus
+                    
                     onChange={(e) =>{
                       setProfile((prevProfile)=> ({
                         ...prevProfile, 

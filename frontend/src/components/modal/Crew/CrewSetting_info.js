@@ -53,7 +53,7 @@ function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDe
                   <Form.Control
                     type="text"
                     placeholder="Create User"
-                    autoFocus
+                    
                     defaultValue={masterCrew.name + " " + masterCrew.email}
                     readOnly
                     />
@@ -63,7 +63,7 @@ function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDe
                   <Form.Control
                     type="text"
                     placeholder="Creation Date"
-                    autoFocus
+                    
                     defaultValue={masterCrew.creationDate}
                     readOnly
                     />
