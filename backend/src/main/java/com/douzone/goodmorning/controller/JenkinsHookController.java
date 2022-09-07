@@ -28,7 +28,9 @@ public class JenkinsHookController {
 	@PostMapping("/hookdata")
 	public void jenkinshook(@RequestBody HashMap<String, Object> data) {
 		
-		log.debug("######################################################################################");
+		log.error("######################################################################################");
+		log.error(data.toString());
+		log.error("######################################################################################");
 		for(Entry<String, Object> entry : data.entrySet()) {
 		if(!"null".equals(entry.getKey())) {
 		String key = entry.getKey();
