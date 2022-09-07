@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +22,10 @@ public class JenkinsHookController {
 	
 	private final JenkinsHookService jenkinsHookService;
 	
-	@PostMapping("/hookdata")
-	public void jenkinshook(@RequestBody HashMap<String, Object> data) {
+	@GetMapping("/hookdata")
+	public void jenkinshook(@RequestBody HashMap<String, String> data) {
 		
-		for(Entry<String, Object> entry : data.entrySet()) {
+		for(Entry<String, String> entry : data.entrySet()) {
 		if(!"null".equals(entry.getKey())) {
 		String key = entry.getKey();
 		System.out.println("키:" + key);
@@ -35,15 +36,15 @@ public class JenkinsHookController {
 		}
 	}
 		
-		Map<String,Object> map = new LinkedHashMap<>();
-		
-		Entry<String, Object> entry = data.entrySet().iterator().next();
-		String key= entry.getKey();
-		switch(key) {
-			case "build":
-				jenkinsHookService.insertBuildJenkinsHookResult(data);
-				break;
-		}
+//		Map<String,Object> map = new LinkedHashMap<>();
+//		
+//		Entry<String, Object> entry = data.entrySet().iterator().next();
+//		String key= entry.getKey();
+//		switch(key) {
+//			case "build":
+//				jenkinsHookService.insertBuildJenkinsHookResult(data);
+//				break;
+//		}
 		
 	}
 	
