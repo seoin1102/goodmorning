@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.douzone.goodmorning.service.JenkinsHookService;
@@ -23,7 +24,7 @@ public class JenkinsHookController {
 	private final JenkinsHookService jenkinsHookService;
 	
 	@GetMapping("/hookdata")
-	public void jenkinshook(@RequestBody HashMap<String, String> data) {
+	public void jenkinshook(@RequestParam HashMap<String, String> data) {
 		
 		for(Entry<String, String> entry : data.entrySet()) {
 		if(!"null".equals(entry.getKey())) {
