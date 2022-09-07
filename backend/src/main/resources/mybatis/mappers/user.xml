@@ -37,6 +37,12 @@
 		]]>
 	</select>
 	
+	<select id="findUserNameByNo" parameterType="long" resultType="string">
+		<![CDATA[
+		select name from user where no= #{userNo };
+		]]>
+	</select>
+	
 	<select id="findAllEmaillist" parameterType="map" resultType="uservo">
 		<![CDATA[
 		select a.no, a.name, a.email, a.sign_up_date as signUpDate, a.job, a.phone as phoneNumber , a.profile_img as profileUrl from user as a , channel_user as b, crew_user as c where a.no = b.user_no and a.no = c.user_no and b.channel_no = #{channelNo} and c.crew_no = #{crewNo};

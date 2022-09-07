@@ -213,4 +213,8 @@ public class UserService {
 		
 	}
 
+	public String findUserNameByNo(Long userNo) {
+		return userRepository.findUserNameByNo(userNo);
+	}
+
 }

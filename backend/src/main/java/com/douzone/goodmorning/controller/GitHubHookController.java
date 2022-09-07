@@ -18,6 +18,7 @@ import com.douzone.goodmorning.service.CrewService;
 import com.douzone.goodmorning.service.GithubHookService;
 import com.douzone.goodmorning.service.ProjectService;
 import com.douzone.goodmorning.service.RedisPublisher;
+import com.douzone.goodmorning.service.UserService;
 import com.douzone.goodmorning.vo.ChatVo;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ public class GitHubHookController {
 	private final GithubHookService githubHookService;
 	private final ProjectService projectService;
 	private final CrewService crewService;
+	private final UserService userService;
 	private final RedisPublisher redisPublisher;
 	
 	@PostMapping("/hookdata")
@@ -67,6 +69,7 @@ public class GitHubHookController {
 		chatVo.setUserNo(crewService.findMaster(projectName));
 		chatVo.setMessage(githubHookService.findMessageByProjectNo(projectName));
 		chatVo.setType(ChatVo.MessageType.GITHUB);
+		chatVo.setUserName(userService.findUserNameByNo(chatVo.getUserNo()));
 		
 		message.setData(chatVo);
 		
