@@ -38,9 +38,10 @@ module.exports = function(env) {
             host: '0.0.0.0',
             port: 9090,
             proxy: {
-              '/api': {target: 'http://localhost:8080'},
-              '/assets': {target: 'http://localhost:8080'},
-              '/html': {target: 'http://localhost:8080'}
+              '/api': {target: 'http://34.64.235.225:8080'},
+              '/assets': {target: 'http://34.64.235.225:8080'},
+              '/html': {target: 'http://34.64.235.225:8080'},
+            //   '/ws-stomp': {target: 'http://34.64.235.225:8080'},
           },
             liveReload: true,
             hot: false,
