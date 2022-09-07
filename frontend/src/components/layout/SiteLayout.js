@@ -91,9 +91,9 @@ function SiteLayout({children}) {
 
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)
             client.current.subscribe(`/sub/${crewNo}`,async (data) => {
-                if(data.type === 'GITHUB')
+                
                     console.log("yyyyyyyyyyyyyyyy", data);
-                          
+
                 const result = await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
 
                 if(result.data !== 'success') 
