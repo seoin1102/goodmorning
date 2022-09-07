@@ -20,14 +20,16 @@ public class CrewService {
 	}
 
 	public Boolean addCrew(CrewVo crewVo) {
-		return crewRepository.insert(crewVo);
-		
+		return crewRepository.insert(crewVo);	
 	}
 
 
 	public Long findMaster(Long channelNo, Long userNo) {
-		return crewRepository.findMaster(channelNo, userNo);
-		
+		return crewRepository.findMaster(channelNo, userNo);	
+	}
+	
+	public Long findMaster(String projectName) {
+		return crewRepository.findMaster(projectName);
 	}
 
 	public void addCrewUser(Long crewNo, Long userNo, Long owner) {
@@ -69,5 +71,4 @@ public class CrewService {
 	public Long getMasterCrewUserNo(Long crewNo) {
 		return crewRepository.findMasterCrewUserNo(crewNo);
 	}
-
 }

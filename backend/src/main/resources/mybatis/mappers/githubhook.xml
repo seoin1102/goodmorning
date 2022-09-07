@@ -14,6 +14,16 @@
 		]]>
 	</select>
 	
+	<select id="findMessageByProjectNo" parameterType="string" resultType="gitvo">
+		<![CDATA[
+			select event_type as eventType, user_name as userName, message from githubhook 
+				where project_no = (select no from project 
+															where project_name = #{projectName }
+														) 
+			    order by no desc  limit 1;
+		]]>
+	</select>
+	
 	<select id="findGitHubChatInfo" resultType="gitvo">
 		<![CDATA[
 			select gh.no, gh.event_type as eventType, gh.user_name as userName, gh.message, gh.date, gh.project_no as projectNo, pj.project_name as projectName, task.crew_no as crewNo, crew.master_crew_user_no as masterCrewUserNo

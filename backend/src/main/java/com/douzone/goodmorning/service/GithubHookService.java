@@ -84,5 +84,10 @@ public class GithubHookService {
 		return gitHubHookRepository.findGitHubChatInfo();
 	}
 
+	public String findMessageByProjectNo(String projectName) {
+		GithubHookVo gitVo = gitHubHookRepository.findMessageByProjectNo(projectName);	
+		return gitVo.getEventType() + "#$#" + gitVo.getUserName() + "#$#" + gitVo.getMessage();
+	}
+
 
 }

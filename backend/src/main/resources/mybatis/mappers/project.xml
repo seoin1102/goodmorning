@@ -17,6 +17,12 @@
 				where b.no= #{channelNo} and a.enable=1 and a.crew_no = c.no and b.no = c.channel_no;
 				]]>
 		</select>
+		<select id="findCrewNoByName" parameterType="string" resultType="chatvo">
+				<![CDATA[
+				select crew_no as crewNo from 
+				project where project_name = #{projectName };
+				]]>
+		</select>
 		<insert id="insert" parameterType="projectvo">
 				<![CDATA[
 				insert into project value(null, #{projectName}, #{start}, #{end}, "test 설명",0,1, #{crewNo});

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.douzone.goodmorning.dto.Message;
 import com.douzone.goodmorning.dto.status.StatusEnum;
+import com.douzone.goodmorning.service.CrewService;
 import com.douzone.goodmorning.service.GithubHookService;
+import com.douzone.goodmorning.service.ProjectService;
 import com.douzone.goodmorning.service.RedisPublisher;
 import com.douzone.goodmorning.vo.ChatVo;
 
@@ -27,6 +29,8 @@ import lombok.RequiredArgsConstructor;
 public class GitHubHookController {
 	
 	private final GithubHookService githubHookService;
+	private final ProjectService projectService;
+	private final CrewService crewService;
 	private final RedisPublisher redisPublisher;
 	
 	@PostMapping("/hookdata")
@@ -40,7 +44,7 @@ public class GitHubHookController {
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("success");
     	//message.setData(headerData.get("x-github-event"));
-    	message.setData(projectName);
+//    	message.setData(projectName);
     	
 		String key= headerData.get("x-github-event");
 		
@@ -59,6 +63,12 @@ public class GitHubHookController {
 				break;	
 		}
 		
+		ChatVo chatVo = projectService.findCrewNoByName(projectName);
+		chatVo.setUserNo(crewService.findMaster(projectName));
+		chatVo.setMessage(githubHookService.findMessageByProjectNo(projectName));
+		chatVo.setType(ChatVo.MessageType.GITHUB);
+		
+		message.setData(chatVo);
 		
 //		String topic = Long.toString(chatVo.getCrewNo());
 //		

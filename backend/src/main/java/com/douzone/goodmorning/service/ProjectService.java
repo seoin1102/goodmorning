@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.douzone.goodmorning.repository.ProjectRepository;
 import com.douzone.goodmorning.repository.TaskRepository;
+import com.douzone.goodmorning.vo.ChatVo;
 import com.douzone.goodmorning.vo.ProjectVo;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,10 @@ public class ProjectService {
 	
 	public List<ProjectVo> findByChannel(Long channelNo) {
 		return projectRepository.findByChannel(channelNo);
+	}
+	
+	public ChatVo findCrewNoByName(String projectName) {
+		return projectRepository.findCrewNoByName(projectName);
 	}
 	
 	public Boolean updateProject(ProjectVo projectVo) {
@@ -131,5 +136,4 @@ public void execGit(String cmd){
 			}
 		}
 	}
-
 }
