@@ -4,7 +4,7 @@
 
 	<insert id="insert" parameterType="uservo">
 		<![CDATA[
-			insert into user values(null, #{email }, #{name }, #{passwd }, now(),#{enable }, null, null, null)
+			insert into user values(null, #{email }, #{name }, #{passwd }, now(),#{enable }, null, null, '/assets/default1.png')
 		]]>
 	</insert>
 	
