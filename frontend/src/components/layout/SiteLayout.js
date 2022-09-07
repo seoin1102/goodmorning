@@ -95,7 +95,7 @@ function SiteLayout({children}) {
                     console.log("yyyyyyyyyyyyyyyy", data.body);
 
                 const result = await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
-
+                    console.log("rrrrrrrr", result);
                 if(result.data !== 'success') 
                     return;
 
