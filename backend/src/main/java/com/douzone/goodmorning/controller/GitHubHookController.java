@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.douzone.goodmorning.dto.Message;
 import com.douzone.goodmorning.dto.status.StatusEnum;
 import com.douzone.goodmorning.service.GithubHookService;
+import com.douzone.goodmorning.service.RedisPublisher;
+import com.douzone.goodmorning.vo.ChatVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,17 +27,20 @@ import lombok.RequiredArgsConstructor;
 public class GitHubHookController {
 	
 	private final GithubHookService githubHookService;
+	private final RedisPublisher redisPublisher;
 	
 	@PostMapping("/hookdata")
-
 	public ResponseEntity<Message> githubhook(@RequestHeader HashMap<String, String> headerData, @RequestBody HashMap<String, Object> data){	
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
+    	String projectName = ((HashMap<String, Object>) data.get("repository")).get("name").toString();
+    	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("success");
-    	message.setData(headerData.get("x-github-event"));
+    	//message.setData(headerData.get("x-github-event"));
+    	message.setData(projectName);
     	
 		String key= headerData.get("x-github-event");
 		
@@ -54,8 +59,12 @@ public class GitHubHookController {
 				break;	
 		}
 		
-    	
-    	
+		
+//		String topic = Long.toString(chatVo.getCrewNo());
+//		
+//    	if(ChatVo.MessageType.GITHUB.equals(chatVo.getType())) 
+//    		redisPublisher.publish(topic, chatVo);
+//    	
 //		System.out.println(data);
 //		System.out.println(data.values().toArray()[0]);
 //		System.out.println("================================");
