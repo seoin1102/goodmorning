@@ -58,9 +58,9 @@ mybatis:
       max-history: 30
    level:
       root: INFO
-      me:
-         kickscar:
-            mysite:
+      com:
+         douzone:
+            goodmorning:
                exception: ERROR         
 ---
 # development profile: spring boot configuration
