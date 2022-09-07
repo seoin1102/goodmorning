@@ -70,10 +70,10 @@ public class GitHubHookController {
 		
 		message.setData(chatVo);
 		
-//		String topic = Long.toString(chatVo.getCrewNo());
-//		
-//    	if(ChatVo.MessageType.GITHUB.equals(chatVo.getType())) 
-//    		redisPublisher.publish(topic, chatVo);
+		String topic = Long.toString(chatVo.getCrewNo());
+		
+    	if(ChatVo.MessageType.GITHUB.equals(chatVo.getType())) 
+    		redisPublisher.publish(topic, chatVo);
 //    	
 //		System.out.println(data);
 //		System.out.println(data.values().toArray()[0]);
