@@ -92,7 +92,7 @@ function SiteLayout({children}) {
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)
             client.current.subscribe(`/sub/${crewNo}`,async (data) => {
                 
-                    console.log("yyyyyyyyyyyyyyyy", data);
+                    console.log("yyyyyyyyyyyyyyyy", data.body);
 
                 const result = await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
 
