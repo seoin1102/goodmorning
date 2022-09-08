@@ -757,3 +757,4 @@
 18:01:24.575 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
 18:01:24.577 [restartedMain] INFO  c.d.g.GoodmorningApplication - Started GoodmorningApplication in 0.389 seconds (JVM running for 7114.08)
 18:01:24.578 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+18:02:24.522 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
