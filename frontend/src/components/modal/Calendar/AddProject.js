@@ -55,7 +55,7 @@ function AddProject(props) {
                   gitUserName: gitUserName
               }
             const response = await fetchResponse('/api/project/makejenkinsJob','post','jsonjsonHeader',JSON.stringify(data));
-            const json = await checkResponse(response);
+            //const json = await checkResponse(response);
         } catch(err) {
           console.log(err)
         }
@@ -74,6 +74,12 @@ function AddProject(props) {
       id: maxId+1
     }
 
+    const result1 = await post(`/project`,  updatedTask)
+    // if(reust1.data !== 'success') 
+    //   return;
+    console.log("=====>" + result1);
+
+    dispatch(addProject([ updatedTask]));
 
     const octokit = new Octokit({
       auth: gitToken
@@ -105,9 +111,6 @@ function AddProject(props) {
 
     await makeJenkinsJob(clickedName,gitName);
 
-
-    post(`/project`,  updatedTask)
-    dispatch(addProject([ updatedTask]));
     props.handleClose();
     setClickedStart(Date.now())
     setClickedEnd(Date.now())
