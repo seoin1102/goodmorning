@@ -16,7 +16,7 @@
 	
 	<select id="findMessageByProjectNo" parameterType="string" resultType="gitvo">
 		<![CDATA[
-			select event_type as eventType, user_name as userName, message from githubhook 
+			select event_type as eventType, user_name as userName, message, branch, after from githubhook 
 				where project_no = (select no from project 
 															where project_name = #{projectName }
 														) 
