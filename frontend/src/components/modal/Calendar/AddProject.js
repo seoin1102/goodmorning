@@ -97,8 +97,7 @@ function AddProject(props) {
         'delete',
       ],
       config: {
-        // url: 'http://34.64.235.225:8080/api/githubhook/hookdata',
-        url: '/api/githubhook/hookdata',
+        url: 'http://34.64.235.225:8080/api/githubhook/hookdata',
         content_type: 'json',
         insecure_ssl: '0'
       }
@@ -205,11 +204,7 @@ const copyToClipBoard = async copyMe => {
               <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"http://34.64.235.225:8080/api/jenkinsHook/hookdata"} disabled/>
                 <Button onClick={(e) => copyToClipBoard("http://34.64.235.225:8080/api/jenkinsHook/hookdata")} > 
                   copy
-                </Button> 
-              {/* <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"/api/jenkinsHook/hookdata"} disabled/>
-                <Button onClick={(e) => copyToClipBoard("/api/jenkinsHook/hookdata")} > 
-                  copy
-                </Button>  */}
+                </Button>     
               </div> 
               </Form.Group>
           </Form>
