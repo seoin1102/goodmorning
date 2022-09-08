@@ -67,7 +67,6 @@ function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo
                             onClickCrewDelete={onClickCrewDelete}
                             masterCrew={masterCrew}
                             userNo={userNo}
-
                             />
       else if (tab === 1) return <CrewSetting_member 
                           users={users} 
@@ -75,7 +74,6 @@ function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo
                           setTab={setTab}
                           onClickCrewInvite={onClickCrewInvite}
                           />
-      // else return <CrewSetting_set onClickModal={onClickModal} setTab={setTab}/>
     }
     
   return (

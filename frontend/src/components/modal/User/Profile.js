@@ -4,8 +4,8 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { postFile, put, putJson } from '../../../apis/Axios';
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
-function Profile({modalShow, onClickModal,profile, setProfile,uploadcheck}) {
-  const user = getLocalStorageAuthUser();
+function Profile({modalShow, onClickModal,profile, setProfile, user}) {
+  
   const {name, job, phoneNumber, profileUrl} = profile
   const userinfo = {no: user.no, name, job, phoneNumber};
   const setUser = {no: user.no, email:user.email, name, passwd: null, signUpDate:user.signUpDate, job, phoneNumber, profileUrl, enable: true};

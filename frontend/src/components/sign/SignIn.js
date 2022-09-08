@@ -1,10 +1,10 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SignIn from './signItem/SignIn'
 import {signin} from '../../redux/sign'
-import axios from 'axios';
-import qs from 'qs';
 import { fetchResponse, checkResponse } from '../../apis/Fetch';
+import { get, postJson, postSignIn } from '../../apis/Axios';
+import jwt_decode from "jwt-decode";
 function SignContainer() {
 
 
@@ -19,7 +19,7 @@ function SignContainer() {
         passwd: state.sign.passwd
      }));
     
-    console.log(email,passwd);
+    // console.log(email,passwd);
     
     const dispatch = useDispatch();
          
@@ -28,24 +28,29 @@ function SignContainer() {
         return  dispatch(signin(email,passwd));
     }
 
-      const getSignIn = async function(email,passwd) {
+      const getSignIn = async function(getEmail,passwd) {
         try {
             const data ={
-                email: email,
+                email: getEmail,
                 passwd: passwd
             }
 
-            const response = await fetchResponse('/api/user/signIn','post','formjsonHeader',new URLSearchParams(data));
-            const json = await checkResponse(response);
-              
-            localStorage.setItem('authUser',JSON.stringify(json.data));
+            const response = await postSignIn('/user/signIn',data);
+            const decoded = jwt_decode(response.headers.authorization);
+          
+            const {no, name, email, job, phoneNumber, profileUrl, signUpDate } = decoded;
+            const userInfo = {no, name, email, job, phoneNumber, profileUrl, signUpDate };
+
+            localStorage.setItem('authorization', response.headers.authorization );
+            localStorage.setItem('authUser',JSON.stringify(userInfo));
             location.href="/";
             seterrormessage('');
+            
         } catch(err) {
           seterrormessage(err.toString());
+          console.log(err);
         }
       }
-
 
     return (
       <Fragment>

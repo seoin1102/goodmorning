@@ -37,7 +37,7 @@ public class ProjectController {
 	 * @param userNo 채널 주인의 유저번호
 	 * @return 해당 유저가 소유한 유저 리스트
 	 */
-    @Auth
+//    @Auth
 	@Transactional
     @GetMapping("/cNo/{crewNo}")
     public ResponseEntity<JsonResult> findByCrew(@PathVariable("crewNo") Long crewNo) {
@@ -47,7 +47,7 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.findByCrew(crewNo)));
     }
     
-    @Auth
+//    @Auth
   	@Transactional
   	@GetMapping("/{channelNo}")
     public ResponseEntity<JsonResult> projectList(@PathVariable("channelNo") Long channelNo) {

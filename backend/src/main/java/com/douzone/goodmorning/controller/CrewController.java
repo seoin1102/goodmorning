@@ -37,7 +37,7 @@ public class CrewController {
 	private final ChannelService channelService;
 	
 
-	@Auth
+//	@Auth
     @Transactional
     @GetMapping("/crew/{userNo}")
     public ResponseEntity<Message> allCrew(@PathVariable("userNo") Long userNo) {
@@ -51,7 +51,7 @@ public class CrewController {
     	return ResponseEntity.ok().headers(headers).body(message);
     }
 	
-	@Auth
+//	@Auth
 	@Transactional
     @GetMapping("/crew/{channelNo}/{userNo}")
     public ResponseEntity<Message> crews(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo) {

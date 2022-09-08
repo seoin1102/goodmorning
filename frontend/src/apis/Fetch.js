@@ -1,15 +1,20 @@
 import axios from 'axios';
 
+const authorization = localStorage.getItem('authorization');
+
 const formjsonHeader = {
-    'Content-Type': 'application/x-www-form-urlencoded',  
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Authorization' : authorization,
     'Accept': 'application/json'
 }
 
 const jsonjsonHeader = {
     'Content-Type': 'application/json',
+    'Authorization' : authorization,
     'Accept': 'application/json'
 }
 const multipartHeader = {
+    'Authorization' : authorization,
     'Accept': 'application/json'
 }
 
@@ -66,13 +71,11 @@ export const checkResponse = async(response) =>{
         if(!response.ok) {
             throw new Error(`${response.status} ${response.statusText}`);
         }
-
         const json = await response.json();
-
+        
         if(json.result !== 'success') {  
             throw new Error(`${json.message}`); 
         }
-
         return json;
 }
 

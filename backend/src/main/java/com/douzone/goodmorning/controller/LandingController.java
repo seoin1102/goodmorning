@@ -15,13 +15,13 @@ public class LandingController {
 	public void returnNoFavicon() {
 	}
 	
-	@Auth
+//	@Auth
 	@RequestMapping("")
 	public String index() {
 		return "index";
 	}
 	
-	@Auth
+//	@Auth
 	@RequestMapping("/signin")
 	public String signin() {
 		return "index";

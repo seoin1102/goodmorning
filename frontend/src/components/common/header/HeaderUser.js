@@ -43,7 +43,8 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
     try {
           const response =  await fetchGetResponse('/api/user/logout','get','formjsonHeader');
           const json = await checkResponse(response);   
-          localStorage.setItem('authUser','');
+          localStorage.setItem('authUser',false);
+          localStorage.setItem('authorization',false);
           location.href="/signin"
     
         } catch(err) {
@@ -69,7 +70,7 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
                             <Navbar.Brand style={{fontSize: '1.2rem', color: 'white', fontWeight: 'bold',overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', width:'120px', textAlign:'right'}}>{user.name}</Navbar.Brand>
 
                             <Nav.Link onClick={onClickProfileModal} style={{fontSize: '1rem', color: 'white'}}>내정보</Nav.Link>
-                            <ProfileInfo modalShow={profileModalShow} onClickModal={onClickProfileModal}/>
+                            <ProfileInfo modalShow={profileModalShow} onClickModal={onClickProfileModal} user={user}/>
 
                             <Badge 
                             badgeContent={totalSum === 0 ? null : totalSum} 

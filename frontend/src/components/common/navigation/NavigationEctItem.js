@@ -17,9 +17,6 @@ function NavigationEctItem({userName, itemName, onClickModal, children}) {
     <>
         <ListItem button key={userName} onClick={onClickModal}  >
         <img src={hash2}/>
-            {/* <ListItemIcon>
-                <Avatar alt={userName} src="https://material-ui.com/static/images/avatar/2.jpg" />
-            </ListItemIcon> */}
             <ListItemText primary={itemName} style={{textDecoration:'none', color: 'white'}}></ListItemText>
         </ListItem>
         {children}

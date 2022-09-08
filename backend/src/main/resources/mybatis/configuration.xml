@@ -25,6 +25,7 @@
 				<mapper resource="mybatis/mappers/jenkinshook.xml" />
 				<mapper resource="mybatis/mappers/task.xml" />	
 				<mapper resource="mybatis/mappers/project.xml" />
-				<mapper resource="mybatis/mappers/filemanage.xml" />	
+				<mapper resource="mybatis/mappers/filemanage.xml" />
+				<mapper resource="mybatis/mappers/auth.xml" />	
 		</mappers>
 </configuration>

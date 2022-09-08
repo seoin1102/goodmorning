@@ -87,8 +87,9 @@ function Header() {
         
         if (channelNo !== null)
             initialChannel(channelNo,userNo);
+
+            console.log("asdad");
       }, [channelNo])
-        
 
     // css
     // 이넘 땜에 최적화 안됨 --> css 파일로 만들기

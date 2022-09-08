@@ -5,7 +5,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +34,8 @@ public class UserService {
 	private final CrewRepository crewRepository;
 	private final VerificationTokenRepository verificationTokenRepository;
 	private final JavaMailSender mailSender;
-
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	 
 	@Transactional
 	public int signUp(UserVo vo){
 		
@@ -41,6 +44,7 @@ public class UserService {
 		}
 		
 		vo.setEnable(false);
+		vo.setPasswd(bCryptPasswordEncoder.encode(vo.getPasswd()));
 		userRepository.insert(vo);
 		
 		
