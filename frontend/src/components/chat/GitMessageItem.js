@@ -16,6 +16,7 @@ function GitMessageItem({align, message, time, name, url}) {
         projectName: ''
     });
 
+    
     useEffect(() => {
         const messageItemArray = message.split('#$#');
         let branch;
