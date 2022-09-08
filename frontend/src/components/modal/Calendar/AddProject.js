@@ -31,10 +31,11 @@ function AddProject({show, handleClose, publishLinkPreview}) {
   const [clickedName, setClickedName] = useState()
   const [clickedDescript, setClickedDescript] = useState()
   const [clickedStatus, setClickedStatus] = useState(0);
+  const [errormessage, seterrormessage] = useState("");
 
-  useEffect(()=>{
+  // useEffect(()=>{
     
-  },[])
+  // },[])
   const projectList = useSelector((state) => state.project, shallowEqual);
   const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
 
@@ -63,62 +64,67 @@ function AddProject({show, handleClose, publishLinkPreview}) {
 
 
   const onSubmit = async (e) => {
-    e.preventDefault();
-    const updatedTask={
-      projectName: clickedName,
-      start:moment(clickedStart).format('YYYY-MM-DD'),
-      end: moment(clickedEnd).format('YYYY-MM-DD'),
-      description: clickedDescript,
-      status: clickedStatus,
-      crewNo: crewNo,
-      id: maxId+1
-    }
 
-    const result1 = await post(`/project`,  updatedTask)
-    // if(reust1.data !== 'success') 
-    //   return;
-    console.log("=====>" + result1);
-
-    dispatch(addProject([ updatedTask]));
-
-    const octokit = new Octokit({
-      auth: gitToken
-    })
-    const giturl='';
-
-    await octokit.request(`POST /user/repos`, {
-      name: clickedName,
-      private : false
-    })
-
-    await octokit.request(`POST /repos/${gitName}/${clickedName}/hooks`, {
-      owner: gitName,
-      repo: clickedName,
-      name: 'web',
-      active: true,
-      events: [
-        'push',
-        'pull_request',
-        'create',
-        'delete',
-      ],
-      config: {
-        url: 'http://34.64.235.225:8080/api/githubhook/hookdata',
-        content_type: 'json',
-        insecure_ssl: '0'
+    try{
+      e.preventDefault();
+      const updatedTask={
+        projectName: clickedName,
+        start:moment(clickedStart).format('YYYY-MM-DD'),
+        end: moment(clickedEnd).format('YYYY-MM-DD'),
+        description: clickedDescript,
+        status: clickedStatus,
+        crewNo: crewNo,
+        id: maxId+1
       }
-    })
 
-    await makeJenkinsJob(clickedName,gitName);
+      const result1 = await post(`/project`,  updatedTask)
+      // if(reust1.data !== 'success') 
+      //   return;
+      console.log("=====>" + result1);
 
-    handleClose();
-    setClickedStart(Date.now())
-    setClickedEnd(Date.now())
-    setClickedName('')
-    setClickedDescript('')
-    setClickedStatus(0)
+      dispatch(addProject([ updatedTask]));
 
-    publishLinkPreview(gitName, repoName);
+      const octokit = new Octokit({
+        auth: gitToken
+      })
+      const giturl='';
+
+      await octokit.request(`POST /user/repos`, {
+        name: clickedName,
+        private : false
+      })
+
+      await octokit.request(`POST /repos/${gitName}/${clickedName}/hooks`, {
+        owner: gitName,
+        repo: clickedName,
+        name: 'web',
+        active: true,
+        events: [
+          'push',
+          'pull_request',
+          'create',
+          'delete',
+        ],
+        config: {
+          url: 'http://34.64.235.225:8080/api/githubhook/hookdata',
+          content_type: 'json',
+          insecure_ssl: '0'
+        }
+      })
+
+      await makeJenkinsJob(clickedName,gitName);
+
+      handleClose();
+      setClickedStart(Date.now())
+      setClickedEnd(Date.now())
+      setClickedName('')
+      setClickedDescript('')
+      setClickedStatus(0)
+
+      publishLinkPreview(gitName, repoName);
+    } catch(err){
+      seterrormessage("깃 또는 깃토큰이 일치하지 않습니다!");
+    }
   }
 
 
@@ -203,6 +209,15 @@ const copyToClipBoard = async copyMe => {
               <EndDatePicker clickedEnd={clickedEnd} setClickedEnd={setClickedEnd} disableClock={true} locale="ko-KO" />
               <br />
               </Form.Group>
+              <div className='text-center'>
+                {
+                  errormessage===''?
+                  <><br/></>:
+                  <p style={{color:'red'}}>
+                    <br/>{errormessage}
+                  </p>
+                }
+              </div>
           </Form>
         </Modal.Body>
         <Modal.Footer>
