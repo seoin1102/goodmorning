@@ -108,7 +108,6 @@ public class GitHubHookController {
 		
     	if(ChatVo.MessageType.GITHUB.equals(chatVo.getType())) {
     		redisPublisher.publish(topic, chatVo);
-    		message.setData(topic);
     	}
 
 		
