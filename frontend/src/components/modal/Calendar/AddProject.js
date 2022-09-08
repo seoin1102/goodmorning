@@ -23,7 +23,7 @@ import Button from 'react-bootstrap/Button';
 import { Octokit } from "@octokit/core";
 import { fetchResponse,checkResponse } from "../../../apis/Fetch";
 
-function AddProject(props) {
+function AddProject({show, handleClose, publishLinkPreview}) {
   
   const [state, setState] = useState()
   const [clickedStart, setClickedStart] = useState()
@@ -55,7 +55,7 @@ function AddProject(props) {
                   gitUserName: gitUserName
               }
             const response = await fetchResponse('/api/project/makejenkinsJob','post','jsonjsonHeader',JSON.stringify(data));
-            //const json = await checkResponse(response);
+            const json = await checkResponse(response);
         } catch(err) {
           console.log(err)
         }
@@ -111,12 +111,14 @@ function AddProject(props) {
 
     await makeJenkinsJob(clickedName,gitName);
 
-    props.handleClose();
+    handleClose();
     setClickedStart(Date.now())
     setClickedEnd(Date.now())
     setClickedName('')
     setClickedDescript('')
     setClickedStatus(0)
+
+    publishLinkPreview(gitName, repoName);
   }
 
 
@@ -144,7 +146,7 @@ const copyToClipBoard = async copyMe => {
 
   return (
     <>
-      <Modal show={props.show} onHide={props.handleClose} sx={{width:'140%'}}>
+      <Modal show={show} onHide={handleClose} sx={{width:'140%'}}>
         <Modal.Header closeButton>
           <Modal.Title>프로젝트 추가</Modal.Title>
         </Modal.Header>
@@ -213,7 +215,7 @@ const copyToClipBoard = async copyMe => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={props.handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
           <Button variant="primary" onClick={onSubmit}>
