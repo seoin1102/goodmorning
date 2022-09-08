@@ -86,7 +86,7 @@ public class ProjectController {
     
     
     
-    @GetMapping("/makejenkinsJob")
+    @PostMapping("/makejenkinsJob")
     public ResponseEntity<JsonResult> makeJenkinsJob(@RequestParam String projectName, @RequestParam String gitUserName) {
     	String projectXml = "<project>"
     			+ "<actions/>"
