@@ -45,7 +45,7 @@ function Message({chatList}) {
                                         align={"left"}
                                         message={chat.message} 
                                         time={time}
-                                        name={"GITHUB"}
+                                        name={"GitHub"}
                                         url={githubIcon}/> :
                                 null}
                                 {(chat.type === 'JENKINS') ?
@@ -53,7 +53,7 @@ function Message({chatList}) {
                                         align={"left"}
                                         message={chat.message} 
                                         time={time}
-                                        name={'JENKINS'}
+                                        name={'Jenkins'}
                                         url={jenkinsIcon}/> :
                                 null}
                                 {chat.type === 'PREVIEW' ?
