@@ -90,10 +90,6 @@ public class ProjectController {
     @PostMapping("/makejenkinsJob")
     public ResponseEntity<JsonResult> makeJenkinsJob(@RequestBody ProjectVo vo) {
     	
-    	log.info("=======================================================");
-    	log.info("테스트책갈피");
-    	log.info(vo.getProjectName() + " " + vo.getGitUserName());
-    	log.info("=======================================================");
     	String projectXml = "<project>"
     			+ "<actions/>"
     			+ "<description/>"
@@ -111,7 +107,7 @@ public class ProjectController {
     			+ "<event>completed</event>"
     			+ "<timeout>30000</timeout>"
     			+ "<loglines>-1</loglines>"
-    			+ "<buildNotes>GoodMorning Jenkins WebHook</buildNotes>"
+    			+ "<buildNotes>Jenkins WebHook</buildNotes>"
     			+ "<retries>0</retries>"
     			+ "</com.tikal.hudson.plugins.notification.Endpoint>"
     			+ "</endpoints>"
@@ -142,7 +138,7 @@ public class ProjectController {
     			+ "<concurrentBuild>false</concurrentBuild>"
     			+ "<builders>"
     			+ "<hudson.tasks.Maven>"
-    			+ "<targets>-f backend exec:exec clean package</targets>"
+    			+ "<targets> clean package</targets>"
     			+ "<mavenName>maven 3.8</mavenName>"
     			+ "<usePrivateRepository>false</usePrivateRepository>"
     			+ "<settings class=\"jenkins.mvn.DefaultSettingsProvider\"/>"
@@ -161,9 +157,9 @@ public class ProjectController {
     			+ "<transfers>"
     			+ "<jenkins.plugins.publish__over__ssh.BapSshTransfer>"
     			+ "<remoteDirectory>/usr/local/douzone/springboot-apps/"+vo.getProjectName()+"</remoteDirectory>"
-    			+ "<sourceFiles>backend/target/"+vo.getGitUserName()+".jar</sourceFiles>"
+    			+ "<sourceFiles>target/"+vo.getGitUserName()+".jar</sourceFiles>"
     			+ "<excludes/>"
-    			+ "<removePrefix>backend/target</removePrefix>"
+    			+ "<removePrefix>target</removePrefix>"
     			+ "<remoteDirectorySDF>false</remoteDirectorySDF>"
     			+ "<flatten>false</flatten>"
     			+ "<cleanRemote>false</cleanRemote>"
