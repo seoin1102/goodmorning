@@ -16,9 +16,9 @@ function GitMessageItem({align, message, time, name, url}) {
     });
 
     useEffect(() => {
-        const messageItemArray = name.split('#$#');
+        const messageItemArray = message.split('#$#');
         let branch;
-
+        console.log(name, "    ", messageItemArray)
         if(messageItemArray[0] === 'push')
             branch = messageItemArray[3].split('/')[2];
         else
