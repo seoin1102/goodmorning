@@ -44,7 +44,7 @@ function Message({chatList}) {
                                         align={"left"}
                                         message={chat.message} 
                                         time={time}
-                                        name={chat.userName}
+                                        name={"GITHUB"}
                                         url={githubIcon}/> :
                                 null}
                                 {(chat.type === 'JENKINS') ?
