@@ -2,6 +2,7 @@ import axios from 'axios';
 import {checkResponse, checkAuth, catchAuth } from './Fetch'
 const client = axios.create({baseURL: 'http://34.64.235.225:8080/api'});
 
+
 /**
  * axios GET(Read) 요청
  * @param {string} url api 서버 url [도메인 제외]

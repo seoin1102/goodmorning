@@ -48,6 +48,20 @@ function AddProject(props) {
   projectList.map((event) => {ids.push(event.id)})
   const maxId = Math.max(...ids);
 
+  const makeJenkinsJob = async function(projectName,gitUserName) {
+    try {
+              const data ={
+                  projectName: projectName,
+                  gitUserName: gitUserName
+              }
+            const response = await fetchResponse('/api/project/makejenkinsJob','post','jsonjsonHeader',JSON.stringify(data));
+            const json = await checkResponse(response);
+        } catch(err) {
+          console.log(err)
+        }
+      }
+
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const updatedTask={
@@ -68,7 +82,7 @@ function AddProject(props) {
 
     await octokit.request(`POST /user/repos`, {
       name: clickedName,
-      private : true
+      private : false
     })
 
     await octokit.request(`POST /repos/${gitName}/${clickedName}/hooks`, {
@@ -88,6 +102,8 @@ function AddProject(props) {
         insecure_ssl: '0'
       }
     })
+
+    await makeJenkinsJob(clickedName,gitName);
 
 
     post(`/project`,  updatedTask)
@@ -188,8 +204,7 @@ const copyToClipBoard = async copyMe => {
               <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"http://34.64.235.225:8080/api/jenkinsHook/hookdata"} disabled/>
                 <Button onClick={(e) => copyToClipBoard("http://34.64.235.225:8080/api/jenkinsHook/hookdata")} > 
                   copy
-                </Button> 
-
+                </Button>     
               </div> 
               </Form.Group>
           </Form>
