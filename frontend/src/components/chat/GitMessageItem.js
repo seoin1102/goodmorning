@@ -12,7 +12,8 @@ function GitMessageItem({align, message, time, name, url}) {
         gitUser: '',
         gitMessage: '',
         branch: '',
-        after: ''
+        after: '',
+        projectName: ''
     });
 
     useEffect(() => {
@@ -30,7 +31,8 @@ function GitMessageItem({align, message, time, name, url}) {
             gitUser: messageItemArray[1],
             gitMessage: messageItemArray[2],
             branch: branch,
-            after: messageItemArray[4]
+            after: messageItemArray[4],
+            projectName: messageItemArray[5]
           }))
     }, [message]);
 
@@ -65,7 +67,7 @@ function GitMessageItem({align, message, time, name, url}) {
                             <Grid item xs={12} sx={{margin: '0px'}}>
                                 <div style={{display: 'flex', justifyContent: 'center'}}>
                                     <Avatar alt={"null"} src={url} sx={{width: '25px', height: '25px', margin: '0 5px 0 10px', verticalAlign: 'middle'}}/>
-                                    <ListItemText align={align} primary={`App 이름 설정`}  sx={{fontFamily:'SUIT-Medium'}}/>  
+                                    <ListItemText align={align} primary={messageItem.projectName}  sx={{fontFamily:'SUIT-Medium'}}/>  
                                 </div>                          
                             </Grid>
                         </Grid>
