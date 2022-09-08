@@ -202,15 +202,6 @@ const copyToClipBoard = async copyMe => {
               <br />
               <EndDatePicker clickedEnd={clickedEnd} setClickedEnd={setClickedEnd} disableClock={true} locale="ko-KO" />
               <br />
-            
-              <Form.Label>젠킨스 훅 URL</Form.Label>
-              <br />
-              <div style={{display:'flex', justifyContent:"space-between"}}>
-              <Form.Control as="textarea" rows={2} onChange={descriptHandler} value={"http://34.64.235.225:8080/api/jenkinsHook/hookdata"} disabled/>
-                <Button onClick={(e) => copyToClipBoard("http://34.64.235.225:8080/api/jenkinsHook/hookdata")} > 
-                  copy
-                </Button>     
-              </div> 
               </Form.Group>
           </Form>
         </Modal.Body>
