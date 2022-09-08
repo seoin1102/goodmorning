@@ -24,8 +24,9 @@ import com.douzone.goodmorning.service.TaskService;
 import com.douzone.goodmorning.vo.ProjectVo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/project")
 @RestController
@@ -88,6 +89,11 @@ public class ProjectController {
     
     @PostMapping("/makejenkinsJob")
     public ResponseEntity<JsonResult> makeJenkinsJob(@RequestParam String projectName, @RequestParam String gitUserName) {
+    	
+    	log.info("=======================================================");
+    	log.info("테스트책갈피");
+    	log.info(projectName + " " + gitUserName);
+    	log.info("=======================================================");
     	String projectXml = "<project>"
     			+ "<actions/>"
     			+ "<description/>"
