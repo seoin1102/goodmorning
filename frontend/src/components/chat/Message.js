@@ -2,6 +2,7 @@ import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import React, { Fragment, useCallback, useEffect, useRef } from 'react';
 import MessageItem from './MessageItem';
+import GitMessageItem from './GitMessageItem';
 import SendPreviewMessage from './SendPreviewMessage';
 import githubIcon from '../../assets/icons/github.svg';
 import jenkinsIcon from '../../assets/icons/jenkins.svg';
@@ -40,7 +41,7 @@ function Message({chatList}) {
                                         url={chat.profileUrl}/> :
                                 null}
                                 {(chat.type === 'GITHUB') ?
-                                    <MessageItem 
+                                    <GitMessageItem 
                                         align={"left"}
                                         message={chat.message} 
                                         time={time}
