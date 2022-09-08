@@ -3,6 +3,8 @@ import List from '@mui/material/List';
 import React, { Fragment, useCallback, useEffect, useRef } from 'react';
 import MessageItem from './MessageItem';
 import SendPreviewMessage from './SendPreviewMessage';
+import githubIcon from '../../assets/icons/github.svg';
+import jenkinsIcon from '../../assets/icons/jenkins.svg';
 
 function Message({chatList}) {
     const scrollRef = useRef(null);
@@ -29,13 +31,29 @@ function Message({chatList}) {
                     }
 
                     return (<Fragment key={index}>
-                                {(chat.type === 'CHAT') || (chat.type === 'GITHUB') || (chat.type === 'JENKINS') ?
+                                {(chat.type === 'CHAT') ?
                                     <MessageItem 
                                         align={"left"}
                                         message={chat.message} 
                                         time={time}
                                         name={chat.userName}
                                         url={chat.profileUrl}/> :
+                                null}
+                                {(chat.type === 'GITHUB') ?
+                                    <MessageItem 
+                                        align={"left"}
+                                        message={chat.message} 
+                                        time={time}
+                                        name={chat.userName}
+                                        url={githubIcon}/> :
+                                null}
+                                {(chat.type === 'JENKINS') ?
+                                    <MessageItem 
+                                        align={"left"}
+                                        message={chat.message} 
+                                        time={time}
+                                        name={'JENKINS'}
+                                        url={jenkinsIcon}/> :
                                 null}
                                 {chat.type === 'PREVIEW' ?
                                     <SendPreviewMessage
