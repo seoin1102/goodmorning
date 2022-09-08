@@ -8,7 +8,7 @@ import '../../styles/css/msItem.css';
 
 function GitMessageItem({align, message, time, name, url}) {
     
-
+  console.log("깃 허브 메시지 ", message)
   return (
         <ListItem key="1" >
             <Grid container spacing={1}>
