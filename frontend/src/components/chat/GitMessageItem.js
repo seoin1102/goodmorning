@@ -32,7 +32,7 @@ function GitMessageItem({align, message, time, name, url}) {
             branch: branch,
             after: messageItemArray[4]
           }))
-    }, [name]);
+    }, [message]);
 
     useEffect(() => {
         console.log(messageItem);
