@@ -156,7 +156,7 @@ public class ProjectController {
     			+ "<transfers>"
     			+ "<jenkins.plugins.publish__over__ssh.BapSshTransfer>"
     			+ "<remoteDirectory>/usr/local/douzone/springboot-apps/"+vo.getProjectName()+"</remoteDirectory>"
-    			+ "<sourceFiles>target/"+vo.getGitUserName()+".jar</sourceFiles>"
+    			+ "<sourceFiles>target/"+vo.getProjectName()+".jar</sourceFiles>"
     			+ "<excludes/>"
     			+ "<removePrefix>target</removePrefix>"
     			+ "<remoteDirectorySDF>false</remoteDirectorySDF>"
