@@ -88,11 +88,11 @@ public class ProjectController {
     
     
     @PostMapping("/makejenkinsJob")
-    public ResponseEntity<JsonResult> makeJenkinsJob(@RequestParam String projectName, @RequestParam String gitUserName) {
+    public ResponseEntity<JsonResult> makeJenkinsJob(@RequestBody ProjectVo vo) {
     	
     	log.info("=======================================================");
     	log.info("테스트책갈피");
-    	log.info(projectName + " " + gitUserName);
+    	log.info(vo.getProjectName() + " " + vo.getGitUserName());
     	log.info("=======================================================");
     	String projectXml = "<project>"
     			+ "<actions/>"
@@ -121,7 +121,7 @@ public class ProjectController {
     			+ "<configVersion>2</configVersion>"
     			+ "<userRemoteConfigs>"
     			+ "<hudson.plugins.git.UserRemoteConfig>"
-    			+ "<url>https://github.com/"+gitUserName+"/"+projectName+".git</url>"
+    			+ "<url>https://github.com/"+vo.getGitUserName()+"/"+vo.getProjectName()+".git</url>"
     			+ "<credentialsId>github_access_token</credentialsId>"
     			+ "</hudson.plugins.git.UserRemoteConfig>"
     			+ "</userRemoteConfigs>"
@@ -160,8 +160,8 @@ public class ProjectController {
     			+ "<verbose>false</verbose>"
     			+ "<transfers>"
     			+ "<jenkins.plugins.publish__over__ssh.BapSshTransfer>"
-    			+ "<remoteDirectory>/usr/local/douzone/springboot-apps/"+projectName+"</remoteDirectory>"
-    			+ "<sourceFiles>backend/target/"+projectName+".jar</sourceFiles>"
+    			+ "<remoteDirectory>/usr/local/douzone/springboot-apps/"+vo.getProjectName()+"</remoteDirectory>"
+    			+ "<sourceFiles>backend/target/"+vo.getGitUserName()+".jar</sourceFiles>"
     			+ "<excludes/>"
     			+ "<removePrefix>backend/target</removePrefix>"
     			+ "<remoteDirectorySDF>false</remoteDirectorySDF>"
@@ -190,7 +190,7 @@ public class ProjectController {
     			+ "</publishers>"
     			+ "<buildWrappers/>"
     			+ "</project>";
-    	String jenkinsXml="curl -X POST -H 'Content-Type:application/xml' -d '"+projectXml+"' -u jenkins:11eac84873470eb9d72cfb6f989468eb14 http://34.64.214.252:8080/jenkins/createItem?name="+projectName;
+    	String jenkinsXml="curl -X POST -H 'Content-Type:application/xml' -d '"+projectXml+"' -u jenkins:11eac84873470eb9d72cfb6f989468eb14 http://34.64.214.252:8080/jenkins/createItem?name="+vo.getProjectName();
     	projectService.execCMD(jenkinsXml);
     	return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("됬나?"));
     } 
