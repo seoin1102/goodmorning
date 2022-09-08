@@ -92,18 +92,19 @@ function SiteLayout({children}) {
 
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)
             client.current.subscribe(`/sub/${crewNo}`,async (data) => {
-                
-                console.log("yyyyyyyyyyyyyyyy", data.body);
-                if(JSON.parse(data.body).type === 'GITHUB')
-                    data.body.sendDate = new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ");
+                const chatData = JSON.parse(data.body);
+
+                console.log("yyyyyyyyyyyyyyyy", chatData);
+                if(chatData.type === 'GITHUB')
+                    chatData.sendDate = new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ");
 
                 const result = await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
                 console.log("rrrrrrrrrrrrr", result);
-                
+
                 if(result.data !== 'success') 
                     return;
 
-                dispatch(addChat(JSON.parse(data.body)));
+                dispatch(addChat(chatData));
                 dispatch(setCHATALARM({crewNo:crewNo}))            
             })
 
