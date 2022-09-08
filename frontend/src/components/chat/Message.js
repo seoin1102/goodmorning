@@ -29,7 +29,7 @@ function Message({chatList}) {
                     }
 
                     return (<Fragment key={index}>
-                                {chat.type === 'CHAT' ?
+                                {(chat.type === 'CHAT') || (chat.type === 'GITHUB') || (chat.type === 'JENKINS') ?
                                     <MessageItem 
                                         align={"left"}
                                         message={chat.message} 
