@@ -18,7 +18,7 @@ function GitMessageItem({align, message, time, name, url}) {
     useEffect(() => {
         const messageItemArray = message.split('#$#');
         let branch;
-        console.log(name, "    ", messageItemArray)
+        console.log(message, "    ", messageItemArray)
         if(messageItemArray[0] === 'push')
             branch = messageItemArray[3].split('/')[2];
         else
@@ -37,8 +37,7 @@ function GitMessageItem({align, message, time, name, url}) {
     useEffect(() => {
         console.log(messageItem);
     }, [messageItem])
-    
-  console.log("깃 허브 메시지 ", message)
+
   return (
         <ListItem key="1" >
             <Grid container spacing={1}>
