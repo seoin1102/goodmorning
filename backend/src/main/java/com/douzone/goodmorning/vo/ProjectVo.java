@@ -17,5 +17,6 @@ public class ProjectVo {
 	private Long crewNo;
 	private boolean enable;
 	private String crewName;
+	private String gitUserName;
 
 }
