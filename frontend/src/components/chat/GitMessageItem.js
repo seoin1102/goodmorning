@@ -2,11 +2,41 @@ import { Avatar, ListItemIcon } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../assets/fonts/font.css';
 import '../../styles/css/msItem.css';
 
 function GitMessageItem({align, message, time, name, url}) {
+    const [messageItem, setMessageItem] = useState({
+        eventType: '',
+        gitUser: '',
+        gitMessage: '',
+        branch: '',
+        after: ''
+    });
+
+    useEffect(() => {
+        const messageItemArray = name.split('#$#');
+        let branch;
+
+        if(messageItemArray[0] === 'push')
+            branch = messageItemArray[3].split('/')[2];
+        else
+            branch = messageItemArray[3];
+
+        setMessageItem((prevMessageItem) => ({
+            ...prevMessageItem, 
+            eventType: messageItemArray[0], 
+            gitUser: messageItemArray[1],
+            gitMessage: messageItemArray[2],
+            branch: branch,
+            after: messageItemArray[4]
+          }))
+    }, [name]);
+
+    useEffect(() => {
+        console.log(messageItem);
+    }, [messageItem])
     
   console.log("깃 허브 메시지 ", message)
   return (
