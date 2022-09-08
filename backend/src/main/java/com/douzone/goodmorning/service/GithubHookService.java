@@ -91,7 +91,7 @@ public class GithubHookService {
 
 	public String findMessageByProjectNo(String projectName) {
 		GithubHookVo gitVo = gitHubHookRepository.findMessageByProjectNo(projectName);	
-		return gitVo.getEventType() + "#$#" + gitVo.getUserName() + "#$#" + gitVo.getMessage() + "#$#" + gitVo.getBranch() + "#$#" + gitVo.getAfter();
+		return gitVo.getEventType() + "#$#" + gitVo.getUserName() + "#$#" + gitVo.getMessage() + "#$#" + gitVo.getBranch() + "#$#" + gitVo.getAfter() + "#$#" + gitVo.getProjectName();
 	}
 
 
