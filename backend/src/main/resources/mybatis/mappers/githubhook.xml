@@ -4,7 +4,7 @@
 
 	<insert id="insert" parameterType="map">
 		<![CDATA[
-			insert into githubhook values(null, #{eventType }, #{pusher }, #{message }, now(), #{projectNo})
+			insert into githubhook values(null, #{eventType }, #{pusher }, #{message }, now(),#{branch},#{after},#{projectNo})
 		]]>
 	</insert>
 	

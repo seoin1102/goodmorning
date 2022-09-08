@@ -86,7 +86,6 @@ public class ProjectController {
     }
     
     
-    
     @PostMapping("/makejenkinsJob")
     public ResponseEntity<JsonResult> makeJenkinsJob(@RequestBody ProjectVo vo) {
     	
