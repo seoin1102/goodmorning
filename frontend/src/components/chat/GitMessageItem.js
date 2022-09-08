@@ -34,10 +34,6 @@ function GitMessageItem({align, message, time, name, url}) {
           }))
     }, [message]);
 
-    useEffect(() => {
-        console.log(messageItem);
-    }, [messageItem])
-
   return (
         <ListItem key="1" >
             <Grid container spacing={1}>
@@ -57,17 +53,19 @@ function GitMessageItem({align, message, time, name, url}) {
                         </Grid>
                         <Grid item xs={11.92} >
                             <Grid item xs={12}>
-                                <ListItemText align={align} primary={'hwimin-kim'} sx={{fontFamily:'SUIT-Medium', padding: '0 0 0 10px'}} ></ListItemText>
+                                <ListItemText align={align} primary={messageItem.gitUser} sx={{fontFamily:'SUIT-Medium', padding: '0 0 0 10px'}} ></ListItemText>
                             </Grid>
                             <Grid item xs={12} sx={{display: 'flex'}}>      
-                                <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>{`2 new commit pushed to`}</div>
+                                <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>{`${messageItem.gitMessage} ${messageItem.after} to`}</div>
                                 <div>&nbsp;</div>
-                                <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'red', borderRadius: '5px'}}>{`master`}</div>    
+                                <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'red', borderRadius: '5px'}}>
+                                  {messageItem.branch}
+                                </div>    
                             </Grid>
                             <Grid item xs={12} sx={{margin: '0px'}}>
                                 <div style={{display: 'flex', justifyContent: 'center'}}>
                                     <Avatar alt={"null"} src={url} sx={{width: '25px', height: '25px', margin: '0 5px 0 10px', verticalAlign: 'middle'}}/>
-                                    <ListItemText align={align} primary={'goodmorning'}  sx={{fontFamily:'SUIT-Medium'}}/>  
+                                    <ListItemText align={align} primary={`App 이름 설정`}  sx={{fontFamily:'SUIT-Medium'}}/>  
                                 </div>                          
                             </Grid>
                         </Grid>
