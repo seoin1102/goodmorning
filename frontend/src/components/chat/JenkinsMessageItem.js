@@ -71,12 +71,12 @@ function JenkinsMessageItem({align, message, time, name, url}) {
                             </Grid>
                             <Grid item xs={12} sx={{margin: '0px'}}>
                                 <div style={{display: 'flex', justifyContent: 'flex-start'}}>
-                                    <a href={messageItem.fullUrl} target={'_blank'} style={{textDecoration: 'none'}}>
-                                        <Avatar alt={"null"} src={url} sx={{width: '25px', height: '25px', margin: '0 5px 0 10px', verticalAlign: 'middle'}}/>
-                                    </a>
-                                    <a href={messageItem.fullUrl} target={'_blank'} style={{textDecoration: 'none'}}>
-                                        <ListItemText align={align} primary={messageItem.projectName}  sx={{fontFamily:'SUIT-Medium'}}/>
-                                    </a>
+                                    {/* <a href={messageItem.fullUrl} target={'_blank'} style={{textDecoration: 'none'}}> */}
+                                        <Avatar alt={"null"} src={url} sx={{width: '25px', height: '25px', margin: '0 5px 0 10px', verticalAlign: 'middle'}} href={messageItem.fullUrl}/>
+                                    {/* </a> */}
+                                  
+                                        <ListItemText align={align} primary={messageItem.projectName}  sx={{fontFamily:'SUIT-Medium'}} href={messageItem.fullUrl}/>
+                               
                                 </div>                          
                             </Grid>
                         </Grid>
