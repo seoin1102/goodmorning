@@ -62,19 +62,19 @@ function FileUpload({modalShow,FileUploadModalIsOpenCallback,uploadcheck}) {
                             <Form 
                                 onSubmit={handleSubmit}
                                 ref={refForm}>
-                                <InputGroup className="mb-3">
-                                    <InputGroup.Text id="basic-addon1">파일 설명</InputGroup.Text>
-                                    <Form.Control
-                                        placeholder={'설명(코멘트)'}
-                                        type={'text'}
-                                        name={'comment'}
-                                        aria-label="Username"
-                                        aria-describedby="basic-addon1"
-                                        required
-                                    />
-                                </InputGroup>
+                                    <InputGroup className="mb-3">
+                                        <InputGroup.Text id="basic-addon1">파일 설명</InputGroup.Text>
+                                        <Form.Control
+                                            placeholder={'설명(코멘트)'}
+                                            type={'text'}
+                                            name={'comment'}
+                                            aria-label="Username"
+                                            aria-describedby="basic-addon1"
+                                            required
+                                        />
+                                    </InputGroup>
                                 <br/>
-                                <Form.Group controlId="formFile" className="mb-3">
+                                <Form.Group controlId="formFile" className="mb-3" style={{marginLeft:'-7px', marginTop:'-20px', width:'99.3%'}}>
                                     <Form.Control 
                                         type={'file'}
                                         name={'uploadFile'}
@@ -82,7 +82,7 @@ function FileUpload({modalShow,FileUploadModalIsOpenCallback,uploadcheck}) {
                                         required
                                     />
                                 </Form.Group>
-                                <FormSelect name={'selectProject'} >
+                                <FormSelect name={'selectProject'}  style={{width:'99.3%'}}>
                                     {posts.map(({projectNo,projectName},index) => (
                                         <option key={index} value={projectNo}>{projectName}</option>
                                     ))}
