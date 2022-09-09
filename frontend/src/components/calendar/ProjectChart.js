@@ -15,7 +15,7 @@ export default function MyWidget(props) {
     <div>
       <h3 style={{ padding: "30px" }}>프로젝트 달력</h3>
       {data.length >= 2 ? (
-        <div style={{ margin: "20px", height:"400px"}}>
+        <div style={{ margin: "20px", height:"350px"}}>
           <Chart
             chartType="Gantt"
             data={data}
@@ -28,7 +28,7 @@ export default function MyWidget(props) {
           />
         </div>
       ) : (
-        <div style={{width:'914px', height:'400px', textAlign:'center', padding:'20px'}}>채널을 선택하거나 프로젝트를 생성해주세요.</div>
+        <div style={{ height:'400px', textAlign:'center', padding:'20px'}}>채널을 선택하거나 프로젝트를 생성해주세요.</div>
       )}
     </div>
   );

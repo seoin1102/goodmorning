@@ -73,8 +73,8 @@ function Calendar() {
 }, [dispatch])
   /////
   const eventClickHandler = (info) => {
-    const { id, title, start, end } = info.event;
-    const { userName, userNo, status, projectNo, color, projectName } =
+    const { id, title, start, end, borderColor } = info.event;
+    const { userName, userNo, status, projectNo,  projectName } =
       info.event.extendedProps;
 
     const clickedTask = {
@@ -86,7 +86,7 @@ function Calendar() {
       userNo: userNo,
       status: status,
       projectNo: projectNo,
-      color: color,
+      color: borderColor,
       projectName: projectName,
     };
 
@@ -96,6 +96,7 @@ function Calendar() {
     } else {
       setState(clickedTask);
     }
+
     openModal();
   };
 
@@ -147,7 +148,7 @@ function Calendar() {
             </div>
             <div style={{display:'flex',gap:"1rem"}}>
             
-            <Row style={{ padding: "30px" }}>
+            <Row style={{ padding: "20px" }}>
               <div>
                 <Col lg={9} sm={12} md={12}>
                   <TaskCalendar

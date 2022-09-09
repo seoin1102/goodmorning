@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo, useMemo } from "react";
 import { NavDropdown } from "react-bootstrap";
 import { get, remove } from "../../apis/Axios";
-import {Card, Box, Button, Grid, Paper} from "@mui/material";
+import {Card, Box, Button, Grid, Paper, Divider} from "@mui/material";
 import { NavLink } from "react-router-dom";
 import CollapsibleTable from "./ProjectTable";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -31,10 +31,19 @@ export default function Project({publishLinkPreview}) {
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+  const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
 
   const initialProject = React.useCallback(
     async (crewNo) => {
       const getProjects = await get(`/project/cNo/${crewNo}`);
+      dispatch(setProject(getProjects));
+    },
+    [dispatch]
+  );
+
+  const totalProject = React.useCallback(
+    async (channelNo) => {
+      const getProjects = await get(`/project/${channelNo}`);
       dispatch(setProject(getProjects));
     },
     [dispatch]
@@ -96,6 +105,10 @@ useEffect(()=>{
 },[initialProject])
 
 useEffect(()=>{
+  totalProject
+},[totalProject])
+
+useEffect(()=>{
   initialTask
 },[initialTask])
 
@@ -126,8 +139,15 @@ useEffect(()=>{
                     }}
                     title="채널 선택"
                   >
+                    <NavDropdown.Item
+                    onClick={() => {
+                      return totalProject(channelNo);
+
+                    }}>전체 채널</NavDropdown.Item>
+                    <Divider />
                     {crewList.length !== 0
                       ? crewList.map((crew, index) => (
+                        
                           <NavDropdown.Item
                             onClick={() => {
                               setChangeCrew((prevState) => ({
@@ -143,7 +163,6 @@ useEffect(()=>{
                             }}
                             key={index}
                           >
-
                             {crew.name}
                           </NavDropdown.Item>
                         ))

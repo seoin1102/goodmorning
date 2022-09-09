@@ -9,6 +9,8 @@ import crewUser from './crewUser';
 import project from './project';
 import chatAlarm from './chatAlarm';
 import file from './file';
+import search from './search';
+
 const rootReducer = combineReducers({
     channel,
     crew,
@@ -19,7 +21,8 @@ const rootReducer = combineReducers({
     crewUser,
     project,
     chatAlarm,
-    file
+    file,
+    search
 });
 
 export default rootReducer;

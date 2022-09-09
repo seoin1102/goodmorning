@@ -85,7 +85,7 @@ function AddProject({show, handleClose, publishLinkPreview}) {
   }
 
 const nameHandler = (e) =>{
-  setClickedName(e.target.value)
+  setClickedName(e.target.value.replace(/[^A-Za-z ]/ig, ''))
 }
 
 const descriptHandler =(e)=>{
@@ -115,7 +115,7 @@ const copyToClipBoard = async copyMe => {
               <Form.Label>프로젝트명</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="프로젝트 이름을 입력해주세요."
+                placeholder="프로젝트 이름을 입력해주세요. 영어만 입력 가능합니다."
                 autoFocus
                 value={clickedName || ''} onChange={nameHandler}
               />

@@ -51,6 +51,20 @@ public class ChatApiController {
     	return ResponseEntity.ok().headers(headers).body(message);
     }
     
+    // 채널 전체 채팅 리스트 가져오기
+    @GetMapping("/chat/channel/{channelNo}")
+    public ResponseEntity<Message> chatChannelList(@PathVariable("channelNo") Long channelNo) {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	Message message = new Message(); 	
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("[" + channelNo + " 크루]" + " 메시지 리스트");
+    	message.setData(chatService.getChannelMessageList(channelNo));
+    	System.out.println(message);
+    	return ResponseEntity.ok().headers(headers).body(message);
+    }
+    
     // 채팅 추가
     @Transactional
     @PostMapping("/chat/{crewNo}/{userNo}")
