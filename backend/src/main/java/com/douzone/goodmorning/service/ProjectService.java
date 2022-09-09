@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.douzone.goodmorning.repository.ProjectRepository;
 import com.douzone.goodmorning.repository.TaskRepository;
+import com.douzone.goodmorning.vo.ChatVo;
 import com.douzone.goodmorning.vo.ProjectVo;
 
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,10 @@ public class ProjectService {
 		return projectRepository.findByChannel(channelNo);
 	}
 	
+	public ChatVo findCrewNoByName(String projectName) {
+		return projectRepository.findCrewNoByName(projectName);
+	}
+	
 	public Boolean updateProject(ProjectVo projectVo) {
 		return projectRepository.update(projectVo);
 	}
@@ -44,9 +49,7 @@ public class ProjectService {
 	}
 	
 	
-public void execGit(String cmd){
-		String giturl = "C:\\Program Files\\Git\\git-cmd.exe";
-		String testurl = "C:\\Program Files\\Oracle\\VirtualBox\\VirtualBox.exe";
+public void execCMD(String cmd){
 		Runtime rt = Runtime.getRuntime();
 		Process pc = null;
 		StringBuffer successOutput = new StringBuffer();
@@ -131,5 +134,4 @@ public void execGit(String cmd){
 			}
 		}
 	}
-
 }

@@ -39,8 +39,7 @@ function SiteLayout({children}) {
     // 자원 할당(소켓 연결)
     const connect = () => {
         client.current = new StompJs.Client({
-
-            webSocketFactory: () => new SockJS("http://192.168.10.16:8080/ws-stomp"),
+            webSocketFactory: () => new SockJS("http://34.64.235.225:8080/ws-stomp"),
             debug: function (str) {},
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
@@ -93,13 +92,20 @@ function SiteLayout({children}) {
             await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
 
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)
-            client.current.subscribe(`/sub/${crewNo}`,async (data) => {         
+            client.current.subscribe(`/sub/${crewNo}`,async (data) => {
+                const chatData = JSON.parse(data.body);
+
+                console.log("yyyyyyyyyyyyyyyy", chatData);
+                if(chatData.type === 'GITHUB')
+                    chatData.sendDate = new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ");
+
                 const result = await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
+                console.log("rrrrrrrrrrrrr", result);
 
                 if(result.data !== 'success') 
                     return;
 
-                dispatch(addChat(JSON.parse(data.body)));
+                dispatch(addChat(chatData));
                 dispatch(setCHATALARM({crewNo:crewNo}))            
             })
 

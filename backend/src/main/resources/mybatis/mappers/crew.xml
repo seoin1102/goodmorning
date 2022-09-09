@@ -30,6 +30,15 @@
 				]]>
 		</select>
 		
+		<select id="findMasterByNo" parameterType="string" resultType="Long">
+				<![CDATA[
+				select master_crew_user_no from crew 
+					where no = (select crew_no from project 
+												where project_name = #{projectName }
+											);
+				]]>
+		</select>
+		
 		<select id="findCrewNoByChannelNo" parameterType="string" resultType="Long">
 				<![CDATA[
 				select no from crew where channel_no = #{channelNo} order by no limit 1;

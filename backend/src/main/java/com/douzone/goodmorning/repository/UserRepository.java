@@ -94,4 +94,8 @@ public class UserRepository {
 		
 	}
 
+	public String findUserNameByNo(Long userNo) {
+		return sqlSession.selectOne("user.findUserNameByNo", userNo);
+	}
+
 }

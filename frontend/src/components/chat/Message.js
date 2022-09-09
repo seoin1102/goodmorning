@@ -2,7 +2,10 @@ import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import React, { Fragment, useCallback, useEffect, useRef } from 'react';
 import MessageItem from './MessageItem';
+import GitMessageItem from './GitMessageItem';
 import SendPreviewMessage from './SendPreviewMessage';
+import githubIcon from '../../assets/icons/github.svg';
+import jenkinsIcon from '../../assets/icons/jenkins.svg';
 
 function Message({chatList}) {
     const scrollRef = useRef(null);
@@ -23,19 +26,35 @@ function Message({chatList}) {
                     
                     if(array.length > index + 1) {
                         if (chat.sendDate.split(" ")[0] !== array[index + 1].sendDate.split(" ")[0]){
-                            dateDivider = <Divider>{date.slice(0, date.length - 1) + String(Number(date.charAt(date.length-1)) + 1)}</Divider>
+                            dateDivider = <Divider>{array[index + 1].sendDate.split(" ")[0]}</Divider>
                         }
                         else null;
                     }
 
                     return (<Fragment key={index}>
-                                {chat.type === 'CHAT' ?
+                                {(chat.type === 'CHAT') ?
                                     <MessageItem 
                                         align={"left"}
                                         message={chat.message} 
                                         time={time}
                                         name={chat.userName}
                                         url={chat.profileUrl}/> :
+                                null}
+                                {(chat.type === 'GITHUB') ?
+                                    <GitMessageItem 
+                                        align={"left"}
+                                        message={chat.message} 
+                                        time={time}
+                                        name={"GitHub"}
+                                        url={githubIcon}/> :
+                                null}
+                                {(chat.type === 'JENKINS') ?
+                                    <MessageItem 
+                                        align={"left"}
+                                        message={chat.message} 
+                                        time={time}
+                                        name={'Jenkins'}
+                                        url={jenkinsIcon}/> :
                                 null}
                                 {chat.type === 'PREVIEW' ?
                                     <SendPreviewMessage

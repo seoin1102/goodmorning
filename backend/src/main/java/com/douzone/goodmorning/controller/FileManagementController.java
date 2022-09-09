@@ -43,7 +43,8 @@ public class FileManagementController {
 
 	@PostMapping("/download/{filename}")
 	public ResponseEntity<JsonResult> index(@PathVariable("filename") String filename) {
-		String file = "/assets/file/" + filename;
+		System.out.println("들어온지 테스트 " + filename);
+		String file = "/assets/" + filename;
 		FileManagementVo fileManagementVo =fileManagementService.getFile(file);
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(fileManagementVo));
 	}

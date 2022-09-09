@@ -13,6 +13,8 @@ public class GithubHookVo {
 	private String userName;
 	private String message;
 	private String date;
+	private String branch;
+	private String after;
 	private int projectNo;
 	private String projectName;
 	private int crewNo;

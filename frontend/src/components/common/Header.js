@@ -38,7 +38,7 @@ function Header() {
     //     no: channelNo,
     //     name: channelName
     // })
-   
+  
     /**
      * 채널 목록
      * @param userNo 채널 번호
@@ -102,9 +102,8 @@ function Header() {
             initialFocus(userNo);
         
         if (channelNo !== null)
-            initialChannel(channelNo,userNo);
-      }, [channelNo,userNo])
-        
+            initialChannel(channelNo, userNo);
+      }, [channelNo])
 
     // css
     // 이넘 땜에 최적화 안됨 --> css 파일로 만들기

@@ -13,6 +13,11 @@ const multipartHeader = {
     'Accept': 'application/json'
 }
 
+const jenkinsHeader = {
+    'Content-Type': 'application/x-www-form-urlencoded',  
+}
+
+
 /**
  * 
  * @param {*} url 보낼 url 
@@ -32,6 +37,9 @@ export const fetchResponse = async(url,methodType,headerType,sendData) => {
             break;
         case "multipartHeader":
             header = multipartHeader;
+            break;
+        case "jenkinsHeader":
+            header = jenkinsHeader;
             break;
     }
 
@@ -53,6 +61,9 @@ export const fetchGetResponse = async(url,methodType,headerType) => {
             break;
         case "multipartHeader":
             header = multipartHeader;
+            break;
+        case "jenkinsHeader":
+            header = jenkinsHeader;
             break;
     }
 
