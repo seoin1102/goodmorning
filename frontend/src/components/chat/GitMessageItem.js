@@ -68,7 +68,7 @@ function GitMessageItem({align, message, time, name, url}) {
                                   {`${messageItem.gitMessage}`}
                                 </div>                             
                                 {
-                                  messageItem.after === '' ? 
+                                  messageItem.after === ' ' ? 
                                   null :
                                   <>
                                       <div>&nbsp;</div>
