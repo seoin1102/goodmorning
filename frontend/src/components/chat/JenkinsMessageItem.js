@@ -52,7 +52,7 @@ function JenkinsMessageItem({align, message, time, name, url}) {
                         </Grid>
                         <Grid item xs={11.92} >
                             <Grid item xs={12}>
-                                <ListItemText align={align} primary={`${messageItem.buildNumber} 번`} sx={{fontFamily:'SUIT-Medium', padding: '0 0 0 10px'}} ></ListItemText>
+                                <ListItemText align={align} primary={`${messageItem.buildNumber}번`} sx={{fontFamily:'SUIT-Medium', padding: '0 0 0 10px'}} ></ListItemText>
                             </Grid>
                             <Grid item xs={12} sx={{display: 'flex'}}>      
                                 <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>
@@ -71,10 +71,10 @@ function JenkinsMessageItem({align, message, time, name, url}) {
                             </Grid>
                             <Grid item xs={12} sx={{margin: '0px'}}>
                                 <div style={{display: 'flex', justifyContent: 'flex-start'}}>
-                                    <a href={messageItem.fullUrl}>
+                                    <a href={messageItem.fullUrl} target={'_blank'} style={{textDecoration: 'none'}}>
                                         <Avatar alt={"null"} src={url} sx={{width: '25px', height: '25px', margin: '0 5px 0 10px', verticalAlign: 'middle'}}/>
                                     </a>
-                                    <a href={messageItem.fullUrl}>
+                                    <a href={messageItem.fullUrl} target={'_blank'} style={{textDecoration: 'none'}}>
                                         <ListItemText align={align} primary={messageItem.projectName}  sx={{fontFamily:'SUIT-Medium'}}/>
                                     </a>
                                 </div>                          
