@@ -38,6 +38,7 @@ function GitMessageItem({align, message, time, name, url}) {
             projectName: messageItemArray[5]
           }))
           console.log("해시 자르기", messageItemArray[4].slice(0, 7))
+          
     }, [message]);
 
   return (
