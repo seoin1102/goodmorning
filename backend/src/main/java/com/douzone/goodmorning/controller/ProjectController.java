@@ -171,6 +171,23 @@ public class ProjectController {
     			+ "<useAgentForwarding>false</useAgentForwarding>"
     			+ "<useSftpForExec>false</useSftpForExec>"
     			+ "</jenkins.plugins.publish__over__ssh.BapSshTransfer>"
+    		    + "<jenkins.plugins.publish__over__ssh.BapSshTransfer>"
+    		    + "<remoteDirectory>/usr/local/douzone/springboot-apps/"+vo.getProjectName()+"</remoteDirectory>"
+    		    + "<sourceFiles>/target/launch.sh</sourceFiles>"
+    		    + "<excludes/>"
+    		    + "<removePrefix>target</removePrefix>"
+    		    + "<remoteDirectorySDF>false</remoteDirectorySDF>"
+    		    + "<flatten>false</flatten>"
+    		    + "<cleanRemote>false</cleanRemote>"
+    		    + "<noDefaultExcludes>false</noDefaultExcludes>"
+    		    + "<makeEmptyDirs>false</makeEmptyDirs>"
+    		    + "<patternSeparator>[, ]+</patternSeparator>"
+    		    + "<execCommand>chmod 770 /usr/local/douzone/springboot-apps/"+vo.getProjectName()+"/launch.sh /usr/local/douzone/springboot-apps/"+vo.getProjectName()+"/launch.sh</execCommand>"
+    		    + "<execTimeout>120000</execTimeout>"
+    		    + "<usePty>false</usePty>"
+    		    + "<useAgentForwarding>false</useAgentForwarding>"
+    		    + "<useSftpForExec>false</useSftpForExec>"
+    		    + "</jenkins.plugins.publish__over__ssh.BapSshTransfer>"
     			+ "</transfers>"
     			+ "<useWorkspaceInPromotion>false</useWorkspaceInPromotion>"
     			+ "<usePromotionTimestamp>false</usePromotionTimestamp>"
@@ -189,7 +206,7 @@ public class ProjectController {
     	projectService.execCMD(jenkinsXml);
     	return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("됬나?"));
     } 
-    
+
     
     
 }
