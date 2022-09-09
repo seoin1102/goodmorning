@@ -8,12 +8,14 @@ import { get, postJson, putUrl } from '../../apis/Axios';
 import { chatVo, msgChat, msgConnect, chatPreviewVo, msgPreview } from '../../apis/ChatVo.js';
 import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import { addChat, setChat } from '../../redux/chat';
+import { setSearch } from '../../redux/search';
 import { addCHATALARM, resetCHATALARM, setCHATALARM, updateCHATALARM } from '../../redux/chatAlarm';
 import '../../styles/css/SiteLayout.css';
 import Chat from '../chat/Chat';
 import Header from '../common/Header';
 import Navigation from '../common/Navigation';
 import Project from '../calendar/Project';
+import moment from 'moment';
 
 function SiteLayout({children}) {
     const client = useRef({});
@@ -22,7 +24,7 @@ function SiteLayout({children}) {
     const [sendMessage, setSendMessage] = useState("");
 
     const dispatch = useDispatch();
-    //const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
+    const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
     //const crewList = useSelector(state => (state.crew), shallowEqual);
     const chatList = useSelector(state => (state.chat), shallowEqual);
     const { crewNo } = useSelector(state => (state.focus), shallowEqual);
@@ -37,10 +39,7 @@ function SiteLayout({children}) {
     // 자원 할당(소켓 연결)
     const connect = () => {
         client.current = new StompJs.Client({
-
             webSocketFactory: () => new SockJS("http://34.64.235.225:8080/ws-stomp"),
-
-
             debug: function (str) {},
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
@@ -85,7 +84,9 @@ function SiteLayout({children}) {
 
             // focus 된 [채널/크루]의 전체 메시지 리스트 DB에서 가져와 출력
             const getChatList = await get(`/chat/${crewNo}`);
+            const getSearchList = await get(`/chat/channel/${channelNo}`);
             dispatch(setChat(getChatList));
+            dispatch(setSearch(getSearchList));
             dispatch(setCHATALARM({crewNo:crewNo}))
             // 읽음 업데이트
             await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
@@ -126,7 +127,6 @@ function SiteLayout({children}) {
 
         //  DB 저장
         const result = await postJson(`/chat/${crewNo}/${authUser.no}`, addChat);
-
         // console.log("*************", result)
         // DB INSERT 성공 시 STOMP 통신
         if(result.data !== 'success')

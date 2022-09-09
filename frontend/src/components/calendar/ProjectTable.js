@@ -135,7 +135,7 @@ export default function AskConfirmationBeforeSave(props) {
   };
   
   return (
-    <div style={{ height: 500, width: '100%' }}>
+    <div style={{ height: 300, width: '100%' }}>
 
       {renderConfirmDialog()}
       <DataGrid

@@ -34,7 +34,7 @@ function TaskCalendar(props) {
 
   return (
     <div className="demo-app-calendar" id="mycalendartest"
-    style={{width: "750px",marginLeft:'2%', fontFamily:'Cascadia Code'}}>
+    style={{width: "880px", height: '690px', marginLeft:'2%', fontFamily:'Cascadia Code'}}>
       <FullCalendar
         defaultView="dayGridMonth"
         headerToolbar={{
@@ -51,6 +51,8 @@ function TaskCalendar(props) {
         eventClick={props.eventClickHandler}
         dateClick={props.dateClickHandler}
         eventColor={props.taskList.color}
+        height= '700px'
+        width = '880px'
       /></div>
   );
 }

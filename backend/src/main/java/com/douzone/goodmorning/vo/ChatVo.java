@@ -22,4 +22,5 @@ public class ChatVo {
     private String sendDate;
     private String message;
     private String profileUrl;
+    private String crewName;
 }

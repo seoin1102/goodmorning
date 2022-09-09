@@ -19,6 +19,10 @@ public class ChatRepository {
 	public List<ChatVo> findAllByCrewNo(Long crewNo) {
 		return sqlSession.selectList("chat.findAllByCrewNo", crewNo);
 	}
+	
+	public List<ChatVo> findAllByChannelNo(Long ChannelNo) {
+		return sqlSession.selectList("chat.findAllByChannelNo", ChannelNo);
+	}
 
 	public Boolean insertByCrewNoAndUserNo(ChatVo chatVo) {
 		return sqlSession.insert("chat.insertByCrewNoAndUserNo", chatVo) == 1;

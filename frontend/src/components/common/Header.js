@@ -18,6 +18,8 @@ function Header() {
     const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
     const [users, setUsers] = useState([]);
     const [masterChannelNo, setMasterChannelNo] = useState(0);
+    const [search, setSearch] = useState();
+
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
 
@@ -102,7 +104,6 @@ function Header() {
         if (channelNo !== null)
             initialChannel(channelNo, userNo);
       }, [channelNo])
-        
 
     // css
     // 이넘 땜에 최적화 안됨 --> css 파일로 만들기
@@ -128,7 +129,7 @@ function Header() {
             <HeaderItem itemName={channelName} modalIsOpen={channelModalIsOpen} customStyle={channelStyle} onClickModal={onClickChannelModal}>
                 <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users} initialUser={initialUser} masterChannelNo={masterChannelNo}/>
             </HeaderItem>
-            <HeaderSearch/>
+            <HeaderSearch search={search} setSearch={setSearch}/>
             <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel} totalSum={totalSum} setTotalSum={setTotalSum}/>
         </Grid>
     );

@@ -8,7 +8,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.douzone.goodmorning.security.AuthInterceptor;
@@ -61,8 +60,6 @@ public class WebConfig implements WebMvcConfigurer {
 		.addPathPatterns("/api/**")
 		.excludePathPatterns("/assets/**")
 		.excludePathPatterns("/api/user/singIn")
-		.excludePathPatterns("/api/user/logout");
-
-		
+		.excludePathPatterns("/api/user/logout");	
 	}
 }
