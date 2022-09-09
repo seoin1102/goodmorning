@@ -64,7 +64,9 @@ function GitMessageItem({align, message, time, name, url}) {
                                 <ListItemText align={align} primary={messageItem.gitUser} sx={{fontFamily:'SUIT-Medium', padding: '0 0 0 10px'}} ></ListItemText>
                             </Grid>
                             <Grid item xs={12} sx={{display: 'flex'}}>      
-                                <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>{`${messageItem.gitMessage} ${messageItem.after} to`}</div>
+                                <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>{`${messageItem.gitMessage}`}</div>
+                                <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'blue', borderRadius: '5px'}}>{`${messageItem.after}`}</div>
+                                <div style={{margin: '0 0 8px 0'}}>{` to`}</div>
                                 <div>&nbsp;</div>
                                 <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'red', borderRadius: '5px'}}>
                                   {messageItem.branch}
