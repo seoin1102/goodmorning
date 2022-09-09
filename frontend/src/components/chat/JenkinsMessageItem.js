@@ -28,7 +28,7 @@ function JenkinsMessageItem({align, message, time, name, url}) {
             duration: messageItemArray[2],
             status: messageItemArray[3],
             branch: messageItemArray[4],
-            commit: messageItemArray[5],
+            commit: messageItemArray[5].slice(0, 7),
             projectName: messageItemArray[6]
           }))
     }, [message]);
@@ -47,16 +47,16 @@ function JenkinsMessageItem({align, message, time, name, url}) {
                         <Grid item xs={12} >
                             <ListItemText align={align} style={{fontWeight:'bolder'}} >{name}  {time}</ListItemText>
                         </Grid>
-                        <Grid item xs={0.005} sx={{backgroundColor: 'black', borderRadius: '10px', borderWidth: '1px', padding: '0'}}>
+                        <Grid item xs={0.005} sx={{backgroundColor: 'red', borderRadius: '10px', borderWidth: '1px', padding: '0'}}>
                             <div style={{height: '65px', padding: '0'}}></div>
                         </Grid>
                         <Grid item xs={11.92} >
                             <Grid item xs={12}>
-                                <ListItemText align={align} primary={messageItem.fullUrl} sx={{fontFamily:'SUIT-Medium', padding: '0 0 0 10px'}} ></ListItemText>
+                                <ListItemText align={align} primary={`${messageItem.buildNumber} 번`} sx={{fontFamily:'SUIT-Medium', padding: '0 0 0 10px'}} ></ListItemText>
                             </Grid>
                             <Grid item xs={12} sx={{display: 'flex'}}>      
                                 <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>
-                                  {`${messageItem.buildNumber} ${messageItem.duration} ${messageItem.status}`}
+                                  {`${messageItem.duration} ${messageItem.status}`}
                                 </div>                             
                                 <div>&nbsp;</div>
                                 <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'blue', borderRadius: '5px'}}>
@@ -71,8 +71,10 @@ function JenkinsMessageItem({align, message, time, name, url}) {
                             </Grid>
                             <Grid item xs={12} sx={{margin: '0px'}}>
                                 <div style={{display: 'flex', justifyContent: 'center'}}>
-                                    <Avatar alt={"null"} src={url} sx={{width: '25px', height: '25px', margin: '0 5px 0 10px', verticalAlign: 'middle'}}/>
-                                    <ListItemText align={align} primary={messageItem.projectName}  sx={{fontFamily:'SUIT-Medium'}}/>  
+                                    <a href={messageItem.fullUrl}>
+                                        <Avatar alt={"null"} src={url} sx={{width: '25px', height: '25px', margin: '0 5px 0 10px', verticalAlign: 'middle'}}/>
+                                        <ListItemText align={align} primary={messageItem.projectName}  sx={{fontFamily:'SUIT-Medium'}}/>
+                                    </a>
                                 </div>                          
                             </Grid>
                         </Grid>
