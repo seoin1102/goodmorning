@@ -23,7 +23,7 @@ function GitMessageItem({align, message, time, name, url}) {
         const messageItemArray = message.split('#$#');
         let branch;
         console.log("ssssssssssssssssss", message, "    ", messageItemArray)
-        console.log("해시 자르", messageItemArray[4].slice(0, 7))
+        console.log("해시 자르기기", messageItemArray[4].slice(0, 7))
 
         if(messageItemArray[0] === 'push')
             branch = messageItemArray[3].split('/')[2];
