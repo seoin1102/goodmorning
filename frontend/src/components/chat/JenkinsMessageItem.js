@@ -6,13 +6,14 @@ import React, { useEffect, useState } from 'react';
 import '../../assets/fonts/font.css';
 import '../../styles/css/msItem.css';
 
-function GitMessageItem({align, message, time, name, url}) {
+function JenkinsMessageItem({align, message, time, name, url}) {
     const [messageItem, setMessageItem] = useState({
-        eventType: '',
-        gitUser: '',
-        gitMessage: '',
+        fullUrl: '',
+        buildNumber: '',
+        duration: '',
+        status: '',
         branch: '',
-        after: '',
+        commit: '',
         projectName: ''
     });
 
@@ -20,19 +21,15 @@ function GitMessageItem({align, message, time, name, url}) {
         const messageItemArray = message.split('#$#');
         let branch;
 
-        if(messageItemArray[0] === 'push')
-            branch = messageItemArray[3].split('/')[2];
-        else
-            branch = messageItemArray[3];
-
         setMessageItem((prevMessageItem) => ({
             ...prevMessageItem, 
-            eventType: messageItemArray[0], 
-            gitUser: messageItemArray[1],
-            gitMessage: messageItemArray[2],
-            branch: branch,
-            after: messageItemArray[4].slice(0, 7),
-            projectName: messageItemArray[5]
+            fullUrl: messageItemArray[0], 
+            buildNumber: messageItemArray[1],
+            duration: messageItemArray[2],
+            status: messageItemArray[3],
+            branch: messageItemArray[4],
+            commit: messageItemArray[5],
+            projectName: messageItemArray[6]
           }))
     }, [message]);
 
@@ -55,22 +52,16 @@ function GitMessageItem({align, message, time, name, url}) {
                         </Grid>
                         <Grid item xs={11.92} >
                             <Grid item xs={12}>
-                                <ListItemText align={align} primary={messageItem.gitUser} sx={{fontFamily:'SUIT-Medium', padding: '0 0 0 10px'}} ></ListItemText>
+                                <ListItemText align={align} primary={messageItem.fullUrl} sx={{fontFamily:'SUIT-Medium', padding: '0 0 0 10px'}} ></ListItemText>
                             </Grid>
                             <Grid item xs={12} sx={{display: 'flex'}}>      
                                 <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>
-                                  {`${messageItem.gitMessage}`}
+                                  {`${messageItem.buildNumber} ${messageItem.duration} ${messageItem.status}`}
                                 </div>                             
-                                {
-                                  messageItem.after === ' ' ? 
-                                  null :
-                                  <>
-                                      <div>&nbsp;</div>
-                                      <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'blue', borderRadius: '5px'}}>
-                                        {`${messageItem.after}`}
-                                      </div>
-                                  </>
-                                }
+                                <div>&nbsp;</div>
+                                <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'blue', borderRadius: '5px'}}>
+                                  {`${messageItem.commit}`}
+                                </div>
                                 <div>&nbsp;</div>
                                 <div style={{margin: '0 0 8px 0'}}>{`to`}</div>
                                 <div>&nbsp;</div>
@@ -92,4 +83,4 @@ function GitMessageItem({align, message, time, name, url}) {
     );
 }
 
-export default React.memo(GitMessageItem);
+export default React.memo(JenkinsMessageItem);

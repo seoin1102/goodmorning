@@ -17,6 +17,7 @@ public class JenkinsHookVo {
 	private String commit;
 	private String date;
 	private int projectNo;
+	private String projectName;
 	private int crewNo;
 	private int masterCrewUserNo;
 	private String buildLog;

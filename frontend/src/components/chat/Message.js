@@ -3,9 +3,11 @@ import List from '@mui/material/List';
 import React, { Fragment, useCallback, useEffect, useRef } from 'react';
 import MessageItem from './MessageItem';
 import GitMessageItem from './GitMessageItem';
+import JenkinsMessageItem from './JenkinsMessageItem';
 import SendPreviewMessage from './SendPreviewMessage';
 import githubIcon from '../../assets/icons/github.svg';
 import jenkinsIcon from '../../assets/icons/jenkins.svg';
+
 
 function Message({chatList}) {
     const scrollRef = useRef(null);
@@ -49,7 +51,7 @@ function Message({chatList}) {
                                         url={githubIcon}/> :
                                 null}
                                 {(chat.type === 'JENKINS') ?
-                                    <MessageItem 
+                                    <JenkinsMessageItem 
                                         align={"left"}
                                         message={chat.message} 
                                         time={time}

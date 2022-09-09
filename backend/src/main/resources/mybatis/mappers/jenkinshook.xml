@@ -13,6 +13,15 @@
 		]]>
 	</select>
 	
+	<select id="findLastUpdate" resultType="jenkinsvo">
+		<![CDATA[
+			select a.no, a.full_url as fullUrl, a.build_number as buildNumber, a.duration, a.status, a.branch, a.commit, b.project_name as projectName, b.crew_no as crewNo
+				from jenkinshook as a, project as b 
+			where a.project_no = b.no 
+				order by no desc limit 1;
+		]]>
+	</select>
+	
 	<select id="findJenkinsChatInfo" resultType="jenkinsvo">
 		<![CDATA[
 			select jh.no, jh.full_url as fullUrl, jh.build_number as buildNumber, jh.duration, jh.status,jh.branch, jh.commit, jh.date, task.crew_no as crewNo, crew.master_crew_user_no as masterCrewUserNo 
