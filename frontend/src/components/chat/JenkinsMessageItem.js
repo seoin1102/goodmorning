@@ -74,8 +74,9 @@ function JenkinsMessageItem({align, message, time, name, url}) {
                                     <a href={messageItem.fullUrl}>
                                         <Avatar alt={"null"} src={url} sx={{width: '25px', height: '25px', margin: '0 5px 0 10px', verticalAlign: 'middle'}}/>
                                     </a>
+                                    <a href={messageItem.fullUrl}>
                                         <ListItemText align={align} primary={messageItem.projectName}  sx={{fontFamily:'SUIT-Medium'}}/>
-                                    
+                                    </a>
                                 </div>                          
                             </Grid>
                         </Grid>

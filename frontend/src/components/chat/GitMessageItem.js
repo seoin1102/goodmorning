@@ -79,7 +79,7 @@ function GitMessageItem({align, message, time, name, url}) {
                                 </div>    
                             </Grid>
                             <Grid item xs={12} sx={{margin: '0px'}}>
-                                <div style={{display: 'flex', justifyContent: 'center'}}>
+                                <div style={{display: 'flex', justifyContent: 'flex-start'}}>
                                     <Avatar alt={"null"} src={url} sx={{width: '25px', height: '25px', margin: '0 5px 0 10px', verticalAlign: 'middle'}}/>
                                     <ListItemText align={align} primary={messageItem.projectName}  sx={{fontFamily:'SUIT-Medium'}}/>  
                                 </div>                          
