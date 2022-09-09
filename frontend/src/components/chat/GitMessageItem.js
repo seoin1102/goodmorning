@@ -34,7 +34,7 @@ function GitMessageItem({align, message, time, name, url}) {
             gitUser: messageItemArray[1],
             gitMessage: messageItemArray[2],
             branch: branch,
-            after: messageItemArray[4],
+            after: messageItemArray[4].substr(0, 7),
             projectName: messageItemArray[5]
           }))
     }, [message]);
