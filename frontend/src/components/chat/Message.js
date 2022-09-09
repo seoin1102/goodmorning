@@ -6,7 +6,7 @@ import GitMessageItem from './GitMessageItem';
 import JenkinsMessageItem from './JenkinsMessageItem';
 import SendPreviewMessage from './SendPreviewMessage';
 import githubIcon from '../../assets/icons/github.svg';
-import jenkinsIcon from '../../assets/icons/jenkins.svg';
+import jenkinsIcon from '../../assets/icons/jenkins.png';
 
 
 function Message({chatList}) {
