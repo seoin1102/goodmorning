@@ -95,12 +95,12 @@ function SiteLayout({children}) {
             client.current.subscribe(`/sub/${crewNo}`,async (data) => {
                 const chatData = JSON.parse(data.body);
 
-                console.log("yyyyyyyyyyyyyyyy", chatData);
+                // console.log("yyyyyyyyyyyyyyyy", chatData);
                 if(chatData.type === 'GITHUB')
                     chatData.sendDate = new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ");
 
                 const result = await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
-                console.log("rrrrrrrrrrrrr", result);
+                // console.log("rrrrrrrrrrrrr", result);
 
                 if(result.data !== 'success') 
                     return;
