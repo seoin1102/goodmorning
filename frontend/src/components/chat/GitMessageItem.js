@@ -28,7 +28,7 @@ function GitMessageItem({align, message, time, name, url}) {
         else
             branch = messageItemArray[3];
 
-        console.log("해시 자르기", messageItemArray[4].slice(0, 7))
+        console.log("해시 자르", messageItemArray[4].slice(0, 7))
 
         setMessageItem((prevMessageItem) => ({
             ...prevMessageItem, 
