@@ -43,15 +43,18 @@ function FileMessageItem({align, message, time, name, url}) {
                             <Grid item xs={1} sx={{height: '52px'}}>
                                 <img src={fileIcons}/>
                             </Grid>
-                            <Grid item xs={11} sx={{display: 'flex'}}>
+                            <Grid item xs={11}>
                                 
-                                    <div style={{padding: '0 0 0 10px', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', borderRadius: '5px'}}>
+                                    <div style={{padding: '0 0 0 10px', height: '26px', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', borderRadius: '5px'}}>
                                       {`${messageItem.name}`}
                                     </div>
-                              
-                              
-                                    <div style={{backgroundColor: '#e8ebed', color: 'red', borderRadius: '5px'}}>
-                                      {`${messageItem.size}KB`}
+                                    <div style={{height: '26px', backgroundColor: '#e8ebed', borderRadius: '5px', display: 'flex'}}>
+                                        <div>
+                                            {`${messageItem.size}KB`}
+                                        </div>
+                                        <div>
+                                            {messageItem.type}
+                                        </div>
                                     </div>
                               
                               
