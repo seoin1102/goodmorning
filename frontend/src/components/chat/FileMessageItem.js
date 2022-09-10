@@ -32,7 +32,7 @@ function FileMessageItem({align, message, time, name, url}) {
                     <ListItemIcon sx={{padding: "7px 0 0 0"}}>
                         <Avatar alt={"null"} src={url} />
                     </ListItemIcon>
-                    <div style={{height: '100px'}}></div>
+                    <div style={{height: '50px'}}></div>
                 </Grid>
                 <Grid item xs={11.5} style={{width:'max-content', padding:'10px 50px 10px 30px', borderColor: 'black'}} >
                     <Grid container spacing={1} >
@@ -40,7 +40,7 @@ function FileMessageItem({align, message, time, name, url}) {
                             <ListItemText align={align} style={{fontWeight:'bolder'}} >{name}  {time}</ListItemText>
                         </Grid>
                         <Grid item xs={12} sx={{display: 'flex'}}>
-                            <Grid item xs={1}>
+                            <Grid item xs={1} sx={{height: '52px'}}>
                                 <img src={fileIcons}/>
                             </Grid>
                             <Grid item xs={11} sx={{display: 'flex'}}>
