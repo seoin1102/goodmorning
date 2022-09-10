@@ -50,7 +50,7 @@ function FileMessageItem({align, message, time, name, url}) {
                                     </div>
                                 </Grid>
                                 <Grid item xs={1}>
-                                    <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'red', borderRadius: '5px'}}>
+                                    <div style={{backgroundColor: '#e8ebed', color: 'red', borderRadius: '5px'}}>
                                       {`${messageItem.size}KB`}
                                     </div>
                                 </Grid>
