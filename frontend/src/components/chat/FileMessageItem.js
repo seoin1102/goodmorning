@@ -20,7 +20,7 @@ function FileMessageItem({align, message, time, name, url}) {
         setMessageItem((prevMessageItem) => ({
             ...prevMessageItem, 
             name: messageItemArray[0], 
-            size: messageItemArray[1].slice(0, 0),
+            size: messageItemArray[1].slice(0, 1),
             type: messageItemArray[2]
           }))
     }, [message]);
@@ -47,8 +47,9 @@ function FileMessageItem({align, message, time, name, url}) {
                                 <div style={{padding: '0 0 0 10px', height: '26px', fontFamily:'SUIT-Medium'}}>
                                   {`${messageItem.name}`}
                                 </div>
-                                <div style={{height: '26px', display: 'flex', fontFamily:'SUIT-Medium'}}>
+                                <div style={{padding: '0 0 0 10px', height: '26px', display: 'flex', fontFamily:'SUIT-Medium'}}>
                                     <div>{`${messageItem.size}KB`}</div>
+                                    <div>&nbsp;</div>
                                     <div>{messageItem.type}</div>
                                 </div>
                             </Grid>
