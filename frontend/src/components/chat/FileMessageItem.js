@@ -39,27 +39,18 @@ function FileMessageItem({align, message, time, name, url}) {
                         <Grid item xs={12} >
                             <ListItemText align={align} style={{fontWeight:'bolder'}} >{name}  {time}</ListItemText>
                         </Grid>
-                        <Grid item xs={12} sx={{display: 'flex'}}>
-                            <Grid item xs={1} sx={{height: '52px'}}>
+                        <Grid item xs={12} sx={{display: 'flex', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', borderRadius: '5px'}}>
+                            <Grid item xs={0.5} sx={{height: '52px', display: 'flex', justifyContent: 'center'}}>
                                 <img src={fileIcons}/>
                             </Grid>
-                            <Grid item xs={11}>
-                                
-                                    <div style={{padding: '0 0 0 10px', height: '26px', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', borderRadius: '5px'}}>
-                                      {`${messageItem.name}`}
-                                    </div>
-                                    <div style={{height: '26px', backgroundColor: '#e8ebed', borderRadius: '5px', display: 'flex'}}>
-                                        <div>
-                                            {`${messageItem.size}KB`}
-                                        </div>
-                                        <div>
-                                            {messageItem.type}
-                                        </div>
-                                    </div>
-                              
-                              
-                                    <ListItemText align={align} primary={messageItem.type}  sx={{fontFamily:'SUIT-Medium'}}/>                         
-                              
+                            <Grid item xs={11.5}>
+                                <div style={{padding: '0 0 0 10px', height: '26px', fontFamily:'SUIT-Medium'}}>
+                                  {`${messageItem.name}`}
+                                </div>
+                                <div style={{height: '26px', display: 'flex', fontFamily:'SUIT-Medium'}}>
+                                    <div>{`${messageItem.size}KB`}</div>
+                                    <div>{messageItem.type}</div>
+                                </div>
                             </Grid>
                         </Grid>
                     </Grid>
