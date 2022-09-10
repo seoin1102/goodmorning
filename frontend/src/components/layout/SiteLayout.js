@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import * as SockJS from "sockjs-client";
 import { get, postJson, putUrl } from '../../apis/Axios';
-import { chatVo, msgChat, msgConnect, chatPreviewVo, msgPreview } from '../../apis/ChatVo.js';
+import { chatVo, msgChat, msgConnect, chatPreviewVo, msgPreview, chatFileVo, msgFile } from '../../apis/ChatVo.js';
 import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import { addChat, setChat } from '../../redux/chat';
 import { setSearch } from '../../redux/search';
@@ -155,6 +155,22 @@ function SiteLayout({children}) {
           client.current.publish({destination: `/pub/chat`, body: pubChat});
     }
 
+    const publishFileUpload = async(fileName) => {
+      if (!client.current.connected) 
+        return;
+
+        // 메시지 객체 생성 및 DB 저장
+        const addChat = chatFileVo(crewNo, authUser.no, fileName);
+        const result = await postJson(`/chat/${crewNo}/${authUser.no}`, addChat);
+
+        // DB INSERT 성공 시 STOMP 통신
+        if(result.data !== 'success')
+          return;
+        
+        const pubChat = msgFile(crewNo, authUser.no, fileName, authUser.name);
+        client.current.publish({destination: `/pub/chat`, body: pubChat});
+  }
+
     ///// 시창이 코드 넣을 곳 ///////////
 
     ///////////////////////////
@@ -170,6 +186,7 @@ function SiteLayout({children}) {
                         sendMessage={sendMessage} 
                         setSendMessage={setSendMessage} 
                         publish={publish}
+                        publishFileUpload={publishFileUpload}
                         /> :
                     (
                         (children.type === Project) ?

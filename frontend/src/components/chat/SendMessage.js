@@ -10,7 +10,7 @@ import { addFile,fileDownload } from '../../apis/Fetch';
 import { useSelector, useDispatch } from 'react-redux';
 import send2 from '../../assets/icons/send2.svg';
 
-function SendMessage({onChangeHandler, onClickHandler, text}) {
+function SendMessage({onChangeHandler, onClickHandler, text, publishFileUpload}) {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -63,10 +63,11 @@ function SendMessage({onChangeHandler, onClickHandler, text}) {
             </Grid>
         </Grid>
 
-        <FileUpload modalShow={modalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} uploadcheck={uploadcheck}>
-            <></>
-
-        </FileUpload>
+        <FileUpload 
+            modalShow={modalIsOpen} 
+            FileUploadModalIsOpenCallback={FileUploadModalIsOpen} 
+            uploadcheck={uploadcheck} 
+            publishFileUpload={publishFileUpload}/>
         </>
     );
 }

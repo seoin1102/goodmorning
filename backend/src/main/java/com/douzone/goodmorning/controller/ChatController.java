@@ -71,5 +71,8 @@ public class ChatController {
     	
     	if(ChatVo.MessageType.PREVIEW.equals(chatVo.getType())) 
     		redisPublisher.publish(topic, chatVo);
+    	
+    	if(ChatVo.MessageType.FILE.equals(chatVo.getType())) 
+    		redisPublisher.publish(topic, chatVo);
     }
 }

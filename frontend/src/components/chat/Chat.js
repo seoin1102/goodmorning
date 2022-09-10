@@ -4,7 +4,7 @@ import ChatHeader from "./ChatHeader";
 import Message from './Message';
 import SendMessage from './SendMessage';
 
-const Chat = ({ chatList, sendMessage, setSendMessage, publish}) => {
+const Chat = ({ chatList, sendMessage, setSendMessage, publish, publishFileUpload}) => {
     
     return (
         
@@ -15,6 +15,7 @@ const Chat = ({ chatList, sendMessage, setSendMessage, publish}) => {
                 onChangeHandler={(e) => setSendMessage(e.target.value)}
                 onClickHandler={publish}
                 text={sendMessage}
+                publishFileUpload={publishFileUpload}
                 />
         </Grid>
     );

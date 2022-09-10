@@ -5,8 +5,11 @@ import { addFile,checkResponse, fetchResponse, getLocalStorageAuthUser, projectD
 import { useSelector, useDispatch } from 'react-redux';
 import {fileFileData,fileFileUpload} from '../../../redux/file'
 
-function FileUpload({modalShow,FileUploadModalIsOpenCallback,uploadcheck}) {
+function FileUpload({modalShow, FileUploadModalIsOpenCallback, uploadcheck, publishFileUpload}) {
+    const user = getLocalStorageAuthUser();
+    const userNo = user.no;
 
+    const [posts, setPosts] = useState([]);
     const refForm = useRef(null);
     const dispatch = useDispatch();
     
@@ -30,16 +33,11 @@ function FileUpload({modalShow,FileUploadModalIsOpenCallback,uploadcheck}) {
         
         //addFile(comment, file, projectNo,userNo);
 
-        uploadcheck(comment, file, projectNo,userNo);
+        uploadcheck(comment, file, projectNo, userNo);
 
-
+        console.log("파일 업로드", comment, file, projectNo, userNo);
         FileUploadModalIsOpenCallback(false);
     }
-
-
-    const user = getLocalStorageAuthUser();
-    const userNo = user.no;
-    const [posts, setPosts] = useState([]);
 
     useEffect(()=>{
         (async() => {
