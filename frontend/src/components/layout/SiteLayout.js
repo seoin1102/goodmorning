@@ -136,6 +136,7 @@ function SiteLayout({children}) {
         const pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name);
         client.current.publish({destination: `/pub/chat`, body: pubChat});
         
+        
         setSendMessage("");
     };
 
