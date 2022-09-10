@@ -137,6 +137,9 @@ function SiteLayout({children}) {
         client.current.publish({destination: `/pub/chat`, body: pubChat});
         
         
+
+
+        
         setSendMessage("");
     };
 
