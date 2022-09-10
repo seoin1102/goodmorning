@@ -19,7 +19,7 @@ function FileMessageItem({align, message, time, name, url}) {
         setMessageItem((prevMessageItem) => ({
             ...prevMessageItem, 
             name: messageItemArray[0], 
-            size: messageItemArray[1].slice(0, 5),
+            size: messageItemArray[1].slice(0, 0),
             type: messageItemArray[2]
           }))
     }, [message]);
@@ -39,17 +39,23 @@ function FileMessageItem({align, message, time, name, url}) {
                             <ListItemText align={align} style={{fontWeight:'bolder'}} >{name}  {time}</ListItemText>
                         </Grid>
                         <Grid item xs={12} >
-                            <Grid item xs={12} sx={{display: 'flex'}}>      
-                                <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>
-                                  {`${messageItem.name}`}
-                                </div>                             
-                                <div>&nbsp;</div>
-                                <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'red', borderRadius: '5px'}}>
-                                  {messageItem.size}
-                                </div>    
+                            <Grid item xs={1} sx={{backgroundColor: 'black', borderRadius: '10px', borderWidth: '1px', padding: '0'}}>
+                                <div style={{height: '65px', padding: '0'}}></div>
                             </Grid>
-                            <Grid item xs={12}>
-                                <ListItemText align={align} primary={messageItem.type}  sx={{fontFamily:'SUIT-Medium'}}/>                         
+                            <Grid item xs={11} sx={{display: 'flex'}}>
+                                <Grid item xs={12}>
+                                    <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>
+                                      {`${messageItem.name}`}
+                                    </div>
+                                </Grid>
+                                <Grid item xs={1}>
+                                    <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'red', borderRadius: '5px'}}>
+                                      {`${messageItem.size}KB`}
+                                    </div>
+                                </Grid>
+                                <Grid item xs={11}>
+                                    <ListItemText align={align} primary={messageItem.type}  sx={{fontFamily:'SUIT-Medium'}}/>                         
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
