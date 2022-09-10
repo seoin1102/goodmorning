@@ -47,21 +47,21 @@ function JenkinsMessageItem({align, message, time, name, url}) {
                         <Grid item xs={12} >
                             <ListItemText align={align} style={{fontWeight:'bolder'}} >{name}  {time}</ListItemText>
                         </Grid>
-                        <Grid item xs={0.005} sx={{backgroundColor: 'red', borderRadius: '10px', borderWidth: '1px', padding: '0'}}>
+                        <Grid item xs={0.005} sx={{backgroundColor: 'green', borderRadius: '10px', borderWidth: '1px', padding: '0'}}>
                             <div style={{height: '65px', padding: '0'}}></div>
                         </Grid>
                         <Grid item xs={11.92} >
                             <Grid item xs={12}>
                                 <ListItemText align={align} primary={`${messageItem.buildNumber}번`} sx={{fontFamily:'SUIT-Medium', padding: '0 0 0 10px'}} ></ListItemText>
                             </Grid>
-                            <Grid item xs={12} sx={{display: 'flex'}}>      
-                                <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>
-                                  {`${messageItem.duration} ${messageItem.status}`}
-                                </div>                             
-                                <div>&nbsp;</div>
+                            <Grid item xs={12} sx={{display: 'flex'}}>
                                 <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'blue', borderRadius: '5px'}}>
                                   {`${messageItem.commit}`}
                                 </div>
+                                <div>&nbsp;</div>  
+                                <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>
+                                  {`${messageItem.status} after ${Math.floor(messageItem.duration * 0.001 * 100)/100} sec`}
+                                </div>                             
                                 <div>&nbsp;</div>
                                 <div style={{margin: '0 0 8px 0'}}>{`to`}</div>
                                 <div>&nbsp;</div>
