@@ -45,7 +45,7 @@ function FileMessageItem({align, message, time, name, url}) {
                             </Grid>
                             <Grid item xs={11} sx={{display: 'flex'}}>
                                 <Grid item xs={12}>
-                                    <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>
+                                    <div style={{padding: '0 0 0 10px', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', borderRadius: '5px'}}>
                                       {`${messageItem.name}`}
                                     </div>
                                 </Grid>
