@@ -5,6 +5,7 @@ import MessageItem from './MessageItem';
 import GitMessageItem from './GitMessageItem';
 import JenkinsMessageItem from './JenkinsMessageItem';
 import SendPreviewMessage from './SendPreviewMessage';
+import FileMessageItem from './FileMessageItem';
 import githubIcon from '../../assets/icons/github.svg';
 import jenkinsIcon from '../../assets/icons/jenkins.png';
 
@@ -63,7 +64,7 @@ function Message({chatList}) {
                                         message={chat.message}/> :
                                 null}
                                 {(chat.type === 'FILE') ?
-                                    <MessageItem 
+                                    <FileMessageItem 
                                         align={"left"}
                                         message={chat.message} 
                                         time={time}
