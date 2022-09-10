@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import React, { useEffect, useState } from 'react';
+import fileIcons from '../../assets/icons/file_2x.png';
 import '../../assets/fonts/font.css';
 import '../../styles/css/msItem.css';
 
@@ -40,7 +41,7 @@ function FileMessageItem({align, message, time, name, url}) {
                         </Grid>
                         <Grid item xs={12} >
                             <Grid item xs={1} sx={{backgroundColor: 'black', borderRadius: '10px', borderWidth: '1px', padding: '0'}}>
-                                <div style={{height: '65px', padding: '0'}}></div>
+                                <img src={fileIcons}/>
                             </Grid>
                             <Grid item xs={11} sx={{display: 'flex'}}>
                                 <Grid item xs={12}>
