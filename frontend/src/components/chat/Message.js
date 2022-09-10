@@ -62,6 +62,14 @@ function Message({chatList}) {
                                     <SendPreviewMessage
                                         message={chat.message}/> :
                                 null}
+                                {(chat.type === 'FILE') ?
+                                    <MessageItem 
+                                        align={"left"}
+                                        message={chat.message} 
+                                        time={time}
+                                        name={chat.userName}
+                                        url={chat.profileUrl}/> :
+                                null}
                                 {dateDivider}
                             </Fragment>)
                 }
