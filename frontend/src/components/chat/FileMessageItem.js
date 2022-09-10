@@ -40,10 +40,10 @@ function FileMessageItem({align, message, time, name, url}) {
                             <ListItemText align={align} style={{fontWeight:'bolder'}} >{name}  {time}</ListItemText>
                         </Grid>
                         <Grid item xs={12} >
-                            <Grid item xs={1} sx={{backgroundColor: 'black', borderRadius: '10px', borderWidth: '1px', padding: '0'}}>
+                            <Grid item xs={1}>
                                 <img src={fileIcons}/>
                             </Grid>
-                            <Grid item xs={11} sx={{display: 'flex'}}>
+                            <Grid item xs={11}>
                                 <Grid item xs={12}>
                                     <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>
                                       {`${messageItem.name}`}
