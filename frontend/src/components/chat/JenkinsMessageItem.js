@@ -57,11 +57,11 @@ function JenkinsMessageItem({align, message, time, name, url}) {
                                 <ListItemText align={align} primary={`#${messageItem.buildNumber}`} sx={{fontFamily:'SUIT-Medium', padding: '0 0 0 10px'}} ></ListItemText>
                             </Grid>
                             <Grid item xs={12} sx={{display: 'flex'}}>
-                                <div style={{padding: '0 0 0 0', margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'blue', borderRadius: '5px'}}>
+                                <div style={{margin: '0 0 8px 10px', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'blue', borderRadius: '5px'}}>
                                   {`${messageItem.commit}`}
                                 </div>
                                 <div>&nbsp;</div>
-                                <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'skyblue', borderRadius: '5px'}}>
+                                <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: '#48967e', borderRadius: '5px'}}>
                                   {`${messageItem.status}`}
                                 </div>
                                 <div>&nbsp;</div>

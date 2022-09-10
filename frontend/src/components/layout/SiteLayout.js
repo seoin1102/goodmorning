@@ -44,13 +44,10 @@ function SiteLayout({children}) {
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
-            //onConnect: () => {initialSubscribe()}, // 연결 직후 작동하는 이벤트 
+            onConnect: () => {initialSubscribe()}, // 연결 직후 작동하는 이벤트 
             onStompError: (frame) => {console.error("[ERROR]", frame)},
         });
 
-        client.current.onConnect = () => {
-          initialSubscribe();
-        }
         client.current.activate();
     };
 
