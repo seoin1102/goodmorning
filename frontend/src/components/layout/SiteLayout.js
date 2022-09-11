@@ -128,10 +128,10 @@ function SiteLayout({children}) {
         let addChat = chatVo(crewNo, authUser.no, sendMessage);
         let pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name);
 
-        if(sendMessage.includes('jenkins') || sendMessage.includes('start') || sendMessage.includes('-p')) {
+        if(sendMessage.includes('jenkins') && sendMessage.includes('start') && sendMessage.includes('-p')) {
             const jenkinsCommand = sendMessage.split(' ');
 
-            if(jenkinsCommand[0] === 'jenkins' || jenkinsCommand[1] === 'start' || jenkinsCommand[2] === '-p') {
+            if(jenkinsCommand[0] === 'jenkins' && jenkinsCommand[1] === 'start' && jenkinsCommand[2] === '-p') {
                 // 자기 크루에 속한 프로젝트 인지 확인하는 코드(서버에서 체크)
                 
                 addChat = chatCommand(crewNo, authUser.no, jenkinsCommand[3]);
