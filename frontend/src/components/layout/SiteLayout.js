@@ -102,10 +102,11 @@ function SiteLayout({children}) {
                     chatData.sendDate = new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ");
 
                 const result = await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
-
+                console.log("전달 받은 내용", chatData);
                 if(result.data !== 'success') 
                     return;
 
+                console.log("채팅 읽음 업데이트 성공?", chatData);
                 dispatch(addChat(chatData));
                 dispatch(setCHATALARM({crewNo:crewNo}))            
             })
@@ -137,7 +138,7 @@ function SiteLayout({children}) {
                 pubChat = msgCommand(crewNo, authUser.no, jenkinsCommand[3], authUser.name);
             }
         }
-
+        
         //  DB 저장
         const result = await postJson(`/chat/${crewNo}/${authUser.no}`, addChat);
 
@@ -146,7 +147,7 @@ function SiteLayout({children}) {
             return;
         
         client.current.publish({destination: `/pub/chat`, body: pubChat});
-      
+        console.log("전달할 내용", addChat);
         setSendMessage("");
     };
 
