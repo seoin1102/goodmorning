@@ -2,6 +2,7 @@ import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import React, { Fragment, useCallback, useEffect, useRef } from 'react';
 import MessageItem from './MessageItem';
+import CommandMessageItem from './CommandMessageItem';
 import GitMessageItem from './GitMessageItem';
 import JenkinsMessageItem from './JenkinsMessageItem';
 import SendPreviewMessage from './SendPreviewMessage';
@@ -25,18 +26,23 @@ function Message({chatList}) {
                 if(chatList !== undefined && chat.sendDate !== undefined){  
                     const date = chat.sendDate.split(" ")[0];
                     const time = chat.sendDate.split(" ")[1].substring(0, 5);
-                    let dateDivider;
+                    let dateDivider = null;
                     
-                    if(array.length > index + 1) {
-                        if (chat.sendDate.split(" ")[0] !== array[index + 1].sendDate.split(" ")[0]){
+                    if(array.length > index + 1) 
+                        if (chat.sendDate.split(" ")[0] !== array[index + 1].sendDate.split(" ")[0])
                             dateDivider = <Divider>{array[index + 1].sendDate.split(" ")[0]}</Divider>
-                        }
-                        else null;
-                    }
 
                     return (<Fragment key={index}>
                                 {(chat.type === 'CHAT') ?
                                     <MessageItem 
+                                        align={"left"}
+                                        message={chat.message} 
+                                        time={time}
+                                        name={chat.userName}
+                                        url={chat.profileUrl}/> :
+                                null}
+                                {(chat.type === 'COMMAND') ?
+                                    <CommandMessageItem 
                                         align={"left"}
                                         message={chat.message} 
                                         time={time}
