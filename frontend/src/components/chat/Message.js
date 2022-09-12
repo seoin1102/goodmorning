@@ -1,30 +1,34 @@
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import React, { Fragment, useCallback, useEffect, useRef } from 'react';
-import MessageItem from './MessageItem';
-import CommandMessageItem from './CommandMessageItem';
-import GitMessageItem from './GitMessageItem';
-import JenkinsMessageItem from './JenkinsMessageItem';
-import SendPreviewMessage from './SendPreviewMessage';
-import FileMessageItem from './FileMessageItem';
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import githubIcon from '../../assets/icons/github.svg';
 import jenkinsIcon from '../../assets/icons/jenkins.png';
+import CommandMessageItem from './CommandMessageItem';
+import FileMessageItem from './FileMessageItem';
+import GitMessageItem from './GitMessageItem';
+import JenkinsMessageItem from './JenkinsMessageItem';
+import MessageItem from './MessageItem';
+import SendPreviewMessage from './SendPreviewMessage';
 
 
-function Message({chatList}) {
+function Message({chatList, loading, setLoading }) {
+    
     const scrollRef = useRef(null);
     
     const scrollToBottom = useCallback(() => {
         scrollRef.current.scrollIntoView({behavior: 'smooth'})
     }, [chatList])
 
-    useEffect (() => {scrollToBottom()}, [chatList])
+    useEffect (() => {
+        scrollToBottom();
+        setLoading(false);
+    }, [chatList])
 
     return (
     <>
         <List style={{ height: '650px', overflow: 'auto', backgroundColor:'#f7f7fa' }}>
             {chatList.map((chat, index, array) =>{
-                if(chatList !== undefined && chat.sendDate !== undefined){  
+                if(chatList !== undefined && chat.sendDate !== undefined){
                     const date = chat.sendDate.split(" ")[0];
                     const time = chat.sendDate.split(" ")[1].substring(0, 5);
                     let dateDivider = null;
@@ -32,6 +36,9 @@ function Message({chatList}) {
                     if(array.length > index + 1) 
                         if (chat.sendDate.split(" ")[0] !== array[index + 1].sendDate.split(" ")[0])
                             dateDivider = <Divider>{array[index + 1].sendDate.split(" ")[0]}</Divider>
+
+                    if(array.length === index + 1)
+                        // setLoading(false);
 
                     return (<Fragment key={index}>
                                 {(chat.type === 'CHAT') ?
@@ -85,6 +92,7 @@ function Message({chatList}) {
             <div ref={scrollRef}></div>
         </List>
         <Divider />
+        {loading ? 'sssss' : null}
     </>
     );
 }

@@ -20,7 +20,7 @@ import moment from 'moment';
 function SiteLayout({children}) {
     const client = useRef({});
     const authUser = getLocalStorageAuthUser();
-    
+    const [loading, setLoading] = useState(true);
     const [sendMessage, setSendMessage] = useState("");
 
     const dispatch = useDispatch();
@@ -93,6 +93,7 @@ function SiteLayout({children}) {
 
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)
             client.current.subscribe(`/sub/${crewNo}`,async (data) => {
+                setLoading(true);
                 const chatData = JSON.parse(data.body);
 
                 if(chatData.type === 'GITHUB')
@@ -201,6 +202,8 @@ function SiteLayout({children}) {
                         setSendMessage={setSendMessage} 
                         publish={publish}
                         publishFileUpload={publishFileUpload}
+                        loading={loading}
+                        setLoading={setLoading}
                         /> :
                     (
                         (children.type === Project) ?
