@@ -1,9 +1,10 @@
 import React from 'react';
+import loadingIcons from '../../assets/icons/loading.gif';
 
 function Loading() {
   return (
     <div>
-        잠시만 기다려 주세요
+        <img src={loadingIcons} alt="로딩중" width="5%" />
     </div>
   );
 }
