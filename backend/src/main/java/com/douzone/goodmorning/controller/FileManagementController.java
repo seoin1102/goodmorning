@@ -51,8 +51,7 @@ public class FileManagementController {
 	
 	@PostMapping("/upload")
 	public ResponseEntity<JsonResult> upload(@RequestParam("file") MultipartFile file, FileManagementVo fileManagementVo) {
-		String fileurl = FileUploadService.restoreImage(file);
-		fileManagementVo.setUrl(fileurl);
+		fileManagementVo.setUrl(FileUploadService.restoreImage(file));
 		fileManagementVo.setOriginFileName(file.getOriginalFilename());
 		fileManagementService.addFile(fileManagementVo); 
 		return ResponseEntity
@@ -103,6 +102,7 @@ public class FileManagementController {
 	
 	@PostMapping("/uploadAndFindFileList")
 	public ResponseEntity<JsonResult> uploadAndFindFileList(@RequestParam("file") MultipartFile file,FileManagementVo fileManagementVo) {
+		System.out.println("zzzz"+file);
 		fileManagementVo.setUrl(FileUploadService.restoreImage(file));
 		fileManagementVo.setOriginFileName(file.getOriginalFilename());
 		
