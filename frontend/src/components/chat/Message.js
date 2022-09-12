@@ -9,6 +9,7 @@ import GitMessageItem from './GitMessageItem';
 import JenkinsMessageItem from './JenkinsMessageItem';
 import MessageItem from './MessageItem';
 import SendPreviewMessage from './SendPreviewMessage';
+import Loading from './Loading';
 
 
 function Message({chatList, loading, setLoading }) {
@@ -37,7 +38,7 @@ function Message({chatList, loading, setLoading }) {
                         if (chat.sendDate.split(" ")[0] !== array[index + 1].sendDate.split(" ")[0])
                             dateDivider = <Divider>{array[index + 1].sendDate.split(" ")[0]}</Divider>
 
-                    if(array.length === index + 1)
+                    // if(array.length === index + 1)
                         // setLoading(false);
 
                     return (<Fragment key={index}>
@@ -92,7 +93,7 @@ function Message({chatList, loading, setLoading }) {
             <div ref={scrollRef}></div>
         </List>
         <Divider />
-        {loading ? 'sssss' : null}
+        {loading ? <Loading /> : null}
     </>
     );
 }
