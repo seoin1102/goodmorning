@@ -1,13 +1,19 @@
-import { Autocomplete, Divider, List, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { Button, Dropdown, Form, ListGroup, Modal } from 'react-bootstrap';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Button, Form, ListGroup, Modal } from 'react-bootstrap';
+import ProfileOthers from '../User/ProfileOthers';
 
 function CrewSetting_member({users, onClickModal, setTab, onClickCrewInvite}) {
     const [value, setValue] = useState();
+    const [userInfo, setUserInfo] = useState({
+      name: "",
+      email: ""
+    });
+    const [profileOthersModalShow, setProFileOthersModalShow] = useState(false);
 
-    useEffect(() => {
-      // console.log("crew",users)
-    },[users])
+    const onClickProfileOthersModal = useCallback(() => {
+      setProFileOthersModalShow(profileOthersModalShow => !profileOthersModalShow);
+    }, [])
+
 
     return (
       <>
@@ -24,6 +30,10 @@ function CrewSetting_member({users, onClickModal, setTab, onClickCrewInvite}) {
                       setValue(e.target.value)
                     }} 
                     value={value || ''}
+                    onKeyDown={(e) => { 
+                      if(e.key === 'Enter') 
+                       { onClickModal()
+                        setTab(0)}}} 
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="channelForm.footer">
@@ -36,24 +46,35 @@ function CrewSetting_member({users, onClickModal, setTab, onClickCrewInvite}) {
                       <Form.Group className="mb-3" controlId="user">
                       <Form.Label>채널 멤버</Form.Label>
                 <ListGroup style={{height:"200px",overflow:"auto"}}>
-                  {users.map((user)=><ListGroup.Item key={user.no}>{user.name} ({user.email})</ListGroup.Item>)}
+                  {users.map((user)=> 
+                  
+                  <ListGroup.Item action onClick = {(e) => {e.preventDefault();
+                                                    setUserInfo(user); 
+                                                    onClickProfileOthersModal();
+                                                    
+                                                  }} 
+                                         key={user.no}> {user.name} ({user.email})
+                  </ListGroup.Item>                  
+                  ) 
+                  }
+                   
+                  
                 </ListGroup>
                 </Form.Group>
+                
             </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="outline-dark"  onClick={() => {onClickModal()
                               setTab(0)
                               }}
-                              onKeyDown={(e) => { 
-                                if(e.key === 'Enter') 
-                                 { onClickModal()
-                                  setTab(0)}}} >
+                              >
             확인
           </Button>
       </Modal.Footer>
-  
+      <ProfileOthers modalShow={profileOthersModalShow} onClickModal={onClickProfileOthersModal} user={userInfo} />
      </>
+     
     );
 }
 

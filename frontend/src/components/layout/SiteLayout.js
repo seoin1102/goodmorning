@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import * as SockJS from "sockjs-client";
 import { get, postJson, putUrl } from '../../apis/Axios';
-import { chatVo, msgChat, msgConnect, chatPreviewVo, msgPreview } from '../../apis/ChatVo.js';
+import { chatVo, msgChat, msgConnect, chatPreviewVo, msgPreview, chatFileVo, msgFile, chatCommand, msgCommand } from '../../apis/ChatVo.js';
 import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import { addChat, setChat } from '../../redux/chat';
 import { setSearch } from '../../redux/search';
@@ -95,20 +95,21 @@ function SiteLayout({children}) {
             client.current.subscribe(`/sub/${crewNo}`,async (data) => {
                 const chatData = JSON.parse(data.body);
 
-                console.log("yyyyyyyyyyyyyyyy", chatData);
                 if(chatData.type === 'GITHUB')
+                    chatData.sendDate = new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ");
+                
+                if(chatData.type === 'JENKINS')
                     chatData.sendDate = new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ");
 
                 const result = await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
-                console.log("rrrrrrrrrrrrr", result);
-
+                console.log("전달 받은 내용", chatData);
                 if(result.data !== 'success') 
                     return;
 
+                console.log("채팅 읽음 업데이트 성공?", chatData);
                 dispatch(addChat(chatData));
                 dispatch(setCHATALARM({crewNo:crewNo}))            
             })
-
             return;
         })
     };
@@ -121,20 +122,33 @@ function SiteLayout({children}) {
         // 메시지 공백이면 보내지 않기
         if (sendMessage === '')
             return;
-
+        
         //  메시지 객체 생성
-        const addChat = chatVo(crewNo, authUser.no, sendMessage);
+        let addChat = chatVo(crewNo, authUser.no, sendMessage);
+        let pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name, authUser.profileUrl);
 
+        if(sendMessage.includes('jenkins') && sendMessage.includes('start') && sendMessage.includes('-p')) {
+            const jenkinsCommand = sendMessage.split(' ');
+
+            if(jenkinsCommand[0] === 'jenkins' && jenkinsCommand[1] === 'start' && jenkinsCommand[2] === '-p') {
+                // 자기 크루에 속한 프로젝트 인지 확인하는 코드(서버에서 체크)
+                
+                addChat = chatCommand(crewNo, authUser.no, jenkinsCommand[3]);
+                pubChat = msgCommand(crewNo, authUser.no, jenkinsCommand[3], authUser.name);
+            }
+        }
+        
         //  DB 저장
         const result = await postJson(`/chat/${crewNo}/${authUser.no}`, addChat);
-        // console.log("*************", result)
+
         // DB INSERT 성공 시 STOMP 통신
         if(result.data !== 'success')
             return;
         
-        const pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name);
+
+        // const pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name, authUser.profileUrl);
         client.current.publish({destination: `/pub/chat`, body: pubChat});
-        
+        console.log("전달할 내용", addChat);
         setSendMessage("");
     };
 
@@ -154,6 +168,22 @@ function SiteLayout({children}) {
           client.current.publish({destination: `/pub/chat`, body: pubChat});
     }
 
+    const publishFileUpload = async(fileName) => {
+      if (!client.current.connected) 
+        return;
+
+        // 메시지 객체 생성 및 DB 저장
+        const addChat = chatFileVo(crewNo, authUser.no, fileName);
+        const result = await postJson(`/chat/${crewNo}/${authUser.no}`, addChat);
+
+        // DB INSERT 성공 시 STOMP 통신
+        if(result.data !== 'success')
+          return;
+        
+        const pubChat = msgFile(crewNo, authUser.no, fileName, authUser.name);
+        client.current.publish({destination: `/pub/chat`, body: pubChat});
+  }
+
     ///// 시창이 코드 넣을 곳 ///////////
 
     ///////////////////////////
@@ -169,6 +199,7 @@ function SiteLayout({children}) {
                         sendMessage={sendMessage} 
                         setSendMessage={setSendMessage} 
                         publish={publish}
+                        publishFileUpload={publishFileUpload}
                         /> :
                     (
                         (children.type === Project) ?

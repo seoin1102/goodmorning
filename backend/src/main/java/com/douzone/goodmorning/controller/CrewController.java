@@ -37,7 +37,7 @@ public class CrewController {
 	private final ChannelService channelService;
 	
 
-	@Auth
+//	@Auth
     @Transactional
     @GetMapping("/crew/{userNo}")
     public ResponseEntity<Message> allCrew(@PathVariable("userNo") Long userNo) {
@@ -51,7 +51,7 @@ public class CrewController {
     	return ResponseEntity.ok().headers(headers).body(message);
     }
 	
-	@Auth
+//	@Auth
 	@Transactional
     @GetMapping("/crew/{channelNo}/{userNo}")
     public ResponseEntity<Message> crews(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo) {
@@ -74,7 +74,7 @@ public class CrewController {
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("크루 셋팅 마스터 크루 유저 조회");
-    	message.setData(crewService.getMasterCrewUserNo(crewNo));
+    	message.setData(crewService.getMasterCrewUser(crewNo));
     	return ResponseEntity.ok().headers(headers).body(message);
     }
 	

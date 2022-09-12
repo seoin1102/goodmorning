@@ -10,16 +10,17 @@ import { addFile,fileDownload } from '../../apis/Fetch';
 import { useSelector, useDispatch } from 'react-redux';
 import send2 from '../../assets/icons/send2.svg';
 
-function SendMessage({onChangeHandler, onClickHandler, text}) {
+function SendMessage({onChangeHandler, onClickHandler, text, publishFileUpload}) {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
 
     const uploadcheck = async (comment, file, projectNo,userNo)=> {
 
-        const FileListdata = await addFile(comment, file, projectNo,userNo);
-        
-        //dispatch(fileFileData(FileListdata));
+        const fileUrl = await addFile(comment, file, projectNo,userNo);
+        console.log("=====>",fileUrl);
+        return fileUrl.data.url
+        //dispatch(fileFileData(FileListdata));        
     }
 
     // modal click
@@ -63,10 +64,12 @@ function SendMessage({onChangeHandler, onClickHandler, text}) {
             </Grid>
         </Grid>
 
-        <FileUpload modalShow={modalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} uploadcheck={uploadcheck}>
-            <></>
-
-        </FileUpload>
+        <FileUpload 
+            modalShow={modalIsOpen} 
+            FileUploadModalIsOpenCallback={FileUploadModalIsOpen} 
+            uploadcheck={uploadcheck} 
+            publishFileUpload={publishFileUpload}
+            type='chat'/>
         </>
     );
 }

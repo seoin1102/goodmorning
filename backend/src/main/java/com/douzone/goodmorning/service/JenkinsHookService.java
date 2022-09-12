@@ -42,5 +42,9 @@ public class JenkinsHookService {
 	public JenkinsHookVo getJenkinsHookData() {
 		return jenkinsHookRepository.findJenkinsChatInfo();
 	}
+
+	public JenkinsHookVo findLastUpdate() {
+		return jenkinsHookRepository.findLastUpdate();
+	}
 	
 }

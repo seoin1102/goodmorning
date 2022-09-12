@@ -20,7 +20,6 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,onClickFil
     const [checkflagupload, setcheckflagupload] = useState(false);
 
     const uploadcheck = async (comment, file, projectNo,userNo)=> {
-
         const FileListdata = await addFileAndFindFileList(comment, file, projectNo,userNo);
         dispatch(fileFileData(FileListdata));
     }
@@ -131,7 +130,7 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,onClickFil
                             </Button>
                 </Modal.Footer>
         </Modal>
-        <FileUpload modalShow={uploadModalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} uploadcheck={uploadcheck}></FileUpload>
+        <FileUpload modalShow={uploadModalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} uploadcheck={uploadcheck} type='download'></FileUpload>
         </div>
     );
 }

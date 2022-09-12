@@ -4,6 +4,8 @@ package com.douzone.goodmorning.vo;
 
 import java.security.NoSuchAlgorithmException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.douzone.goodmorning.security.SHA256;
@@ -27,6 +29,7 @@ public class UserVo {
 	   private String profileUrl;
 	   private boolean enable;
 	   
+	  
 	   
 	   public void setNo(int no) {
 	      this.no = no;
@@ -39,12 +42,13 @@ public class UserVo {
 	   }
 	   
 	   public void setPasswd(String passwd) {
-	      SHA256 sha256 = new SHA256();   
-	      try {
-	         this.passwd = sha256.encrypt(passwd);
-	      } catch (NoSuchAlgorithmException e) {
-	         e.printStackTrace();
-	      }   
+//	      SHA256 sha256 = new SHA256();   
+//	      try {
+//	         this.passwd = sha256.encrypt(passwd);
+//	      } catch (NoSuchAlgorithmException e) {
+//	         e.printStackTrace();
+//	      }
+		   this.passwd = passwd;
 	   }
 	   
 	   public void setEnable(boolean enable) {

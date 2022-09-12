@@ -16,13 +16,10 @@ function GitMessageItem({align, message, time, name, url}) {
         projectName: ''
     });
 
-
-
-    
     useEffect(() => {
         const messageItemArray = message.split('#$#');
         let branch;
-        console.log(message, "    ", messageItemArray)
+
         if(messageItemArray[0] === 'push')
             branch = messageItemArray[3].split('/')[2];
         else
@@ -34,7 +31,7 @@ function GitMessageItem({align, message, time, name, url}) {
             gitUser: messageItemArray[1],
             gitMessage: messageItemArray[2],
             branch: branch,
-            after: messageItemArray[4],
+            after: messageItemArray[4].slice(0, 7),
             projectName: messageItemArray[5]
           }))
     }, [message]);
@@ -61,14 +58,28 @@ function GitMessageItem({align, message, time, name, url}) {
                                 <ListItemText align={align} primary={messageItem.gitUser} sx={{fontFamily:'SUIT-Medium', padding: '0 0 0 10px'}} ></ListItemText>
                             </Grid>
                             <Grid item xs={12} sx={{display: 'flex'}}>      
-                                <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>{`${messageItem.gitMessage} ${messageItem.after} to`}</div>
+                                <div style={{padding: '0 0 0 10px', margin: '0 0 8px 0'}}>
+                                  {`${messageItem.gitMessage}`}
+                                </div>                             
+                                {
+                                  messageItem.after === ' ' ? 
+                                  null :
+                                  <>
+                                      <div>&nbsp;</div>
+                                      <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'blue', borderRadius: '5px'}}>
+                                        {`${messageItem.after}`}
+                                      </div>
+                                  </>
+                                }
+                                <div>&nbsp;</div>
+                                <div style={{margin: '0 0 8px 0'}}>{`to`}</div>
                                 <div>&nbsp;</div>
                                 <div style={{margin: '0 0 8px 0', backgroundColor: '#e8ebed', border: '1px solid #E1E1E9', color: 'red', borderRadius: '5px'}}>
                                   {messageItem.branch}
                                 </div>    
                             </Grid>
                             <Grid item xs={12} sx={{margin: '0px'}}>
-                                <div style={{display: 'flex', justifyContent: 'center'}}>
+                                <div style={{display: 'flex', justifyContent: 'flex-start'}}>
                                     <Avatar alt={"null"} src={url} sx={{width: '25px', height: '25px', margin: '0 5px 0 10px', verticalAlign: 'middle'}}/>
                                     <ListItemText align={align} primary={messageItem.projectName}  sx={{fontFamily:'SUIT-Medium'}}/>  
                                 </div>                          

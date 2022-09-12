@@ -20,13 +20,13 @@ public class AuthInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		response.setContentType("application/json");
-	
+
 		// 1. Handler 종류 확인
 		if(handler instanceof HandlerMethod == false) {
 			// DefaultServletHandler가 처리하는 정적 자원
 			return true;
 		}
-		
+
 		// 2. casting
 		HandlerMethod handlerMethod = (HandlerMethod)handler;
 
@@ -63,7 +63,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 			//response.sendRedirect(request.getContextPath() + "/user/login");
 			return false;
 		}
-		
 
 		// 7. @Auth가 적용되어 있지만 인증이 되어 있지 않음  
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
@@ -82,8 +81,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 			
 			return false;
 		}
-		
-		
 		return true;
 	}
 }

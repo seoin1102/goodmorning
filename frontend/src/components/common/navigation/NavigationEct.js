@@ -58,7 +58,7 @@ function NavigationEct({onCreateCrew, onCreateChannel, taskList}) {
     return (
         <>
 
-        <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold', borderBottom:'solid 0.5px #f7f7fa',color:'white'}}>
+        <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold', borderBottom:'solid 0.5px #5CD1E5',color:'white'}}>
         <Grid item xs={12} textAlign={'center'} style={{fontFamily:'SUIT-Medium'}}> 기능 </Grid>
 
         {open ? <img src={arrowUpIcon}/> : <img src={arrowDownIcon} />}

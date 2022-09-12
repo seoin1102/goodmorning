@@ -9,7 +9,7 @@ import CrewSetting from '../modal/Crew/CrewSetting';
 import HeaderItem from './header/HeaderItem';
 import HeaderSearch from './header/HeaderSearch';
 import HeaderUser from './header/HeaderUser';
-import {getLocalStorageAuthUser} from '../../apis/Fetch';
+import {getLocalStorageAuthorization, getLocalStorageAuthUser} from '../../apis/Fetch';
 
 
 function Header() {
@@ -17,9 +17,9 @@ function Header() {
     // modal state
     const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
     const [users, setUsers] = useState([]);
+    const [masterChannelUser, setMasterChannelUser] = useState([]);
     const [masterChannelNo, setMasterChannelNo] = useState(0);
     const [search, setSearch] = useState();
-
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
 
@@ -69,8 +69,8 @@ function Header() {
 
     const MasterChannelUserNo = useCallback(async() => {
         const result = await get(`/channel/master/${channelNo}`);
-        setMasterChannelNo(result);
-    }, [masterChannelNo, channelNo])
+        setMasterChannelUser(result[0]);
+    }, [masterChannelUser, channelNo])
 
     const onChangeChannel = useCallback(async(channelNo, userNo) => {
         const result = await get(`/channel/change/${channelNo}/${userNo}`);
@@ -81,21 +81,7 @@ function Header() {
             crewName: crewName,
             crewNo: crewNo
         }))
-        // dispatch(setCHANNELFOCUS({name: name, no: no}));
-        // dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
     }, [])
-
-    // const onChangeChannel = (channelNo, channelName) => {
-    //     setChangeChannel((prevState) => ({...prevState, no: channelNo, name: channelName}))
-    //     // setChangeChannelNo(channelNo);
-    //     // setChangeChannelName(channelName);
-    //     //dispatch(setCHANNELFOCUS({no: changeChannelNo, name: changeChannelName}));
-    //    // console.log("sdafasf ",changeChannelNo," asdafaf",changeChannelName);
-    // }
-
-    // useEffect(() =>{
-    //     dispatch(setCHANNELFOCUS({no: changeChannel.no, name: changeChannel.name}));
-    // }, [changeChannel])
     
     useEffect(() => {
         if (channelNo === null)
@@ -108,26 +94,18 @@ function Header() {
     // css
     // 이넘 땜에 최적화 안됨 --> css 파일로 만들기
     const channelStyle = {height:'60px', whiteSpace:'no-wrap', overflow:'hidden', textOverflow:'ellipsis'};
-    
-    
 
-    // const initialUser = useCallback(async(userNo) => {
-    //     const result = await get(`/user/email/${userNo}`);
-    //     console.log(result);
-    //     setUsers((prevUsers) => prevUsers.concat(result));
-
-    // }, [users])
     // modal click
     const onClickChannelModal = useCallback(() => {
         setChannelModalIsOpen(prevChannelModalIsOpen => !prevChannelModalIsOpen);
         initialUser();
         MasterChannelUserNo();
-    }, [channelNo, users, masterChannelNo])
+    }, [channelNo, users, masterChannelUser])
 
     return (
-        <Grid container style={{backgroundColor:'#1bc6d9', color:'white', borderBottom:'solid 1px #f7f7fa'}}>            
+        <Grid container style={{backgroundColor:'#1bc6d9', color:'white', borderBottom:'solid 0.5px #5CD1E5'}}>            
             <HeaderItem itemName={channelName} modalIsOpen={channelModalIsOpen} customStyle={channelStyle} onClickModal={onClickChannelModal}>
-                <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users} initialUser={initialUser} masterChannelNo={masterChannelNo}/>
+                <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users} initialUser={initialUser} masterChannelUser={masterChannelUser}/>
             </HeaderItem>
             <HeaderSearch search={search} setSearch={setSearch}/>
             <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel} totalSum={totalSum} setTotalSum={setTotalSum}/>

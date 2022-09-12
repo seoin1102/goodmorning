@@ -64,8 +64,8 @@ public class ChannelService {
 		return channelRepository.findNoByCrewNoAndUserNo(crewNo,authUserNo);
 	}
 
-	public Long getMasterChannelUserNo(Long channelNo) {
-		return channelRepository.findMasterChannelUserNo(channelNo);
+	public List<ChannelVo> getMasterChannelUser(Long channelNo) {
+		return channelRepository.findMasterChannelUser(channelNo);
 	}
 
 }

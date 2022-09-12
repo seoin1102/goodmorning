@@ -1,15 +1,20 @@
 import axios from 'axios';
 
+const authorization = localStorage.getItem('authorization');
+
 const formjsonHeader = {
-    'Content-Type': 'application/x-www-form-urlencoded',  
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Authorization' : authorization,
     'Accept': 'application/json'
 }
 
 const jsonjsonHeader = {
     'Content-Type': 'application/json',
+    'Authorization' : authorization,
     'Accept': 'application/json'
 }
 const multipartHeader = {
+    'Authorization' : authorization,
     'Accept': 'application/json'
 }
 
@@ -77,13 +82,11 @@ export const checkResponse = async(response) =>{
         if(!response.ok) {
             throw new Error(`${response.status} ${response.statusText}`);
         }
-
         const json = await response.json();
-
+        
         if(json.result !== 'success') {  
             throw new Error(`${json.message}`); 
         }
-
         return json;
 }
 
@@ -147,7 +150,7 @@ export const catchAuth = (error) =>{
 
 export const getLocalStorageAuthUser = () =>{
 
-    if(!localStorage.getItem('authUser')){
+    if(!localStorage.getItem('authUser') || !localStorage.getItem('authorization')){
         location.href="/signin"
     }else{
         return JSON.parse(localStorage.getItem('authUser'));
@@ -165,7 +168,7 @@ export const addFile = async function(comment, file, projectNo,userNo) {
         formData.append('userNo',userNo);
         const response = await fetchResponse('/api/fileManagement/upload','post','multipartHeader',formData);
         const json = await checkResponse(response);
-        
+        return json
         // 리랜더링(업데이트 해줘야함 나중에 추가 예정)
         //setImageList([json.data, ...imageList]);
 

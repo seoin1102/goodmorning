@@ -30,4 +30,7 @@ public class JenkinsHookRepository {
 		return sqlSession.selectOne("jenkinshook.findJenkinsChatInfo");
 	}
 
+	public JenkinsHookVo findLastUpdate() {
+		return sqlSession.selectOne("jenkinshook.findLastUpdate");
+	}
 }

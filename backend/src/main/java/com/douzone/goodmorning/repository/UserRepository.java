@@ -69,9 +69,6 @@ public class UserRepository {
 		return sqlSession.selectList("user.findAllEmaillistByChannelNo", channelNo);
 	}
 
-
-
-
 	public UserVo findProfile(UserVo vo) {
 		return sqlSession.selectOne("user.findProfile",vo);
 	}

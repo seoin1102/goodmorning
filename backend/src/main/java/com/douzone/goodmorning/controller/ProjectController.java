@@ -39,7 +39,7 @@ public class ProjectController {
 	 * @param userNo 채널 주인의 유저번호
 	 * @return 해당 유저가 소유한 유저 리스트
 	 */
-    @Auth
+//    @Auth
 	@Transactional
     @GetMapping("/cNo/{crewNo}")
     public ResponseEntity<JsonResult> findByCrew(@PathVariable("crewNo") Long crewNo) {
@@ -49,7 +49,7 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.findByCrew(crewNo)));
     }
     
-    @Auth
+//    @Auth
   	@Transactional
   	@GetMapping("/{channelNo}")
     public ResponseEntity<JsonResult> projectList(@PathVariable("channelNo") Long channelNo) {
@@ -170,6 +170,23 @@ public class ProjectController {
     			+ "<useAgentForwarding>false</useAgentForwarding>"
     			+ "<useSftpForExec>false</useSftpForExec>"
     			+ "</jenkins.plugins.publish__over__ssh.BapSshTransfer>"
+    		    + "<jenkins.plugins.publish__over__ssh.BapSshTransfer>"
+    		    + "<remoteDirectory>/usr/local/douzone/springboot-apps/"+vo.getProjectName()+"</remoteDirectory>"
+    		    + "<sourceFiles>target/launch.sh</sourceFiles>"
+    		    + "<excludes/>"
+    		    + "<removePrefix>target</removePrefix>"
+    		    + "<remoteDirectorySDF>false</remoteDirectorySDF>"
+    		    + "<flatten>false</flatten>"
+    		    + "<cleanRemote>false</cleanRemote>"
+    		    + "<noDefaultExcludes>false</noDefaultExcludes>"
+    		    + "<makeEmptyDirs>false</makeEmptyDirs>"
+    		    + "<patternSeparator>[, ]+</patternSeparator>"
+    		    + "<execCommand>chmod 770 /usr/local/douzone/springboot-apps/"+vo.getProjectName()+"/launch.sh /usr/local/douzone/springboot-apps/"+vo.getProjectName()+"/launch.sh</execCommand>"
+    		    + "<execTimeout>120000</execTimeout>"
+    		    + "<usePty>false</usePty>"
+    		    + "<useAgentForwarding>false</useAgentForwarding>"
+    		    + "<useSftpForExec>false</useSftpForExec>"
+    		    + "</jenkins.plugins.publish__over__ssh.BapSshTransfer>"
     			+ "</transfers>"
     			+ "<useWorkspaceInPromotion>false</useWorkspaceInPromotion>"
     			+ "<usePromotionTimestamp>false</usePromotionTimestamp>"
@@ -188,7 +205,7 @@ public class ProjectController {
     	projectService.execCMD(jenkinsXml);
     	return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("됬나?"));
     } 
-    
+
     
     
 }

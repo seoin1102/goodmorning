@@ -81,8 +81,8 @@ public class ChannelRepository {
 		return sqlSession.selectOne("channel.findNoByCrewNoAndUserNo", map);
 	}
 
-	public Long findMasterChannelUserNo(Long channelNo) {
-		return sqlSession.selectOne("channel.findMasterChannelUserNo", channelNo);
+	public List<ChannelVo> findMasterChannelUser(Long channelNo) {
+		return sqlSession.selectList("channel.findMasterChannelUser", channelNo);
 	}
 
 }

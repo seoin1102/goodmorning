@@ -71,5 +71,15 @@ public class ChatController {
     	
     	if(ChatVo.MessageType.PREVIEW.equals(chatVo.getType())) 
     		redisPublisher.publish(topic, chatVo);
+    	
+    	if(ChatVo.MessageType.FILE.equals(chatVo.getType())) 
+    		redisPublisher.publish(topic, chatVo);
+    	
+    	if(ChatVo.MessageType.COMMAND.equals(chatVo.getType())) {
+    		redisPublisher.publish(topic, chatVo);
+    		
+    		// 젠킨스 배포 코드 적을 곳(서비스 단에서 한번에 하면 좋을듯)
+    	}
+    		
     }
 }

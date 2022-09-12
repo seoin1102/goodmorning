@@ -8,9 +8,8 @@ import dateIcon from '../../../assets/icons/date.png'
 import channelIcon from '../../../assets/icons/channel.png'
 import phoneIcon from '../../../assets/icons/phone.png'
 
-function Profile({ modalShow, onClickModal }) {
+function Profileinfo({ modalShow, onClickModal }) {
 
-  // const [name,setName] = useState("");
   const user = getLocalStorageAuthUser();
   const { name, job, phoneNumber, profileUrl } = user;
   const [profile, setProfile] = useState({
@@ -108,4 +107,4 @@ function Profile({ modalShow, onClickModal }) {
       );
 
 }
-export default Profile;
+export default Profileinfo;
