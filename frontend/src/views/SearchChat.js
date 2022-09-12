@@ -7,18 +7,17 @@ import { shallowEqual, useSelector } from 'react-redux';
 import ChatHeader from "../components/chat/ChatHeader"
 
 function SearchChat() {
-    const location = useLocation();
-    // const { state } = location;
-    // const searchText = state.search;
-    const chatList = useSelector(state => (state.chat), shallowEqual);
 
     return (
+        <>
         <SiteLayout>
             <Grid item xs={10}>
             <ChatHeader/>
-            <SearchResult chatList={chatList}/>
+            <SearchResult />
         </Grid>
+        
         </SiteLayout>
+        </>
     );
 }
 

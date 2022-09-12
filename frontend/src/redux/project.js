@@ -23,13 +23,13 @@ const project = (state = initialState, action) => {
         case DELETE_PROJECT:  
             return update(state, { $splice: [[action.id, 1]] });
         case UPDATE_PROJECT:
-            // return state.map((m, i) => {
-            //     if(i === action.id) {
-            //         m = action.project;
-            //     }
-            //     return m;
-            // })
-            return update(state, { [action.id]: { $set: action.task }})
+            return state.map((m, i) => {
+                if(i === action.id) {
+                    m = action.project;
+                }
+                return m;
+            })
+            // return update(state, { [action.id]: { $set: action.task }})
         default:
             return state;
     }

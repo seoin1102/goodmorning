@@ -55,7 +55,7 @@ public class UserService {
 				"<br/>"+vo.getName()+"님 "+
 				"<br/>굿모닝에 회원가입해주셔서 감사합니다."+
 				"<br/>아래 [이메일 인증 확인]을 누르면 이메일 인증이 완료됩니다.<br/>"+
-				"<a href='http://34.64.235.225:8080/api/user/mailAuthentication/" + vo.getEmail() +
+				"<a href='http://localhost:8080/api/user/mailAuthentication/" + vo.getEmail() +
 				"/" + token +
 				"' target='_blenk'>이메일 인증 확인</a>";
 		

@@ -12,7 +12,7 @@
 		</select>
 		<select id="findByChannel" parameterType="long" resultType="projectvo">
 				<![CDATA[
-				select a.no as id, a.project_name as projectName, a.start_date as start, a.end_date as end, a.descrition as description, a.status, c.name as crewName
+				select a.no as id, a.project_name as projectName, a.start_date as start, a.end_date as end, a.descrition as description, a.status, c.name as crewName,  c.no as crewNo
 				from project a, channel b, crew c
 				where b.no= #{channelNo} and a.enable=1 and a.crew_no = c.no and b.no = c.channel_no;
 				]]>
@@ -31,7 +31,7 @@
 		
 		<update id="update" parameterType="projectvo">
 				<![CDATA[
-				update project set project_name=#{projectName}, start_date=#{start}, end_date=#{end}, descrition=#{description},crew_no=#{crewNo} where no=#{id}; 
+				update project set start_date=#{start}, end_date=#{end} where no=#{id}; 
 				]]>
 		</update>
 		

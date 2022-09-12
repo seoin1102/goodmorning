@@ -10,13 +10,17 @@ export default function MyWidget(props) {
     setData(props.data);
   }, [props.data]);
 
-
+  React.useEffect(() => {
+    setData(props.data);
+  }, [data]);
+  
   return (
     <div>
-      <h3 style={{ padding: "30px" }}>프로젝트 달력</h3>
+      <h3 style={{ padding: "30px"}}>프로젝트 달력</h3>
       {data.length >= 2 ? (
         <div style={{ margin: "20px", height:"350px"}}>
           <Chart
+            className="ganttchart"
             chartType="Gantt"
             data={data}
             width="100%"
@@ -24,7 +28,6 @@ export default function MyWidget(props) {
             chartLanguage="ko"
             legendToggle
             options={options}
-
           />
         </div>
       ) : (
