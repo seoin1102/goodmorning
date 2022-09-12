@@ -131,7 +131,7 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,onClickFil
                             </Button>
                 </Modal.Footer>
         </Modal>
-        <FileUpload modalShow={uploadModalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} uploadcheck={uploadcheck}></FileUpload>
+        <FileUpload modalShow={uploadModalIsOpen} FileUploadModalIsOpenCallback={FileUploadModalIsOpen} uploadcheck={uploadcheck} type='download'></FileUpload>
         </div>
     );
 }

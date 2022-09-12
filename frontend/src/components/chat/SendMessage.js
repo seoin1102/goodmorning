@@ -17,9 +17,10 @@ function SendMessage({onChangeHandler, onClickHandler, text, publishFileUpload})
 
     const uploadcheck = async (comment, file, projectNo,userNo)=> {
 
-        const FileListdata = await addFile(comment, file, projectNo,userNo);
-        
-        //dispatch(fileFileData(FileListdata));
+        const fileUrl = await addFile(comment, file, projectNo,userNo);
+        console.log("=====>",JSON.stringify(fileUrl));
+        return fileUrl.data.fileurl
+        //dispatch(fileFileData(FileListdata));        
     }
 
     // modal click
@@ -67,7 +68,8 @@ function SendMessage({onChangeHandler, onClickHandler, text, publishFileUpload})
             modalShow={modalIsOpen} 
             FileUploadModalIsOpenCallback={FileUploadModalIsOpen} 
             uploadcheck={uploadcheck} 
-            publishFileUpload={publishFileUpload}/>
+            publishFileUpload={publishFileUpload}
+            type='chat'/>
         </>
     );
 }
