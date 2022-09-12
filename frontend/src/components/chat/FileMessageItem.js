@@ -12,9 +12,10 @@ function FileMessageItem({align, message, time, name, url}) {
     const [messageItem, setMessageItem] = useState({
         name: '',
         size: '',
-        type: ''
+        type: '',
+        link: ''
     });
-
+//
     useEffect(() => {
         const messageItemArray = message.split('#$#');
 
@@ -22,7 +23,8 @@ function FileMessageItem({align, message, time, name, url}) {
             ...prevMessageItem, 
             name: messageItemArray[0], 
             size: messageItemArray[1].slice(0, 1),
-            type: messageItemArray[2]
+            type: messageItemArray[2],
+            link:messageItemArray[3]
           }))
     }, [message]);
 
@@ -55,7 +57,7 @@ function FileMessageItem({align, message, time, name, url}) {
                                 </div>
                             </Grid>
                             <Grid item xs={2} sx={{height: '52px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                <Link href={"https://naver.com"}  target="_blank" underline={'none'} color="inherit">
+                                <Link href={messageItem.link}  target="_blank" underline={'none'} color="inherit">
                                     <img src={fileDownloadIcons} width={30} height={30}/>
                                 </Link>
                             </Grid>
