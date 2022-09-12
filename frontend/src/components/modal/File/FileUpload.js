@@ -5,7 +5,7 @@ import { addFile,checkResponse, fetchResponse, getLocalStorageAuthUser, projectD
 import { useSelector, useDispatch } from 'react-redux';
 import {fileFileData,fileFileUpload} from '../../../redux/file'
 
-function FileUpload({modalShow, FileUploadModalIsOpenCallback, uploadcheck, publishFileUpload}) {
+function FileUpload({modalShow, FileUploadModalIsOpenCallback, uploadcheck, publishFileUpload, type}) {
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
 
@@ -32,11 +32,15 @@ function FileUpload({modalShow, FileUploadModalIsOpenCallback, uploadcheck, publ
         const projectNo = e.target['selectProject'].value;
         
         //addFile(comment, file, projectNo,userNo);
-
-        uploadcheck(comment, file, projectNo, userNo);
-
+        let fileurl = null;
+        if(type === 'chat') {
+            fileurl = await uploadcheck(comment, file, projectNo, userNo);
+            publishFileUpload(file.name + "#$#" + file.size/1024 + "#$#" + file.type + "#$#" + fileurl);
+        } else {
+            await uploadcheck(comment, file, projectNo, userNo);
+        }
+        
         console.log("파일 업로드", comment, file, projectNo, userNo);
-        publishFileUpload(file.name + "#$#" + file.size/1024 + "#$#" + file.type + "#$#" + null);
         FileUploadModalIsOpenCallback(false);
     }
 
