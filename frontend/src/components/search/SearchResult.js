@@ -7,7 +7,7 @@ import SendPreviewMessage from '../chat/SendPreviewMessage';
 import { useLocation } from "react-router-dom";
 import GitMessageItem from '../chat/GitMessageItem';
 import githubIcon from '../../assets/icons/github.svg';
-import jenkinsIcon from '../../assets/icons/jenkins.svg';
+import jenkinsIcon from '../../assets/icons/jenkins.png';
 
 function SearchResult() {
     const searchList = useSelector(state => (state.chat), shallowEqual);

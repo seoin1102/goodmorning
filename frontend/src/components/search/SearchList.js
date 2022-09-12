@@ -15,7 +15,7 @@ import SendPreviewMessage from '../chat/SendPreviewMessage';
 import MessageItem from '../chat/MessageItem';
 import GitMessageItem from '../chat/GitMessageItem';
 import githubIcon from '../../assets/icons/github.svg';
-import jenkinsIcon from '../../assets/icons/jenkins.svg';
+import jenkinsIcon from '../../assets/icons/jenkins.png';
 import clickgithub from '../../assets/icons/clickGithub.svg';
 import unclickgithub from '../../assets/icons/unclickGithub.svg';
 import clickjenkins from '../../assets/icons/clickJenkins.svg';
