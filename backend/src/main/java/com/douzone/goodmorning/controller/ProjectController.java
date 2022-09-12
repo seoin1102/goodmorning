@@ -207,5 +207,15 @@ public class ProjectController {
     } 
 
     
+    @PostMapping("/buildJenkinsJob")
+    public ResponseEntity<JsonResult> buildJenkinsJob(@RequestBody ProjectVo vo) {
+    	 
+    	String buildjenkins="curl -X POST http://34.64.214.252:8080/jenkins/job/"+vo.getProjectName()+"/build --user jenkins:11eac84873470eb9d72cfb6f989468eb14 -v";
+    	projectService.execCMD(buildjenkins);
+    	return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("됬나?"));
+    } 
+
+    
+    
     
 }

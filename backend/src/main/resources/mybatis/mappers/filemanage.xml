@@ -6,7 +6,7 @@
 		<![CDATA[
 		insert into fileUpload values(null, #{url }, #{comment },1,#{originFileName},now(),#{userNo},#{projectNo})
 		]]>
-	  	<selectKey keyProperty="lastno" resultType="int" order="AFTER">
+	  	<selectKey keyProperty="no" resultType="int" order="AFTER">
 			<![CDATA[
 		  	select last_insert_id()
 	  		]]>
