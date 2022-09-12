@@ -111,7 +111,7 @@ public class ChatApiController {
     	System.out.println("[크루]"+ crewNo + "[유저]" + authUserNo);
     	message.setData("success");
     	if(chatService.updateChatUser(crewNo, authUserNo) == false) {
-    		message.setData("fail");
+    		message.setData(chatService.updateChatUser(crewNo, authUserNo));
     		return ResponseEntity.ok().headers(headers).body(message);
     	}
     	
