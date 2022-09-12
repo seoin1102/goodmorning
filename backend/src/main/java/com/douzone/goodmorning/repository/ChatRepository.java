@@ -42,11 +42,11 @@ public class ChatRepository {
 		return sqlSession.insert("chat.insertChatUserByCrewNoAndChatNo", map) == 1;
 	}
 
-	public boolean updateChatUserByCrewNoAndAuthUserNo(Long crewNo, Long authUserNo) {
+	public Integer updateChatUserByCrewNoAndAuthUserNo(Long crewNo, Long authUserNo) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("crewNo", crewNo);
 		map.put("authUserNo", authUserNo);
-		return sqlSession.update("chat.updateChatUserByCrewNoAndAuthUserNo", map) == 1;
+		return sqlSession.update("chat.updateChatUserByCrewNoAndAuthUserNo", map);
 	}
 
 	public Long findCountByCrewNoAndAuthUserNo(Long crewNo, Long authUserNo) {
