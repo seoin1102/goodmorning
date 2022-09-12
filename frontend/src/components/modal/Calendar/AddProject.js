@@ -136,7 +136,7 @@ function AddProject({show, publishLinkPreview, setShow}) {
           'delete',
         ],
         config: {
-          url: '/api/githubhook/hookdata',
+          url: 'http://34.64.235.225:8080/api/githubhook/hookdata',
           content_type: 'json',
           insecure_ssl: '0'
         }
@@ -150,9 +150,10 @@ function AddProject({show, publishLinkPreview, setShow}) {
       setClickedName('')
       setClickedDescript('')
       setClickedStatus(0)
-      seterrormessage('')
-      setClickedCrewName('')
-      setClickedCrewNo('')
+      // seterrormessage('')
+      // setClickedCrewName('')
+      // setClickedCrewNo('')
+
       publishLinkPreview(gitName, repoName);
     } catch(err){
       seterrormessage("깃 또는 깃토큰이 일치하지 않습니다!");
