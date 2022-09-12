@@ -103,6 +103,7 @@ function SiteLayout({children}) {
 
                 const result = await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
                 console.log("전달 받은 내용", chatData);
+                console.log("전달 받은 내용", result);
                 if(result.data !== 'success') 
                     return;
 
