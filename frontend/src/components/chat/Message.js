@@ -93,7 +93,7 @@ function Message({chatList, loading, setLoading }) {
             <div ref={scrollRef}></div>
         </List>
         <Divider />
-        {loading ? <Loading /> : null}
+        {true ? <Loading /> : null}
     </>
     );
 }
