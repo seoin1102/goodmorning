@@ -4,13 +4,23 @@
 
 	<insert id="insert" parameterType="map">
 		<![CDATA[
-			insert into githubhook values(null, #{eventType }, #{pusher }, #{message }, now(), #{projectNo})
+			insert into githubhook values(null, #{eventType }, #{pusher }, #{message }, now(),#{branch},#{after},#{projectName},#{projectNo})
 		]]>
 	</insert>
 	
 	<select id="findProjectNo" parameterType="String" resultType="gitvo">
 		<![CDATA[
 			select no from project where project_name=#{projectName }
+		]]>
+	</select>
+	
+	<select id="findMessageByProjectNo" parameterType="string" resultType="gitvo">
+		<![CDATA[
+			select event_type as eventType, user_name as userName, message, branch, after, project_name as projectName from githubhook 
+				where project_no = (select no from project 
+															where project_name = #{projectName }
+														) 
+			    order by no desc  limit 1;
 		]]>
 	</select>
 	

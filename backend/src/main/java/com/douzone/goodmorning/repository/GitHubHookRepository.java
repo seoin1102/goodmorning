@@ -6,7 +6,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.douzone.goodmorning.vo.GithubHookVo;
-import com.douzone.goodmorning.vo.JenkinsHookVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +25,10 @@ public class GitHubHookRepository {
 	
 	public GithubHookVo findGitHubChatInfo() {
 		return sqlSession.selectOne("githubhook.findGitHubChatInfo");
+	}
+
+	public GithubHookVo findMessageByProjectNo(String projectName) {
+		return sqlSession.selectOne("githubhook.findMessageByProjectNo", projectName);
 	}
 	
 }

@@ -71,15 +71,15 @@ function Profileinfo({ modalShow, onClickModal }) {
                   <Form.Label style={{fontWeight:'bold', fontSize:'1.2em', color:'#5b9bd1'}}> {user.email}</Form.Label>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="crewForm.name" style={{ textAlign: 'start'}}>
+                <Form.Group className="mb-3" controlId="crewForm.name" style={{ textAlign: 'start', paddingLeft:'35px'}}>
                   <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={dateIcon} style={{width:'40px', heigh:'40px'}}></img> : {user.signUpDate ? user.signUpDate : '값이 없음'}</Form.Label>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="crewForm.name" style={{ textAlign: 'start'}}>
+                <Form.Group className="mb-3" controlId="crewForm.name" style={{ textAlign: 'start' , paddingLeft:'35px'}}>
                   <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={channelIcon} style={{width:'40px', heigh:'40px'}}></img>: {user.job ? user.job : '직함이 등록되지 않았습니다!'}</Form.Label>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="crewForm.name" style={{ textAlign: 'start'}}>
+                <Form.Group className="mb-3" controlId="crewForm.name" style={{ textAlign: 'start' , paddingLeft:'35px'}}>
                   <Form.Label style={{fontWeight:'bold', fontSize:'1.1em'}}><img src={phoneIcon} style={{width:'40px', heigh:'40px'}}></img>: {user.phoneNumber ? user.phoneNumber : '전화번호가 등록되지 않았습니다!'}</Form.Label>
                 </Form.Group>
                 

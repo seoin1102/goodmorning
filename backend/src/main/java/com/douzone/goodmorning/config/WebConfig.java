@@ -8,7 +8,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.douzone.goodmorning.security.AuthInterceptor;
@@ -16,9 +15,7 @@ import com.douzone.goodmorning.security.AuthUserHandlerMethodArgumentResolver;
 import com.douzone.goodmorning.security.LoginInterceptor;
 import com.douzone.goodmorning.security.LogoutInterceptor;
 
-@PropertySource("classpath:config/WebConfig.properties")
 @SpringBootConfiguration
-@PropertySource("classpath:config/WebConfig.properties")
 public class WebConfig implements WebMvcConfigurer {
 	
 	@Autowired
@@ -57,6 +54,7 @@ public class WebConfig implements WebMvcConfigurer {
 //		.addInterceptor(logoutInterceptor())
 //		.addPathPatterns("/api/user/logout");
 		
+
 //		registry
 //		.addInterceptor(authInterceptor())
 //		.addPathPatterns("/api/**")
@@ -66,5 +64,4 @@ public class WebConfig implements WebMvcConfigurer {
 
 		
 	}
-	
 }

@@ -11,6 +11,7 @@ import ResetPw from './views/ResetPw';
 import FileShare from './views/FileShare';
 import Reservation from './views/Reservation';
 import Search from './views/Search';
+import SearchChat from './views/SearchChat'
 import SaveMessage from './views/SaveMessage';
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
         {path:'resetpw',element:<ResetPw/>},
         {path:'reservation', element: <Reservation />},
         {path:'search', element: <Search />},
+        {path:'searchresult', element: <SearchChat />},
         {path:'save', element: <SaveMessage />},
     ]);
     

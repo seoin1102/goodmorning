@@ -92,3 +92,37 @@ export const msgPreview = (crewNo, userNo, message, userName) => {
       sendDate: new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ")
   });
 }
+
+export const chatFileVo = (crewNo, userNo, message) => {
+  const msg = defaultMsg(crewNo, userNo, message);
+  return JSON.stringify({
+      ...msg, 
+      type: 'FILE'
+  });
+}
+
+export const msgFile = (crewNo, userNo, message, userName) => {
+  const msg = defaultMsg(crewNo, userNo, message, userName);
+  return JSON.stringify({
+      ...msg, 
+      type: 'FILE',
+      sendDate: new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ")
+  });
+}
+
+export const chatCommand = (crewNo, userNo, message) => {
+  const msg = defaultMsg(crewNo, userNo, message);
+  return JSON.stringify({
+      ...msg, 
+      type: 'COMMAND'
+  });
+}
+
+export const msgCommand = (crewNo, userNo, message, userName) => {
+  const msg = defaultMsg(crewNo, userNo, message, userName);
+  return JSON.stringify({
+      ...msg, 
+      type: 'COMMAND',
+      sendDate: new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ")
+  });
+}

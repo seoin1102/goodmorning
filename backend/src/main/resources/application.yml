@@ -6,7 +6,8 @@ spring:
 ---
 # common spring boot configuration
 spring:
-
+   application:
+      name: goodmorning
    mvc:
       static-path-pattern: /assets/**
       throw-exception-if-no-handler-found: true
@@ -47,10 +48,21 @@ mybatis:
    config-location: classpath:mybatis/configuration.xml
 
 # logging
-#logging:
-#   level:
-#      root: INFO  
-
+logging:
+   pattern:
+      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   logback:
+      rollingpolicy:
+         file-name-pattern: "logs/${spring.application.name}.%d{yyyy-MM-dd}.%i.log.zip"
+   file:
+      name: logs/${spring.application.name}.log
+      max-history: 30
+   level:
+      root: INFO
+      com:
+         douzone:
+            goodmorning:
+               exception: ERROR         
 ---
 # development profile: spring boot configuration
 spring:
@@ -91,7 +103,7 @@ spring:
 # DataBase
    datasource:
       driver-class-name: org.mariadb.jdbc.Driver
-      url: jdbc:mysql://34.64.202.134:3306/goodmorning?charset=utf8
+      url: jdbc:mysql://34.64.83.208:3306/goodmorning?charset=utf8
       username: ENC(zPCspAbRWtf/yA50+PyeFYCDx1ZUkoPX3WIp/V7+5gXJNFHXb5AEWSxg2XFBBJZw)
       password: ENC(YUeIVcQ32Lbtasm1eZeujUbFBYS7cJX9f9kWTiUahNFYGDioSKAy44GpC62azMZ+Rm31kZhgtXIOXkdOV8BalA==)
       hikari:

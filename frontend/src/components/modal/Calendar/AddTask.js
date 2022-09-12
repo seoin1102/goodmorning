@@ -23,7 +23,9 @@ function AddTask(props) {
   const [clickedEventTitle, setClickedEventTitle] = useState()
   const [clickedStart, setClickedStart] = useState()
   const [clickedEnd, setClickedEnd] = useState()
-  const [clickedEventUserNo,setClickedEvenUserNo] = useState()
+  const [clickedUserNo,setClickedUserNo] = useState()
+  const [clickedUserName,setClickedUserName] = useState()
+
   const [clickedProject, setClickedProject] = useState();
   const [clickedProjectNo, setClickedProjectNo] = useState();
   const [clickedColor, setClickedColor] = useState();
@@ -38,7 +40,8 @@ function AddTask(props) {
     setClickedEventTitle(title)
     setClickedStart(start)
     setClickedEnd(end)
-    setClickedEvenUserNo(userNo)
+    setClickedUserNo(userNo)
+    setClickedUserName(userName)
     setClickedProject(projectName)
     setClickedProjectNo(projectNo)
     setClickedColor(color)
@@ -74,7 +77,7 @@ function AddTask(props) {
           const ids = []
           newCalendarEvents.map((event) => {ids.push(event.id)})
           const maxId = Math.max(...ids);
-          const _addTask={...updatedTask, id: maxId + 1, userNo: assign, userName:userName}
+          const _addTask={...updatedTask, id: maxId + 1, userNo: assign.userNo, userName:assign.userName}
           
 
           post(`/task`, _addTask)
@@ -86,14 +89,14 @@ function AddTask(props) {
       }
       if(includesCheck){ //기존 사람의 변경 및 삭제 여부.
         const filterTaskIdx = props.filteredTask.findIndex(event => event.id == id)
-        put(`/task/${clickedEventId}`, {...updatedTask,userNo:userNo})
-        dispatch(updateTask(clickedEventIdx, {...updatedTask,userNo:userNo}));
+        put(`/task/${clickedEventId}`, {...updatedTask,userNo:userNo,userName:userName})
+        dispatch(updateTask(clickedEventIdx, {...updatedTask,userNo:userNo,userName:userName}));
 
         props.closeModal();
         setClickedEventTitle("");
 
         if (filterTaskIdx > -1) {
-          props.filteredTask[filterTaskIdx] = {...updatedTask,userNo:userNo}
+          props.filteredTask[filterTaskIdx] = {...updatedTask,userNo:userNo,userName:userName}
           props.setFilteredTask([...props.filteredTask])}
 
       }else{
@@ -108,7 +111,8 @@ function AddTask(props) {
         const maxId = Math.max(...ids);
         const _addTask={...updatedTask,
           id: maxId + 1,
-          userNo: assign,
+          userNo: assign.userNo,
+          userName: assign.userName
         }
         post(`/task`, _addTask)
         dispatch(addTask([_addTask]));

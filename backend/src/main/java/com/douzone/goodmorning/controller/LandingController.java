@@ -21,6 +21,7 @@ public class LandingController {
 		return "index";
 	}
 	
+
 //	@Auth
 	@RequestMapping("/signin")
 	public String signin() {

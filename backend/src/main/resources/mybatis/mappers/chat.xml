@@ -9,6 +9,14 @@
 				]]>
 		</select>
 		
+		<select id="findAllByChannelNo" parameterType="long" resultType="chatvo">
+				<![CDATA[
+				select a.no, a.crew_no as crewNo, a.send_date as sendDate, a.message, a.type, b.name as userName, b.profile_img as profileUrl,  c.name as crewName
+				from chat as a, user as b, crew as c, channel d
+				where a.user_no = b.no and a.crew_no=c.no and c.channel_No = d.no and c.channel_No= #{channelNo} order by a.no;
+				]]>
+		</select>
+		
 		<select id="findNoByCrewNoAndUserNo" parameterType="map" resultType="long">
 				<![CDATA[
 				select no from chat 

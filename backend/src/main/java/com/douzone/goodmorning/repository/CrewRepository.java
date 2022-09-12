@@ -38,8 +38,11 @@ public class CrewRepository {
 		Map<String, Object> map = new HashMap<>();
 		map.put("channelNo", channelNo);
 		map.put("userNo", userNo);
-		return sqlSession.selectOne("crew.findMaster", map);
-		
+		return sqlSession.selectOne("crew.findMaster", map);		
+	}
+	
+	public Long findMaster(String projectName) {
+		return sqlSession.selectOne("crew.findMasterByNo", projectName);	
 	}
 
 	@Transactional

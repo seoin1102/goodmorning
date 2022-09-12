@@ -4,6 +4,7 @@ import {checkResponse, checkAuth, catchAuth } from './Fetch'
 const client = axios.create({baseURL: '/api'});
 const authorization = localStorage.getItem('authorization');
 
+
 /**
  * axios GET(Read) 요청
  * @param {string} url api 서버 url [도메인 제외]

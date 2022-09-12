@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.douzone.goodmorning.vo.ChatVo;
 import com.douzone.goodmorning.vo.ProjectVo;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,10 @@ public class ProjectRepository {
 	
 	public List<ProjectVo> findByChannel(Long channelNo) {
 		return sqlSession.selectList("project.findByChannel", channelNo);
+	}
+	
+	public ChatVo findCrewNoByName(String projectName) {
+		return sqlSession.selectOne("project.findCrewNoByName", projectName);
 	}
 
 	public Boolean insert(ProjectVo projectVo) {

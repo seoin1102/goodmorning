@@ -26,8 +26,10 @@ public class GithubHookService {
 		map.put("message",((HashMap<String, Object>) data.get("head_commit")).get("message").toString());
 		map.put("projectName",((HashMap<String, Object>) data.get("repository")).get("name").toString());
 		//map.put("timeStamp",((HashMap<String, Object>) data.get("head_commit")).get("timestamp").toString());
-		
+		map.put("branch",data.get("ref").toString());
+		map.put("after",data.get("after").toString());
 		map.put("projectNo",findprojectNo(map.get("projectName")));
+		
 		return gitHubHookRepository.pusherEventInsert(map);
 	}
 
@@ -38,7 +40,8 @@ public class GithubHookService {
 		map.put("pusher", ((HashMap<String, Object>) data.get("sender")).get("login").toString());
 		map.put("projectName", ((HashMap<String, Object>) data.get("repository")).get("name").toString());
 		map.put("message",data.get("ref") +" 의 " + data.get("ref_type") +" 삭제" );
-		
+		map.put("branch",data.get("ref").toString());
+		map.put("after"," ");
 		map.put("projectNo",findprojectNo(map.get("projectName")));
 		return gitHubHookRepository.pusherEventInsert(map);
 	}
@@ -51,7 +54,8 @@ public class GithubHookService {
 		map.put("pusher", ((HashMap<String, Object>) data.get("sender")).get("login").toString());
 		map.put("projectName", ((HashMap<String, Object>) data.get("repository")).get("name").toString());
 		map.put("message",data.get("ref") +"  " + data.get("ref_type") +" 생성" );
-		
+		map.put("branch",data.get("ref").toString());
+		map.put("after"," ");
 		map.put("projectNo",findprojectNo(map.get("projectName")));
 		return gitHubHookRepository.pusherEventInsert(map);
 		
@@ -69,7 +73,8 @@ public class GithubHookService {
 		}else {
 			map.put("message","pullRequest " +data.get("action").toString());
 		}
-		
+		map.put("branch", ((HashMap<String, Object>) ((HashMap<String, Object>) data.get("pull_request")).get("head")).get("ref").toString());
+		map.put("after","");
 		map.put("projectNo",findprojectNo(map.get("projectName")));
 		return gitHubHookRepository.pusherEventInsert(map);
 		
@@ -82,6 +87,11 @@ public class GithubHookService {
 	
 	public GithubHookVo getGitHookData() {
 		return gitHubHookRepository.findGitHubChatInfo();
+	}
+
+	public String findMessageByProjectNo(String projectName) {
+		GithubHookVo gitVo = gitHubHookRepository.findMessageByProjectNo(projectName);	
+		return gitVo.getEventType() + "#$#" + gitVo.getUserName() + "#$#" + gitVo.getMessage() + "#$#" + gitVo.getBranch() + "#$#" + gitVo.getAfter() + "#$#" + gitVo.getProjectName();
 	}
 
 

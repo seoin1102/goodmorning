@@ -16,8 +16,9 @@ function SendPreviewMessage({align, time, name, message}) {
           gitData[1] = ''
 
       const gitJsonData = JSON.stringify({gitId: gitData[0], projectName: gitData[1]})
-      const metaOG = await linkPreview(`/html/github`, gitJsonData);
-      
+    const metaOG = await linkPreview(`/html/github`, gitJsonData);
+
+
       setLinkPreviewMetaOG(metaOG);
     }
 

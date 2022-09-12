@@ -5,8 +5,11 @@ import { addFile,checkResponse, fetchResponse, getLocalStorageAuthUser, projectD
 import { useSelector, useDispatch } from 'react-redux';
 import {fileFileData,fileFileUpload} from '../../../redux/file'
 
-function FileUpload({modalShow,FileUploadModalIsOpenCallback,uploadcheck}) {
+function FileUpload({modalShow, FileUploadModalIsOpenCallback, uploadcheck, publishFileUpload, type}) {
+    const user = getLocalStorageAuthUser();
+    const userNo = user.no;
 
+    const [posts, setPosts] = useState([]);
     const refForm = useRef(null);
     const dispatch = useDispatch();
     
@@ -29,17 +32,17 @@ function FileUpload({modalShow,FileUploadModalIsOpenCallback,uploadcheck}) {
         const projectNo = e.target['selectProject'].value;
         
         //addFile(comment, file, projectNo,userNo);
-
-        uploadcheck(comment, file, projectNo,userNo);
-
-
+        let fileurl = null;
+        if(type === 'chat') {
+            fileurl = await uploadcheck(comment, file, projectNo, userNo);
+            publishFileUpload(file.name + "#$#" + file.size/1024 + "#$#" + file.type + "#$#" + fileurl);
+        } else {
+            await uploadcheck(comment, file, projectNo, userNo);
+        }
+        
+        console.log("파일 업로드", comment, file, projectNo, userNo);
         FileUploadModalIsOpenCallback(false);
     }
-
-
-    const user = getLocalStorageAuthUser();
-    const userNo = user.no;
-    const [posts, setPosts] = useState([]);
 
     useEffect(()=>{
         (async() => {
@@ -62,19 +65,19 @@ function FileUpload({modalShow,FileUploadModalIsOpenCallback,uploadcheck}) {
                             <Form 
                                 onSubmit={handleSubmit}
                                 ref={refForm}>
-                                <InputGroup className="mb-3">
-                                    <InputGroup.Text id="basic-addon1">파일 설명</InputGroup.Text>
-                                    <Form.Control
-                                        placeholder={'설명(코멘트)'}
-                                        type={'text'}
-                                        name={'comment'}
-                                        aria-label="Username"
-                                        aria-describedby="basic-addon1"
-                                        required
-                                    />
-                                </InputGroup>
+                                    <InputGroup className="mb-3">
+                                        <InputGroup.Text id="basic-addon1">파일 설명</InputGroup.Text>
+                                        <Form.Control
+                                            placeholder={'설명(코멘트)'}
+                                            type={'text'}
+                                            name={'comment'}
+                                            aria-label="Username"
+                                            aria-describedby="basic-addon1"
+                                            required
+                                        />
+                                    </InputGroup>
                                 <br/>
-                                <Form.Group controlId="formFile" className="mb-3">
+                                <Form.Group controlId="formFile" className="mb-3" style={{marginLeft:'-7px', marginTop:'-20px', width:'99.3%'}}>
                                     <Form.Control 
                                         type={'file'}
                                         name={'uploadFile'}
@@ -82,7 +85,7 @@ function FileUpload({modalShow,FileUploadModalIsOpenCallback,uploadcheck}) {
                                         required
                                     />
                                 </Form.Group>
-                                <FormSelect name={'selectProject'} >
+                                <FormSelect name={'selectProject'}  style={{width:'99.3%'}}>
                                     {posts.map(({projectNo,projectName},index) => (
                                         <option key={index} value={projectNo}>{projectName}</option>
                                     ))}

@@ -18,6 +18,10 @@ public class ChatService {
 	public List<ChatVo> getMessageList(Long crewNo) {
 		return chatRepository.findAllByCrewNo(crewNo);
 	}
+	
+	public List<ChatVo> getChannelMessageList(Long ChannelNo) {
+		return chatRepository.findAllByChannelNo(ChannelNo);
+	}
 
 	public Boolean AddMessage(ChatVo chatVo) {
 		return chatRepository.insertByCrewNoAndUserNo(chatVo);

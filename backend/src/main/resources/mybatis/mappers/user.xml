@@ -4,7 +4,7 @@
 
 	<insert id="insert" parameterType="uservo">
 		<![CDATA[
-			insert into user values(null, #{email }, #{name }, #{passwd }, now(),#{enable }, null, null, null)
+			insert into user values(null, #{email }, #{name }, #{passwd }, now(),#{enable }, null, null, '/assets/default1.png')
 		]]>
 	</insert>
 	
@@ -34,6 +34,12 @@
 	<select id="findByUserNo" parameterType="string" resultType="int">
 		<![CDATA[
 		select no from user where email= #{email };
+		]]>
+	</select>
+	
+	<select id="findUserNameByNo" parameterType="long" resultType="string">
+		<![CDATA[
+		select name from user where no= #{userNo };
 		]]>
 	</select>
 	

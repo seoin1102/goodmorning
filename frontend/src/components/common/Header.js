@@ -18,6 +18,8 @@ function Header() {
     const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
     const [users, setUsers] = useState([]);
     const [masterChannelUser, setMasterChannelUser] = useState([]);
+    const [masterChannelNo, setMasterChannelNo] = useState(0);
+    const [search, setSearch] = useState();
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
 
@@ -36,7 +38,7 @@ function Header() {
     //     no: channelNo,
     //     name: channelName
     // })
-   
+  
     /**
      * 채널 목록
      * @param userNo 채널 번호
@@ -86,9 +88,7 @@ function Header() {
             initialFocus(userNo);
         
         if (channelNo !== null)
-            initialChannel(channelNo,userNo);
-
-            console.log("asdad");
+            initialChannel(channelNo, userNo);
       }, [channelNo])
 
     // css
@@ -107,7 +107,7 @@ function Header() {
             <HeaderItem itemName={channelName} modalIsOpen={channelModalIsOpen} customStyle={channelStyle} onClickModal={onClickChannelModal}>
                 <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users} initialUser={initialUser} masterChannelUser={masterChannelUser}/>
             </HeaderItem>
-            <HeaderSearch/>
+            <HeaderSearch search={search} setSearch={setSearch}/>
             <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel} totalSum={totalSum} setTotalSum={setTotalSum}/>
         </Grid>
     );

@@ -15,10 +15,6 @@ function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickCh
       setProFileOthersModalShow(profileOthersModalShow => !profileOthersModalShow);
     }, [])
 
-    useEffect(() => {
-
-    },[users])
-
     return (
       <>
                

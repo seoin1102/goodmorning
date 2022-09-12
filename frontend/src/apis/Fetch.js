@@ -18,6 +18,11 @@ const multipartHeader = {
     'Accept': 'application/json'
 }
 
+const jenkinsHeader = {
+    'Content-Type': 'application/x-www-form-urlencoded',  
+}
+
+
 /**
  * 
  * @param {*} url 보낼 url 
@@ -37,6 +42,9 @@ export const fetchResponse = async(url,methodType,headerType,sendData) => {
             break;
         case "multipartHeader":
             header = multipartHeader;
+            break;
+        case "jenkinsHeader":
+            header = jenkinsHeader;
             break;
     }
 
@@ -58,6 +66,9 @@ export const fetchGetResponse = async(url,methodType,headerType) => {
             break;
         case "multipartHeader":
             header = multipartHeader;
+            break;
+        case "jenkinsHeader":
+            header = jenkinsHeader;
             break;
     }
 
@@ -157,7 +168,7 @@ export const addFile = async function(comment, file, projectNo,userNo) {
         formData.append('userNo',userNo);
         const response = await fetchResponse('/api/fileManagement/upload','post','multipartHeader',formData);
         const json = await checkResponse(response);
-        
+        return json
         // 리랜더링(업데이트 해줘야함 나중에 추가 예정)
         //setImageList([json.data, ...imageList]);
 

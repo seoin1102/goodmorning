@@ -14,11 +14,12 @@ export default function AssignSelect(props) {
         const prevAssigns = [props.defaultValue]
         const addedAssignList = value.filter((prevAssign)=>  prevAssigns.some((assign) => assign.userName != prevAssign.userName))
         const includesCheck = (value.filter((prevAssign)=>  prevAssigns.some((assign) => assign.userName == prevAssign.userName))).length > 0 ? true: false
-        const addedAssignNo = addedAssignList.map((addedAssign)=> addedAssign.userNo)
+        const addedAssignNo = addedAssignList.map((addedAssign)=> addedAssign)
+        console.log(addedAssignNo)
         props.setAddedAssigns(addedAssignNo)
         props.setIncludeCheck(includesCheck)
     }else{
-        const addedAssignNo = value.map((option)=> option.userNo)
+        const addedAssignNo = value.map((option)=> option)
         props.setAddedAssigns(addedAssignNo)
 
     }
