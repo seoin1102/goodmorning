@@ -181,7 +181,7 @@ public class ProjectController {
     		    + "<noDefaultExcludes>false</noDefaultExcludes>"
     		    + "<makeEmptyDirs>false</makeEmptyDirs>"
     		    + "<patternSeparator>[, ]+</patternSeparator>"
-    		    + "<execCommand>chmod 770 /usr/local/douzone/springboot-apps/"+vo.getProjectName()+"/launch.sh /usr/local/douzone/springboot-apps/"+vo.getProjectName()+"/launch.sh</execCommand>"
+    		    + "<execCommand>chmod 770 /usr/local/douzone/springboot-apps/"+vo.getProjectName()+"/launch.sh" + "\n" + "/usr/local/douzone/springboot-apps/"+vo.getProjectName()+"/launch.sh</execCommand>"
     		    + "<execTimeout>120000</execTimeout>"
     		    + "<usePty>false</usePty>"
     		    + "<useAgentForwarding>false</useAgentForwarding>"
