@@ -110,8 +110,10 @@ public class ChatApiController {
     	
     	System.out.println("[크루]"+ crewNo + "[유저]" + authUserNo);
     	message.setData("success");
-    	if(chatService.updateChatUser(crewNo, authUserNo) == 0) {
-    		message.setData(chatService.updateChatUser(crewNo, authUserNo));
+    	int a = chatService.updateChatUser(crewNo, authUserNo);
+    	
+    	if(a == 0) {
+    		message.setData(a);
     		return ResponseEntity.ok().headers(headers).body(message);
     	}
     	
