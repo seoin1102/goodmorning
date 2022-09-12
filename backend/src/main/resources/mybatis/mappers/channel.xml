@@ -64,10 +64,11 @@
 				]]>
 		</select>
 		
-		<select id="findMasterChannelUserNo" parameterType="long" resultType="long">
+		<select id="findMasterChannelUser" parameterType="long" resultType="channelVo">
 				<![CDATA[
-				select master_channel_user_no as masterChannelUserNo 
-				from channel where no = #{channelNo};
+				select a.creation_date as creationDate, a.master_channel_user_no as masterChannelUserNo, b.name as name, b.email as email 
+				from channel as a, user as b 
+				where a.no = #{channelNo} and a.master_channel_user_no = b.no;
 				]]>
 		</select>
 		

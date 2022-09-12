@@ -24,19 +24,16 @@ public class LoginInterceptor implements HandlerInterceptor {
 			
 			throws Exception {
 		SHA256 sha256 =  new SHA256();
-
+		
 		String email = request.getParameter("email");
 		String passwd = request.getParameter("passwd");
 
 		response.setContentType("application/json");
 		UserVo authUser = userService.getUser(email, passwd);
 		
-		
+		System.out.println("로그인 인터셉트입니다~@@@@@@@@@@@@@@@@@@@@@");
 		
 		if(authUser == null) {
-			//request.setAttribute("email", email);
-			//request.setAttribute("result", "fail");
-			//request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
 			
 			//json 응답처리 
 			response.setStatus(HttpServletResponse.SC_OK);
@@ -66,18 +63,18 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 		/* session 처리 */
 
-		HttpSession session = request.getSession(true);
-		session.setAttribute("authUser", authUser);
-		
-		//json 응답처리 
-		response.setStatus(HttpServletResponse.SC_OK);
-
-		JsonResult jsonResult = JsonResult.success(authUser);
-		String jsonString = new ObjectMapper().writeValueAsString(jsonResult);
-
-		OutputStream os = response.getOutputStream();
-		os.write(jsonString.getBytes("UTF-8"));
-		os.close();
+//		HttpSession session = request.getSession(true);
+//		session.setAttribute("authUser", authUser);
+//		
+//		//json 응답처리 
+//		response.setStatus(HttpServletResponse.SC_OK);
+//		System.out.println("zz");
+//		JsonResult jsonResult = JsonResult.success(authUser);
+//		String jsonString = new ObjectMapper().writeValueAsString(jsonResult);
+//
+//		OutputStream os = response.getOutputStream();
+//		os.write(jsonString.getBytes("UTF-8"));
+//		os.close();
 		
 		return false;
 	}

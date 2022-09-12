@@ -4,8 +4,8 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { postFile, put, putJson } from '../../../apis/Axios';
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
-function Profile({modalShow, onClickModal,profile, setProfile,uploadcheck}) {
-  const user = getLocalStorageAuthUser();
+function Profile({modalShow, onClickModal,profile, setProfile, user}) {
+  
   const {name, job, phoneNumber, profileUrl} = profile
   const userinfo = {no: user.no, name, job, phoneNumber};
   const setUser = {no: user.no, email:user.email, name, passwd: null, signUpDate:user.signUpDate, job, phoneNumber, profileUrl, enable: true};
@@ -78,7 +78,7 @@ function Profile({modalShow, onClickModal,profile, setProfile,uploadcheck}) {
                     <Form.Control
                 type="email"
                 placeholder="example@gmail.com"
-                autoFocus
+                
                 readOnly
                 value={user.email}               
                 />
@@ -90,7 +90,7 @@ function Profile({modalShow, onClickModal,profile, setProfile,uploadcheck}) {
                   <Form.Control
                     type="text"
                     placeholder="CreateDate"
-                    autoFocus
+                    
                     readOnly
                     value={user.signUpDate}
                   />
@@ -101,7 +101,7 @@ function Profile({modalShow, onClickModal,profile, setProfile,uploadcheck}) {
                   <Form.Control
                     type="text"
                     placeholder="Job"
-                    autoFocus
+                    
                     onChange={(e) =>{
                       setProfile((prevProfile)=> ({
                         ...prevProfile, 
@@ -118,7 +118,7 @@ function Profile({modalShow, onClickModal,profile, setProfile,uploadcheck}) {
                   <Form.Control
                     type="text"
                     placeholder="PhoneNumber"
-                    autoFocus
+                    
                     onChange={(e) =>{
                       setProfile((prevProfile)=> ({
                         ...prevProfile, 

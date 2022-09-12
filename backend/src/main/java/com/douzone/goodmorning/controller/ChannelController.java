@@ -97,7 +97,7 @@ public class ChannelController {
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("채널 셋팅 마스터 채널 유저 조회");
-    	message.setData(channelService.getMasterChannelUserNo(channelNo));
+    	message.setData(channelService.getMasterChannelUser(channelNo));
     	return ResponseEntity.ok().headers(headers).body(message);
     }
     

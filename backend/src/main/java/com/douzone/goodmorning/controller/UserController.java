@@ -38,6 +38,7 @@ public class UserController {
 	
 	private final UserService userService;
 	private final FileUploadService FileUploadService;
+	
 	@Transactional
 	@PostMapping("/signUp")
 	public ResponseEntity<JsonResult> singUp(@RequestBody UserVo vo){

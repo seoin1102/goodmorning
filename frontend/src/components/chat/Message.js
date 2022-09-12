@@ -13,6 +13,7 @@ import jenkinsIcon from '../../assets/icons/jenkins.png';
 
 function Message({chatList}) {
     const scrollRef = useRef(null);
+    
     const scrollToBottom = useCallback(() => {
         scrollRef.current.scrollIntoView({behavior: 'smooth'})
     }, [chatList])

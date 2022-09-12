@@ -110,7 +110,6 @@ function SiteLayout({children}) {
                 dispatch(addChat(chatData));
                 dispatch(setCHATALARM({crewNo:crewNo}))            
             })
-
             return;
         })
     };
@@ -126,7 +125,7 @@ function SiteLayout({children}) {
         
         //  메시지 객체 생성
         let addChat = chatVo(crewNo, authUser.no, sendMessage);
-        let pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name);
+        let pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name, authUser.profileUrl);
 
         if(sendMessage.includes('jenkins') && sendMessage.includes('start') && sendMessage.includes('-p')) {
             const jenkinsCommand = sendMessage.split(' ');
@@ -146,6 +145,8 @@ function SiteLayout({children}) {
         if(result.data !== 'success')
             return;
         
+
+        // const pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name, authUser.profileUrl);
         client.current.publish({destination: `/pub/chat`, body: pubChat});
         console.log("전달할 내용", addChat);
         setSendMessage("");

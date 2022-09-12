@@ -57,9 +57,11 @@
 				]]>
 		</select>
 		
-		<select id="findMasterCrewUserNo" parameterType="long" resultType="long">
+		<select id="findMasterCrewUser" parameterType="long" resultType="crewvo">
 				<![CDATA[
-				select master_crew_user_no as masterCrewUserNo from crew where no = #{crewNo};
+				select a.creation_date as creationDate, a.master_crew_user_no as masterCrewUserNo, b.name as name, b.email as email 
+				from crew as a, user as b 
+				where a.no = #{crewNo} and a.master_crew_user_no = b.no;
 				]]>
 		</select>
 		

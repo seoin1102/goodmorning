@@ -9,7 +9,7 @@ import ChannelSetting_member from './ChannelSetting_member';
 import Channelsetting_set from './Channelsetting_set';
 import Swal from 'sweetalert2';
 
-function ChannelSetting({modalShow, onClickModal,users, initialUser, masterChannelNo}) {
+function ChannelSetting({modalShow, onClickModal,users, initialUser, masterChannelUser}) {
     let [tab, setTab] = useState(0);
     const channelName = useSelector(state => {
       return state.focus.channelName;
@@ -60,20 +60,19 @@ function ChannelSetting({modalShow, onClickModal,users, initialUser, masterChann
             onClickHandler={onClickHandler}
             channelName={channelName}
             onClickModal={onClickModal}
-            masterChannelNo={masterChannelNo}
+            masterChannelUser={masterChannelUser}
              />
         else if (tab === 1) return <ChannelSetting_member 
                 onClickModal={onClickModal}
                 setTab={setTab}
                 channelNo={channelNo}
                 users={users}
-                onClickChannelInvite={onClickChannelInvite}
-                initialUser={initialUser} />
+                onClickChannelInvite={onClickChannelInvite} />
         // else if (tab === 2) return <Channelsetting_set 
         // onClickModal={onClickModal}
         // setTab={setTab} />
       }
-    
+
     return (
         <>
         <Modal show={modalShow} onHide={onClickModal} backdrop="static">
