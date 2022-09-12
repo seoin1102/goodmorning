@@ -101,8 +101,8 @@ export const chatFileVo = (crewNo, userNo, message) => {
   });
 }
 
-export const msgFile = (crewNo, userNo, message, userName) => {
-  const msg = defaultMsg(crewNo, userNo, message, userName);
+export const msgFile = (crewNo, userNo, message, userName, profileUrl) => {
+  const msg = defaultMsg(crewNo, userNo, message, userName, profileUrl);
   return JSON.stringify({
       ...msg, 
       type: 'FILE',
@@ -118,8 +118,8 @@ export const chatCommand = (crewNo, userNo, message) => {
   });
 }
 
-export const msgCommand = (crewNo, userNo, message, userName) => {
-  const msg = defaultMsg(crewNo, userNo, message, userName);
+export const msgCommand = (crewNo, userNo, message, userName, profileUrl) => {
+  const msg = defaultMsg(crewNo, userNo, message, userName, profileUrl);
   return JSON.stringify({
       ...msg, 
       type: 'COMMAND',

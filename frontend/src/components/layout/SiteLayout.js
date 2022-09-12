@@ -134,7 +134,7 @@ function SiteLayout({children}) {
                 // 자기 크루에 속한 프로젝트 인지 확인하는 코드(서버에서 체크)
                 
                 addChat = chatCommand(crewNo, authUser.no, jenkinsCommand[3]);
-                pubChat = msgCommand(crewNo, authUser.no, jenkinsCommand[3], authUser.name);
+                pubChat = msgCommand(crewNo, authUser.no, jenkinsCommand[3], authUser.name, authUser.profileUrl);
             }
         }
         
@@ -180,7 +180,7 @@ function SiteLayout({children}) {
         if(result.data !== 'success')
           return;
         
-        const pubChat = msgFile(crewNo, authUser.no, fileName, authUser.name);
+        const pubChat = msgFile(crewNo, authUser.no, fileName, authUser.name, authUser.profileUrl);
         client.current.publish({destination: `/pub/chat`, body: pubChat});
   }
 
