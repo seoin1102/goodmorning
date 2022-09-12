@@ -20,14 +20,9 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,onClickFil
     const [checkflagupload, setcheckflagupload] = useState(false);
 
     const uploadcheck = async (comment, file, projectNo,userNo)=> {
-        console.log("tttt")
-        const Filedata = await addFileAndFindFileList(comment, file, projectNo,userNo);
-        console.log("============>",Filedata)
-        const FileListdata = Filedata.data.data;
-        const fileurl = Filedata.data.fileurl
-        dispatch(fileFileData(FileListdata));
 
-        return fileurl;
+        const FileListdata = await addFileAndFindFileList(comment, file, projectNo,userNo);
+        dispatch(fileFileData(FileListdata));
     }
     const dispatch = useDispatch();
 
