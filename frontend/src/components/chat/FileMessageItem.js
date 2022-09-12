@@ -26,6 +26,7 @@ function FileMessageItem({align, message, time, name, url}) {
             type: messageItemArray[2],
             link:messageItemArray[3]
           }))
+          console.log(messageItemArray[3]);
     }, [message]);
 
   return (
