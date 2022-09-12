@@ -19,7 +19,7 @@ function NavigationCrew({crewList, onClickCrew}) {
     
     return (
     <>
-        <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold',borderTop:'solid 1px #f7f7fa', borderBottom:'solid 1px #f7f7fa',color:'white'}}>
+        <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold',borderTop:'solid 1px #5CD1E5', borderBottom:'solid 1px #5CD1E5',color:'white'}}>
         <Grid item xs={12} textAlign={'center'} style={{fontFamily:'SUIT-Medium'}}>채널 목록</Grid>
         {open ? <img src={arrowUpIcon}/> : <img src={arrowDownIcon} />}
         </ListItemButton>

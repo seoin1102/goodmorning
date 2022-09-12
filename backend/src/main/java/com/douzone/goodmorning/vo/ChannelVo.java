@@ -15,4 +15,5 @@ public class ChannelVo {
 	private Long masterChannelUserNo;
 	private Long crewNo;
 	private String crewName;
+	private String email;
 }

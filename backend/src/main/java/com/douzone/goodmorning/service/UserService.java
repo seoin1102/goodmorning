@@ -5,7 +5,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +34,8 @@ public class UserService {
 	private final CrewRepository crewRepository;
 	private final VerificationTokenRepository verificationTokenRepository;
 	private final JavaMailSender mailSender;
-
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	 
 	@Transactional
 	public int signUp(UserVo vo){
 		
@@ -41,6 +44,7 @@ public class UserService {
 		}
 		
 		vo.setEnable(false);
+		vo.setPasswd(bCryptPasswordEncoder.encode(vo.getPasswd()));
 		userRepository.insert(vo);
 		
 		
@@ -55,7 +59,7 @@ public class UserService {
 				"<br/>"+vo.getName()+"님 "+
 				"<br/>굿모닝에 회원가입해주셔서 감사합니다."+
 				"<br/>아래 [이메일 인증 확인]을 누르면 이메일 인증이 완료됩니다.<br/>"+
-				"<a href='http://34.64.235.225:8080/api/user/mailAuthentication/" + vo.getEmail() +
+				"<a href='http://localhost:8080/api/user/mailAuthentication/" + vo.getEmail() +
 				"/" + token +
 				"' target='_blenk'>이메일 인증 확인</a>";
 		

@@ -11,6 +11,7 @@ import { resetCHATALARM } from '../../../redux/chatAlarm';
 import '../../../styles/css/DropDown.css';
 import { Badge } from '@mui/material';
 import ProfileInfo from '../../modal/User/ProfileInfo';
+import { get, post } from '../../../apis/Axios';
 
 
 function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum}) {
@@ -41,9 +42,10 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
   
   const onClickLogout = async function() {
     try {
-          const response =  await fetchGetResponse('/api/user/logout','get','formjsonHeader');
-          const json = await checkResponse(response);   
-          localStorage.setItem('authUser','');
+          const response =  await get('/user/logout');
+          // const json = await checkResponse(response);   
+          localStorage.setItem('authUser',false);
+          localStorage.removeItem('authorization');
           location.href="/signin"
     
         } catch(err) {
@@ -69,7 +71,7 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
                             <Navbar.Brand style={{fontSize: '1.2rem', color: 'white', fontWeight: 'bold',overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', width:'120px', textAlign:'right'}}>{user.name}</Navbar.Brand>
 
                             <Nav.Link onClick={onClickProfileModal} style={{fontSize: '1rem', color: 'white'}}>내정보</Nav.Link>
-                            <ProfileInfo modalShow={profileModalShow} onClickModal={onClickProfileModal}/>
+                            <ProfileInfo modalShow={profileModalShow} onClickModal={onClickProfileModal} user={user}/>
 
                             <Badge 
                             badgeContent={totalSum === 0 ? null : totalSum} 

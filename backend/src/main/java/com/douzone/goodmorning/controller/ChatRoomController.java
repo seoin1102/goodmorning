@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class ChatRoomController {
 
     private final ChatRoomRepository chatRoomRepository;
-    @Auth
+//    @Auth
     @GetMapping("/room")
     public String rooms(Model model) {
     	System.out.println("페이지 입장");

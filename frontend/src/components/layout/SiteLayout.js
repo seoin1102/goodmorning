@@ -39,7 +39,7 @@ function SiteLayout({children}) {
     // 자원 할당(소켓 연결)
     const connect = () => {
         client.current = new StompJs.Client({
-            webSocketFactory: () => new SockJS("http://34.64.235.225:8080/ws-stomp"),
+            webSocketFactory: () => new SockJS("http://localhost:8080/ws-stomp"),
             debug: function (str) {},
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
@@ -110,7 +110,6 @@ function SiteLayout({children}) {
                 dispatch(addChat(chatData));
                 dispatch(setCHATALARM({crewNo:crewNo}))            
             })
-
             return;
         })
     };
@@ -126,7 +125,7 @@ function SiteLayout({children}) {
         
         //  메시지 객체 생성
         let addChat = chatVo(crewNo, authUser.no, sendMessage);
-        let pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name);
+        let pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name, authUser.profileUrl);
 
         if(sendMessage.includes('jenkins') && sendMessage.includes('start') && sendMessage.includes('-p')) {
             const jenkinsCommand = sendMessage.split(' ');
@@ -146,6 +145,8 @@ function SiteLayout({children}) {
         if(result.data !== 'success')
             return;
         
+
+        // const pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name, authUser.profileUrl);
         client.current.publish({destination: `/pub/chat`, body: pubChat});
         console.log("전달할 내용", addChat);
         setSendMessage("");

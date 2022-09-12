@@ -84,13 +84,12 @@ export default function AskConfirmationBeforeSave(props) {
       // Make the HTTP request to save in the backend
       const response = await mutateRow(newRow);
       const projectId = response.id
-      console.log("******************")
-      console.log(projectList)
 
-      put(`/project/${projectId}`, {...response, start:moment(response.start).format('YYYY-MM-DD'),end: moment(response.end).format('YYYY-MM-DD'),crewNo:crewNo})
-      dispatch(updateProject(projectId,{...response, projectName:response.projectName, start:moment(response.start).format('YYYY-MM-DD'),end: moment(response.end).format('YYYY-MM-DD'),crewNo:crewNo}));
-      console.log(projectList)
-      console.log("******************")
+      put(`/project/${projectId}`, {...response, start:moment(response.start).format('YYYY-MM-DD'),end: moment(response.end).format('YYYY-MM-DD')})
+      const projectIdx = projectList.findIndex(event => event.id == projectId)
+
+      dispatch(updateProject(projectIdx,{...response, start:moment(response.start).format('YYYY-MM-DD'),end: moment(response.end).format('YYYY-MM-DD')}));
+
       resolve(response);
       setPromiseArguments(null);
       setSnackbar({ children: '성공적으로 저장됐습니다.', severity: 'success' });
@@ -161,7 +160,7 @@ export default function AskConfirmationBeforeSave(props) {
 
 const columns = [
   { field: 'id', headerName: 'no', width: 50},
-  { field: 'projectName', headerName: '프로젝트 명', width: 200,editable: true},
+  { field: 'projectName', headerName: '프로젝트 명', width: 200},
   { field: 'start', headerName: '시작일시', type:'date', width: 150, editable: true},
   { field: 'end', headerName: '종료일시', type:'date', width: 150, editable: true},
   {

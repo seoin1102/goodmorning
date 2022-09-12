@@ -7,7 +7,7 @@ import StartDatePicker from "../../calendar/StartDatePicker";
 import EndDatePicker from "../../calendar/EndDatePicker";
 
 import "../../../styles/css/Calendar.css";
-import {put, post, remove} from '../../../apis/Axios';
+import {get, post, remove} from '../../../apis/Axios';
 import moment from 'moment';
 import AssignSelect from '../../calendar/AssignSelect'
 import ProjectSelect from '../../calendar/ProjectSelect'
@@ -22,8 +22,9 @@ import { addProject } from "../../../redux/project";
 import Button from 'react-bootstrap/Button';
 import { Octokit } from "@octokit/core";
 import { fetchResponse,checkResponse } from "../../../apis/Fetch";
+import ChannelSelect from "../../calendar/ChannelSelect";
 
-function AddProject({show, handleClose, publishLinkPreview}) {
+function AddProject({show, publishLinkPreview, setShow}) {
   
   const [state, setState] = useState()
   const [clickedStart, setClickedStart] = useState()
@@ -31,6 +32,8 @@ function AddProject({show, handleClose, publishLinkPreview}) {
   const [clickedName, setClickedName] = useState()
   const [clickedDescript, setClickedDescript] = useState()
   const [clickedStatus, setClickedStatus] = useState(0);
+  const [clickedCrewNo, setClickedCrewNo] = useState();
+  const [clickedCrewName, setClickedCrewName] = useState();
   const [errormessage, seterrormessage] = useState("");
 
   // useEffect(()=>{
@@ -38,16 +41,28 @@ function AddProject({show, handleClose, publishLinkPreview}) {
   // },[])
   const projectList = useSelector((state) => state.project, shallowEqual);
   const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
-
+  const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
 
   const dispatch = useDispatch();
   const [gitName, setGitName] = useState();
   const [repoName, setRepoName] = useState();
   const [gitToken, setgitToken] = useState();
+  const [totalProjectList, setTotalProjectList] = useState()
 
   const ids = []
   projectList.map((event) => {ids.push(event.id)})
   const maxId = Math.max(...ids);
+
+  const totalProject = React.useCallback(
+    async (channelNo) => {
+      const getProjects = await get(`/project/${channelNo}`);
+      setTotalProjectList(getProjects);
+    },
+    [dispatch]
+  );
+
+  totalProject(channelNo)
+
 
   const makeJenkinsJob = async function(projectName,gitUserName) {
     try {
@@ -62,6 +77,20 @@ function AddProject({show, handleClose, publishLinkPreview}) {
         }
       }
 
+  const handleClose = () => {
+    setShow(false)
+    setClickedStart(Date.now())
+    setClickedEnd(Date.now())
+    setClickedName('')
+    setClickedDescript('')
+    setClickedStatus(0)
+    setGitName('')
+    setgitToken('')
+    seterrormessage('')
+    setClickedCrewName('')
+    setClickedCrewNo('')
+
+  }
 
   const onSubmit = async (e) => {
 
@@ -73,16 +102,17 @@ function AddProject({show, handleClose, publishLinkPreview}) {
         end: moment(clickedEnd).format('YYYY-MM-DD'),
         description: clickedDescript,
         status: clickedStatus,
-        crewNo: crewNo,
+        crewNo: clickedCrewNo,
+        crewName: clickedCrewName,
         id: maxId+1
       }
 
       const result1 = await post(`/project`,  updatedTask)
       // if(reust1.data !== 'success') 
       //   return;
-      console.log("=====>" + result1);
-
-      dispatch(addProject([ updatedTask]));
+      console.log("=====>", result1);
+      console.log("=====>",updatedTask)
+      dispatch(addProject([updatedTask]));
 
       const octokit = new Octokit({
         auth: gitToken
@@ -120,7 +150,9 @@ function AddProject({show, handleClose, publishLinkPreview}) {
       setClickedName('')
       setClickedDescript('')
       setClickedStatus(0)
-
+      seterrormessage('')
+      setClickedCrewName('')
+      setClickedCrewNo('')
       publishLinkPreview(gitName, repoName);
     } catch(err){
       seterrormessage("깃 또는 깃토큰이 일치하지 않습니다!");
@@ -129,8 +161,13 @@ function AddProject({show, handleClose, publishLinkPreview}) {
 
 
 const nameHandler = (e) =>{
-  setClickedName(e.target.value.replace(/[^A-Za-z ]/ig, ''))
+  setClickedName(e.target.value.replace(/[^A-Za-z0-9 ]/ig, ''))
   setRepoName(e.target.value)
+  if(totalProjectList.find(project=> project.projectName == e.target.value)){
+    seterrormessage("같은 이름의 프로젝트가 있습니다. 다른 프로젝트 명을 입력해주세요.")
+  }else{
+    seterrormessage('')
+  }
 }
 
 
@@ -194,7 +231,9 @@ const copyToClipBoard = async copyMe => {
                 value={gitToken || ''} onChange={(e)=> {setgitToken(e.target.value)}}
               /> 
             </Form.Group>
-
+            <h6>프로젝트명</h6>
+            <ChannelSelect clickedCrewNo={clickedCrewNo} setClickedCrewNo={setClickedCrewNo} clickedCrewName={clickedCrewName} setClickedCrewName={setClickedCrewName}  />
+    
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"

@@ -17,9 +17,10 @@ import { setCREWFOCUS } from "../../redux/focus";
 import AddProject from "../modal/Calendar/AddProject";
 
 
-export default function Project({publishLinkPreview}) {
+function Project({publishLinkPreview}) {
 
   const crewNo = useSelector((state) => state.focus.crewNo, shallowEqual);
+  const [channelName, setChannelName] = useState('전체 채널')
   const [show, setShow] = React.useState(false);
   const [changeCrew, setChangeCrew] = useState();
   const [selectionModel, setSelectionModel] = React.useState([]);
@@ -28,11 +29,10 @@ export default function Project({publishLinkPreview}) {
   const crewList = useSelector((state) => state.crew, shallowEqual);
   const projectList = useSelector((state) => state.project, shallowEqual);
   const taskList = useSelector((state) => state.task, shallowEqual);
-
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
-
+  console.log("크루 넘버!",crewNo)
   const initialProject = React.useCallback(
     async (crewNo) => {
       const getProjects = await get(`/project/cNo/${crewNo}`);
@@ -48,7 +48,6 @@ export default function Project({publishLinkPreview}) {
     },
     [dispatch]
   );
-
   const initialTask = React.useCallback(
     async (projectNo) => {
       const getTasks = await get(`/task/pNo/${projectNo}`);
@@ -61,22 +60,14 @@ export default function Project({publishLinkPreview}) {
     setChangeCrew(crewNo);
   }, [crewNo]);
 
-
-
   const handleDelete = () => {
     selectionModel.map((id) => {
-      const res = remove(`/project/${id}`, id);
-      dispatch(deleteProject(id));
+      remove(`/project/${id}`, id);
+      const projectIdx = projectList.findIndex(event => event.id == id)
+      dispatch(deleteProject(projectIdx));
     });
   };
 
-  const handleTask = () => {
-    selectionModel.map((id) => {
-      initialTask(projectList)
-
-
-    });
-  };
 
   const columns = [
     { type: "string", label: "Task ID" },
@@ -99,18 +90,18 @@ export default function Project({publishLinkPreview}) {
     null,
   ]);
   const data = [columns, ...projects];
+// useEffect(()=>{
+//   initialProject
+// },[initialProject])
 
-useEffect(()=>{
-  initialProject
-},[initialProject])
-
-useEffect(()=>{
-  totalProject
-},[totalProject])
+// useEffect(()=>{
+//   totalProject
+// },[totalProject])
 
 useEffect(()=>{
   initialTask
 },[initialTask])
+
 
   return (
     <div
@@ -141,6 +132,7 @@ useEffect(()=>{
                   >
                     <NavDropdown.Item
                     onClick={() => {
+                      setChannelName('전체 채널')
                       return totalProject(channelNo);
 
                     }}>전체 채널</NavDropdown.Item>
@@ -158,7 +150,7 @@ useEffect(()=>{
                               dispatch(
                                 setCREWFOCUS({ no: crew.no, name: crew.name })
                               );
-
+                              setChannelName(crew.name)
                               return initialProject(crew.no);
                             }}
                             key={index}
@@ -168,6 +160,8 @@ useEffect(()=>{
                         ))
                       : ""}
                   </NavDropdown>
+                  현재 채널은 <strong>{channelName}</strong> 입니다.
+         
                   <Button
                     variant="primary"
                     onClick={handleShow}
@@ -178,6 +172,7 @@ useEffect(()=>{
                   <AddProject 
                       show={show} 
                       handleClose={handleClose} 
+                      setShow={setShow}
                       publishLinkPreview={publishLinkPreview}
                       />
                   <Button
@@ -202,14 +197,14 @@ useEffect(()=>{
                 changeCrew={changeCrew}
                 projectList={projectList}
                 data={data}
-                
               />
               <CollapsibleTable
                 date={date}
                 projectList={projectList}
+                selectionModel={selectionModel}
                 setSelectionModel={setSelectionModel}
                 changeCrew={changeCrew}
-                data={data}     
+                data={data}   
               />
             </Card>
           </Paper>
@@ -218,3 +213,5 @@ useEffect(()=>{
     </div>
   );
 }
+
+export default memo(Project); 

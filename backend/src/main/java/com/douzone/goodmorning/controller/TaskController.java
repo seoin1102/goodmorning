@@ -35,7 +35,7 @@ public class TaskController {
 	 * @param userNo 채널 주인의 유저번호
 	 * @return 해당 유저가 소유한 유저 리스트
 	 */
-    @Auth
+//    @Auth
 	@Transactional
     @GetMapping("/pNo/{projectNo}")
     public ResponseEntity<JsonResult> findByProject(@PathVariable("projectNo") Long projectNo) {
@@ -46,7 +46,7 @@ public class TaskController {
     	//System.out.println(taskService.getTask(projectNo));
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.findByProject(projectNo)));
     }
-    @Auth
+//    @Auth
 	@Transactional
     @GetMapping("/cNo/{crewNo}")
     public ResponseEntity<JsonResult> findByCrew(@PathVariable("crewNo") Long crewNo) {
@@ -57,7 +57,7 @@ public class TaskController {
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.findByCrew(crewNo)));
     }
     
-    @Auth
+//    @Auth
 	@Transactional
     @GetMapping("/{channelNo}")
     public ResponseEntity<JsonResult> findByChannel(@PathVariable("channelNo") Long channelNo) {

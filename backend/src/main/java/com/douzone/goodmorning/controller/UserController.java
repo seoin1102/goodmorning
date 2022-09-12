@@ -38,6 +38,7 @@ public class UserController {
 	
 	private final UserService userService;
 	private final FileUploadService FileUploadService;
+	
 	@Transactional
 	@PostMapping("/signUp")
 	public ResponseEntity<JsonResult> singUp(@RequestBody UserVo vo){
@@ -55,7 +56,7 @@ public class UserController {
 	@GetMapping("/mailAuthentication/{email}/{token}")
 	public void mailAuthentication(@PathVariable("email") String email, @PathVariable("token") String token, HttpServletResponse response) throws IOException {
 
-		String url = "http://34.64.235.225:8080/signin";
+		String url = "http://localhost:8080/signin";
 		VerificationTokenVo tokenVo = new VerificationTokenVo();
 		tokenVo.setEmail(email);
 		tokenVo.setToken(token);
