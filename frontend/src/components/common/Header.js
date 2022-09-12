@@ -9,7 +9,7 @@ import CrewSetting from '../modal/Crew/CrewSetting';
 import HeaderItem from './header/HeaderItem';
 import HeaderSearch from './header/HeaderSearch';
 import HeaderUser from './header/HeaderUser';
-import {getLocalStorageAuthUser} from '../../apis/Fetch';
+import {getLocalStorageAuthorization, getLocalStorageAuthUser} from '../../apis/Fetch';
 
 
 function Header() {

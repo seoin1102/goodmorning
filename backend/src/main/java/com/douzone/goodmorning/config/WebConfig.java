@@ -49,20 +49,20 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// Security Interceptors
-		registry
-			.addInterceptor(loginInterceptor())
-			.addPathPatterns("/api/user/signIn");
+//		registry
+//			.addInterceptor(loginInterceptor())
+//			.addPathPatterns("/api/user/signIn");
 
-		registry
-		.addInterceptor(logoutInterceptor())
-		.addPathPatterns("/api/user/logout");
+//		registry
+//		.addInterceptor(logoutInterceptor())
+//		.addPathPatterns("/api/user/logout");
 		
-		registry
-		.addInterceptor(authInterceptor())
-		.addPathPatterns("/api/**")
-		.excludePathPatterns("/assets/**")
-		.excludePathPatterns("/api/user/singIn")
-		.excludePathPatterns("/api/user/logout");
+//		registry
+//		.addInterceptor(authInterceptor())
+//		.addPathPatterns("/api/**")
+//		.excludePathPatterns("/assets/**")
+//		.excludePathPatterns("/api/user/singIn")
+//		.excludePathPatterns("/api/user/logout");
 
 		
 	}

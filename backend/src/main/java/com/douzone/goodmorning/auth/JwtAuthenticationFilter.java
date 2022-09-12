@@ -35,6 +35,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, String url) {
 		this.authenticationManager = authenticationManager;
 		this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		
 		setFilterProcessesUrl(url);
 	}
 
@@ -51,16 +52,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 //			while((input = br.readLine()) != null) {
 //				System.out.println(input);
 //			}
-			System.out.println("cation 필터~~~~~~~~~~ㄴ222");
+//			System.out.println("cation 필터~~~~~~~~~~ㄴ222");
 			ObjectMapper om = new ObjectMapper();
-			System.out.println("cation 필터~~~~~~~~~~ㄴ333 ");
+//			System.out.println("cation 필터~~~~~~~~~~ㄴ333 ");
 			UserVo vo = om.readValue(request.getInputStream(), UserVo.class);
 			
 			// System.out.println(vo);
-			System.out.println("유저정보입니다~~~~~"+vo);
+//			System.out.println("유저정보입니다~~~~~"+vo);
 			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 					vo.getEmail(), vo.getPasswd());
-			System.out.println("뭔데에에에" + (authenticationToken.getCredentials()));
+//			System.out.println("뭔데에에에" + (authenticationToken.getCredentials()));
 			
 			// PrincipalDetailsService가 호출, loadUserByUsername() 함수가 실행
 			// email과 password가 일치
@@ -88,7 +89,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			Authentication authResult) throws IOException, ServletException {
 
 		PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
-
+		
 		// RSA X, Hash암호방식
 		// 프로퍼티로 암호화 시키기
 		String jwtToken = JWT.create().withSubject("sub")

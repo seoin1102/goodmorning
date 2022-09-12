@@ -31,16 +31,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션을 사용하지 않겠다
 
 				.and().addFilter(corsFilter) // @CrossOrigin(인증 X), 시큐리티 필터에 등록 인증(O)
+				
 				.formLogin().disable()
 				.httpBasic().disable()
 				.addFilter(new JwtAuthenticationFilter(authenticationManager(), "/api/user/signIn")) // authenticationManager
 				.addFilter(new JwtAuthorizationFilter(authenticationManager(), securityRepository))
 				.authorizeRequests()
+				.antMatchers("/api/user/signUp",
+								"/api/user/resetPw"
+							).permitAll() 
 				.antMatchers("/api/**").authenticated()
 				// .antMatchers("/api/admin/**").access("hasRole('ROLE_ADMIN')")
 				.anyRequest().permitAll().and().exceptionHandling()
 				.authenticationEntryPoint(jwtAuthenticationEntryPoint);
-
+		
+//		http.logout()
+//					.logoutUrl("/api/user/logout")
+//					.logoutSuccessUrl("/api/user/signIn");
+//					.invalidateHttpSession(true)
+//					.deleteCookies("JSESSIONID");
+		
 	}
 
 	@Bean

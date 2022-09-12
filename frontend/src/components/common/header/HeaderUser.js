@@ -11,6 +11,7 @@ import { resetCHATALARM } from '../../../redux/chatAlarm';
 import '../../../styles/css/DropDown.css';
 import { Badge } from '@mui/material';
 import ProfileInfo from '../../modal/User/ProfileInfo';
+import { get, post } from '../../../apis/Axios';
 
 
 function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum}) {
@@ -41,10 +42,10 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum})
   
   const onClickLogout = async function() {
     try {
-          const response =  await fetchGetResponse('/api/user/logout','get','formjsonHeader');
-          const json = await checkResponse(response);   
+          const response =  await get('/user/logout');
+          // const json = await checkResponse(response);   
           localStorage.setItem('authUser',false);
-          localStorage.setItem('authorization',false);
+          localStorage.removeItem('authorization');
           location.href="/signin"
     
         } catch(err) {

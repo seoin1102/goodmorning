@@ -24,14 +24,14 @@ public class LoginInterceptor implements HandlerInterceptor {
 			
 			throws Exception {
 		SHA256 sha256 =  new SHA256();
-
+		
 		String email = request.getParameter("email");
 		String passwd = request.getParameter("passwd");
 
 		response.setContentType("application/json");
 		UserVo authUser = userService.getUser(email, passwd);
 		
-		System.out.println("로그인 인터셉트입니다~");
+		System.out.println("로그인 인터셉트입니다~@@@@@@@@@@@@@@@@@@@@@");
 		
 		if(authUser == null) {
 			

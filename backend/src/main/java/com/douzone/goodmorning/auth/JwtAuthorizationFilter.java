@@ -39,7 +39,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 			chain.doFilter(request, response);
 			return;
 		}
-		System.out.println("zation 필터~~");
+//		System.out.println("zation 필터~~");
 		// JWT 토큰을 검증을 해서 정상적인 사용자인지 확인
 		String jwtToken = request.getHeader("Authorization").replace("Bearer ", "");
 		String email = 
