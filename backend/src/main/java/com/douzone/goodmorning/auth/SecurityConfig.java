@@ -39,7 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers("/api/user/signUp",
 								"/api/user/resetPw",
-								"/api/user/mailAuthentication/**"
+								"/api/user/mailAuthentication/**",
+								"/api/githubhook/**",
+								"/api/jenkins/**"
 							).permitAll() 
 				.antMatchers("/api/**").authenticated()
 				// .antMatchers("/api/admin/**").access("hasRole('ROLE_ADMIN')")
