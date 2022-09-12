@@ -50,7 +50,7 @@
 		</insert>
 		<update id="updateChatUserByCrewNoAndAuthUserNo" parameterType ="map">
 		<![CDATA[
-				update chat as a, chat_user as b set b.check = "READ" 
+				update chat as a, chat_user as b set b.`check` = "READ" 
 					where a.no = b.chat_no 
 				and a.crew_no = #{crewNo}
 					and b.user_no = #{authUserNo} and b.check = 'UNREAD'; 

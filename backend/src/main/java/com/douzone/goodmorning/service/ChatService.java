@@ -35,7 +35,7 @@ public class ChatService {
 		return chatRepository.insertChatUserByCrewNoAndChatNo(userNo, chatNo);
 	}
 
-	public Integer updateChatUser(Long crewNo, Long authUserNo) {
+	public boolean updateChatUser(Long crewNo, Long authUserNo) {
 		return chatRepository.updateChatUserByCrewNoAndAuthUserNo(crewNo, authUserNo);
 	}
 
