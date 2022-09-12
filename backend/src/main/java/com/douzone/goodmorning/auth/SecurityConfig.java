@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 								"/api/user/resetPw",
 								"/api/user/mailAuthentication/**",
 								"/api/githubhook/**",
-								"/api/jenkins/**"
+								"/api/jenkinsHook/**"
 							).permitAll() 
 				.antMatchers("/api/**").authenticated()
 				// .antMatchers("/api/admin/**").access("hasRole('ROLE_ADMIN')")

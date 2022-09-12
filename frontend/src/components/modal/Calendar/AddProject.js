@@ -150,9 +150,9 @@ function AddProject({show, publishLinkPreview, setShow}) {
       setClickedName('')
       setClickedDescript('')
       setClickedStatus(0)
-      // seterrormessage('')
-      // setClickedCrewName('')
-      // setClickedCrewNo('')
+      seterrormessage('')
+      setClickedCrewName('')
+      setClickedCrewNo('')
 
       publishLinkPreview(gitName, repoName);
     } catch(err){
