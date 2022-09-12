@@ -5,16 +5,21 @@ import React, { Fragment, useCallback, useEffect, useRef } from 'react';
 import MessageItem from '../chat/MessageItem';
 import SendPreviewMessage from '../chat/SendPreviewMessage'; 
 import { useLocation } from "react-router-dom";
+import GitMessageItem from '../chat/GitMessageItem';
+import githubIcon from '../../assets/icons/github.svg';
+import jenkinsIcon from '../../assets/icons/jenkins.svg';
 
 function SearchResult() {
-    const searchList = useSelector(state => (state.search), shallowEqual);
-    console.log(searchList)
+    const searchList = useSelector(state => (state.chat), shallowEqual);
+
     const location = useLocation();
     const { state } = location;
     const searchText = state.search;
+    const sendDate = state.sendDate;
     const scrollRef = useRef();
     const scrollToBottom = useCallback(() => {
-        scrollRef.current.scrollIntoView({behavior: 'smooth', block: "center"})
+        if(!!scrollRef.current){
+        scrollRef.current.scrollIntoView({behavior: 'smooth', block: "center"})}
     }, [searchList])
 
     useEffect (() => {scrollToBottom()}, [searchList])
@@ -22,7 +27,7 @@ function SearchResult() {
     return (
     <>
         <List style={{ height: '650px', overflow: 'auto', backgroundColor:'#f7f7fa' }}>
-            {searchList.map((chat, index, array) =>{
+            {searchList!=null? searchList.map((chat, index, array) =>{
                 if(searchList !== undefined && chat.sendDate !== undefined){  
                     const date = chat.sendDate.split(" ")[0];
                     const time = chat.sendDate.split(" ")[1].substring(0, 5);
@@ -36,26 +41,72 @@ function SearchResult() {
                     }
 
                     return (<div><Fragment key={index}>
-                                {chat.type === 'CHAT' ?
+                                {chat.type === 'CHAT' ? 
+                                chat.message==searchText && chat.sendDate == sendDate?
+                                <div style={{backgroundColor:'#C9C8C8'}}>
                                     <MessageItem 
                                         align={"left"}
                                         message={chat.message} 
                                         time={time}
                                         name={chat.userName}
                                         url={chat.profileUrl}
-                                        /> :
+                                        /> </div>:
+                                        <MessageItem 
+                                        align={"left"}
+                                        message={chat.message} 
+                                        time={time}
+                                        name={chat.userName}
+                                        url={chat.profileUrl}
+                                        />:
+                                <div></div>}
+                                {(chat.type === 'GITHUB') ?
+                                chat.message==searchText && chat.sendDate == sendDate?
+                                <div style={{backgroundColor:'#C9C8C8'}}>
+                                    <GitMessageItem 
+                                        align={"left"}
+                                        message={chat.message} 
+                                        time={chat.sendDate}
+                                        name={"GitHub"}
+                                        url={githubIcon}/></div>:
+                                        <GitMessageItem 
+                                        align={"left"}
+                                        message={chat.message} 
+                                        time={chat.sendDate}
+                                        name={"GitHub"}
+                                        url={githubIcon}/> :
+                                null}
+                                {(chat.type === 'JENKINS') ?
+                                chat.message==searchText && chat.sendDate == sendDate?
+                                <div style={{backgroundColor:'#C9C8C8'}}>
+                                    <MessageItem 
+                                        align={"left"}
+                                        message={chat.message} 
+                                        time={chat.sendDate}
+                                        name={'Jenkins'}
+                                        url={jenkinsIcon}/></div> :
+                                    <MessageItem 
+                                        align={"left"}
+                                        message={chat.message} 
+                                        time={chat.sendDate}
+                                        name={'Jenkins'}
+                                        url={jenkinsIcon}/>:    
                                 null}
                                 {chat.type === 'PREVIEW' ?
+                                chat.message==searchText?
+                                <div style={{backgroundColor:'#C9C8C8'}}>
                                     <SendPreviewMessage
-                                        message={chat.message}/> :
+                                        message={chat.message}/></div> :
+                                    <SendPreviewMessage
+                                        message={chat.message}/> :     
                                 null}
                                 {dateDivider}
                             </Fragment>
                             
-                            {chat.message==searchText? <div style={{border:'0.001px solid #bdbdbd'}}><div ref={scrollRef}/></div>:<div></div>}
+                            {chat.message==searchText && chat.sendDate == sendDate?<div ref={scrollRef}/> :<div></div>}
+
                             </div>)
                 }
-                 })}
+                 }):''}
 
         </List>
         <Divider />

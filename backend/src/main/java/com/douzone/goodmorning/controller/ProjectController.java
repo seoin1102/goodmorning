@@ -55,7 +55,6 @@ public class ProjectController {
     public ResponseEntity<JsonResult> projectList(@PathVariable("channelNo") Long channelNo) {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-  	
     	return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.findByChannel(channelNo)));
     }
     
