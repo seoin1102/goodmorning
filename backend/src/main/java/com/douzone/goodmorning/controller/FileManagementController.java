@@ -57,7 +57,7 @@ public class FileManagementController {
 		fileManagementService.addFile(fileManagementVo); 
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(fileurl));
+				.body(JsonResult.success(fileManagementVo));
 	}
 	
 
