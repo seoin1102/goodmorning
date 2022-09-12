@@ -7,6 +7,7 @@ import fileIcons from '../../assets/icons/fileUpload.png';
 import fileDownloadIcons from '../../assets/icons/file_download.png';
 import '../../assets/fonts/font.css';
 import '../../styles/css/msItem.css';
+import { fileDownload } from '../../apis/Fetch';
 
 function FileMessageItem({align, message, time, name, url}) {
     const [messageItem, setMessageItem] = useState({
@@ -28,6 +29,7 @@ function FileMessageItem({align, message, time, name, url}) {
           }))
           console.log(messageItemArray[3]);
     }, [message]);
+
 
   return (
         <ListItem key="1" >
@@ -58,7 +60,11 @@ function FileMessageItem({align, message, time, name, url}) {
                                 </div>
                             </Grid>
                             <Grid item xs={2} sx={{height: '52px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                <Link href={messageItem.link}  target="_blank" underline={'none'} color="inherit">
+                                <Link target="_blank" underline={'none'} color="inherit" onClick={() =>{ 
+                                                                                                    let spliturl = messageItem.link;
+                                                                                                    spliturl=spliturl.split('/')
+                                                                                                    return fileDownload(spliturl[2])}
+                                                                                                    }>
                                     <img src={fileDownloadIcons} width={30} height={30}/>
                                 </Link>
                             </Grid>

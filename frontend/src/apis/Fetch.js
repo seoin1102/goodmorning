@@ -252,6 +252,14 @@ export const updateProfileAndFindProfileurl = async function(file,userNo) {
     }
 };
 
+export async function jenkinsbuild(projectName){
+    const data ={
+        projectName: projectName
+    }
+    const response =  await fetchResponse('api/project/buildJenkinsJob','post','jsonjsonHeader',JSON.stringify(data));
+    const json = await checkResponse(response);
+    //return json.data.data;
+};
 
 
 

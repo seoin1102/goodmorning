@@ -6,7 +6,7 @@ import Fab from '@mui/material/Fab';
 import { Button } from '@mui/material';
 import FileUpload from '../modal/File/FileUpload'
 import { NavLink } from 'react-bootstrap';
-import { addFile,fileDownload } from '../../apis/Fetch';
+import { addFile,fileDownload, jenkinsbuild } from '../../apis/Fetch';
 import { useSelector, useDispatch } from 'react-redux';
 import send2 from '../../assets/icons/send2.svg';
 
@@ -32,6 +32,9 @@ function SendMessage({onChangeHandler, onClickHandler, text, publishFileUpload})
         setModalIsOpen(isOpenStatus)
     }
 
+    const onclickJenkinsBuildTest= ()=>{
+        jenkinsbuild("helloworld")
+    }
     return (
         <>
         <Grid container style={{ padding: '10px 30px 10px 20px'}} sx={{backgroundColor:'#f7f7fa'}}>
