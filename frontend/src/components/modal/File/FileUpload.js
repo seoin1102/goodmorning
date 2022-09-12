@@ -33,10 +33,10 @@ function FileUpload({modalShow, FileUploadModalIsOpenCallback, uploadcheck, publ
         
         //addFile(comment, file, projectNo,userNo);
 
-        uploadcheck(comment, file, projectNo, userNo);
+        const fileurl = await uploadcheck(comment, file, projectNo, userNo);
 
         console.log("파일 업로드", comment, file, projectNo, userNo);
-        publishFileUpload(file.name + "#$#" + file.size/1024 + "#$#" + file.type + "#$#" + null);
+        publishFileUpload(file.name + "#$#" + file.size/1024 + "#$#" + file.type + "#$#" + fileurl);
         FileUploadModalIsOpenCallback(false);
     }
 

@@ -102,8 +102,8 @@ public class FileManagementController {
 	
 	@PostMapping("/uploadAndFindFileList")
 	public ResponseEntity<JsonResult> uploadAndFindFileList(@RequestParam("file") MultipartFile file,FileManagementVo fileManagementVo) {
-		System.out.println("zzzz"+file);
-		fileManagementVo.setUrl(FileUploadService.restoreImage(file));
+		String fileurl = FileUploadService.restoreImage(file);
+		fileManagementVo.setUrl(fileurl);
 		fileManagementVo.setOriginFileName(file.getOriginalFilename());
 		
 		List<FileManagementVo> list =fileManagementService.addFileAndFindFileList(fileManagementVo); 
@@ -112,7 +112,8 @@ public class FileManagementController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("count", count);
 		map.put("data",list);
-
+		map.put("fileurl",fileurl);
+		
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(map));

@@ -165,7 +165,7 @@ export const addFile = async function(comment, file, projectNo,userNo) {
         formData.append('userNo',userNo);
         const response = await fetchResponse('/api/fileManagement/upload','post','multipartHeader',formData);
         const json = await checkResponse(response);
-        
+        return json;
         // 리랜더링(업데이트 해줘야함 나중에 추가 예정)
         //setImageList([json.data, ...imageList]);
 
@@ -223,8 +223,8 @@ export const deleteFile = async function(url,userNo) {
         const response = await fetchResponse('/api/fileManagement/uploadAndFindFileList','post','multipartHeader',formData);
 
         const json = await checkResponse(response);
-        return json.data.data;
-
+        //return json.data.data;
+        return json;
     } catch (err) {
         console.error(err);
     }

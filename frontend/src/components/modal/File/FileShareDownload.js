@@ -21,8 +21,12 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,onClickFil
 
     const uploadcheck = async (comment, file, projectNo,userNo)=> {
 
-        const FileListdata = await addFileAndFindFileList(comment, file, projectNo,userNo);
+        const Filedata = await addFileAndFindFileList(comment, file, projectNo,userNo);
+        const FileListdata = Filedata.data.data;
+        const fileurl = Filedata.fileurl
         dispatch(fileFileData(FileListdata));
+
+        return fileurl;
     }
     const dispatch = useDispatch();
 
