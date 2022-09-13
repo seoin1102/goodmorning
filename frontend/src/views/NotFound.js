@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styles from '../styles/css/NotFound.css';
 
 export default function NotFound() {
