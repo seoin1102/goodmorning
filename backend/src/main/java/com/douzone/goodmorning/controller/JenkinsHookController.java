@@ -11,6 +11,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +43,25 @@ public class JenkinsHookController {
 	private final UserService userService;
 	private final ChatService chatService;
 	private final RedisPublisher redisPublisher;
+	
+	@Transactional
+    @GetMapping("/{crewNo}/{projectName}")
+    public ResponseEntity<Message> chatChannelList(@PathVariable("crewNo") Long crewNo, @PathVariable("projectName") String projectName) {
+		Long count = projectService.checkProjectNameByCrewNo(crewNo, projectName);
+		
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	
+    	Message message = new Message(); 	
+    	message.setStatus(StatusEnum.OK);
+    	message.setMessage("success");
+    	message.setData(count);
+    	
+    	if(count == 0)
+    		message.setMessage("fail");
+    	
+    	return ResponseEntity.ok().headers(headers).body(message);
+    }
 	
 	@Transactional
 	@PostMapping("/hookdata")
