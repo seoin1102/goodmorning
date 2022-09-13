@@ -2,7 +2,7 @@ import React,{useState,useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
+import interactionPlugin from "@fullcalendar/interaction";
 import { useSelector, shallowEqual  } from 'react-redux';
 
 import "../../styles/css/Calendar.css";

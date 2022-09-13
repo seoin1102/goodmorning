@@ -16,7 +16,6 @@ function Navigation() {
 
     const dispatch = useDispatch();
     const crewList = useSelector(state => (state.crew), shallowEqual);
-    const projectList = useSelector(state => (state.project), shallowEqual);
 
     const user = getLocalStorageAuthUser();
     const userNo = user.no;

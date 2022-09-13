@@ -1,10 +1,7 @@
 import React, { useState, useEffect,memo, useCallback } from "react";
 
 import { Col, Row } from "react-bootstrap";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
+
 import { setTask, addTask } from "../../redux/task";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {  Box, Card, Button, Paper } from "@mui/material";
