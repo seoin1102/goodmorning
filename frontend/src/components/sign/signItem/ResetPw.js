@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
-
 import { Divider } from '@mui/material';
 import { Button, Card, Col, Form, InputGroup } from 'react-bootstrap';
 import emailIcon from '../../../assets/icons/email.svg';
@@ -8,7 +7,7 @@ import emailIcon from '../../../assets/icons/email.svg';
 function ResetPw({callback,errormessage}) {
   return (
     <div className="SignIn">
-     <div style={{padding:'0 35%'}}>
+    <div style={{padding:'0 35%'}}>
         <Card bg='light' className='card card-authentication1 mx-auto my-5'>
           <Card.Body style={{height: '430px' , backgroundColor:"#34d6ce", color: 'white'}}>
               <Form onSubmit={e => {

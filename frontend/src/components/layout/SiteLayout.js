@@ -5,17 +5,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import * as SockJS from "sockjs-client";
 import { get, postJson, putUrl } from '../../apis/Axios';
-import { chatVo, msgChat, msgConnect, chatPreviewVo, msgPreview, chatFileVo, msgFile, chatCommand, msgCommand } from '../../apis/ChatVo.js';
+import { chatCommand, chatFileVo, chatPreviewVo, chatVo, msgChat, msgCommand, msgConnect, msgFile, msgPreview } from '../../apis/ChatVo.js';
 import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import { addChat, setChat } from '../../redux/chat';
-import { setSearch } from '../../redux/search';
 import { addCHATALARM, resetCHATALARM, setCHATALARM, updateCHATALARM } from '../../redux/chatAlarm';
+import { setSearch } from '../../redux/search';
 import '../../styles/css/SiteLayout.css';
+import Project from '../calendar/Project';
 import Chat from '../chat/Chat';
 import Header from '../common/Header';
 import Navigation from '../common/Navigation';
-import Project from '../calendar/Project';
-import moment from 'moment';
 
 function SiteLayout({children}) {
     const client = useRef({});

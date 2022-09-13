@@ -4,7 +4,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import React from 'react';
 import '../../assets/fonts/font.css';
-import hash2 from '../../assets/icons/user.png';
 import '../../styles/css/msItem.css';
 
 function MessageItem({align, message, time, name, url}) {

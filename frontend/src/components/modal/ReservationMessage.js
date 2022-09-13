@@ -1,14 +1,11 @@
 import { TextField } from '@mui/material';
-import React, {useState} from 'react';
-import { Modal, Form, Button, Row, Col   } from 'react-bootstrap';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import React, { useState } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
 function ReservationMessage({modalShow, onClickModal}) {
   const [value, setValue] = useState(new Date());
 
     function onClickCheck() {
-      // console.log(value);
+
     }
     
     return (
@@ -17,10 +14,9 @@ function ReservationMessage({modalShow, onClickModal}) {
           <Modal.Header closeButton>
               <Modal.Title>메시지 예약</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            
+          <Modal.Body>         
               <Form>
-               <TextField
+              <TextField
                       id="datetime-local"
                       label="날짜 및 시간 선택"
                       type="datetime-local"
@@ -33,8 +29,7 @@ function ReservationMessage({modalShow, onClickModal}) {
                         shrink: true,
                       }}
                     /> 
-                 </Form>
-                 
+                </Form>
           </Modal.Body>
           <Modal.Footer>
               <Button variant="outline-dark"  onClick={onClickModal} >

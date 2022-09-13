@@ -1,6 +1,5 @@
-import { Autocomplete, Divider, List, TextField } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Dropdown, Form, ListGroup, Modal } from 'react-bootstrap';
+import React, { useCallback, useState } from 'react';
+import { Button, Form, ListGroup, Modal } from 'react-bootstrap';
 import ProfileOthers from '../User/ProfileOthers';
 
 function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickChannelInvite}) {
@@ -17,7 +16,6 @@ function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickCh
 
     return (
       <>
-               
         <Modal.Body>
             <Form>
             <Form.Group className="mb-3" controlId="channelForm.invite">
@@ -31,7 +29,7 @@ function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickCh
                 }}
                 value={value || ''}
                 onKeyDown={(e) => { if(e.key === 'Enter') 
-                                           {onClickModal()
+                                          {onClickModal()
                                             setTab(0)}}}
                 />
             </Form.Group>
@@ -61,7 +59,7 @@ function ChannelSetting_member({users, onClickModal, setTab, channelNo,onClickCh
           </Button>
       </Modal.Footer>
       <ProfileOthers modalShow={profileOthersModalShow} onClickModal={onClickProfileOthersModal} user={userInfo} />
-     </>
+    </>
     );
 }
 

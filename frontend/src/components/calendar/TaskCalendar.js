@@ -11,23 +11,6 @@ function TaskCalendar(props) {
   const [state, setState] = useState(taskList)
   const taskList = useSelector((state) => state.task, shallowEqual);
 
-  // const taskList = useSelector(state => state.task, shallowEqual);
-  // const tasks = []
-
-  // const groupBy =(objectArray, property)=> {
-  //   return objectArray.reduce(function (acc, obj) {
-  //     var key = obj[property];
-  //     if (!acc[key]) {
-  //       acc[key] = [];
-  //       tasks.push({...obj, userName:acc[key]})
-  //     }
-  //     acc[key].push(obj.userName);
-  //     return tasks;
-  //   }, {});
-  // }
-
-  // const groupedPeople = groupBy(taskList, 'title');
-
   useEffect(() => {
     setState(props.taskList)
   }, [state]);

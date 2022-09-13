@@ -1,16 +1,16 @@
-import React, { useEffect, useCallback, useState } from 'react';
-import { get, post, put, putJson } from '../../apis/Axios';
-import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
-import { setCrew, addCrew, deleteCrew } from '../../redux/crew';
 import Grid from '@mui/material/Grid';
+import React, { useCallback, useEffect, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { get, post, putJson } from '../../apis/Axios';
+import { getLocalStorageAuthUser } from '../../apis/Fetch';
+import { addChannel } from '../../redux/channel';
+import { addCrew, setCrew } from '../../redux/crew';
+import { setCrewUser } from "../../redux/crewUser";
+import { setCREWFOCUS } from '../../redux/focus';
+import { setProject } from '../../redux/project';
+import { setTask } from '../../redux/task';
 import NavigationCrew from './navigation/NavigationCrew';
 import NavigationEct from './navigation/NavigationEct';
-import { setCREWFOCUS } from '../../redux/focus';
-import { setTask } from '../../redux/task';
-import { setProject } from '../../redux/project';
-import { setCrewUser } from "../../redux/crewUser";
-import { addChannel } from '../../redux/channel';
-import { getLocalStorageAuthUser } from '../../apis/Fetch';
 
 function Navigation() {
 

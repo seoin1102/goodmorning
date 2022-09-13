@@ -9,21 +9,21 @@ import lockIcon from '../../../assets/icons/lock.svg';
 import peopleIcon from '../../../assets/icons/people.svg';
 
 function SignUp({callback,errormessage}) {
-  const [checkemail, setcheckEmail] = useState("");
-  const [validEmail, setValidEmail] = useState(false);
+    const [checkemail, setcheckEmail] = useState("");
+    const [validEmail, setValidEmail] = useState(false);
 
-  const onChangeEmailInput = e => {
-    setcheckEmail(e.target.value);
-    // check email format(account@mysite.com)
-    const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
-    setValidEmail(re.test(e.target.value))
- }
+    const onChangeEmailInput = e => {
+      setcheckEmail(e.target.value);
+      // check email format(account@mysite.com)
+      const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
+      setValidEmail(re.test(e.target.value))
+  }
 
-  return (
+    return (
 
 
     <div className="SignUp">
-       <div style={{padding:'0 35%'}}>
+        <div style={{padding:'0 35%'}}>
     
         <Card bg='light' className='card card-authentication1 mx-auto my-4'>
             <Card.Body style={{height: '625px', backgroundColor:"#34d6ce", color: 'white'}}>
@@ -53,7 +53,7 @@ function SignUp({callback,errormessage}) {
                                     //<FontAwesomeIcon icon={faCheckCircle} style={{marginLeft:5,marginRight:5 , fontSize:35, color:'blue'}}/>:
                                     //<FontAwesomeIcon icon={faTimesCircle} style={{marginLeft:5,marginRight:5, fontSize:35, color:'red'}}/>
                             }
-   
+
                             <InputGroup.Text>
                               <img src={emailIcon}></img>
                             </InputGroup.Text>

@@ -1,15 +1,15 @@
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef } from 'react';
 import githubIcon from '../../assets/icons/github.svg';
 import jenkinsIcon from '../../assets/icons/jenkins.png';
 import CommandMessageItem from './CommandMessageItem';
 import FileMessageItem from './FileMessageItem';
 import GitMessageItem from './GitMessageItem';
 import JenkinsMessageItem from './JenkinsMessageItem';
+import Loading from './Loading';
 import MessageItem from './MessageItem';
 import SendPreviewMessage from './SendPreviewMessage';
-import Loading from './Loading';
 
 
 function Message({chatList, loading, setLoading }) {

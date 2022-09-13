@@ -1,16 +1,7 @@
-import React from 'react';
 import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import React from 'react';
 import hash2 from '../../../assets/icons/hash2.svg';
-import Avatar from '@mui/material/Avatar';
-import { Modal, Form, Button   } from 'react-bootstrap';
-// import Modal from "react-modal";
-// import ReactModal from "react-modal";
-
-import AddCrew2 from '../../modal/Crew/AddCrew';
-
-//ReactModal.setAppElement('body');
 
 function NavigationEctItem({userName, itemName, onClickModal, children}) {
     return (
