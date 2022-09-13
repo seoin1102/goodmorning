@@ -29,17 +29,24 @@ function CommandMessageItem({align, message, time, name, url}) {
                                 <img src={message === 'none' ? questionIcons : shuttleIcons} width={30} height={30}/>
                             </Grid>
                             <Grid item xs={10} sx={{margin: ' 0 0 0 5px', display: 'flex', alignItems: 'center'}}>
+                                {message === 'none' ? 
                                 <div style={{height: '26px', fontFamily:'SUIT-Medium'}}>
-                                  {`Start`}
-                                </div>
-                                <div>&nbsp;&nbsp;</div>
-                                <div style={{height: '26px', color:'skyblue', fontWeight:'bold', fontFamily:'SUIT-Medium'}}>
-                                    <div>{`${message}`}</div>
-                                </div>
-                                <div>&nbsp;&nbsp;</div>
-                                <div style={{height: '26px', fontFamily:'SUIT-Medium'}}>
-                                    <div>{`Repository Deployment`}</div>
-                                </div>
+                                  {` This project does not exist.`}
+                                </div> :
+                                <>
+                                    <div style={{height: '26px', fontFamily:'SUIT-Medium'}}>
+                                      {`Start`}
+                                    </div>
+                                    <div>&nbsp;&nbsp;</div>
+                                    <div style={{height: '26px', color:'skyblue', fontWeight:'bold', fontFamily:'SUIT-Medium'}}>
+                                        <div>{`${message}`}</div>
+                                    </div>
+                                    <div>&nbsp;&nbsp;</div>
+                                    <div style={{height: '26px', fontFamily:'SUIT-Medium'}}>
+                                        <div>{`Repository Deployment`}</div>
+                                    </div>
+                                </>
+                                }
                             </Grid>
                         </Grid>
                     </Grid>
