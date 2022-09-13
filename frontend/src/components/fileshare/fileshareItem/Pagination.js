@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav,Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 function Pagination({ total, limit, page, setPage }) {
     const numPages = Math.ceil(total / limit);
 

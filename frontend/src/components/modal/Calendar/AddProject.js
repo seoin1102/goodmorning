@@ -1,27 +1,19 @@
 
-import React, { useState, useEffect, memo } from "react";
-import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
-import { Row, Col } from "react-bootstrap";
+import React, { memo, useState } from "react";
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
-import StartDatePicker from "../../calendar/StartDatePicker";
 import EndDatePicker from "../../calendar/EndDatePicker";
+import StartDatePicker from "../../calendar/StartDatePicker";
 
-import "../../../styles/css/Calendar.css";
-import {get, post, remove} from '../../../apis/Axios';
+import { Octokit } from "@octokit/core";
 import moment from 'moment';
-import AssignSelect from '../../calendar/AssignSelect'
-import ProjectSelect from '../../calendar/ProjectSelect'
-import Status from "../../calendar/Status";
-import ColorPicker from '../../calendar/ColorPicker'
+import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
+import { get, post } from '../../../apis/Axios';
+import { checkResponse, fetchResponse } from "../../../apis/Fetch";
 import { addProject } from "../../../redux/project";
-import Button from 'react-bootstrap/Button';
-import { Octokit } from "@octokit/core";
-import { fetchResponse,checkResponse } from "../../../apis/Fetch";
+import "../../../styles/css/Calendar.css";
 import ChannelSelect from "../../calendar/ChannelSelect";
 
 function AddProject({show, publishLinkPreview, setShow}) {
@@ -213,15 +205,7 @@ const copyToClipBoard = async copyMe => {
                 value={gitName || ''} onChange={(e)=>{setGitName(e.target.value)}}
               /> 
             </Form.Group>
-            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>리포지토리 명</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="리포지토리 명을 입력해주세요."
-                autoFocus
-                value={repoName || ''} onChange={(e)=> {setRepoName(e.target.value)}}
-              /> 
-            </Form.Group> */}
+            
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>깃 토큰</Form.Label>
               <Form.Control

@@ -2,14 +2,13 @@ import Grid from '@mui/material/Grid';
 import React, { useCallback, useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { get } from '../../apis/Axios';
+import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import { setChannel } from '../../redux/channel';
-import { setCHANNELFOCUS, setCREWFOCUS, setCHANNELCREWFOCUS } from '../../redux/focus';
+import { setCHANNELCREWFOCUS } from '../../redux/focus';
 import ChannelSetting from '../modal/Channel/ChannelSetting';
-import CrewSetting from '../modal/Crew/CrewSetting';
 import HeaderItem from './header/HeaderItem';
 import HeaderSearch from './header/HeaderSearch';
 import HeaderUser from './header/HeaderUser';
-import {getLocalStorageAuthorization, getLocalStorageAuthUser} from '../../apis/Fetch';
 
 
 function Header() {
@@ -33,11 +32,6 @@ function Header() {
     const channelNo = useSelector(state => {
         return state.focus.channelNo;
     }, shallowEqual);
-
-    // const [changeChannel, setChangeChannel] = useState({
-    //     no: channelNo,
-    //     name: channelName
-    // })
   
     /**
      * 채널 목록
@@ -58,8 +52,6 @@ function Header() {
             crewName: crewName,
             crewNo: crewNo
         }))
-        // dispatch(setCHANNELFOCUS({name: name, no: no}));
-        // dispatch(setCREWFOCUS({name: crewName, no: crewNo}));
     }, [])
 
     const initialUser = useCallback(async() => {

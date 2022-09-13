@@ -1,22 +1,19 @@
 
-import React, { useState, useEffect, memo } from "react";
-import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
-import { Row, Col } from "react-bootstrap";
-// import Modal from "react-modal";
-import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
-import StartDatePicker from "../../calendar/StartDatePicker";
-import EndDatePicker from "../../calendar/EndDatePicker";
-import TextField from '@mui/material/TextField';
-import "../../../styles/css/Calendar.css";
-import { addTask, deleteTask, updateTask } from '../../../redux/task';
-import {put, post, remove} from '../../../apis/Axios';
 import moment from 'moment';
-import AssignSelect from '../../calendar/AssignSelect'
-import ProjectSelect from '../../calendar/ProjectSelect'
+import React, { memo, useEffect, useState } from "react";
+import { Button, Col, Row } from "react-bootstrap";
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { post, put, remove } from '../../../apis/Axios';
+import { addTask, deleteTask, updateTask } from '../../../redux/task';
+import "../../../styles/css/Calendar.css";
+import AssignSelect from '../../calendar/AssignSelect';
+import ColorPicker from '../../calendar/ColorPicker';
+import EndDatePicker from "../../calendar/EndDatePicker";
+import ProjectSelect from '../../calendar/ProjectSelect';
+import StartDatePicker from "../../calendar/StartDatePicker";
 import Status from "../../calendar/Status";
-import ColorPicker from '../../calendar/ColorPicker'
-import {FormControl, Button} from 'react-bootstrap'
 
 function AddTask(props) {
   const { title, start, end, id, userName, userNo, projectName, projectNo, color, status } = props.state

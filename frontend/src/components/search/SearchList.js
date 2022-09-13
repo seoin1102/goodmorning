@@ -1,44 +1,31 @@
 // 1단계: 문 가져오기
-import React from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import SearchResult from "./SearchResult";
 import {
-  Card,
-  CardContent,
-  Button,
-  Typography,
-  Tabs,
-  Tab,
-  Paper,
-  Box,
-  Checkbox,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
+  Box, Button, Card,
+  CardContent, Checkbox, Paper, Tab, Tabs, Typography
 } from "@mui/material";
 import PropTypes from "prop-types";
+import React from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { NavLink } from "react-router-dom";
+import { get } from "../../apis/Axios";
 import { setCREWFOCUS } from "../../redux/focus";
 import { setProject } from "../../redux/project";
-import { get, remove } from "../../apis/Axios";
 
-import "../../styles/css/Header.css";
-import SendPreviewMessage from "../chat/SendPreviewMessage";
-import MessageItem from "../chat/MessageItem";
-import GitMessageItem from "../chat/GitMessageItem";
+import clickgithub from "../../assets/icons/clickGithub.svg";
+import clickjenkins from "../../assets/icons/clickJenkins.svg";
+import clickmessage from "../../assets/icons/clickMessage.png";
 import githubIcon from "../../assets/icons/github.svg";
 import jenkinsIcon from "../../assets/icons/jenkins.png";
-import clickgithub from "../../assets/icons/clickGithub.svg";
 import unclickgithub from "../../assets/icons/unclickGithub.svg";
-import clickjenkins from "../../assets/icons/clickJenkins.svg";
 import unclickjenkins from "../../assets/icons/unclickJenkins.svg";
-import clickmessage from "../../assets/icons/clickMessage.png";
 import unclickmessage from "../../assets/icons/unclickMessage.png";
 import { setSearch } from "../../redux/search";
-import { setChat } from "../../redux/chat";
-import JenkinsMessageItem from "../chat/JenkinsMessageItem";
+import "../../styles/css/Header.css";
 import FileMessageItem from "../chat/FileMessageItem";
+import GitMessageItem from "../chat/GitMessageItem";
+import JenkinsMessageItem from "../chat/JenkinsMessageItem";
+import SendPreviewMessage from "../chat/SendPreviewMessage";
 
 // 필터 보류
 // function SimpleAccordion() {

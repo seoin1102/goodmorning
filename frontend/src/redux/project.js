@@ -5,7 +5,6 @@ const ADD_PROJECT = 'project/ADD_PROJECT';
 const DELETE_PROJECT = 'project/DELETE_PROJECT';
 const UPDATE_PROJECT = 'project/UPDATE_PROJECT';
 
-// export const changeProject = (changeProject) => ({ type: CHANGE_PROJECT, changeProject });
 export const setProject = (projects) => ({ type: SET_PROJECT, projects });
 export const addProject = (project) => ({ type: ADD_PROJECT, project });
 export const deleteProject = (id) => ({ type: DELETE_PROJECT, id });
@@ -29,7 +28,6 @@ const project = (state = initialState, action) => {
                 }
                 return m;
             })
-            // return update(state, { [action.id]: { $set: action.task }})
         default:
             return state;
     }

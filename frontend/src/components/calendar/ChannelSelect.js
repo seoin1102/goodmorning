@@ -1,8 +1,8 @@
-import React from "react";
-import { useSelector,  shallowEqual } from "react-redux";
 import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import React from "react";
+import { shallowEqual, useSelector } from "react-redux";
 
 export default function ChannelSelect(props) {
   const crewList = useSelector((state) => state.crew, shallowEqual);

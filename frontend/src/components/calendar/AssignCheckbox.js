@@ -1,5 +1,5 @@
-import React, { useState, useEffect, memo } from "react";
-import { useSelector, shallowEqual } from "react-redux";
+import React, { memo, useEffect, useState } from "react";
+import { shallowEqual, useSelector } from "react-redux";
 
 function AssignCheckbox(props) {
   const taskList = useSelector((state) => state.task, shallowEqual);

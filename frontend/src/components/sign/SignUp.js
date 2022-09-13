@@ -1,23 +1,20 @@
-import React,{useState, Fragment} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import SignUp from './signItem/SignUp'
-import {signup} from '../../redux/sign'
-import Swal from 'sweetalert2'
-import { fetchResponse, checkResponse } from '../../apis/Fetch';
+import React, { Fragment, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import { checkResponse, fetchResponse } from '../../apis/Fetch';
+import { signup } from '../../redux/sign';
+import SignUp from './signItem/SignUp';
 
 function SignContainer() {
 
     const [errormessage, seterrormessage] = useState("");
-
     const { email, name, passwd } = useSelector(state => ({
         email: state.sign.email,
         name: state.sign.name,
         passwd: state.sign.passwd
       }));
 
-
     const dispatch = useDispatch();
-         
     const onSignUp = (email,name,passwd) => {
         insertSignUp(email,name,passwd);
         return dispatch(signup(email,name,passwd));
@@ -43,7 +40,7 @@ function SignContainer() {
             }).then((reuslt)=>{
                 if (reuslt.isConfirmed) {
                   location.href="/signin";
-                 }
+                }
               })
             seterrormessage('');
         } catch(err) {
@@ -59,8 +56,7 @@ function SignContainer() {
             passwd={passwd}
             callback={onSignUp}
             errormessage={errormessage}/>
-       </Fragment>     
-
+      </Fragment>     
     );
 }
 

@@ -1,16 +1,15 @@
-import { margin, width } from '@mui/system';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 //import Modal from 'react-modal'
-import {Table,Modal,Card,Row, Col,Button,InputGroup,Form, FormSelect } from 'react-bootstrap';
-import { checkResponse, fetchResponse, getLocalStorageAuthUser, projectFileListdata,fileDownload,deleteFile,addFileAndFindFileList} from '../../../apis/Fetch';
+import { Button, Form, Modal, Table } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { addFileAndFindFileList, deleteFile, fileDownload, projectFileListdata } from '../../../apis/Fetch';
+import deleteIcon from '../../../assets/icons/delete.svg';
+import downloadIcon from '../../../assets/icons/download.svg';
+import { fileFileData } from '../../../redux/file';
+import '../../../styles/css/Board.css';
+import '../../../styles/css/modal-90w.css';
 import Pagination from '../../fileshare/fileshareItem/Pagination';
-import FileUpload from '../../modal/File/FileUpload'
-import '../../../styles/css/modal-90w.css'
-import '../../../styles/css/Board.css'
-import downloadIcon from '../../../assets/icons/download.svg'
-import deleteIcon from '../../../assets/icons/delete.svg'
-import { useSelector, useDispatch } from 'react-redux';
-import {fileDirectoryData,fileFileData} from '../../../redux/file'
+import FileUpload from '../../modal/File/FileUpload';
 
 function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,onClickFileUploadModal,FileUploadModalIsOpen,uploadModalIsOpen,authUserNo, posts}) {
 

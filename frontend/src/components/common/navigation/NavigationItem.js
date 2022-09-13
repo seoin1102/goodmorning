@@ -1,12 +1,8 @@
-import React from 'react';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import { Badge, ListItemButton } from '@mui/material';
 import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
+import React from 'react';
 import { NavLink } from "react-router-dom";
 import hash2 from '../../../assets/icons/hash2.svg';
-import { color } from '@mui/system';
-import { List, ListItemButton, Badge } from '@mui/material';
 
 
 function NavigationItem({navLink, crewName, chatAlarmCount, crewNo, onClickCrew}) {

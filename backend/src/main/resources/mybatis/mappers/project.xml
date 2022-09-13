@@ -23,6 +23,13 @@
 				project where project_name = #{projectName };
 				]]>
 		</select>
+		<select id="checkProjectNameByCrewNo" parameterType="map" resultType="long">
+				<![CDATA[
+				select count(project_name) from project 
+					where crew_no = #{crewNo } 
+				and project_name = #{projectName };
+				]]>
+		</select>
 		<insert id="insert" parameterType="projectvo">
 				<![CDATA[
 				insert into project value(null, #{projectName}, #{start}, #{end}, "test 설명",0,1, #{crewNo});

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Form, Button   } from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
 function AddChannel({modalShow, onClickModal,onCreateChannel}) {
@@ -7,7 +7,6 @@ function AddChannel({modalShow, onClickModal,onCreateChannel}) {
     const [description, setDescription] = useState("");
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
-
     const channel = {name, description, masterChannelUserNo:userNo}
 
     return (

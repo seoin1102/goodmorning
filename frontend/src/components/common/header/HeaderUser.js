@@ -1,17 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import List from '@mui/material/List';
 
+import { Badge } from '@mui/material';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkResponse, fetchGetResponse } from '../../../apis/Fetch';
+import { get } from '../../../apis/Axios';
 import { resetCHATALARM } from '../../../redux/chatAlarm';
 import '../../../styles/css/DropDown.css';
-import { Badge } from '@mui/material';
 import ProfileInfo from '../../modal/User/ProfileInfo';
-import { get, post } from '../../../apis/Axios';
 
 
 function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum}) {

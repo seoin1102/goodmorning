@@ -1,6 +1,5 @@
 import update from 'react-addons-update';
-//import tasks from '../assets/json/task.json'
-// const CHANGE_TASK = 'task/CHANGE_TASK';
+
 const SET_TASK = 'task/SET_TASK';
 const ADD_TASK = 'task/ADD_TASK';
 const DELETE_TASK = 'task/DELETE_TASK';
@@ -17,13 +16,6 @@ const initialState = []
 const task = (state = initialState, action) => {
 
     switch (action.type) {
-        // case CHANGE_TASK:
-        //     let newCalendarEvents = [...state];
-        //     const clickedEventIdx = newCalendarEvents.findIndex(
-        //         (event) => event.id == action.task.id
-        //       );
-        //     newCalendarEvents[clickedEventIdx] = {...newCalendarEvents[clickedEventIdx],...action.task}
-        //     return update(state, { $set: newCalendarEvents});
         case SET_TASK:
             return update(state, { $set: action.tasks });   
         case ADD_TASK:

@@ -1,12 +1,11 @@
 import React, { useCallback, useState } from 'react';
-import { Button, Form, Modal, Nav } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { Modal, Nav } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
 import { get, postJson, remove } from '../../../apis/Axios';
+import { setCHANNELCREWFOCUS } from '../../../redux/focus';
 import CrewSetting_info from './CrewSetting_info';
 import CrewSetting_member from './CrewSetting_member';
-import CrewSetting_set from './CrewSetting_set';
-import Swal from 'sweetalert2';
-import { setCHANNELCREWFOCUS } from '../../../redux/focus';
 
 function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo, initialUser, userNo, masterCrew }) {
 
@@ -93,21 +92,8 @@ function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo
           멤버
         </Nav.Link>
       </Nav.Item>
-       {/* <Nav.Item>
-        <Nav.Link eventKey="link-2" onClick={() => setTab(2)}>
-          설정
-        </Nav.Link>
-      </Nav.Item>  */}
     </Nav>
     <TabContent />
-    {/* <Modal.Footer>
-          <Button variant="outline-dark"  onClick={onClickModal} >
-            취소
-          </Button>
-          <Button variant="outline-dark"  >
-            변경사항 저장
-          </Button>
-      </Modal.Footer> */}
     </Modal>
       </>
     );

@@ -75,13 +75,15 @@ public class ChatController {
     		redisPublisher.publish(topic, chatVo);
     	
     	if(ChatVo.MessageType.COMMAND.equals(chatVo.getType())) {
+    		
     		redisPublisher.publish(topic, chatVo);
     		
-    		// 젠킨스 배포 코드 적을 곳(서비스 단에서 한번에 하면 좋을듯)
-    		projectService.execCMD(
-    				"curl -X POST http://34.64.214.252:8080/jenkins/job/" + 
-    				chatVo.getMessage() + 
-    				"/build --user jenkins:11eac84873470eb9d72cfb6f989468eb14 -v");
+    		if(!"none".equals(chatVo.getMessage())) {
+	    		projectService.execCMD(
+	    				"curl -X POST http://34.64.214.252:8080/jenkins/job/" + 
+	    				chatVo.getMessage() + 
+	    				"/build --user jenkins:11eac84873470eb9d72cfb6f989468eb14 -v");
+    		}
     	}
     		
     }

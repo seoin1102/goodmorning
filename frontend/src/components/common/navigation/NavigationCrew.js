@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import NavigationItem from './NavigationItem';
 import { Collapse, ListItemButton } from '@mui/material';
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
+import List from '@mui/material/List';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import arrowDownIcon from '../../../assets/icons/keyboard_arrow_down.svg';
 import arrowUpIcon from '../../../assets/icons/keyboard_arrow_up.svg';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import NavigationItem from './NavigationItem';
 
 // 많으면 화면 넘어가므로 스크롤 추가 해주기
 function NavigationCrew({crewList, onClickCrew}) {
