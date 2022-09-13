@@ -29,11 +29,10 @@ function SiteLayout({children}) {
     const { crewNo } = useSelector(state => (state.focus), shallowEqual);
     
     useEffect(() => {
-        connect()
         setLoading(true);
-        
-        return () => {
-            disconnect()};
+        connect()
+                
+        return () => {disconnect()};
     }, [crewNo]);
 
     // 자원 할당(소켓 연결)
