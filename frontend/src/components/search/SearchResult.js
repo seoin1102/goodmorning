@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import GitMessageItem from '../chat/GitMessageItem';
 import githubIcon from '../../assets/icons/github.svg';
 import jenkinsIcon from '../../assets/icons/jenkins.png';
+import JenkinsMessageItem from '../chat/JenkinsMessageItem';
 
 function SearchResult() {
     const searchList = useSelector(state => (state.chat), shallowEqual);
@@ -78,13 +79,13 @@ function SearchResult() {
                                 {(chat.type === 'JENKINS') ?
                                 chat.message==searchText && chat.sendDate == sendDate?
                                 <div style={{backgroundColor:'#C9C8C8'}}>
-                                    <MessageItem 
+                                    <JenkinsMessageItem 
                                         align={"left"}
                                         message={chat.message} 
                                         time={chat.sendDate}
                                         name={'Jenkins'}
                                         url={jenkinsIcon}/></div> :
-                                    <MessageItem 
+                                    <JenkinsMessageItem 
                                         align={"left"}
                                         message={chat.message} 
                                         time={chat.sendDate}
