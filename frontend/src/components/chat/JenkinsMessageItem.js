@@ -52,7 +52,7 @@ function JenkinsMessageItem({align, message, time, name, url}) {
                                                   {backgroundColor: 'red', borderRadius: '10px', borderWidth: '1px', padding: '0'}}>
                             <div style={{height: '65px', padding: '0'}}></div>
                         </Grid>
-                        <Grid item xs={11.92} >
+                        <Grid item xs={9} >
                             <Grid item xs={12}>
                                 <ListItemText align={align} primary={`#${messageItem.buildNumber}`} sx={{fontFamily:'SUIT-Medium', padding: '0 0 0 10px'}} ></ListItemText>
                             </Grid>
