@@ -135,9 +135,14 @@ function SiteLayout({children}) {
                 // 자기 크루에 속한 프로젝트 인지 확인하는 코드(서버에서 체크)
                 const result = await get(`/jenkinsHook/${crewNo}/${jenkinsCommand[3]}`);
                 console.log("체크체크 크루 프로젝트 체크", result)
-                if(result.data !== 0) {
-                  addChat = chatCommand(crewNo, authUser.no, jenkinsCommand[3]);
-                  pubChat = msgCommand(crewNo, authUser.no, jenkinsCommand[3], authUser.name, authUser.profileUrl);
+                if(result !== 0) {
+                    addChat = chatCommand(crewNo, authUser.no, jenkinsCommand[3]);
+                    pubChat = msgCommand(crewNo, authUser.no, jenkinsCommand[3], authUser.name, authUser.profileUrl);
+                }
+
+                else {
+                    addChat = chatCommand(crewNo, authUser.no, "존재하지 않는 프로젝트 입니다.");
+                    pubChat = msgCommand(crewNo, authUser.no, "존재하지 않는 프로젝트 입니다.", authUser.name, authUser.profileUrl);
                 }
             }
         }
