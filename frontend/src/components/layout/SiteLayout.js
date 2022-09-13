@@ -133,8 +133,8 @@ function SiteLayout({children}) {
 
             if(jenkinsCommand[0] === 'jenkins' && jenkinsCommand[1] === 'start' && jenkinsCommand[2] === '-p') {
                 // 자기 크루에 속한 프로젝트 인지 확인하는 코드(서버에서 체크)
-                const result = await get(`/api/jenkinsHook/${crewNo}/${jenkinsCommand[3]}`);
-
+                const result = await get(`/jenkinsHook/${crewNo}/${jenkinsCommand[3]}`);
+                console.log("체크체크 크루 프로젝트 체크", result)
                 if(result.data !== 0) {
                   addChat = chatCommand(crewNo, authUser.no, jenkinsCommand[3]);
                   pubChat = msgCommand(crewNo, authUser.no, jenkinsCommand[3], authUser.name, authUser.profileUrl);
