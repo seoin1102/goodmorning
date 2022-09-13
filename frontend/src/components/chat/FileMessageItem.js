@@ -3,11 +3,11 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import React, { useEffect, useState } from 'react';
+import { fileDownload } from '../../apis/Fetch';
+import '../../assets/fonts/font.css';
 import fileIcons from '../../assets/icons/fileUpload.png';
 import fileDownloadIcons from '../../assets/icons/file_download.png';
-import '../../assets/fonts/font.css';
 import '../../styles/css/msItem.css';
-import { fileDownload } from '../../apis/Fetch';
 
 function FileMessageItem({align, message, time, name, url}) {
     const [messageItem, setMessageItem] = useState({
