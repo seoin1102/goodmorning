@@ -29,21 +29,8 @@ function Project({publishLinkPreview}) {
   const handleClose = () => setShow(false);
   const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
   console.log("크루 넘버!",crewNo)
-  const initialProject = React.useCallback(
-    async (crewNo) => {
-      const getProjects = await get(`/project/cNo/${crewNo}`);
-      dispatch(setProject(getProjects));
-    },
-    [dispatch]
-  );
+  
 
-  const totalProject = React.useCallback(
-    async (channelNo) => {
-      const getProjects = await get(`/project/${channelNo}`);
-      dispatch(setProject(getProjects));
-    },
-    [dispatch]
-  );
   const initialTask = React.useCallback(
     async (projectNo) => {
       const getTasks = await get(`/task/pNo/${projectNo}`);
@@ -78,7 +65,7 @@ function Project({publishLinkPreview}) {
   const projects = projectList.map((i) => [
     i.id,
     i.projectName,
-    "#34d6ce",
+    i.status > 0 ? i.status > 50 ?'write': 'complate' : null, 
     new Date(i.start),
     new Date(i.end),
     null,
@@ -86,13 +73,6 @@ function Project({publishLinkPreview}) {
     null,
   ]);
   const data = [columns, ...projects];
-// useEffect(()=>{
-//   initialProject
-// },[initialProject])
-
-// useEffect(()=>{
-//   totalProject
-// },[totalProject])
 
 useEffect(()=>{
   initialTask
@@ -127,9 +107,10 @@ useEffect(()=>{
                     title="채널 선택"
                   >
                     <NavDropdown.Item
-                    onClick={() => {
+                    onClick={async() => {
                       setChannelName('전체 채널')
-                      return totalProject(channelNo);
+                      const getProjects = await get(`/project/${channelNo}`);
+                      dispatch(setProject(getProjects));
 
                     }}>전체 채널</NavDropdown.Item>
                     <Divider />
@@ -137,7 +118,7 @@ useEffect(()=>{
                       ? crewList.map((crew, index) => (
                         
                           <NavDropdown.Item
-                            onClick={() => {
+                            onClick={async() => {
                               setChangeCrew((prevState) => ({
                                 ...prevState,
                                 no: crew.no,
@@ -147,7 +128,8 @@ useEffect(()=>{
                                 setCREWFOCUS({ no: crew.no, name: crew.name })
                               );
                               setChannelName(crew.name)
-                              return initialProject(crew.no);
+                              const getProjects = await get(`/project/cNo/${crew.no}`);
+                              dispatch(setProject(getProjects));
                             }}
                             key={index}
                           >
@@ -179,14 +161,6 @@ useEffect(()=>{
                     프로젝트 삭제
                   </Button>
 
-                  {/* <NavLink style={{ textDecorationLine: "none" }} to={"/task"}>
-                    <Button
-                      style={{ fontFamily: "SUIT-Medium", color: "black" }}
-                      onClick={handleTask}
-                    >
-                      작업 설정
-                    </Button>
-                  </NavLink> */}
                 </div>
               </Grid>
               <ProjectChart

@@ -53,7 +53,6 @@ function AddProject({show, publishLinkPreview, setShow}) {
     [dispatch]
   );
 
-  totalProject(channelNo)
 
 
   const makeJenkinsJob = async function(projectName,gitUserName) {

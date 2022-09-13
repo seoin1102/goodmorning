@@ -191,9 +191,8 @@ export default function SearchList(props) {
 
   const chattingResult = searchList.filter(
     (e) =>
-      (e.message.indexOf(props.searchText) !== -1 && e.type == "CHAT")||
-      (e.userName.indexOf(props.searchText) !== -1 && e.type == "CHAT") ||
-      (e.sendDate.indexOf(props.searchText) !== -1 && e.type == "CHAT")
+      (e.message.indexOf(props.searchText) !== -1 && e.type !== "FILE")||
+      (e.userName.indexOf(props.searchText) !== -1 && e.type == "CHAT")
   );
 
   const projectResult = projectList.filter(
@@ -207,7 +206,7 @@ export default function SearchList(props) {
       (e.message.indexOf(props.searchText) !== -1 && e.type === "FILE")
 
   );
-
+console.log(fileResult)
   return (
     <div>
       <Paper
@@ -468,13 +467,15 @@ export default function SearchList(props) {
                     <NavLink to={"/project"} style={{ textDecoration: "none" }}>
                       <Button
                         size="small"
-                        onClick={() => {
+                        onClick={async() => {
                           dispatch(
                             setCREWFOCUS({ no: e.crewNo, name: e.crewName })
                           );
                           console.log({ no: e.crewNo, name: e.crewName });
+                          const getProjects = await get(`/project/cNo/${e.crewNo}`)
+                          dispatch(setProject(getProjects));
                           console.log(projectList);
-                          // initialProject(e.crewNo)
+
                         }}
                       >
                         프로젝트 보러가기
@@ -491,10 +492,10 @@ export default function SearchList(props) {
 
         <TabPanel value={value} index={2}>
         <h6><strong>파일</strong></h6>
-        {chattingResult != "" ? (
-            chattingResult.map((e) => (
+        {fileResult != "" ? (
+            fileResult.map((e) => (
              <div>
-            {e.type === "FILE" ? (
+            
             <Card>
               <CardContent className="searchcard">
                 <FileMessageItem
@@ -524,7 +525,7 @@ export default function SearchList(props) {
     
               </CardContent>
             </Card>
-          ) : null}</div>
+          </div>
           ))
         ) : (
           <div>파일에는 검색결과가 없습니다.</div>

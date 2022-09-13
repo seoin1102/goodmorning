@@ -129,7 +129,7 @@ export const putUrl = async (url) => {
 
 export const remove = async (url, data) => {
     try {
-        let response = await client.delete(url, data, {headers: {'Authorization' : authorization}});
+        let response = await client.delete(url, {headers: {'Authorization' : authorization}}, data);
         return response.data;
 
     } catch (error) {
