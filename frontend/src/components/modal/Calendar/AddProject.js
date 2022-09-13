@@ -136,7 +136,7 @@ function AddProject({show, publishLinkPreview, setShow}) {
           'delete',
         ],
         config: {
-          url: 'http://34.64.235.225:8080/api/githubhook/hookdata',
+          url: 'http://localhost:8080/api/githubhook/hookdata',
           content_type: 'json',
           insecure_ssl: '0'
         }

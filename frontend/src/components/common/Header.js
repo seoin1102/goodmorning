@@ -9,7 +9,7 @@ import CrewSetting from '../modal/Crew/CrewSetting';
 import HeaderItem from './header/HeaderItem';
 import HeaderSearch from './header/HeaderSearch';
 import HeaderUser from './header/HeaderUser';
-import {getLocalStorageAuthorization, getLocalStorageAuthUser} from '../../apis/Fetch';
+import {getLocalStorageAuthUser} from '../../apis/Fetch';
 
 
 function Header() {
@@ -20,6 +20,7 @@ function Header() {
     const [masterChannelUser, setMasterChannelUser] = useState([]);
     const [masterChannelNo, setMasterChannelNo] = useState(0);
     const [search, setSearch] = useState();
+    const [userInfo, setUserInfo] = useState("");
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
 
@@ -89,7 +90,12 @@ function Header() {
         
         if (channelNo !== null)
             initialChannel(channelNo, userNo);
-      }, [channelNo])
+        console.log("aaaaaaaaa");
+      }, [channelNo,userInfo])
+
+    // useEffect(()=>{
+    //     console.log("zzzzzzzzzzzzz");
+    // },[user])
 
     // css
     // 이넘 땜에 최적화 안됨 --> css 파일로 만들기
@@ -108,7 +114,7 @@ function Header() {
                 <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users} initialUser={initialUser} masterChannelUser={masterChannelUser}/>
             </HeaderItem>
             <HeaderSearch search={search} setSearch={setSearch}/>
-            <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel} totalSum={totalSum} setTotalSum={setTotalSum}/>
+            <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel} totalSum={totalSum} setTotalSum={setTotalSum} setUserInfo={setUserInfo}/>
         </Grid>
     );
 }

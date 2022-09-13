@@ -21,6 +21,10 @@ import lombok.Data;
 @Data // JwtAuthenticationFilter에서 getuserVo 할때 필요
 public class PrincipalDetails implements UserDetails {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private UserVo userVo;
 
 	public PrincipalDetails(UserVo userVo) {

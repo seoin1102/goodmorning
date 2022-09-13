@@ -28,7 +28,7 @@ function SiteLayout({children}) {
     //const crewList = useSelector(state => (state.crew), shallowEqual);
     const chatList = useSelector(state => (state.chat), shallowEqual);
     const { crewNo } = useSelector(state => (state.focus), shallowEqual);
-    
+    const [ChattingList, setChattingList] = useState([]);
     useEffect(() => {
         connect()
         
@@ -36,10 +36,17 @@ function SiteLayout({children}) {
             disconnect()};
     }, [crewNo]);
 
+    // useEffect(() =>{
+    //     async() => {
+    //     const getChatList = await get(`/chat/${crewNo}`);
+    //     setChattingList(getChatList);
+    // }
+    // },[ChattingList])
+
     // 자원 할당(소켓 연결)
     const connect = () => {
         client.current = new StompJs.Client({
-            webSocketFactory: () => new SockJS("http://34.64.235.225:8080/ws-stomp"),
+            webSocketFactory: () => new SockJS("http://localhost:8080/ws-stomp"),
             debug: function (str) {},
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
@@ -85,6 +92,7 @@ function SiteLayout({children}) {
             // focus 된 [채널/크루]의 전체 메시지 리스트 DB에서 가져와 출력
             const getChatList = await get(`/chat/${crewNo}`);
             const getSearchList = await get(`/chat/channel/${channelNo}`);
+            console.log("채팅리스트입니다다~", ChattingList);
             dispatch(setChat(getChatList));
             dispatch(setSearch(getSearchList));
             dispatch(setCHATALARM({crewNo:crewNo}))

@@ -43,7 +43,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
-		System.out.println("cation 필터~~~~~~~~~~ㄴ");
+//		System.out.println("cation 필터~~~~~~~~~~ㄴ");
 		// 1. email, password 받아서
 		try {
 //			BufferedReader br = request.getReader();

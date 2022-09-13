@@ -1,8 +1,9 @@
 import axios from 'axios';
 import {checkResponse, checkAuth, catchAuth } from './Fetch'
 
-const client = axios.create({baseURL: 'http://34.64.235.225:8080/api'});
 const authorization = localStorage.getItem('authorization');
+const client = axios.create({baseURL: 'http://localhost:8080/api', headers: {'Authorization' : authorization}});
+
 
 /**
  * axios GET(Read) 요청
@@ -11,7 +12,7 @@ const authorization = localStorage.getItem('authorization');
  */
 export const get = async (url) => {
     try {
-        let response =  await client.get(url, {headers: {'Authorization' : authorization}});
+        let response =  await client.get(url);
         checkAuth(response);
         return response.data.data;
     } catch (error) {
@@ -37,7 +38,7 @@ export const getGit = async (url, data) => {
 
 export const getJson = async (url, data) => {
     try {
-        let response =  await client.get(url, data, {headers: {'Content-Type': 'application/json', 'Authorization' : authorization}
+        let response =  await client.get(url, data, {headers: {'Content-Type': 'application/json'}
     });
         return response.data;
     } catch (error) {
@@ -54,7 +55,7 @@ export const getJson = async (url, data) => {
 export const post = async (url, data) => {
     try {
         
-        let response = await client.post(url, data, {headers: {'Authorization' : authorization}});
+        let response = await client.post(url, data);
         return response.data;
     } catch (error) {
         console.error("Error >>", error);
@@ -64,7 +65,7 @@ export const post = async (url, data) => {
 
 export const postJson = async (url, data) => {
   try {
-      let response = await client.post(url, data, {headers: {'Content-Type': 'application/json', 'Authorization' : authorization}
+      let response = await client.post(url, data, {headers: {'Content-Type': 'application/json'}
     });
       return response.data;
   } catch (error) {
@@ -75,7 +76,7 @@ export const postJson = async (url, data) => {
 
 export const postSignIn = async (url, data) => {
     try {
-        let response = await client.post(url, data, {headers: {'Content-Type': 'application/json', 'Authorization' : authorization}
+        let response = await client.post(url, data, {headers: {'Content-Type': 'application/json'}
       });
         return response;
     } catch (error) {
@@ -86,7 +87,7 @@ export const postSignIn = async (url, data) => {
 
 export const postFile = async (url, data) => {
     try {
-        let response = await client.post(url, data, {headers: {'Content-Type': 'multipart/form-data', 'Authorization' : authorization}
+        let response = await client.post(url, data, {headers: {'Content-Type': 'multipart/form-data'}
       });
         return response.data;
     } catch (error) {
@@ -98,7 +99,7 @@ export const postFile = async (url, data) => {
 
 export const putJson = async (url, data) => {
     try {
-        let response = await client.put(url, data, { headers: {'Content-Type': 'application/json', 'Authorization' : authorization}
+        let response = await client.put(url, data, { headers: {'Content-Type': 'application/json'}
       });
         return response.data;
     } catch (error) {
@@ -109,7 +110,7 @@ export const putJson = async (url, data) => {
 
 export const put = async (url, data) => {
     try {
-        let response = await client.put(url, data, { headers: {'Authorization' : authorization}});
+        let response = await client.put(url, data);
         return response.data;
 
     } catch (error) {
@@ -119,7 +120,7 @@ export const put = async (url, data) => {
 
 export const putUrl = async (url) => {
     try {
-        let response = await client.put(url,{}, { headers: {'Authorization' : authorization}});
+        let response = await client.put(url);
         return response.data;
 
     } catch (error) {
@@ -129,7 +130,8 @@ export const putUrl = async (url) => {
 
 export const remove = async (url, data) => {
     try {
-        let response = await client.delete(url, data, {headers: {'Authorization' : authorization}});
+        let response = await client.delete(url,data);
+        console.log(response);
         return response.data;
 
     } catch (error) {
