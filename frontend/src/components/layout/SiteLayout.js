@@ -141,8 +141,8 @@ function SiteLayout({children}) {
                 }
 
                 else {
-                    addChat = chatCommand(crewNo, authUser.no, "존재하지 않는 프로젝트 입니다.");
-                    pubChat = msgCommand(crewNo, authUser.no, "존재하지 않는 프로젝트 입니다.", authUser.name, authUser.profileUrl);
+                    addChat = chatCommand(crewNo, authUser.no, 'none');
+                    pubChat = msgCommand(crewNo, authUser.no, 'none', authUser.name, authUser.profileUrl);
                 }
             }
         }
