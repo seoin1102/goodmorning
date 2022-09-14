@@ -5,6 +5,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { useLocation } from "react-router-dom";
 import githubIcon from '../../assets/icons/github.svg';
 import jenkinsIcon from '../../assets/icons/jenkins.png';
+import FileMessageItem from '../chat/FileMessageItem';
 import GitMessageItem from '../chat/GitMessageItem';
 import JenkinsMessageItem from '../chat/JenkinsMessageItem';
 import MessageItem from '../chat/MessageItem';
@@ -99,6 +100,22 @@ function SearchResult() {
                                         message={chat.message}/></div> :
                                     <SendPreviewMessage
                                         message={chat.message}/> :     
+                                null}
+                                {chat.type === 'FILE' ?
+                                chat.message==searchText?
+                                <div style={{backgroundColor:'#C9C8C8'}}>
+                                    <FileMessageItem
+                                        align={"left"}
+                                        message={chat.message}
+                                        time={chat.sendDate}
+                                        name={chat.userName}
+                                        url={chat.profileUrl}/></div> :
+                                    <FileMessageItem
+                                        align={"left"}
+                                        message={chat.message}
+                                        time={chat.sendDate}
+                                        name={chat.userName}
+                                        url={chat.profileUrl}/> :     
                                 null}
                                 {dateDivider}
                             </Fragment>

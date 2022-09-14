@@ -6,12 +6,13 @@
 body {
   padding: 0;
   margin: 0;
+
 }
 
 #notfound {
   position: relative;
   height: 100vh;
-  background-color: #222;
+
 }
 
 #notfound .notfound {
@@ -37,7 +38,7 @@ body {
 
 .notfound .notfound-404 h1 {
   font-family: 'Josefin Sans', sans-serif;
-  color: #222;
+  color: #c9c9c9;
   font-size: 220px;
   letter-spacing: 10px;
   margin: 0px;
@@ -46,7 +47,8 @@ body {
 }
 
 .notfound .notfound-404 h1>span {
-  text-shadow: 2px 2px 0px #ffab00, -2px -2px 0px #ffab00, 0px 0px 8px #ff8700;
+  text-shadow: 2px 2px 0px #34d6ce, -2px -2px 0px #34d6ce, 0px 0px 8px #34d6ce; 
+  color: #34d6ce;
 }
 
 .notfound p {

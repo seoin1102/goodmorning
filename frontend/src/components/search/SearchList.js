@@ -100,20 +100,20 @@ function ControlledCheckbox(props) {
   return (
     <>
       {props.checkMessage ? (
-        <img src={clickmessage} style={{ height: "18px" }} />
+        <img src={clickmessage} style={{ height: "20px" }} />
       ) : (
-        <img src={unclickmessage} style={{ height: "18px" }} />
+        <img src={unclickmessage} style={{ height: "20px" }} />
       )}
-      <Checkbox
+      <Checkbox 
         checked={props.checkMessage}
         onChange={props.messageChange}
         inputProps={{ "aria-label": "Checkbox demo" }}
         size="small"
       />
       {props.checkGithub ? (
-        <img src={clickgithub} style={{ height: "20px" }} />
+        <img src={clickgithub} style={{ height: "22px" }} />
       ) : (
-        <img src={unclickgithub} style={{ height: "20px" }} />
+        <img src={unclickgithub} style={{ height: "22px" }} />
       )}
       <Checkbox
         checked={props.checkGithub}
@@ -122,9 +122,9 @@ function ControlledCheckbox(props) {
         size="small"
       />
       {props.checkJenkins ? (
-        <img src={clickjenkins} style={{ height: "18px" }} />
+        <img src={clickjenkins} style={{ height: "20px" }} />
       ) : (
-        <img src={unclickjenkins} style={{ height: "18px" }} />
+        <img src={unclickjenkins} style={{ height: "20px" }} />
       )}
       <Checkbox
         sx={{ width: "20px", height: "20px" }}
