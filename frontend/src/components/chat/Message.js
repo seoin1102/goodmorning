@@ -1,8 +1,9 @@
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import React, { Fragment, useCallback, useEffect, useRef } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import githubIcon from '../../assets/icons/github.svg';
 import jenkinsIcon from '../../assets/icons/jenkins.png';
+import botIcon from '../../assets/icons/monster3.png';
 import CommandMessageItem from './CommandMessageItem';
 import FileMessageItem from './FileMessageItem';
 import GitMessageItem from './GitMessageItem';
@@ -15,13 +16,13 @@ import SendPreviewMessage from './SendPreviewMessage';
 function Message({chatList, loading, setLoading }) {
     
     const scrollRef = useRef(null);
-    
     const scrollToBottom = useCallback(() => {
         scrollRef.current.scrollIntoView({behavior: 'smooth'})
     }, [chatList])
 
     useEffect (() => {
         setLoading(false);
+
         if(!loading)
             scrollToBottom();
     }, [chatList])
@@ -29,7 +30,8 @@ function Message({chatList, loading, setLoading }) {
     useEffect (() => {
         if(!loading)
             scrollToBottom();
-  }, [loading])
+    }, [loading])
+
     return (
     <>
         {loading ? 
@@ -57,6 +59,14 @@ function Message({chatList, loading, setLoading }) {
                                             time={time}
                                             name={chat.userName}
                                             url={chat.profileUrl}/> :
+                                    null}
+                                    {(chat.type === 'ENTER') ?
+                                        <MessageItem 
+                                            align={"left"}
+                                            message={chat.message} 
+                                            time={time}
+                                            name={""}
+                                            url={botIcon}/> :
                                     null}
                                     {(chat.type === 'COMMAND') ?
                                         <CommandMessageItem 

@@ -55,8 +55,6 @@ function FileMessageItem({align, message, time, name, url}) {
                                 </div>
                                 <div style={{padding: '0 0 0 10px', height: '26px', display: 'flex', fontFamily:'SUIT-Medium'}}>
                                     <div>{`${messageItem.size}KB`}</div>
-                                    <div>&nbsp;</div>
-                                    <div>{messageItem.type}</div>
                                 </div>
                             </Grid>
                             <Grid item xs={2} sx={{height: '52px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>

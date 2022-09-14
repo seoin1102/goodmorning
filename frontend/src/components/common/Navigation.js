@@ -66,7 +66,6 @@ function Navigation() {
      */
     const onCreateCrew = useCallback(async(channelNo, crew, userNo) => {
         const result = await post(`/crew/${channelNo}/${userNo}`, crew);
-        // console.log("############", result.data );
         dispatch(addCrew(result.data));
     }, [])
 
@@ -111,8 +110,12 @@ function Navigation() {
     return (
     <>
         <Grid item xs={2} style={{ height: '842px',backgroundColor:"#1bc6d9"}}>
-            <NavigationEct onCreateCrew={onCreateCrew} onCreateChannel={onCreateChannel} />
-            <NavigationCrew crewList={crewList} onClickCrew={onClickCrew} />
+            <NavigationEct 
+                onCreateCrew={onCreateCrew} 
+                onCreateChannel={onCreateChannel} />
+            <NavigationCrew 
+                crewList={crewList} 
+                onClickCrew={onClickCrew} />
         </Grid>
     </>
     );

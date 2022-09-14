@@ -5,7 +5,7 @@ import { get } from '../../apis/Axios';
 import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import CrewSetting from '../modal/Crew/CrewSetting';
 
-function ChatHeader() {
+function ChatHeader({ publishEnter }) {
 
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
@@ -44,7 +44,7 @@ function ChatHeader() {
                     <List style={{ padding: '-20px auto'}}>
                         <ListItem button key="RemySharp"
                             onClick={onClickCrewModal}
-                            style={{padding: '2px 0px 50px 10px'}} 
+                            style={{padding: '2px 0px 2px 10px'}} 
                             >
                             <ListItemText>{`# ${crewName}`} </ListItemText>
                         </ListItem>
@@ -52,7 +52,8 @@ function ChatHeader() {
                                     users={users} crewName={crewName} 
                                     channelNo={channelNo} crewNo={crewNo} 
                                     initialUser={initialUser} userNo={userNo}
-                                    masterCrew={masterCrew}/>
+                                    masterCrew={masterCrew}
+                                    publishEnter={publishEnter} />
                     </List>
                 </Grid>
             </Grid>

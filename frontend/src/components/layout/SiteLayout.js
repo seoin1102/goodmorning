@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import * as SockJS from "sockjs-client";
 import { get, postJson, putUrl } from '../../apis/Axios';
-import { chatCommand, chatFileVo, chatPreviewVo, chatVo, msgChat, msgCommand, msgConnect, msgFile, msgPreview } from '../../apis/ChatVo.js';
+import { chatCommand, chatFileVo, chatPreviewVo, chatVo, msgChat, msgCommand, msgConnect, msgFile, msgPreview, chatEnter, msgEnter } from '../../apis/ChatVo.js';
 import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import { addChat, setChat } from '../../redux/chat';
 import { addCHATALARM, resetCHATALARM, setCHATALARM, updateCHATALARM } from '../../redux/chatAlarm';
@@ -32,7 +32,7 @@ function SiteLayout({children}) {
     useEffect(() => {
         setLoading(true);
         connect()
-        
+
         return () => {disconnect()};
     }, [crewNo, ChattingList]);
 
@@ -194,6 +194,23 @@ function SiteLayout({children}) {
         client.current.publish({destination: `/pub/chat`, body: pubChat});
   }
 
+  const publishEnter = async(userName) => {
+    if (!client.current.connected) 
+      return;
+
+      // 메시지 객체 생성 및 DB 저장
+      const addChat = chatEnter(crewNo, authUser.no, userName);
+      const result = await postJson(`/chat/${crewNo}/${authUser.no}`, addChat);
+
+      // DB INSERT 성공 시 STOMP 통신
+      if(result.data !== 'success')
+        return;
+      
+    console.log("db 추가 성공")
+      const pubChat = msgEnter(crewNo, authUser.no, userName);
+      client.current.publish({destination: `/pub/chat`, body: pubChat});
+    }
+
     ///// 시창이 코드 넣을 곳 ///////////
 
     ///////////////////////////
@@ -201,7 +218,7 @@ function SiteLayout({children}) {
         <div>
             <Grid container component={Paper}>
                 <Header setChattingList = {setChattingList}/>
-                <Navigation/>
+                <Navigation />
                 {
                     (children.type === Chat) ? 
                     <Chat 
@@ -210,6 +227,7 @@ function SiteLayout({children}) {
                         setSendMessage={setSendMessage} 
                         publish={publish}
                         publishFileUpload={publishFileUpload}
+                        publishEnter={publishEnter}
                         loading={loading}
                         setLoading={setLoading}
                         /> :

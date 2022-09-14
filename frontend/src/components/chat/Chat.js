@@ -4,12 +4,13 @@ import ChatHeader from "./ChatHeader";
 import Message from './Message';
 import SendMessage from './SendMessage';
 
-const Chat = ({ chatList, sendMessage, setSendMessage, publish, publishFileUpload, loading, setLoading }) => {
+const Chat = ({ chatList, sendMessage, setSendMessage, publish, publishFileUpload, publishEnter, loading, setLoading }) => {
     
     return (
         
         <Grid item xs={10}>
-            <ChatHeader/>
+            <ChatHeader 
+                publishEnter={publishEnter} />
             <Message 
                 chatList={chatList}
                 loading={loading}

@@ -2,18 +2,18 @@ import React, { useCallback, useState } from 'react';
 import { Modal, Nav } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
-import { get, postJson, remove } from '../../../apis/Axios';
+import { get, getJson, postJson, remove } from '../../../apis/Axios';
 import { setCHANNELCREWFOCUS } from '../../../redux/focus';
 import CrewSetting_info from './CrewSetting_info';
 import CrewSetting_member from './CrewSetting_member';
 
-function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo, initialUser, userNo, masterCrew }) {
+function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo, initialUser, userNo, masterCrew, publishEnter }) {
 
   let [tab, setTab] = useState(0);
   const dispatch = useDispatch();
 
-  const onClickCrewInvite = async(user) => {
-    const userEmail = JSON.stringify({email: user})
+  const onClickCrewInvite = async(email) => {
+    const userEmail = JSON.stringify({email: email})
     const result = await postJson(`/crew/invite/${channelNo}/${crewNo}`, userEmail);
     
     if(result.data == "success"){
@@ -28,7 +28,12 @@ function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo
           text: '이메일을 다시 확인해 주세요.'
         })
       }
+      const result2 = await get(`/crew/invite/message/${email}`);
+      console.log(result2,"야야야야야야")
       initialUser();
+      
+      
+      publishEnter(result2.name);
   }
   
   const initialFocus = useCallback(async(userNo) => {

@@ -65,6 +65,12 @@
 				]]>
 		</select>
 		
+		<select id="findUserNameByUserEmail" parameterType="string" resultType="uservo">
+				<![CDATA[
+				select name from user where email = #{email};
+				]]>
+		</select>
+		
 		<insert id="insertcrewuser" parameterType="crewvo">
 				<![CDATA[
 				insert into crew_user values (null, #{crewNo}, #{userNo}, 1, now(), #{owner}, now());

@@ -48,6 +48,13 @@
 				values (null, #{userNo}, #{chatNo}, 'unread')
 				]]>
 		</insert>
+		<insert id="insertReadChatUserByCrewNoAndChatNo" parameterType="map">
+				<![CDATA[
+				insert 
+					into chat_user 
+				values (null, #{userNo}, #{chatNo}, 'read')
+				]]>
+		</insert>
 		<update id="updateChatUserByCrewNoAndAuthUserNo" parameterType ="map">
 		<![CDATA[
 				update chat as a, chat_user as b set b.`check` = "READ" 

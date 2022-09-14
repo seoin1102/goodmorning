@@ -198,7 +198,7 @@ export const fileDownload = async function(fileName) {
     } catch (err) {
         Swal.fire({
             title:'Oops!',
-            text: err.toString(),
+            text: "삭제된 파일입니다!",
             icon: 'error',
             confirmButtonText: '확인'
           })
