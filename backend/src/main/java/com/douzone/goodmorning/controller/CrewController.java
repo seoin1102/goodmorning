@@ -74,16 +74,15 @@ public class CrewController {
     }
 	
 	@Transactional
-	@GetMapping("/crew/invite/message")
-    public ResponseEntity<Message> findUserNameByUserEmail(@RequestBody UserVo userVo) {
+	@GetMapping("/crew/invite/message/{email}")
+    public ResponseEntity<Message> findUserNameByUserEmail(@PathVariable("email") String email) {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-    	
-    	
+    	 	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("크루 셋팅 마스터 크루 유저 조회");
-    	message.setData(crewService.findUserNameByUserEmail(userVo.getEmail()));
+    	message.setData(crewService.findUserNameByUserEmail(email));
     	return ResponseEntity.ok().headers(headers).body(message);
     }
 	

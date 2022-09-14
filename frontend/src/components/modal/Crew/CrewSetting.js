@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { Modal, Nav } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
-import { get, postJson, remove } from '../../../apis/Axios';
+import { get, getJson, postJson, remove } from '../../../apis/Axios';
 import { setCHANNELCREWFOCUS } from '../../../redux/focus';
 import CrewSetting_info from './CrewSetting_info';
 import CrewSetting_member from './CrewSetting_member';
@@ -28,10 +28,12 @@ function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo
           text: '이메일을 다시 확인해 주세요.'
         })
       }
-      initialUser();
-      const userName = await get(`/crew/invite/message`, userEmail);
+      const userName = await get(`/crew/invite/message/${email}`);
       console.log(userName,"야야야야야야")
-      publishEnter(userName.name);
+      initialUser();
+      
+      
+      // publishEnter(userName);
   }
   
   const initialFocus = useCallback(async(userNo) => {
