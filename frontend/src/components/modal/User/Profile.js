@@ -4,7 +4,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { get, postFile, put, putJson } from '../../../apis/Axios';
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
-function Profile({modalShow, onClickModal,profile, setProfile, user, setUserInfo}) {
+function Profile({modalShow, onClickModal,profile, setProfile, user, setUserInfo, setChattingList}) {
   
   const {name, job, phoneNumber, profileUrl} = profile
   const userinfo = {no: user.no, name, job, phoneNumber};
@@ -32,6 +32,7 @@ function Profile({modalShow, onClickModal,profile, setProfile, user, setUserInfo
       console.log("여기!",setUser);
       localStorage.setItem('authUser',JSON.stringify(setUser));
       setUserInfo(setUser);
+      setChattingList(setUser);
       onClickModal();
   },[profile])  
 

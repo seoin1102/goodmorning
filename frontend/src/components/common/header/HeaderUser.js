@@ -14,7 +14,7 @@ import ProfileInfo from '../../modal/User/ProfileInfo';
 import { get, post } from '../../../apis/Axios';
 
 
-function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum, setUserInfo}) {
+function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum, setUserInfo, setChattingList}) {
   
   const [profileModalShow, setProFileModalShow] = useState(false);
   const chatAlarmList = useSelector(state => (state.chatAlarm));
@@ -64,7 +64,9 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum, 
                             </Navbar.Brand>
 
                             <Nav.Link onClick={onClickProfileModal} style={{fontSize: '1rem', color: 'white'}}>내정보</Nav.Link>
-                            <ProfileInfo modalShow={profileModalShow} onClickModal={onClickProfileModal} user={user} setUserInfo={setUserInfo}/>
+                            <ProfileInfo modalShow={profileModalShow} onClickModal={onClickProfileModal} 
+                                          user={user} setUserInfo={setUserInfo}
+                                          setChattingList={setChattingList}/>
 
                             <Badge 
                             badgeContent={totalSum === 0 ? null : totalSum} 

@@ -29,18 +29,16 @@ function SiteLayout({children}) {
     const chatList = useSelector(state => (state.chat), shallowEqual);
     const { crewNo } = useSelector(state => (state.focus), shallowEqual);
     const [ChattingList, setChattingList] = useState([]);
+
     useEffect(() => {
         connect()
         
         return () => {
             disconnect()};
-    }, [crewNo]);
+    }, [crewNo,ChattingList]);
 
     // useEffect(() =>{
-    //     async() => {
-    //     const getChatList = await get(`/chat/${crewNo}`);
-    //     setChattingList(getChatList);
-    // }
+
     // },[ChattingList])
 
     // 자원 할당(소켓 연결)
@@ -92,7 +90,8 @@ function SiteLayout({children}) {
             // focus 된 [채널/크루]의 전체 메시지 리스트 DB에서 가져와 출력
             const getChatList = await get(`/chat/${crewNo}`);
             const getSearchList = await get(`/chat/channel/${channelNo}`);
-            console.log("채팅리스트입니다다~", ChattingList);
+            // console.log("채팅리스트입니다다~", ChattingList);
+            // setChattingList(getChatList);
             dispatch(setChat(getChatList));
             dispatch(setSearch(getSearchList));
             dispatch(setCHATALARM({crewNo:crewNo}))
@@ -199,7 +198,7 @@ function SiteLayout({children}) {
     return (
         <div>
             <Grid container component={Paper}>
-                <Header/>
+                <Header setChattingList = {setChattingList}/>
                 <Navigation/>
                 {
                     (children.type === Chat) ? 

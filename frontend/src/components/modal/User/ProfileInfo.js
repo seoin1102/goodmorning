@@ -8,7 +8,7 @@ import dateIcon from '../../../assets/icons/date.png'
 import channelIcon from '../../../assets/icons/channel.png'
 import phoneIcon from '../../../assets/icons/phone.png'
 
-function Profileinfo({ modalShow, onClickModal, setUserInfo}) {
+function Profileinfo({ modalShow, onClickModal, setUserInfo, setChattingList}) {
 
   const user = getLocalStorageAuthUser();
   const { name, job, phoneNumber, profileUrl } = user;
@@ -100,7 +100,8 @@ function Profileinfo({ modalShow, onClickModal, setUserInfo}) {
               user={user}
               profile={profile}
               setProfile={setProfile}
-              setUserInfo={setUserInfo}/>
+              setUserInfo={setUserInfo}
+              setChattingList={setChattingList}/>
              </>) 
                    : (null)}
       </>  

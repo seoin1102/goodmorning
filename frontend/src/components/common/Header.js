@@ -12,7 +12,7 @@ import HeaderUser from './header/HeaderUser';
 import {getLocalStorageAuthUser} from '../../apis/Fetch';
 
 
-function Header() {
+function Header({setChattingList}) {
     const [totalSum, setTotalSum] = useState(0);
     // modal state
     const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
@@ -90,7 +90,6 @@ function Header() {
         
         if (channelNo !== null)
             initialChannel(channelNo, userNo);
-        console.log("aaaaaaaaa");
       }, [channelNo,userInfo])
 
     // useEffect(()=>{
@@ -114,7 +113,9 @@ function Header() {
                 <ChannelSetting modalShow={channelModalIsOpen} onClickModal={onClickChannelModal} users={users} initialUser={initialUser} masterChannelUser={masterChannelUser}/>
             </HeaderItem>
             <HeaderSearch search={search} setSearch={setSearch}/>
-            <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel} totalSum={totalSum} setTotalSum={setTotalSum} setUserInfo={setUserInfo}/>
+            <HeaderUser user={user} channelList ={channelList} onChangeChannel={onChangeChannel} 
+                        totalSum={totalSum} setTotalSum={setTotalSum} setUserInfo={setUserInfo}
+                        setChattingList={setChattingList}/>
         </Grid>
     );
 }
