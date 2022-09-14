@@ -1,10 +1,6 @@
-import React, { useState, useEffect,memo, useCallback } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 
 import { Col, Row } from "react-bootstrap";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import { setTask, addTask } from "../../redux/task";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {  Box, Card, Button, Paper } from "@mui/material";
@@ -14,10 +10,10 @@ import { get } from '../../apis/Axios';
 
 import "../../styles/css/Calendar.css";
 
-import TaskList from "./TaskList";
-import Checkbox from "./AssignCheckbox";
 import AddTask from "../modal/Calendar/AddTask";
+import Checkbox from "./AssignCheckbox";
 import TaskCalendar from "./TaskCalendar";
+import TaskList from "./TaskList";
 let isInitial = true;
 
 function Calendar() {
@@ -116,35 +112,6 @@ function Calendar() {
               <h3 style={{ padding: "30px 0px 0px 50px", width: "200px" }}>
                 업무 달력
               </h3>
-              <div style={{display:'flex',gap:"1rem"}}>
-              {/* <NavLink style={{ textDecorationLine: "none" }} to={"/project"}>
-                  <Button style={{ color: "black" }}>
-                    프로젝트로 돌아가기
-                  </Button>
-                </NavLink> */}
-                {/* <NavDropdown
-                  style={{
-                    border: "3px solid #f0f8ff69",
-                    fontSize: "15px",
-                    padding: "4px",
-                  }}
-                  title="채널 선택"
-                >
-                  {crewList.length !== 0
-                    ? crewList.map((crew, index) => (
-                        <NavDropdown.Item
-                          onClick={() => {
-                            return initialTask(crew.no);
-                          }}
-                          key={index}
-                        >
-                          {crew.name}
-                        </NavDropdown.Item>
-                      ))
-                    : ""}
-                </NavDropdown> */}
-                
-              </div>
             </div>
             <div style={{display:'flex',gap:"1rem"}}>
             

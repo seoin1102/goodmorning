@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Form, Button   } from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
 import { shallowEqual, useSelector } from 'react-redux';
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 

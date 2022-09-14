@@ -3,11 +3,11 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import React, { useEffect, useState } from 'react';
+import { fileDownload } from '../../apis/Fetch';
+import '../../assets/fonts/font.css';
 import fileIcons from '../../assets/icons/fileUpload.png';
 import fileDownloadIcons from '../../assets/icons/file_download.png';
-import '../../assets/fonts/font.css';
 import '../../styles/css/msItem.css';
-import { fileDownload } from '../../apis/Fetch';
 
 function FileMessageItem({align, message, time, name, url}) {
     const [messageItem, setMessageItem] = useState({
@@ -19,7 +19,7 @@ function FileMessageItem({align, message, time, name, url}) {
 //
     useEffect(() => {
         const messageItemArray = message.split('#$#');
-
+        console.log(messageItemArray)
         setMessageItem((prevMessageItem) => ({
             ...prevMessageItem, 
             name: messageItemArray[0], 
@@ -60,7 +60,7 @@ function FileMessageItem({align, message, time, name, url}) {
                                 </div>
                             </Grid>
                             <Grid item xs={2} sx={{height: '52px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                <Link target="_blank" underline={'none'} color="inherit" onClick={() =>{ 
+                                <Link target="_blank" underline={'none'} color="inherit" style={{cursor:'pointer'}} onClick={() =>{ 
                                                                                                     let spliturl = messageItem.link;
                                                                                                     spliturl=spliturl.split('/')
                                                                                                     return fileDownload(spliturl[2])}

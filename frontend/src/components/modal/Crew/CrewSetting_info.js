@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { putJson } from '../../../apis/Axios';
-import { setCREWFOCUS } from '../../../redux/focus';
 import { updateCREW } from '../../../redux/crew';
-import { Link } from 'react-router-dom';
+import { setCREWFOCUS } from '../../../redux/focus';
 
 function CrewSetting_info({onClickModal, crewName, setTab, crewNo, onClickCrewDelete, userNo, masterCrew}) {
 

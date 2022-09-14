@@ -1,17 +1,14 @@
-import React,{useState} from 'react';
-import Grid from '@mui/material/Grid';
+import Autocomplete from '@mui/material/Autocomplete';
 import Divider from '@mui/material/Divider';
-import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
-import { borderRadius } from '@mui/system';
-import { DAY_SIZE } from '@mui/x-date-pickers/internals/constants/dimensions';
-import SearchResult from '../../search/SearchList';
-import { setProject, deleteProject } from "../../../redux/project";
+import TextField from '@mui/material/TextField';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import SearchIcon from '../../../assets/icons/search.svg';
-import Autocomplete from '@mui/material/Autocomplete';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { setProject } from "../../../redux/project";
 
 function HeaderSearch(props) {
   const searchList = useSelector(state => (state.search), shallowEqual);

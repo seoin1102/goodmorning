@@ -1,20 +1,16 @@
-import React, { useState, useEffect, memo, useMemo } from "react";
-import { NavDropdown } from "react-bootstrap";
-import { get, remove } from "../../apis/Axios";
-import {Card, Box, Button, Grid, Paper, Divider} from "@mui/material";
-import { NavLink } from "react-router-dom";
-import CollapsibleTable from "./ProjectTable";
+import { Box, Button, Card, Divider, Grid, Paper } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
-import { MonthPicker } from "@mui/x-date-pickers/MonthPicker";
-import { YearPicker } from "@mui/x-date-pickers/YearPicker";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import ProjectChart from "./ProjectChart";
-import { setProject, deleteProject } from "../../redux/project";
-import { setTask} from "../../redux/task";
+import React, { memo, useEffect, useState } from "react";
+import { NavDropdown } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { get, remove } from "../../apis/Axios";
 import { setCREWFOCUS } from "../../redux/focus";
+import { deleteProject, setProject } from "../../redux/project";
+import { setTask } from "../../redux/task";
 import AddProject from "../modal/Calendar/AddProject";
+import ProjectChart from "./ProjectChart";
+import CollapsibleTable from "./ProjectTable";
 
 
 function Project({publishLinkPreview}) {
@@ -30,24 +26,10 @@ function Project({publishLinkPreview}) {
   const projectList = useSelector((state) => state.project, shallowEqual);
   const taskList = useSelector((state) => state.task, shallowEqual);
   const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
   const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
   console.log("크루 넘버!",crewNo)
-  const initialProject = React.useCallback(
-    async (crewNo) => {
-      const getProjects = await get(`/project/cNo/${crewNo}`);
-      dispatch(setProject(getProjects));
-    },
-    [dispatch]
-  );
+  
 
-  const totalProject = React.useCallback(
-    async (channelNo) => {
-      const getProjects = await get(`/project/${channelNo}`);
-      dispatch(setProject(getProjects));
-    },
-    [dispatch]
-  );
   const initialTask = React.useCallback(
     async (projectNo) => {
       const getTasks = await get(`/task/pNo/${projectNo}`);
@@ -58,6 +40,7 @@ function Project({publishLinkPreview}) {
 
   useEffect(() => {
     setChangeCrew(crewNo);
+    console.log("무한랜더링찾기2")
   }, [crewNo]);
 
   const handleDelete = () => {
@@ -82,7 +65,7 @@ function Project({publishLinkPreview}) {
   const projects = projectList.map((i) => [
     i.id,
     i.projectName,
-    "#34d6ce",
+    i.status > 0 ? i.status > 50 ?'write': 'complate' : null, 
     new Date(i.start),
     new Date(i.end),
     null,
@@ -90,19 +73,13 @@ function Project({publishLinkPreview}) {
     null,
   ]);
   const data = [columns, ...projects];
-// useEffect(()=>{
-//   initialProject
-// },[initialProject])
-
-// useEffect(()=>{
-//   totalProject
-// },[totalProject])
 
 useEffect(()=>{
   initialTask
+  console.log("무한랜더링 찾기")
 },[initialTask])
 
-
+  console.log("프로젝트 테스트")
   return (
     <div
       className="animated fadeIn p-4 demo-app"
@@ -131,9 +108,10 @@ useEffect(()=>{
                     title="채널 선택"
                   >
                     <NavDropdown.Item
-                    onClick={() => {
+                    onClick={async() => {
                       setChannelName('전체 채널')
-                      return totalProject(channelNo);
+                      const getProjects = await get(`/project/${channelNo}`);
+                      dispatch(setProject(getProjects));
 
                     }}>전체 채널</NavDropdown.Item>
                     <Divider />
@@ -141,7 +119,7 @@ useEffect(()=>{
                       ? crewList.map((crew, index) => (
                         
                           <NavDropdown.Item
-                            onClick={() => {
+                            onClick={async() => {
                               setChangeCrew((prevState) => ({
                                 ...prevState,
                                 no: crew.no,
@@ -151,7 +129,8 @@ useEffect(()=>{
                                 setCREWFOCUS({ no: crew.no, name: crew.name })
                               );
                               setChannelName(crew.name)
-                              return initialProject(crew.no);
+                              const getProjects = await get(`/project/cNo/${crew.no}`);
+                              dispatch(setProject(getProjects));
                             }}
                             key={index}
                           >
@@ -171,7 +150,6 @@ useEffect(()=>{
                   </Button>
                   <AddProject 
                       show={show} 
-                      handleClose={handleClose} 
                       setShow={setShow}
                       publishLinkPreview={publishLinkPreview}
                       />
@@ -183,14 +161,6 @@ useEffect(()=>{
                     프로젝트 삭제
                   </Button>
 
-                  {/* <NavLink style={{ textDecorationLine: "none" }} to={"/task"}>
-                    <Button
-                      style={{ fontFamily: "SUIT-Medium", color: "black" }}
-                      onClick={handleTask}
-                    >
-                      작업 설정
-                    </Button>
-                  </NavLink> */}
                 </div>
               </Grid>
               <ProjectChart

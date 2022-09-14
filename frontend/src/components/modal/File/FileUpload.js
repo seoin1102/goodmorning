@@ -1,9 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
-//import Modal from 'react-modal'
-import {Modal,Card,Row, Col,Button,InputGroup,Form, FormSelect } from 'react-bootstrap';
-import { addFile,checkResponse, fetchResponse, getLocalStorageAuthUser, projectDirectoryListdata, projectFileListdata} from '../../../apis/Fetch';
-import { useSelector, useDispatch } from 'react-redux';
-import {fileFileData,fileFileUpload} from '../../../redux/file'
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, Form, FormSelect, InputGroup, Modal } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { getLocalStorageAuthUser, projectDirectoryListdata } from '../../../apis/Fetch';
 
 function FileUpload({modalShow, FileUploadModalIsOpenCallback, uploadcheck, publishFileUpload, type}) {
     const user = getLocalStorageAuthUser();

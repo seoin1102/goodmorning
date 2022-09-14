@@ -1,5 +1,5 @@
-import React,{Fragment} from 'react';
-import { Button, Form, Row, Col, CloseButton, Card, Modal } from 'react-bootstrap';
+import React from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
 
 
 function ChannelSetting_member({onClickModal, onClickHandler,setTab}) {

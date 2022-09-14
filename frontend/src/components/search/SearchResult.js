@@ -1,13 +1,14 @@
 import Divider from '@mui/material/Divider';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import List from '@mui/material/List';
 import React, { Fragment, useCallback, useEffect, useRef } from 'react';
-import MessageItem from '../chat/MessageItem';
-import SendPreviewMessage from '../chat/SendPreviewMessage'; 
+import { shallowEqual, useSelector } from 'react-redux';
 import { useLocation } from "react-router-dom";
-import GitMessageItem from '../chat/GitMessageItem';
 import githubIcon from '../../assets/icons/github.svg';
 import jenkinsIcon from '../../assets/icons/jenkins.png';
+import GitMessageItem from '../chat/GitMessageItem';
+import JenkinsMessageItem from '../chat/JenkinsMessageItem';
+import MessageItem from '../chat/MessageItem';
+import SendPreviewMessage from '../chat/SendPreviewMessage';
 
 function SearchResult() {
     const searchList = useSelector(state => (state.chat), shallowEqual);
@@ -78,13 +79,13 @@ function SearchResult() {
                                 {(chat.type === 'JENKINS') ?
                                 chat.message==searchText && chat.sendDate == sendDate?
                                 <div style={{backgroundColor:'#C9C8C8'}}>
-                                    <MessageItem 
+                                    <JenkinsMessageItem 
                                         align={"left"}
                                         message={chat.message} 
                                         time={chat.sendDate}
                                         name={'Jenkins'}
                                         url={jenkinsIcon}/></div> :
-                                    <MessageItem 
+                                    <JenkinsMessageItem 
                                         align={"left"}
                                         message={chat.message} 
                                         time={chat.sendDate}

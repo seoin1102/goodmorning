@@ -1,10 +1,6 @@
-import { Autocomplete, TextField } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Form, FormLabel, Modal } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { get } from '../../../apis/Axios';
+import React, { useState } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
-import { setCHANNELFOCUS } from '../../../redux/focus';
 
 
 function ChannelSetting_info({onClickHandler,channelName, onClickModal, masterChannelUser}) {
@@ -27,7 +23,7 @@ function ChannelSetting_info({onClickHandler,channelName, onClickModal, masterCh
                     }}
                     defaultValue={channelName}
                     onKeyDown={(e) => { if(e.key === 'Enter') 
-                                           {onClickHandler(name)}}}
+                                          {onClickHandler(name)}}}
                     />
                     :<Form.Group className="mb-3" controlId="crewForm.name"> <Form.Label> {channelName} </Form.Label> </Form.Group>}
                 </Form.Group>

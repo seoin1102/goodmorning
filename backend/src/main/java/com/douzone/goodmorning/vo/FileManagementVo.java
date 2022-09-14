@@ -20,4 +20,5 @@ public class FileManagementVo {
 	private String originFileName;
 	private String sendDate;
 	private String crewName;
+	private int enable;
 }

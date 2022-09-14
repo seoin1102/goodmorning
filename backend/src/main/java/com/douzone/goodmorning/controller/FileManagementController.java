@@ -43,9 +43,13 @@ public class FileManagementController {
 
 	@PostMapping("/download/{filename}")
 	public ResponseEntity<JsonResult> index(@PathVariable("filename") String filename) {
-		System.out.println("들어온지 테스트 " + filename);
+		//System.out.println("들어온지 테스트 " + filename);
 		String file = "/assets/" + filename;
 		FileManagementVo fileManagementVo =fileManagementService.getFile(file);
+		
+		if(fileManagementVo.getEnable()!=1) {
+			return ResponseEntity.status(HttpStatus.OK).body(JsonResult.fail("삭제된 파일입니다!")); 
+		}
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(fileManagementVo));
 	}
 	

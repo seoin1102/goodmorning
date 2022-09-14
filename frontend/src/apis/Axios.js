@@ -131,9 +131,7 @@ export const putUrl = async (url) => {
 export const remove = async (url, data) => {
     try {
         let response = await client.delete(url,data);
-        console.log(response);
         return response.data;
-
     } catch (error) {
         console.error("Error >>", error);
     }

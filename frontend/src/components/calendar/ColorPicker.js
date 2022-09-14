@@ -1,6 +1,6 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { CirclePicker } from 'react-color';
-import '../../styles/css/Calendar.css'
+import '../../styles/css/Calendar.css';
 
 export default function ColorPicker(props) {
   const [state, setState] = useState({color:'#4caf50'})

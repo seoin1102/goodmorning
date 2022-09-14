@@ -1,12 +1,10 @@
-import { height } from '@mui/system';
-import React, { useCallback, useState, useEffect } from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
-import { shallowEqual, useSelector } from 'react-redux';
-import { getLocalStorageAuthUser, fetchResponse, checkResponse, updateProfileAndFindProfileurl } from '../../../apis/Fetch';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
+import { checkResponse, fetchResponse, getLocalStorageAuthUser } from '../../../apis/Fetch';
+import channelIcon from '../../../assets/icons/channel.png';
+import dateIcon from '../../../assets/icons/date.png';
+import phoneIcon from '../../../assets/icons/phone.png';
 import EditProfile from './Profile';
-import dateIcon from '../../../assets/icons/date.png'
-import channelIcon from '../../../assets/icons/channel.png'
-import phoneIcon from '../../../assets/icons/phone.png'
 
 function Profileinfo({ modalShow, onClickModal, setUserInfo, setChattingList}) {
 
@@ -104,6 +102,7 @@ function Profileinfo({ modalShow, onClickModal, setUserInfo, setChattingList}) {
               setChattingList={setChattingList}/>
              </>) 
                    : (null)}
+
       </>  
       );
 

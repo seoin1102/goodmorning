@@ -48,6 +48,9 @@ public class ProjectService {
 
 	}
 	
+	public Long checkProjectNameByCrewNo(Long crewNo, String projectName) {
+		return projectRepository.checkProjectNameByCrewNo(crewNo, projectName);
+	}
 	
 public void execCMD(String cmd){
 		Runtime rt = Runtime.getRuntime();
@@ -134,4 +137,5 @@ public void execCMD(String cmd){
 			}
 		}
 	}
+
 }

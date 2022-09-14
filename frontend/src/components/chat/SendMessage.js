@@ -1,14 +1,11 @@
-import React,{useState, useRef,useEffect} from 'react';
-import Modal from "react-modal";
+import { Button } from '@mui/material';
+import Fab from '@mui/material/Fab';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import Fab from '@mui/material/Fab';
-import { Button } from '@mui/material';
-import FileUpload from '../modal/File/FileUpload'
-import { NavLink } from 'react-bootstrap';
-import { addFile,fileDownload, jenkinsbuild } from '../../apis/Fetch';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { addFile, jenkinsbuild } from '../../apis/Fetch';
 import send2 from '../../assets/icons/send2.svg';
+import FileUpload from '../modal/File/FileUpload';
 
 function SendMessage({onChangeHandler, onClickHandler, text, publishFileUpload}) {
 

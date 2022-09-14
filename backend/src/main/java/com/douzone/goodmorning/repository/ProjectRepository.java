@@ -1,6 +1,8 @@
 package com.douzone.goodmorning.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -38,7 +40,14 @@ public class ProjectRepository {
 	public Boolean delete(Long id) {
 		sqlSession.insert("task.delete", id);
 		return sqlSession.insert("project.delete", id) == 1;
+	}
 
+	public Long checkProjectNameByCrewNo(Long crewNo, String projectName) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("crewNo", crewNo);
+		map.put("projectName", projectName);
+		
+		return sqlSession.selectOne("project.checkProjectNameByCrewNo", map);
 	}
 
 }

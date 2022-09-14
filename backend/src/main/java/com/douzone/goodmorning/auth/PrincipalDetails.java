@@ -29,7 +29,7 @@ public class PrincipalDetails implements UserDetails {
 
 	public PrincipalDetails(UserVo userVo) {
 		this.userVo = userVo;
-		System.out.println((userVo));
+		System.out.println("asdasfasf" + (userVo));
 	}
 
 	// 해당 직원의 권한을 리턴하는 곳

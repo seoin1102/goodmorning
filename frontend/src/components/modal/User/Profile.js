@@ -4,6 +4,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { get, postFile, put, putJson } from '../../../apis/Axios';
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
+
 function Profile({modalShow, onClickModal,profile, setProfile, user, setUserInfo, setChattingList}) {
   
   const {name, job, phoneNumber, profileUrl} = profile

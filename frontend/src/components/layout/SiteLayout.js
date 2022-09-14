@@ -5,22 +5,21 @@ import React, { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import * as SockJS from "sockjs-client";
 import { get, postJson, putUrl } from '../../apis/Axios';
-import { chatVo, msgChat, msgConnect, chatPreviewVo, msgPreview, chatFileVo, msgFile, chatCommand, msgCommand } from '../../apis/ChatVo.js';
+import { chatCommand, chatFileVo, chatPreviewVo, chatVo, msgChat, msgCommand, msgConnect, msgFile, msgPreview } from '../../apis/ChatVo.js';
 import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import { addChat, setChat } from '../../redux/chat';
-import { setSearch } from '../../redux/search';
 import { addCHATALARM, resetCHATALARM, setCHATALARM, updateCHATALARM } from '../../redux/chatAlarm';
+import { setSearch } from '../../redux/search';
 import '../../styles/css/SiteLayout.css';
+import Project from '../calendar/Project';
 import Chat from '../chat/Chat';
 import Header from '../common/Header';
 import Navigation from '../common/Navigation';
-import Project from '../calendar/Project';
-import moment from 'moment';
 
 function SiteLayout({children}) {
     const client = useRef({});
     const authUser = getLocalStorageAuthUser();
-    
+    const [loading, setLoading] = useState(true);
     const [sendMessage, setSendMessage] = useState("");
 
     const dispatch = useDispatch();
@@ -31,11 +30,11 @@ function SiteLayout({children}) {
     const [ChattingList, setChattingList] = useState([]);
 
     useEffect(() => {
+        setLoading(true);
         connect()
         
-        return () => {
-            disconnect()};
-    }, [crewNo,ChattingList]);
+        return () => {disconnect()};
+    }, [crewNo, ChattingList]);
 
     // 자원 할당(소켓 연결)
     const connect = () => {
@@ -94,6 +93,7 @@ function SiteLayout({children}) {
 
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)
             client.current.subscribe(`/sub/${crewNo}`,async (data) => {
+                
                 const chatData = JSON.parse(data.body);
 
                 if(chatData.type === 'GITHUB')
@@ -134,9 +134,17 @@ function SiteLayout({children}) {
 
             if(jenkinsCommand[0] === 'jenkins' && jenkinsCommand[1] === 'start' && jenkinsCommand[2] === '-p') {
                 // 자기 크루에 속한 프로젝트 인지 확인하는 코드(서버에서 체크)
-                
-                addChat = chatCommand(crewNo, authUser.no, jenkinsCommand[3]);
-                pubChat = msgCommand(crewNo, authUser.no, jenkinsCommand[3], authUser.name, authUser.profileUrl);
+                const result = await get(`/jenkinsHook/${crewNo}/${jenkinsCommand[3]}`);
+                console.log("체크체크 크루 프로젝트 체크", result)
+                if(result !== 0) {
+                    addChat = chatCommand(crewNo, authUser.no, jenkinsCommand[3]);
+                    pubChat = msgCommand(crewNo, authUser.no, jenkinsCommand[3], authUser.name, authUser.profileUrl);
+                }
+
+                else {
+                    addChat = chatCommand(crewNo, authUser.no, 'none');
+                    pubChat = msgCommand(crewNo, authUser.no, 'none', authUser.name, authUser.profileUrl);
+                }
             }
         }
         
@@ -202,6 +210,8 @@ function SiteLayout({children}) {
                         setSendMessage={setSendMessage} 
                         publish={publish}
                         publishFileUpload={publishFileUpload}
+                        loading={loading}
+                        setLoading={setLoading}
                         /> :
                     (
                         (children.type === Project) ?

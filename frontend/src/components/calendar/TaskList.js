@@ -1,6 +1,6 @@
 import React from "react";
+import { shallowEqual, useSelector } from "react-redux";
 import "../../styles/css/Calendar.css";
-import { useSelector, shallowEqual } from "react-redux";
 
 function TaskList() {
   const taskList = useSelector((state) => state.task, shallowEqual);

@@ -1,9 +1,9 @@
-import React from 'react';
-import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import React from 'react';
 import ReactModal from "react-modal";
 import settings from '../../../assets/icons/settings.svg';
 

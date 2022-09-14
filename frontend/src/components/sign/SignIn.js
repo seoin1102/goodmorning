@@ -1,10 +1,9 @@
-import React, {Fragment, useEffect, useState} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import SignIn from './signItem/SignIn'
-import {signin} from '../../redux/sign'
-import { fetchResponse, checkResponse } from '../../apis/Fetch';
-import { get, postJson, postSignIn } from '../../apis/Axios';
 import jwt_decode from "jwt-decode";
+import React, { Fragment, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { postSignIn } from '../../apis/Axios';
+import { signin } from '../../redux/sign';
+import SignIn from './signItem/SignIn';
 function SignContainer() {
 
 
@@ -17,12 +16,10 @@ function SignContainer() {
     const { email, passwd } = useSelector(state => ({
         email: state.sign.email,
         passwd: state.sign.passwd
-     }));
+    }));
     
-    // console.log(email,passwd);
-    
+
     const dispatch = useDispatch();
-         
     const onSignIn=(email,passwd) =>{
         getSignIn(email,passwd);
         return  dispatch(signin(email,passwd));
@@ -60,7 +57,7 @@ function SignContainer() {
             callback={onSignIn}
             callbackCheckSaveEmailStatus={onChangeSaveEmailcheck}
             errormessage={errormessage}/>
-       </Fragment>     
+      </Fragment>     
     );
 }
 

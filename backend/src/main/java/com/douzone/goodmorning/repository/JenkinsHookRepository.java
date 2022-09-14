@@ -18,8 +18,7 @@ public class JenkinsHookRepository {
 	private final SqlSession sqlSession;
 
 	public int insert(Map<String, String> map) {
-		return sqlSession.insert("jenkinshook.insert",map);
-		
+		return sqlSession.insert("jenkinshook.insert",map);		
 	}
 
 	public JenkinsHookVo findProjectNo(String string) {

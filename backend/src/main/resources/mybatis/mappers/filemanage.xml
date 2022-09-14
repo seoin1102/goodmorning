@@ -15,7 +15,7 @@
 	
 	<select id="findFile"  parameterType="string" resultType="filevo">
 		<![CDATA[
-		  select no, url, comment,user_no as userNo, origin_file_name as originFileName 
+		  select no, url, comment,user_no as userNo, origin_file_name as originFileName, enable 
 		  from fileUpload where url=#{url }
 		]]>
 	</select>

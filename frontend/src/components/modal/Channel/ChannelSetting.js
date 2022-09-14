@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Dropdown, Modal, NavItem, NavLink } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Modal } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { post, postJson, putJson } from '../../../apis/Axios';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import { postJson, putJson } from '../../../apis/Axios';
 import { setCHANNELFOCUS } from '../../../redux/focus';
 import ChannelSetting_info from './ChannelSetting_info';
 import ChannelSetting_member from './ChannelSetting_member';
-import Channelsetting_set from './Channelsetting_set';
-import Swal from 'sweetalert2';
 
 function ChannelSetting({modalShow, onClickModal,users, initialUser, masterChannelUser}) {
     let [tab, setTab] = useState(0);

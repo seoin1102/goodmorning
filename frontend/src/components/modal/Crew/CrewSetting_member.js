@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Button, Form, ListGroup, Modal } from 'react-bootstrap';
 import ProfileOthers from '../User/ProfileOthers';
 
@@ -17,12 +17,11 @@ function CrewSetting_member({users, onClickModal, setTab, onClickCrewInvite}) {
 
     return (
       <>
-               
         <Modal.Body>
             <Form>
             <Form.Group className="mb-3" controlId="channelForm.invite">
                       <Form.Label>사용자 추가</Form.Label>
-                       <Form.Control
+                      <Form.Control
                     type="email"
                     placeholder="example@gmail.com"
                     autoFocus
@@ -32,7 +31,7 @@ function CrewSetting_member({users, onClickModal, setTab, onClickCrewInvite}) {
                     value={value || ''}
                     onKeyDown={(e) => { 
                       if(e.key === 'Enter') 
-                       { onClickModal()
+                        { onClickModal()
                         setTab(0)}}} 
                     />
                 </Form.Group>
@@ -53,11 +52,11 @@ function CrewSetting_member({users, onClickModal, setTab, onClickCrewInvite}) {
                                                     onClickProfileOthersModal();
                                                     
                                                   }} 
-                                         key={user.no}> {user.name} ({user.email})
+                                        key={user.no}> {user.name} ({user.email})
                   </ListGroup.Item>                  
                   ) 
                   }
-                   
+                  
                   
                 </ListGroup>
                 </Form.Group>
@@ -73,8 +72,7 @@ function CrewSetting_member({users, onClickModal, setTab, onClickCrewInvite}) {
           </Button>
       </Modal.Footer>
       <ProfileOthers modalShow={profileOthersModalShow} onClickModal={onClickProfileOthersModal} user={userInfo} />
-     </>
-     
+    </>
     );
 }
 
