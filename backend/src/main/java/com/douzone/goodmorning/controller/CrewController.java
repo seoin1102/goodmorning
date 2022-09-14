@@ -110,7 +110,7 @@ public class CrewController {
     	
     	chatService.AddMessage(chatVo);
     	Long chatNo = chatService.getLastChat(crewNo, userNo);
-    	chatService.insertChatUserByCrewNoAndChatNo(userNo, chatNo);
+    	chatService.insertReadChatUserByCrewNoAndChatNo(userNo, chatNo);
     	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
