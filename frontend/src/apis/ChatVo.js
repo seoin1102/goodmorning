@@ -116,7 +116,7 @@ export const chatEnter = (crewNo, userNo, userName) => {
     const msg = defaultMsg(crewNo, userNo, `${userName} 님이 입장하였습니다.`);
     return JSON.stringify({
         ...msg, 
-        type: 'CHAT'
+        type: 'ENTER'
     });
 }
 
@@ -124,7 +124,7 @@ export const chatEnter = (crewNo, userNo, userName) => {
     const msg = defaultMsg(crewNo, userNo, `${userName} 님이 입장하였습니다.`, userName, null);
     return JSON.stringify({
         ...msg, 
-        type: 'CHAT',
+        type: 'ENTER',
         sendDate: new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ")
     });
 }

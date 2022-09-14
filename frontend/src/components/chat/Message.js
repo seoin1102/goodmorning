@@ -1,6 +1,6 @@
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import React, { Fragment, useCallback, useEffect, useRef } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import githubIcon from '../../assets/icons/github.svg';
 import jenkinsIcon from '../../assets/icons/jenkins.png';
 import CommandMessageItem from './CommandMessageItem';
@@ -15,13 +15,13 @@ import SendPreviewMessage from './SendPreviewMessage';
 function Message({chatList, loading, setLoading }) {
     
     const scrollRef = useRef(null);
-    
     const scrollToBottom = useCallback(() => {
         scrollRef.current.scrollIntoView({behavior: 'smooth'})
     }, [chatList])
 
     useEffect (() => {
         setLoading(false);
+
         if(!loading)
             scrollToBottom();
     }, [chatList])
@@ -29,7 +29,8 @@ function Message({chatList, loading, setLoading }) {
     useEffect (() => {
         if(!loading)
             scrollToBottom();
-  }, [loading])
+    }, [loading])
+
     return (
     <>
         {loading ? 

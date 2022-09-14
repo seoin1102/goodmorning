@@ -3,7 +3,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { shallowEqual, useSelector } from 'react-redux';
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
-function AddCrew({modalShow, onClickModal, onCreateCrew}) {
+function AddCrew({modalShow, onClickModal, onCreateCrew }) {
   const [name,setName] = useState("");
   const user = getLocalStorageAuthUser();
   const userNo = user.no;

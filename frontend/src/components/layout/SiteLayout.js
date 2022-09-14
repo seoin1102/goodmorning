@@ -32,7 +32,7 @@ function SiteLayout({children}) {
     useEffect(() => {
         setLoading(true);
         connect()
-        
+
         return () => {disconnect()};
     }, [crewNo, ChattingList]);
 
@@ -218,7 +218,7 @@ function SiteLayout({children}) {
         <div>
             <Grid container component={Paper}>
                 <Header setChattingList = {setChattingList}/>
-                <Navigation/>
+                <Navigation />
                 {
                     (children.type === Chat) ? 
                     <Chat 

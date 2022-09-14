@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.douzone.goodmorning.dto.Message;
 import com.douzone.goodmorning.dto.status.StatusEnum;
 import com.douzone.goodmorning.service.ChannelService;
+import com.douzone.goodmorning.service.ChatService;
 import com.douzone.goodmorning.service.CrewService;
+import com.douzone.goodmorning.vo.ChatVo;
 import com.douzone.goodmorning.vo.CrewVo;
 import com.douzone.goodmorning.vo.UserVo;
 
@@ -33,6 +35,7 @@ public class CrewController {
 	
     private final CrewService crewService;
 	private final ChannelService channelService;
+	private final ChatService chatService;
 	
     @Transactional
     @GetMapping("/crew/{userNo}")
@@ -98,7 +101,17 @@ public class CrewController {
     	Long crewNo = crewService.findMaster(channelNo, userNo);
     	crewVo.setNo(crewNo);
     	crewService.addCrewUser(crewNo, userNo, 1L);
-    	    	
+    	
+    	ChatVo chatVo = new ChatVo();
+    	chatVo.setCrewNo(crewNo);
+    	chatVo.setUserNo(userNo);
+    	chatVo.setMessage("채널이 생성되었습니다.");
+    	chatVo.setType(ChatVo.MessageType.ENTER);
+    	
+    	chatService.AddMessage(chatVo);
+    	Long chatNo = chatService.getLastChat(crewNo, userNo);
+    	chatService.insertChatUserByCrewNoAndChatNo(userNo, chatNo);
+    	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("크루추가 성공");

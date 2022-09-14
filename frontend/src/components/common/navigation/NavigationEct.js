@@ -10,7 +10,7 @@ import arrowDownIcon from '../../../assets/icons/keyboard_arrow_down.svg';
 import arrowUpIcon from '../../../assets/icons/keyboard_arrow_up.svg';
 import NavigationEctItem from './NavigationEctItem';
 
-function NavigationEct({onCreateCrew, onCreateChannel, taskList}) {
+function NavigationEct({onCreateCrew, onCreateChannel, taskList }) {
     // modal state
     const [addChannelModalShow, setAddChannelModalShow] = useState(false);
     const [addCrewModalShow, setAddCrewModalShow] = useState(false);

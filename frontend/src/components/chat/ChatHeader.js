@@ -44,7 +44,7 @@ function ChatHeader({ publishEnter }) {
                     <List style={{ padding: '-20px auto'}}>
                         <ListItem button key="RemySharp"
                             onClick={onClickCrewModal}
-                            style={{padding: '2px 0px 50px 10px'}} 
+                            style={{padding: '2px 0px 2px 10px'}} 
                             >
                             <ListItemText>{`# ${crewName}`} </ListItemText>
                         </ListItem>

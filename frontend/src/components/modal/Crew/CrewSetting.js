@@ -28,12 +28,12 @@ function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo
           text: '이메일을 다시 확인해 주세요.'
         })
       }
-      const userName = await get(`/crew/invite/message/${email}`);
-      console.log(userName,"야야야야야야")
+      const result2 = await get(`/crew/invite/message/${email}`);
+      console.log(result2,"야야야야야야")
       initialUser();
       
       
-      // publishEnter(userName);
+      publishEnter(result2.name);
   }
   
   const initialFocus = useCallback(async(userNo) => {
