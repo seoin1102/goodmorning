@@ -41,6 +41,13 @@ public class ChatRepository {
 		map.put("chatNo", chatNo);
 		return sqlSession.insert("chat.insertChatUserByCrewNoAndChatNo", map) == 1;
 	}
+	
+	public Boolean insertReadChatUserByCrewNoAndChatNo(Long userNo, Long chatNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("chatNo", chatNo);
+		return sqlSession.insert("chat.insertReadChatUserByCrewNoAndChatNo", map) == 1;
+	}
 
 	public boolean updateChatUserByCrewNoAndAuthUserNo(Long crewNo, Long authUserNo) {
 		Map<String, Object> map = new HashMap<>();
