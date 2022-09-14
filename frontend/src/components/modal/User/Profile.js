@@ -1,12 +1,15 @@
-import React, { useCallback } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
-import { postFile, put } from '../../../apis/Axios';
+import React, { useCallback,useRef,useEffect, useReducer, useState } from 'react';
+import { Modal, Form, Button   } from 'react-bootstrap';
+import { shallowEqual, useSelector } from 'react-redux';
+import { get, postFile, put, putJson } from '../../../apis/Axios';
+import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
-function Profile({modalShow, onClickModal,profile, setProfile, user}) {
+
+function Profile({modalShow, onClickModal,profile, setProfile, user, setUserInfo, setChattingList}) {
   
   const {name, job, phoneNumber, profileUrl} = profile
   const userinfo = {no: user.no, name, job, phoneNumber};
-  const setUser = {no: user.no, email:user.email, name, passwd: null, signUpDate:user.signUpDate, job, phoneNumber, profileUrl, enable: true};
+  let setUser = {no: user.no, email:user.email, name, passwd: null, signUpDate:user.signUpDate, job, phoneNumber, profileUrl, enable: true};
   
   const handleSubmit = useCallback(async(e) => {
     e.preventDefault();
@@ -19,17 +22,19 @@ function Profile({modalShow, onClickModal,profile, setProfile, user}) {
         formData.append('userNo', user.no)
         formData.append('file', file);
         const result = await postFile(`/user/upload`,formData);
-
         setProfile((prevProfile)=> ({
           ...prevProfile,
           profileUrl:result.data
           }))
+          setUser = {no: user.no, email:user.email, name, passwd: null, signUpDate:user.signUpDate, job, phoneNumber, profileUrl: result.data, enable: true};
       }
 
       await put(`/user/update`, userinfo);
+      console.log("여기!",setUser);
       localStorage.setItem('authUser',JSON.stringify(setUser));
+      setUserInfo(setUser);
+      setChattingList(setUser);
       onClickModal();
-
   },[profile])  
 
   return (
@@ -46,12 +51,12 @@ function Profile({modalShow, onClickModal,profile, setProfile, user}) {
                         accept='image/*'
                         name={'uploadFile'}
                         placeholder={'프로필 사진 업로드'}
-                        onChange={(e) =>{
-                          setProfile((prevProfile)=> ({
-                            ...prevProfile,
-                            profileUrl:e.target.value.split("\\")[2]
-                          }))
-                        }}     
+                        // onChange={(e) =>{
+                        //   setProfile((prevProfile)=> ({
+                        //     ...prevProfile,
+                        //     profileUrl:e.target.value.split("\\")[2]
+                        //   }))
+                        // }}     
                         />
                     </Form.Group>
                 <Form.Group className="mb-3" controlId="crewForm.name">

@@ -20,6 +20,7 @@ import com.douzone.goodmorning.vo.UserVo;
 // 시큐리티 filter 중 BasicAuthenticationFilter가 있다
 // 권한이나 인증이 필요한 특정 주소를 요청했을 때 위 필터를 무조건 탄다
 // 만약에 권한이나 인증이 필요 없으면 안탄다
+
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
 	private SecurityRepository securityRepository;
@@ -33,6 +34,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		String jwtHeader = request.getHeader("Authorization");
+		System.out.println("여기냐 이녀석아@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 		// header가 있는지 확인
 		if(jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
@@ -47,6 +49,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		
 		// 서명이 정상적으로 됨(복호화)
 		if(email != null) {
+			
 			UserVo user = securityRepository.findByEmail(email);
 			
 			PrincipalDetails principalDetails = new PrincipalDetails(user);

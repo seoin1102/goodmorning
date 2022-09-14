@@ -47,7 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// .antMatchers("/api/admin/**").access("hasRole('ROLE_ADMIN')")
 				.anyRequest().permitAll().and().exceptionHandling()
 				.authenticationEntryPoint(jwtAuthenticationEntryPoint);
-		
 //		http.logout()
 //					.logoutUrl("/api/user/logout")
 //					.logoutSuccessUrl("/api/user/signIn");

@@ -57,7 +57,7 @@
 	
 	<select id="findUserByUserNo" parameterType="long" resultType="uservo">
 		<![CDATA[
-		select no, email, name, sign_up_date as signUpDate, job, phone as phoneNumber, profile_img as profileImg from user where no = #{userNo};
+		select no, email, name, sign_up_date as signUpDate, job, phone as phoneNumber, profile_img as profileUrl from user where no = #{userNo};
 		]]>
 	</select>
 	

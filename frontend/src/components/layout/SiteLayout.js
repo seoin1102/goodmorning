@@ -27,13 +27,14 @@ function SiteLayout({children}) {
     //const crewList = useSelector(state => (state.crew), shallowEqual);
     const chatList = useSelector(state => (state.chat), shallowEqual);
     const { crewNo } = useSelector(state => (state.focus), shallowEqual);
-    
+    const [ChattingList, setChattingList] = useState([]);
+
     useEffect(() => {
         setLoading(true);
         connect()
-                
+        
         return () => {disconnect()};
-    }, [crewNo]);
+    }, [crewNo, ChattingList]);
 
     // 자원 할당(소켓 연결)
     const connect = () => {
@@ -199,7 +200,7 @@ function SiteLayout({children}) {
     return (
         <div>
             <Grid container component={Paper}>
-                <Header/>
+                <Header setChattingList = {setChattingList}/>
                 <Navigation/>
                 {
                     (children.type === Chat) ? 

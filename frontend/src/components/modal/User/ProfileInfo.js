@@ -6,7 +6,7 @@ import dateIcon from '../../../assets/icons/date.png';
 import phoneIcon from '../../../assets/icons/phone.png';
 import EditProfile from './Profile';
 
-function Profileinfo({ modalShow, onClickModal }) {
+function Profileinfo({ modalShow, onClickModal, setUserInfo, setChattingList}) {
 
   const user = getLocalStorageAuthUser();
   const { name, job, phoneNumber, profileUrl } = user;
@@ -56,7 +56,6 @@ function Profileinfo({ modalShow, onClickModal }) {
             </Modal.Header>
             <Form>
               <Modal.Body>
-
                 <div style={{ textAlign: 'center'}}>
                   <img src={url} name='profileImg' style={{overflow: 'hidden', width:'230px', height:'230px', objectFit:'cover', borderRadius:'60%'}}></img>
                 </div>
@@ -94,13 +93,16 @@ function Profileinfo({ modalShow, onClickModal }) {
             </Form>
           </Modal>
 
-          <EditProfile modalShow={editProfileModalShow} 
+          <EditProfile modalShow={editProfileModalShow}
               onClickModal={onClickeditProfileModal}
-              user={user} 
-              profile={profile} 
-              setProfile={setProfile}/>
-            </>) 
-                  : (null)}
+              user={user}
+              profile={profile}
+              setProfile={setProfile}
+              setUserInfo={setUserInfo}
+              setChattingList={setChattingList}/>
+             </>) 
+                   : (null)}
+
       </>  
       );
 
