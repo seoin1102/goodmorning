@@ -1,27 +1,31 @@
 package com.douzone.goodmorning.exception;
 
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
+import com.douzone.goodmorning.dto.JsonResult;
 import com.douzone.goodmorning.dto.Message;
 import com.douzone.goodmorning.dto.status.StatusEnum;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
+	
 	@ExceptionHandler(Exception.class)
-	@ResponseBody
-	public ResponseEntity<Message> handlerException(Exception e) {
+	public String handlerException(HttpServletResponse response, Exception e) throws Exception {
 		
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
@@ -36,8 +40,19 @@ public class GlobalExceptionHandler {
     	message.setMessage("global exception");
     	message.setData(errors.toString());
     	
+    	if(e instanceof NoHandlerFoundException) {
+    		return "index";
+    	}
 		
 		// 2. JSON 응답
-		return ResponseEntity.ok().headers(headers).body(message);
+		JsonResult result = JsonResult.fail(errors.toString());
+		String jsonString = new ObjectMapper().writeValueAsString(result);
+		
+		response.setStatus(HttpServletResponse.SC_OK);
+		OutputStream os = response.getOutputStream();
+		os.write(jsonString.getBytes("utf-8"));
+		os.close();
+    	
+    	return "";
 	}
 }

@@ -21,79 +21,87 @@ function Message({chatList, loading, setLoading }) {
     }, [chatList])
 
     useEffect (() => {
-        scrollToBottom();
         setLoading(false);
+        if(!loading)
+            scrollToBottom();
     }, [chatList])
 
+    useEffect (() => {
+        if(!loading)
+            scrollToBottom();
+  }, [loading])
     return (
     <>
-        <List style={{ height: '650px', overflow: 'auto', backgroundColor:'#f7f7fa' }}>
-            {chatList.map((chat, index, array) =>{
-                if(chatList !== undefined && chat.sendDate !== undefined){
-                    const date = chat.sendDate.split(" ")[0];
-                    const time = chat.sendDate.split(" ")[1].substring(0, 5);
-                    let dateDivider = null;
-                    
-                    if(array.length > index + 1) 
-                        if (chat.sendDate.split(" ")[0] !== array[index + 1].sendDate.split(" ")[0])
-                            dateDivider = <Divider>{array[index + 1].sendDate.split(" ")[0]}</Divider>
+        {loading ? 
+        <Loading /> :
+        (<>
+            <List style={{ height: '650px', overflow: 'auto', backgroundColor:'#f7f7fa' }}>
+                {chatList.map((chat, index, array) =>{
+                    if(chatList !== undefined && chat.sendDate !== undefined){
+                        const date = chat.sendDate.split(" ")[0];
+                        const time = chat.sendDate.split(" ")[1].substring(0, 5);
+                        let dateDivider = null;
+                        
+                        if(array.length > index + 1) 
+                            if (chat.sendDate.split(" ")[0] !== array[index + 1].sendDate.split(" ")[0])
+                                dateDivider = <Divider>{array[index + 1].sendDate.split(" ")[0]}</Divider>
 
-                    // if(array.length === index + 1)
-                        // setLoading(false);
+                        // if(array.length === index + 1)
+                            // setLoading(false);
 
-                    return (<Fragment key={index}>
-                                {(chat.type === 'CHAT') ?
-                                    <MessageItem 
-                                        align={"left"}
-                                        message={chat.message} 
-                                        time={time}
-                                        name={chat.userName}
-                                        url={chat.profileUrl}/> :
-                                null}
-                                {(chat.type === 'COMMAND') ?
-                                    <CommandMessageItem 
-                                        align={"left"}
-                                        message={chat.message} 
-                                        time={time}
-                                        name={chat.userName}
-                                        url={chat.profileUrl}/> :
-                                null}
-                                {(chat.type === 'GITHUB') ?
-                                    <GitMessageItem 
-                                        align={"left"}
-                                        message={chat.message} 
-                                        time={time}
-                                        name={"GitHub"}
-                                        url={githubIcon}/> :
-                                null}
-                                {(chat.type === 'JENKINS') ?
-                                    <JenkinsMessageItem 
-                                        align={"left"}
-                                        message={chat.message} 
-                                        time={time}
-                                        name={'Jenkins'}
-                                        url={jenkinsIcon}/> :
-                                null}
-                                {chat.type === 'PREVIEW' ?
-                                    <SendPreviewMessage
-                                        message={chat.message}/> :
-                                null}
-                                {(chat.type === 'FILE') ?
-                                    <FileMessageItem 
-                                        align={"left"}
-                                        message={chat.message} 
-                                        time={time}
-                                        name={chat.userName}
-                                        url={chat.profileUrl}/> :
-                                null}
-                                {dateDivider}
-                            </Fragment>)
-                }
-            })}
-            <div ref={scrollRef}></div>
-        </List>
-        <Divider />
-        {true ? <Loading /> : null}
+                        return (<Fragment key={index}>
+                                    {(chat.type === 'CHAT') ?
+                                        <MessageItem 
+                                            align={"left"}
+                                            message={chat.message} 
+                                            time={time}
+                                            name={chat.userName}
+                                            url={chat.profileUrl}/> :
+                                    null}
+                                    {(chat.type === 'COMMAND') ?
+                                        <CommandMessageItem 
+                                            align={"left"}
+                                            message={chat.message} 
+                                            time={time}
+                                            name={chat.userName}
+                                            url={chat.profileUrl}/> :
+                                    null}
+                                    {(chat.type === 'GITHUB') ?
+                                        <GitMessageItem 
+                                            align={"left"}
+                                            message={chat.message} 
+                                            time={time}
+                                            name={"GitHub"}
+                                            url={githubIcon}/> :
+                                    null}
+                                    {(chat.type === 'JENKINS') ?
+                                        <JenkinsMessageItem 
+                                            align={"left"}
+                                            message={chat.message} 
+                                            time={time}
+                                            name={'Jenkins'}
+                                            url={jenkinsIcon}/> :
+                                    null}
+                                    {chat.type === 'PREVIEW' ?
+                                        <SendPreviewMessage
+                                            message={chat.message}/> :
+                                    null}
+                                    {(chat.type === 'FILE') ?
+                                        <FileMessageItem 
+                                            align={"left"}
+                                            message={chat.message} 
+                                            time={time}
+                                            name={chat.userName}
+                                            url={chat.profileUrl}/> :
+                                    null}
+                                    {dateDivider}
+                                </Fragment>)
+                    }
+                })}
+                <div ref={scrollRef}></div>
+            </List>
+            <Divider />
+        </>)}
     </>
     );
 }

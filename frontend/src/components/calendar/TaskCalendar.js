@@ -2,8 +2,8 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import { useSelector, shallowEqual  } from 'react-redux';
 import React, { useEffect, useState } from "react";
-import { shallowEqual, useSelector } from 'react-redux';
 
 import "../../styles/css/Calendar.css";
 

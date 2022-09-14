@@ -13,6 +13,7 @@ import Reservation from './views/Reservation';
 import Search from './views/Search';
 import SearchChat from './views/SearchChat'
 import SaveMessage from './views/SaveMessage';
+import NotFound from './views/NotFound';
 
 export default function App() {
   
@@ -30,6 +31,7 @@ export default function App() {
         {path:'search', element: <Search />},
         {path:'searchresult', element: <SearchChat />},
         {path:'save', element: <SaveMessage />},
+        {path:'*', element: <NotFound />},
     ]);
     
 }

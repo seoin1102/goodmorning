@@ -54,7 +54,6 @@ function ChatHeader() {
                                     initialUser={initialUser} userNo={userNo}
                                     masterCrew={masterCrew}/>
                     </List>
-                    <Divider />
                 </Grid>
             </Grid>
         </>

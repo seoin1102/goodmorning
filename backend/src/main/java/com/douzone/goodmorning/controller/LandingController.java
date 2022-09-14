@@ -16,7 +16,7 @@ public class LandingController {
 	}
 	
 //	@Auth
-	@RequestMapping("")
+	@RequestMapping("/")
 	public String index() {
 		return "index";
 	}
