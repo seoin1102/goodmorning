@@ -11,7 +11,11 @@ import { setTask } from "../../redux/task";
 import AddProject from "../modal/Calendar/AddProject";
 import ProjectChart from "./ProjectChart";
 import CollapsibleTable from "./ProjectTable";
-
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 function Project({publishLinkPreview}) {
 
@@ -40,7 +44,6 @@ function Project({publishLinkPreview}) {
 
   useEffect(() => {
     setChangeCrew(crewNo);
-    console.log("무한랜더링찾기2")
   }, [crewNo]);
 
   const handleDelete = () => {
@@ -51,7 +54,7 @@ function Project({publishLinkPreview}) {
     });
   };
 
-
+console.log(projectList)
   const columns = [
     { type: "string", label: "Task ID" },
     { type: "string", label: "Task Name" },
@@ -62,7 +65,7 @@ function Project({publishLinkPreview}) {
     { type: "number", label: "작업진행률" },
     { type: "string", label: "Dependencies" },
   ];
-  const projects = projectList.map((i) => [
+  const projects = projectList.map((i, index) => [
     i.id,
     i.projectName,
     i.status > 0 ? i.status > 50 ?'write': 'complate' : null, 
@@ -70,16 +73,15 @@ function Project({publishLinkPreview}) {
     new Date(i.end),
     null,
     i.status,
-    null,
+    // index > 1? projectList[index-1].projectName : null
+    null
   ]);
   const data = [columns, ...projects];
 
 useEffect(()=>{
   initialTask
-  console.log("무한랜더링 찾기")
 },[initialTask])
 
-  console.log("프로젝트 테스트")
   return (
     <div
       className="animated fadeIn p-4 demo-app"
@@ -96,12 +98,22 @@ useEffect(()=>{
                     border: "3px solid #f0f8ff69",
                     fontSize: "15px",
                     padding: "4px",
+                    display:'flex', justifyContent:"space-between", alignItems:"center"
+
                   }}
                 >
+                    현재 채널은 <strong>{channelName}</strong> 입니다.
+
+                    <Button
+                    variant="primary"
+                    onClick={handleShow}
+                    style={{ fontFamily: "SUIT-Medium" }}
+                  >
+                    프로젝트 추가
+                  </Button>
                   <NavDropdown
                     style={{
                       float: "right",
-                      border: "3px solid #f0f8ff69",
                       fontSize: "15px",
                       padding: "4px",
                     }}
@@ -139,35 +151,31 @@ useEffect(()=>{
                         ))
                       : ""}
                   </NavDropdown>
-                  현재 채널은 <strong>{channelName}</strong> 입니다.
          
-                  <Button
-                    variant="primary"
-                    onClick={handleShow}
-                    style={{ fontFamily: "SUIT-Medium" }}
-                  >
-                    프로젝트 추가
-                  </Button>
+                  
                   <AddProject 
                       show={show} 
                       setShow={setShow}
                       publishLinkPreview={publishLinkPreview}
                       />
-                  <Button
-                    variant="primary"
-                    onClick={handleDelete}
-                    style={{ fontFamily: "SUIT-Medium" }}
-                  >
-                    프로젝트 삭제
-                  </Button>
-
-                </div>
-              </Grid>
-              <ProjectChart
-                changeCrew={changeCrew}
-                projectList={projectList}
-                data={data}
-              />
+                  
+               <div>   
+        <Navbar key={false} expand={false}  >
+          <Container fluid>
+           
+            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-false`} />
+            <Navbar.Offcanvas
+              id={`offcanvasNavbar-expand-false`}
+              aria-labelledby={`offcanvasNavbarLabel-expand-false`}
+              placement="end"
+              style={{width:'900px'}}
+            >
+              <Offcanvas.Header closeButton>
+                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-false`}>
+                  프로젝트 수정
+                </Offcanvas.Title>
+              </Offcanvas.Header>
+              <Offcanvas.Body>
               <CollapsibleTable
                 date={date}
                 projectList={projectList}
@@ -176,6 +184,26 @@ useEffect(()=>{
                 changeCrew={changeCrew}
                 data={data}   
               />
+              <Button
+                    variant="primary"
+                    onClick={handleDelete}
+                    style={{ fontFamily: "SUIT-Medium" }}
+                >
+                  프로젝트 삭제
+                </Button>
+              </Offcanvas.Body>
+            </Navbar.Offcanvas>
+          </Container>
+        </Navbar>
+             </div>
+                </div>
+              </Grid>
+              <ProjectChart
+                changeCrew={changeCrew}
+                projectList={projectList}
+                data={data}
+              />
+            
             </Card>
           </Paper>
         </Box>

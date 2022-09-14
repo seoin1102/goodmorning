@@ -18,7 +18,7 @@ export default function MyWidget(props) {
     <div>
       <h3 style={{ padding: "30px"}}>프로젝트 달력</h3>
       {data.length >= 2 ? (
-        <div style={{ margin: "20px", height:"350px"}}>
+        <div style={{ margin: "20px", height:"600px"}}>
           <Chart
             className="ganttchart"
             chartType="Gantt"

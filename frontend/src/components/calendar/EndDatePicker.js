@@ -22,6 +22,7 @@ export default function EndDatePick(props) {
           value={props.clickedEnd}
           onChange={endHandler}
           renderInput={(params) => <TextField {...params} />}
+          label='종료일시'
 
         />
 
