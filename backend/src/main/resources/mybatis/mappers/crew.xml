@@ -65,12 +65,11 @@
 				]]>
 		</select>
 		
-		<select id="findUserNameByUserEmail" parameterType="string" resultType="string">
+		<select id="findUserNameByUserEmail" parameterType="string" resultType="uservo">
 				<![CDATA[
 				select name from user where email = #{email};
 				]]>
 		</select>
-		
 		
 		<insert id="insertcrewuser" parameterType="crewvo">
 				<![CDATA[

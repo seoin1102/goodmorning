@@ -73,7 +73,7 @@ public class CrewService {
 		return crewRepository.findMasterCrewUser(crewNo);
 	}
 
-	public String findUserNameByUserEmail(String email) {
+	public UserVo findUserNameByUserEmail(String email) {
 		return crewRepository.findUserNameByUserEmail(email);
 	}
 }

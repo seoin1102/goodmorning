@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.douzone.goodmorning.vo.CrewVo;
+import com.douzone.goodmorning.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -102,7 +103,7 @@ public class CrewRepository {
 		return sqlSession.selectList("crew.findMasterCrewUser", crewNo);
 	}
 
-	public String findUserNameByUserEmail(String email) {
+	public UserVo findUserNameByUserEmail(String email) {
 		return sqlSession.selectOne("crew.findUserNameByUserEmail", email);
 	}
 
