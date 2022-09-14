@@ -26,7 +26,6 @@ function Project({publishLinkPreview}) {
   const projectList = useSelector((state) => state.project, shallowEqual);
   const taskList = useSelector((state) => state.task, shallowEqual);
   const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
   const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
   console.log("크루 넘버!",crewNo)
   const initialProject = React.useCallback(
@@ -54,6 +53,7 @@ function Project({publishLinkPreview}) {
 
   useEffect(() => {
     setChangeCrew(crewNo);
+    console.log("무한랜더링찾기2")
   }, [crewNo]);
 
   const handleDelete = () => {
@@ -96,9 +96,10 @@ function Project({publishLinkPreview}) {
 
 useEffect(()=>{
   initialTask
+  console.log("무한랜더링 찾기")
 },[initialTask])
 
-
+  console.log("프로젝트 테스트")
   return (
     <div
       className="animated fadeIn p-4 demo-app"
@@ -167,7 +168,6 @@ useEffect(()=>{
                   </Button>
                   <AddProject 
                       show={show} 
-                      handleClose={handleClose} 
                       setShow={setShow}
                       publishLinkPreview={publishLinkPreview}
                       />

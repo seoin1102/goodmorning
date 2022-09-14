@@ -60,7 +60,7 @@ function FileMessageItem({align, message, time, name, url}) {
                                 </div>
                             </Grid>
                             <Grid item xs={2} sx={{height: '52px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                <Link target="_blank" underline={'none'} color="inherit" onClick={() =>{ 
+                                <Link target="_blank" underline={'none'} color="inherit" style={{cursor:'pointer'}} onClick={() =>{ 
                                                                                                     let spliturl = messageItem.link;
                                                                                                     spliturl=spliturl.split('/')
                                                                                                     return fileDownload(spliturl[2])}

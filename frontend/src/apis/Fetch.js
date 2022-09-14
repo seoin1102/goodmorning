@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const authorization = localStorage.getItem('authorization');
 
@@ -195,7 +196,12 @@ export const fileDownload = async function(fileName) {
         getfile(fileUrl,getfileName);
 
     } catch (err) {
-        console.error(err);
+        Swal.fire({
+            title:'Oops!',
+            text: err.toString(),
+            icon: 'error',
+            confirmButtonText: '확인'
+          })
     }
 };
 
