@@ -43,10 +43,13 @@ public class ChatController {
     	if(ChatVo.MessageType.FILE.equals(chatVo.getType())) 
     		redisPublisher.publish(topic, chatVo);
     	
-    	if(ChatVo.MessageType.COMMAND.equals(chatVo.getType())) {
-    		
+    	if(ChatVo.MessageType.ENTER.equals(chatVo.getType())) 
     		redisPublisher.publish(topic, chatVo);
-    		
+    	
+    	
+    	if(ChatVo.MessageType.COMMAND.equals(chatVo.getType())) {
+    		redisPublisher.publish(topic, chatVo);
+    	
     		if(!"none".equals(chatVo.getMessage())) {
 	    		projectService.execCMD(
 	    				"curl -X POST http://34.64.214.252:8080/jenkins/job/" + 

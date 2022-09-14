@@ -102,4 +102,8 @@ public class CrewRepository {
 		return sqlSession.selectList("crew.findMasterCrewUser", crewNo);
 	}
 
+	public String findUserNameByUserEmail(String email) {
+		return sqlSession.selectOne("crew.findUserNameByUserEmail", email);
+	}
+
 }
