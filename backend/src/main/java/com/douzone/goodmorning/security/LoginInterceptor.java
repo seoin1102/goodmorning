@@ -29,9 +29,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		String passwd = request.getParameter("passwd");
 
 		response.setContentType("application/json");
-		UserVo authUser = userService.getUser(email, passwd);
-		
-		System.out.println("로그인 인터셉트입니다~@@@@@@@@@@@@@@@@@@@@@");
+		UserVo authUser = userService.getUser(email, passwd);	
 		
 		if(authUser == null) {
 			
@@ -60,21 +58,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 			
 			return false;
 		}
-
-		/* session 처리 */
-
-//		HttpSession session = request.getSession(true);
-//		session.setAttribute("authUser", authUser);
-//		
-//		//json 응답처리 
-//		response.setStatus(HttpServletResponse.SC_OK);
-//		System.out.println("zz");
-//		JsonResult jsonResult = JsonResult.success(authUser);
-//		String jsonString = new ObjectMapper().writeValueAsString(jsonResult);
-//
-//		OutputStream os = response.getOutputStream();
-//		os.write(jsonString.getBytes("UTF-8"));
-//		os.close();
 		
 		return false;
 	}

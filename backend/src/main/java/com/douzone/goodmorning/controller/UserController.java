@@ -53,6 +53,7 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("회원가입 되었습니다 해당 이메일로 확인 메일이 전송되었습니다."));
 	}
 	
+	@Transactional
 	@GetMapping("/mailAuthentication/{email}/{token}")
 	public void mailAuthentication(@PathVariable("email") String email, @PathVariable("token") String token, HttpServletResponse response) throws IOException {
 		//String url = "http://34.64.235.225:8080/signin 로컬전환 책갈피";
@@ -78,6 +79,7 @@ public class UserController {
 	public void logout() {
 	}
 	
+	@Transactional
 	@PutMapping("/resetPw")
 	public ResponseEntity<JsonResult> resetPw(@RequestBody UserVo vo) {
 		
@@ -100,8 +102,9 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("임시 비밀번호가 해당 메일로 전송되었습니다."));
 	}
 	
+	@Transactional
 	@GetMapping("/email/{channelNo}/{crewNo}")
-	 public ResponseEntity<Message> getEmails(@PathVariable("channelNo") String channelNo, @PathVariable("crewNo") String crewNo) {
+	public ResponseEntity<Message> getEmails(@PathVariable("channelNo") String channelNo, @PathVariable("crewNo") String crewNo) {
 		HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     
@@ -114,8 +117,8 @@ public class UserController {
 	
 	@Transactional
 	@GetMapping("/email/{channelNo}")
-	 public ResponseEntity<Message> getEmails(@PathVariable("channelNo") Long channelNo) {
-		HttpHeaders headers = new HttpHeaders();
+	public ResponseEntity<Message> getEmails(@PathVariable("channelNo") Long channelNo) {
+	HttpHeaders headers = new HttpHeaders();
    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
    
    	Message message = new Message();
@@ -127,7 +130,7 @@ public class UserController {
 	
 	@Transactional
 	@GetMapping("/info/{userNo}")
-	 public ResponseEntity<Message> getUser(@PathVariable("userNo") Long userNo) {
+	public ResponseEntity<Message> getUser(@PathVariable("userNo") Long userNo) {
 		HttpHeaders headers = new HttpHeaders();
   	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
   
@@ -144,7 +147,6 @@ public class UserController {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
-//    	System.out.println("안왔습니다" + userVo);
     	userService.updateUser(userVo);
 
     	Message message = new Message();
@@ -159,7 +161,6 @@ public class UserController {
     public ResponseEntity<Message> uploadProfile(@RequestParam("file") MultipartFile file, @RequestParam("userNo") Long userNo) {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-    	System.out.println("폼데이터 왔다" + file);
     	
     	String fileURL = FileUploadService.restoreImage(file);
     	userService.updateFileURL(fileURL, userNo);

@@ -38,6 +38,7 @@ public class ChatApiController {
     private final ChannelService channelService;
     
     // 채팅 리스트 가져오기
+    @Transactional
     @GetMapping("/chat/{crewNo}")
     public ResponseEntity<Message> chatList(@PathVariable("crewNo") Long crewNo) {
     	HttpHeaders headers = new HttpHeaders();
@@ -52,6 +53,7 @@ public class ChatApiController {
     }
     
     // 채널 전체 채팅 리스트 가져오기
+    @Transactional
     @GetMapping("/chat/channel/{channelNo}")
     public ResponseEntity<Message> chatChannelList(@PathVariable("channelNo") Long channelNo) {
     	HttpHeaders headers = new HttpHeaders();
@@ -61,7 +63,7 @@ public class ChatApiController {
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("[" + channelNo + " 크루]" + " 메시지 리스트");
     	message.setData(chatService.getChannelMessageList(channelNo));
-    	System.out.println(message);
+  
     	return ResponseEntity.ok().headers(headers).body(message);
     }
     
@@ -74,11 +76,9 @@ public class ChatApiController {
     	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
-    	message.setMessage("[" + crewNo + " 크루]" + " 메시지 추가");
-    	
-    	System.out.println("!!!!!!!!!!!!!!!!!" + chatVo);
-    	
+    	message.setMessage("[" + crewNo + " 크루]" + " 메시지 추가");   	   	
     	message.setData("success");
+    	
     	if(!chatService.AddMessage(chatVo)) {
     		message.setData("fail");
     		return ResponseEntity.ok().headers(headers).body(message);
@@ -94,7 +94,6 @@ public class ChatApiController {
     		chatService.insertChatUserByCrewNoAndChatNo(crewNoList.get(i).getUserNo(), chatNo);
     	}
     	
-
     	return ResponseEntity.ok().headers(headers).body(message);
     }
     
@@ -107,15 +106,12 @@ public class ChatApiController {
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("[" + crewNo + " 크루]" +  "[" + authUserNo + " 유저]" +" 읽음 업데이트");
-    	
-    	System.out.println("[크루]"+ crewNo + "[유저]" + authUserNo);
     	message.setData("success");
+    	
     	if(!chatService.updateChatUser(crewNo, authUserNo)) {
     		message.setData("fail");
     		return ResponseEntity.ok().headers(headers).body(message);
     	}
-    	
-    	System.out.println("@@@@@@@@@@@@@@@" + crewNo + " " + authUserNo);
 
     	return ResponseEntity.ok().headers(headers).body(message);
     }

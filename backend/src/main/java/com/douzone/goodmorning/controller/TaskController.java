@@ -17,12 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.douzone.goodmorning.dto.JsonResult;
-import com.douzone.goodmorning.security.Auth;
 import com.douzone.goodmorning.service.TaskService;
 import com.douzone.goodmorning.vo.TaskVo;
 
 import lombok.RequiredArgsConstructor;
-
 
 @RequiredArgsConstructor
 @RequestMapping("/api/task")
@@ -35,7 +33,7 @@ public class TaskController {
 	 * @param userNo 채널 주인의 유저번호
 	 * @return 해당 유저가 소유한 유저 리스트
 	 */
-//    @Auth
+
 	@Transactional
     @GetMapping("/pNo/{projectNo}")
     public ResponseEntity<JsonResult> findByProject(@PathVariable("projectNo") Long projectNo) {
@@ -43,28 +41,25 @@ public class TaskController {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
-    	//System.out.println(taskService.getTask(projectNo));
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.findByProject(projectNo)));
     }
-//    @Auth
+
 	@Transactional
     @GetMapping("/cNo/{crewNo}")
     public ResponseEntity<JsonResult> findByCrew(@PathVariable("crewNo") Long crewNo) {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
-    	//System.out.println(taskService.getTask(projectNo));
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.findByCrew(crewNo)));
     }
     
-//    @Auth
+
 	@Transactional
     @GetMapping("/{channelNo}")
     public ResponseEntity<JsonResult> findByChannel(@PathVariable("channelNo") Long channelNo) {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
-    	//System.out.println(taskService.getTask(projectNo));
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskService.findByChannel(channelNo)));
  }
 	

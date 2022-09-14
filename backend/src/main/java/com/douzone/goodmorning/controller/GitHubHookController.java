@@ -27,7 +27,6 @@ import com.douzone.goodmorning.vo.CrewVo;
 
 import lombok.RequiredArgsConstructor;
 
-
 @RequestMapping("/api/githubhook")
 @RestController
 @RequiredArgsConstructor
@@ -114,6 +113,7 @@ public class GitHubHookController {
 		return ResponseEntity.ok().headers(headers).body(message);
 	}
 	
+	@Transactional
 	@PostMapping("/gitHookChatData")
 	public void gitHookChatData() {
 		System.out.println(githubHookService.getGitHookData());

@@ -13,8 +13,6 @@ public class SecurityRepository {
 	private SqlSession sqlSession;
 
 	public UserVo findByEmail(String email) {
-//		System.out.println("나 레포!");
-		System.out.println("레포ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ");
 		return sqlSession.selectOne("auth.findByEmail", email);
 	}
 }

@@ -137,6 +137,7 @@ public class JenkinsHookController {
 		return ResponseEntity.ok().headers(headers).body(message);
 	}
 	
+	@Transactional
 	@PostMapping("/jenkinsHookChatData")
 	public void gitHookChatData() {
 		System.out.println(jenkinsHookService.getJenkinsHookData());

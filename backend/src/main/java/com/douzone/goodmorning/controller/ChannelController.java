@@ -1,7 +1,6 @@
 package com.douzone.goodmorning.controller;
 
 import java.nio.charset.Charset;
-import java.util.List;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,6 +38,7 @@ public class ChannelController {
 	 * @param userNo 채널 주인의 유저번호
 	 * @return 해당 유저가 소유한 유저 리스트
 	 */
+    @Transactional
     @GetMapping("/channel/{channelNo}/{userNo}")
     public ResponseEntity<Message> channels(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo) {
     	HttpHeaders headers = new HttpHeaders();
@@ -58,6 +57,7 @@ public class ChannelController {
      * @param userNo
      * @return
      */
+    @Transactional
     @GetMapping("/channel/{userNo}")
     public ResponseEntity<Message> channels(@PathVariable("userNo") String userNo) {   	
     	HttpHeaders headers = new HttpHeaders();
@@ -77,6 +77,7 @@ public class ChannelController {
      * @return 채널 변경시 첫 크루 조회
      * 
      */
+    @Transactional
     @GetMapping("/channel/change/{channelNo}/{userNo}")
     public ResponseEntity<Message> changeChannels(@PathVariable("channelNo") String channelNo, @PathVariable("userNo") String userNo ) {
     	HttpHeaders headers = new HttpHeaders();
@@ -89,6 +90,7 @@ public class ChannelController {
     	return ResponseEntity.ok().headers(headers).body(message);
     }
     
+    @Transactional
     @GetMapping("/channel/master/{channelNo}")
     public ResponseEntity<Message> masterChannelUserNo(@PathVariable("channelNo") Long channelNo) {
     	HttpHeaders headers = new HttpHeaders();

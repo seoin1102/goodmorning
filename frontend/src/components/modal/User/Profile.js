@@ -1,8 +1,6 @@
-import React, { useCallback,useRef,useEffect, useReducer, useState } from 'react';
-import { Modal, Form, Button   } from 'react-bootstrap';
-import { shallowEqual, useSelector } from 'react-redux';
-import { get, postFile, put, putJson } from '../../../apis/Axios';
-import { getLocalStorageAuthUser } from '../../../apis/Fetch';
+import React, { useCallback } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
+import { postFile, put } from '../../../apis/Axios';
 
 
 function Profile({modalShow, onClickModal,profile, setProfile, user, setUserInfo, setChattingList}) {

@@ -96,21 +96,6 @@ public void execCMD(String cmd){
 			pc.waitFor();
 			
 			
-			//제대로 됬는지 확인용
-			if(pc.exitValue()==0) {
-				//정상종료 처리 
-				System.out.println("성공");
-				System.out.println(successOutput.toString());
-			}else {
-				//비정상 종료 
-				System.out.println("비정상적으로 종료되었습니다!");
-				System.out.println(successOutput.toString());
-			}
-			
-			if(CommonUtils.isNotEmpty(errorOutPut.toString())) {
-				System.out.println("오류");
-				System.out.println(successOutput.toString());
-			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {

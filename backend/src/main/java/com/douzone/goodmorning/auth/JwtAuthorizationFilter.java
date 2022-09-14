@@ -34,14 +34,13 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		String jwtHeader = request.getHeader("Authorization");
-		System.out.println("여기냐 이녀석아@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 		// header가 있는지 확인
 		if(jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
 			chain.doFilter(request, response);
 			return;
 		}
-//		System.out.println("zation 필터~~");
+
 		// JWT 토큰을 검증을 해서 정상적인 사용자인지 확인
 		String jwtToken = request.getHeader("Authorization").replace("Bearer ", "");
 		String email = 

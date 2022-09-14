@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.douzone.goodmorning.dto.JsonResult;
-import com.douzone.goodmorning.security.Auth;
 import com.douzone.goodmorning.service.ProjectService;
 import com.douzone.goodmorning.service.TaskService;
 import com.douzone.goodmorning.vo.ProjectVo;
@@ -26,7 +24,6 @@ import com.douzone.goodmorning.vo.ProjectVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/project")
 @RestController
@@ -39,7 +36,7 @@ public class ProjectController {
 	 * @param userNo 채널 주인의 유저번호
 	 * @return 해당 유저가 소유한 유저 리스트
 	 */
-//    @Auth
+
 	@Transactional
     @GetMapping("/cNo/{crewNo}")
     public ResponseEntity<JsonResult> findByCrew(@PathVariable("crewNo") Long crewNo) {
@@ -49,7 +46,6 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.findByCrew(crewNo)));
     }
     
-//    @Auth
   	@Transactional
   	@GetMapping("/{channelNo}")
     public ResponseEntity<JsonResult> projectList(@PathVariable("channelNo") Long channelNo) {
@@ -58,24 +54,25 @@ public class ProjectController {
     	return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.findByChannel(channelNo)));
     }
     
+  	@Transactional
     @PutMapping("/{id}")
     public ResponseEntity<JsonResult> update(@RequestBody ProjectVo projectVo) {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-    	System.out.println(projectVo);
-    	System.out.println(projectService.updateProject(projectVo));
+    	
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.updateProject(projectVo)));
     }
     
+  	@Transactional
     @PostMapping("")
     public ResponseEntity<JsonResult> add(@RequestBody ProjectVo projectVo) {
-    	System.out.println("qqqqqqqqqqqqqq " + projectVo);
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.addProject(projectVo)));
     }
 
+  	@Transactional
     @DeleteMapping("/{id}")
     public ResponseEntity<JsonResult> delete(@PathVariable("id") Long id) {
     	HttpHeaders headers = new HttpHeaders();
@@ -84,7 +81,7 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.deleteProject(id)));
     }
     
-    
+  	@Transactional
     @PostMapping("/makejenkinsJob")
     public ResponseEntity<JsonResult> makeJenkinsJob(@RequestBody ProjectVo vo) {
     	
@@ -206,7 +203,7 @@ public class ProjectController {
     	return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("됬나?"));
     } 
 
-    
+  	@Transactional
     @PostMapping("/buildJenkinsJob")
     public ResponseEntity<JsonResult> buildJenkinsJob(@RequestBody ProjectVo vo) {
     	 

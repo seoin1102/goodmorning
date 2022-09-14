@@ -30,12 +30,9 @@ import lombok.RequiredArgsConstructor;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private final AuthenticationManager authenticationManager;
-	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, String url) {
-		this.authenticationManager = authenticationManager;
-		this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
-		
+		this.authenticationManager = authenticationManager;		
 		setFilterProcessesUrl(url);
 	}
 
@@ -43,25 +40,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
-//		System.out.println("cation 필터~~~~~~~~~~ㄴ");
+		
 		// 1. email, password 받아서
 		try {
-//			BufferedReader br = request.getReader();
-//			
-//			String input = null;
-//			while((input = br.readLine()) != null) {
-//				System.out.println(input);
-//			}
-//			System.out.println("cation 필터~~~~~~~~~~ㄴ222");
 			ObjectMapper om = new ObjectMapper();
-//			System.out.println("cation 필터~~~~~~~~~~ㄴ333 ");
-			UserVo vo = om.readValue(request.getInputStream(), UserVo.class);
-			
-			// System.out.println(vo);
-//			System.out.println("유저정보입니다~~~~~"+vo);
-			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-					vo.getEmail(), vo.getPasswd());
-//			System.out.println("뭔데에에에" + (authenticationToken.getCredentials()));
+			UserVo vo = om.readValue(request.getInputStream(), UserVo.class);		
+			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(vo.getEmail(), vo.getPasswd());
 			
 			// PrincipalDetailsService가 호출, loadUserByUsername() 함수가 실행
 			// email과 password가 일치

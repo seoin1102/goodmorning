@@ -23,7 +23,6 @@ public class RedisPublisher {
     // 2번. 서버 => 레디스로 전달
     public void publish(String topic, ChatVo chatVo) {
     	log.info("2번 스서버에서 레디스로 전달" + topic + "@" + chatVo);
-    	System.out.println("2번 스서버에서 레디스로 전달" + topic + "@" + chatVo);
         redisTemplate.convertAndSend(topic, chatVo);
     }
 }

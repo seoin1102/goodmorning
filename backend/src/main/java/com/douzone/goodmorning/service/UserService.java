@@ -173,20 +173,16 @@ public class UserService {
 		channelVo.setName(vo.getName() + "님의 워크스페이스");
 		channelVo.setDescription(vo.getName() + "님의 워크스페이스 입니다.");
 		channelVo.setMasterChannelUserNo(Long.valueOf(vo.getNo()));
-//		System.out.println("channel : " + channelVo);
 		channelRepository.insert(channelVo);
 		Long channelNo = channelRepository.findByMasterChannelUserNo(Long.valueOf(vo.getNo()));
 		channelRepository.addChannelUser(channelVo.getMasterChannelUserNo(), channelNo, 1L);
 		
 		CrewVo crewVo = new CrewVo();
-//		crewVo.setName(vo.getName() + "의 크루");
 		crewVo.setName("기본 채널");
 		crewVo.setMasterCrewUserNo(Long.valueOf(vo.getNo()));
 		crewVo.setChannelNo(channelNo);
-//		System.out.println("crew : " + crewVo);
 		crewRepository.insert(crewVo);
 		Long crewNo = crewRepository.findMaster(channelNo, Long.valueOf(vo.getNo()));
-//		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA     "+crewNo);
 		crewRepository.addCrewUser(crewNo, Long.valueOf(vo.getNo()), 1L);
 			
 	}

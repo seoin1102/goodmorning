@@ -9,6 +9,7 @@ import org.jsoup.nodes.Document;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,18 +27,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HtmlController {
 	
-//    @PostMapping(path="/test", produces=MediaType.TEXT_HTML_VALUE)
-//    public  String test(@RequestBody LinkPreviewDto linkPreviewDto) throws Exception {
-//    	Document doc = null;
-//    	try {
-//    		doc = Jsoup.connect(linkPreviewDto.getUrl()).get();
-//    	} catch (IOException e) {
-//    		return "false";
-//    	}
-//           
-//    	return doc.toString();
-//    }
-    
+	@Transactional
     @PostMapping("/github")
     public  ResponseEntity<Message> getHtml(@RequestBody LinkPreviewDto linkPreviewDto) throws Exception {
     	    	
@@ -54,7 +44,6 @@ public class HtmlController {
     		doc = Jsoup.connect("https://github.com/"+linkPreviewDto.getGitId()+"/"+linkPreviewDto.getProjectName()).get();
     	} catch (MalformedURLException | HttpStatusException e) {
     		message.setMessage("fail");
-    		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     		return ResponseEntity.ok().headers(headers).body(message);
     	}
     	

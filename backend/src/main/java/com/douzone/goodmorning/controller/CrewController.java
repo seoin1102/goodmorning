@@ -1,7 +1,6 @@
 package com.douzone.goodmorning.controller;
 
 import java.nio.charset.Charset;
-import java.util.List;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.douzone.goodmorning.dto.Message;
 import com.douzone.goodmorning.dto.status.StatusEnum;
-import com.douzone.goodmorning.security.Auth;
 import com.douzone.goodmorning.service.ChannelService;
 import com.douzone.goodmorning.service.CrewService;
 import com.douzone.goodmorning.vo.CrewVo;
@@ -36,8 +34,6 @@ public class CrewController {
     private final CrewService crewService;
 	private final ChannelService channelService;
 	
-
-//	@Auth
     @Transactional
     @GetMapping("/crew/{userNo}")
     public ResponseEntity<Message> allCrew(@PathVariable("userNo") Long userNo) {
@@ -51,7 +47,6 @@ public class CrewController {
     	return ResponseEntity.ok().headers(headers).body(message);
     }
 	
-//	@Auth
 	@Transactional
     @GetMapping("/crew/{channelNo}/{userNo}")
     public ResponseEntity<Message> crews(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo) {
@@ -118,7 +113,6 @@ public class CrewController {
     public ResponseEntity<Message> updateLastIn(@PathVariable("crewNo") String crewNo, @RequestBody UserVo userVo) {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-    	System.out.println("zzzzzzaaaa"+ userVo);
     	crewService.updateLastIn(crewNo, userVo.getNo());
     	    	
     	Message message = new Message();
@@ -151,8 +145,6 @@ public class CrewController {
     	
     	Message message = new Message();
     	message.setStatus(StatusEnum.OK);
-    	
-    	System.out.println("zzzzzzzzzzzz"+userVo);
     	
     	int checkcount = channelService.checkUser(channelNo,userVo.getEmail());
     		
