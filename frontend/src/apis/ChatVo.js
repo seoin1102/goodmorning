@@ -30,21 +30,6 @@ export const chatVo = (crewNo, userNo, message) => {
     });
 }
 
-/**
- * 
- * @param {*} crewNo 현재 포커스 중인 크루 번호
- * @param {*} userName 현재 로그인 중인 유저 이름
- * @param {*} userNo 현재 로그인 중인 유저 번호
- * @returns [ENTER] JSON.stringify 객체
- */
-export const msgEnter = (crewNo, userNo, userName) => {
-    const msg = defaultMsg(crewNo, userNo, `${userName} 님이 입장하였습니다.`, userName);
-    return JSON.stringify({
-        ...msg, 
-        type: 'ENTER',
-        sendDate: new Date(+new Date() + 3240 * 10000).toISOString().split("T")[0]
-    });
-}
 
 /**
  * 
@@ -125,4 +110,21 @@ export const msgCommand = (crewNo, userNo, message, userName, profileUrl) => {
       type: 'COMMAND',
       sendDate: new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ")
   });
+}
+
+export const chatEnter = (crewNo, userNo, userName) => {
+    const msg = defaultMsg(crewNo, userNo, `${userName} 님이 입장하였습니다.`);
+    return JSON.stringify({
+        ...msg, 
+        type: 'ENTER'
+    });
+}
+
+ export const msgEnter = (crewNo, userNo, userName) => {
+    const msg = defaultMsg(crewNo, userNo, `${userName} 님이 입장하였습니다.`, userName, null);
+    return JSON.stringify({
+        ...msg, 
+        type: 'ENTER',
+        sendDate: new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ")
+    });
 }

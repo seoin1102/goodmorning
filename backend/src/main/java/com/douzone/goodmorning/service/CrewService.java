@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.douzone.goodmorning.repository.CrewRepository;
 import com.douzone.goodmorning.vo.CrewVo;
+import com.douzone.goodmorning.vo.UserVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -70,5 +71,9 @@ public class CrewService {
 
 	public List<CrewVo> getMasterCrewUser(Long crewNo) {
 		return crewRepository.findMasterCrewUser(crewNo);
+	}
+
+	public String findUserNameByUserEmail(String email) {
+		return crewRepository.findUserNameByUserEmail(email);
 	}
 }

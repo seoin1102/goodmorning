@@ -7,13 +7,13 @@ import { setCHANNELCREWFOCUS } from '../../../redux/focus';
 import CrewSetting_info from './CrewSetting_info';
 import CrewSetting_member from './CrewSetting_member';
 
-function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo, initialUser, userNo, masterCrew }) {
+function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo, initialUser, userNo, masterCrew, publishEnter }) {
 
   let [tab, setTab] = useState(0);
   const dispatch = useDispatch();
 
-  const onClickCrewInvite = async(user) => {
-    const userEmail = JSON.stringify({email: user})
+  const onClickCrewInvite = async(email) => {
+    const userEmail = JSON.stringify({email: email})
     const result = await postJson(`/crew/invite/${channelNo}/${crewNo}`, userEmail);
     
     if(result.data == "success"){
@@ -29,6 +29,9 @@ function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo
         })
       }
       initialUser();
+      const userName = await get(`/crew/invite/message`, userEmail);
+      console.log(userName,"야야야야야야")
+      publishEnter(userName.name);
   }
   
   const initialFocus = useCallback(async(userNo) => {

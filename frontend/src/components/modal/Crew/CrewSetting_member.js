@@ -39,7 +39,7 @@ function CrewSetting_member({users, onClickModal, setTab, onClickCrewInvite}) {
                 <Button variant="outline-dark" onClick={() => {onClickCrewInvite(value)
                                                                 setValue("")
                                                                 }} >
-                        전송
+                        추가
                       </Button>
                       </Form.Group>
                       <Form.Group className="mb-3" controlId="user">

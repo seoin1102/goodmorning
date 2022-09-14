@@ -58,6 +58,14 @@ function Message({chatList, loading, setLoading }) {
                                             name={chat.userName}
                                             url={chat.profileUrl}/> :
                                     null}
+                                    {(chat.type === 'ENTER') ?
+                                        <MessageItem 
+                                            align={"left"}
+                                            message={chat.message} 
+                                            time={time}
+                                            name={chat.userName}
+                                            url={chat.profileUrl}/> :
+                                    null}
                                     {(chat.type === 'COMMAND') ?
                                         <CommandMessageItem 
                                             align={"left"}

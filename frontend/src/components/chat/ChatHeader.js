@@ -5,7 +5,7 @@ import { get } from '../../apis/Axios';
 import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import CrewSetting from '../modal/Crew/CrewSetting';
 
-function ChatHeader() {
+function ChatHeader({ publishEnter }) {
 
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
@@ -52,7 +52,8 @@ function ChatHeader() {
                                     users={users} crewName={crewName} 
                                     channelNo={channelNo} crewNo={crewNo} 
                                     initialUser={initialUser} userNo={userNo}
-                                    masterCrew={masterCrew}/>
+                                    masterCrew={masterCrew}
+                                    publishEnter={publishEnter} />
                     </List>
                 </Grid>
             </Grid>
