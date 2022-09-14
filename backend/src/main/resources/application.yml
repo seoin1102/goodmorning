@@ -18,7 +18,10 @@ spring:
    redis:
       host: localhost
       port: 6379
-      
+   servlet:
+      multipart:
+         max-file-size: 100MB
+         max-request-size: 100MB 
    #mail
    mail:
       host: smtp.gmail.com
