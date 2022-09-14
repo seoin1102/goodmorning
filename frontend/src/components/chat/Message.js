@@ -3,6 +3,7 @@ import List from '@mui/material/List';
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import githubIcon from '../../assets/icons/github.svg';
 import jenkinsIcon from '../../assets/icons/jenkins.png';
+import botIcon from '../../assets/icons/monster3.png';
 import CommandMessageItem from './CommandMessageItem';
 import FileMessageItem from './FileMessageItem';
 import GitMessageItem from './GitMessageItem';
@@ -64,8 +65,8 @@ function Message({chatList, loading, setLoading }) {
                                             align={"left"}
                                             message={chat.message} 
                                             time={time}
-                                            name={chat.userName}
-                                            url={chat.profileUrl}/> :
+                                            name={""}
+                                            url={botIcon}/> :
                                     null}
                                     {(chat.type === 'COMMAND') ?
                                         <CommandMessageItem 
