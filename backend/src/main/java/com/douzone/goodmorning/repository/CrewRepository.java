@@ -107,4 +107,11 @@ public class CrewRepository {
 		return sqlSession.selectOne("crew.findUserNameByUserEmail", email);
 	}
 
+	public int findDuplicationName(Long channelNo, String crewName) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("channelNo", channelNo);
+		map.put("crewName", crewName);
+		return sqlSession.selectOne("crew.findDuplicationName", channelNo);
+	}
+
 }

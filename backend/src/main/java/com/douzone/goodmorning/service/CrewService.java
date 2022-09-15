@@ -76,4 +76,8 @@ public class CrewService {
 	public UserVo findUserNameByUserEmail(String email) {
 		return crewRepository.findUserNameByUserEmail(email);
 	}
+
+	public int findDuplicationName(Long channelNo, String crewName) {
+		return crewRepository.findDuplicationName(channelNo, crewName);
+	}
 }

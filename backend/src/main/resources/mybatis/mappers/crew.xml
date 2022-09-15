@@ -71,6 +71,12 @@
 				]]>
 		</select>
 		
+		<select id="findDuplicationName" parameterType="map" resultType="integer">
+				<![CDATA[
+				select count(*) from crew where channel_no = #{channelNo} and name = #{crewName};
+				]]>
+		</select>
+		
 		<insert id="insertcrewuser" parameterType="crewvo">
 				<![CDATA[
 				insert into crew_user values (null, #{crewNo}, #{userNo}, 1, now(), #{owner}, now());

@@ -95,6 +95,15 @@ public class CrewController {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	
+    	Message message = new Message();
+    	
+    	int checkCount = crewService.findDuplicationName(channelNo,crewVo.getName());
+    	if (checkCount == 1) {
+    		message.setStatus(StatusEnum.OK);
+        	message.setMessage("크루추가 성공");
+        	message.setData("fail");
+    	}
+    	
     	crewVo.setChannelNo(channelNo);
     	crewVo.setMasterCrewUserNo(userNo);
     	crewService.addCrew(crewVo);
@@ -112,7 +121,7 @@ public class CrewController {
     	Long chatNo = chatService.getLastChat(crewNo, userNo);
     	chatService.insertReadChatUserByCrewNoAndChatNo(userNo, chatNo);
     	
-    	Message message = new Message();
+    	
     	message.setStatus(StatusEnum.OK);
     	message.setMessage("크루추가 성공");
     	message.setData(crewVo);
