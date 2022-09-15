@@ -1,8 +1,5 @@
 // 1단계: 문 가져오기
-import {
-  Box, Button, Card,
-  CardContent, Checkbox, Paper, Tab, Tabs, Typography
-} from "@mui/material";
+import {Box, Button, Card,CardContent, Paper, Tab, Tabs, Typography} from "@mui/material";
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -165,8 +162,8 @@ export default function SearchList(props) {
             </div>
           </div>
           {chattingResult != "" ? (
-            chattingResult.map((e) => (
-              <div>
+            chattingResult.map((e, i) => (
+              <div key={i}>
                 {e.type === "CHAT" && checkMessage && userLi.includes(e.userName)? (
                   <div>
                     <Card>
@@ -191,7 +188,7 @@ export default function SearchList(props) {
                             </Typography>
                           </div>
                         </div>
-                        <Typography variant="h8" component="div">
+                        <Typography variant="h8" component="span">
                           {e.message}
                         </Typography>
                         <Typography
@@ -286,7 +283,7 @@ export default function SearchList(props) {
                   </Card>
                 ) : null}
                 
-                {e.type === "PREVIEW" && checkMessage ? (
+                {e.type === "PREVIEW" && checkMessage && userLi.includes(e.userName) ? (
                   <Card>
                     <CardContent className="searchcard">
                       <div style={{ display: "flex", alignItems: "center" }}>
@@ -326,8 +323,8 @@ export default function SearchList(props) {
             <strong>프로젝트</strong>
           </h6>
           {projectResult != "" ? (
-            projectResult.map((e) => (
-              <div>
+            projectResult.map((e, i) => (
+              <div key={i}>
                 <Card>
                   <CardContent className="searchcard">
                     {e !== null ? (
@@ -352,7 +349,7 @@ export default function SearchList(props) {
                             </Typography>
                           </div>
                         </div>
-                        <Typography variant="h8" component="div">
+                        <Typography variant="h8" component="span">
                           {e.projectName}
                         </Typography>
                         <br />
@@ -400,8 +397,8 @@ export default function SearchList(props) {
         <TabPanel value={value} index={2}>
         <h6><strong>파일</strong></h6>
         {fileResult != "" ? (
-            fileResult.map((e) => (
-             <div>
+            fileResult.map((e, i) => (
+             <div key={i}>
             
             <Card>
               <CardContent className="searchcard">
