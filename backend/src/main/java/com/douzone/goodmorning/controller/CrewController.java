@@ -100,10 +100,11 @@ public class CrewController {
     	crewVo.setChannelNo(channelNo);
     	int checkCount = crewService.findDuplicationName(crewVo);
     	
-    	if (checkCount == 1) {
+    	if (checkCount >= 1) {
     		message.setStatus(StatusEnum.OK);
         	message.setMessage("크루추가 실패");
         	message.setData("fail");
+        	return ResponseEntity.ok().headers(headers).body(message);
     	}
     	
     	
@@ -125,7 +126,7 @@ public class CrewController {
     	
     	
     	message.setStatus(StatusEnum.OK);
-    	message.setMessage("크루추가 성공");
+    	message.setMessage(Integer.toString(checkCount));
     	message.setData(crewVo);
     	return ResponseEntity.ok().headers(headers).body(message);
     }
