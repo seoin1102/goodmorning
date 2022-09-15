@@ -33,7 +33,6 @@ function Project({publishLinkPreview}) {
   const user = getLocalStorageAuthUser();
   const userNo = user.no;
 
-
   const initialTask = React.useCallback(
     async (projectNo) => {
       const getTasks = await get(`/task/pNo/${projectNo}`);

@@ -107,4 +107,8 @@ public class CrewRepository {
 		return sqlSession.selectOne("crew.findUserNameByUserEmail", email);
 	}
 
+	public int findDuplicationName(CrewVo crewVo) {
+		return sqlSession.selectOne("crew.findDuplicationName", crewVo);
+	}
+
 }

@@ -156,7 +156,7 @@ function AddProject({show, publishLinkPreview, setShow}) {
         setClickedCrewName('')
         setClickedCrewNo('')
 
-        publishLinkPreview(gitName, repoName);
+        publishLinkPreview(gitName, repoName, clickedCrewNo);
       } catch(err){
         typeError=='empty'?
         seterrormessage("모든 칸을 다 입력하세요")

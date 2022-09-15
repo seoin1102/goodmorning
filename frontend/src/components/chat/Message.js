@@ -22,7 +22,6 @@ function Message({chatList, loading, setLoading }) {
 
     useEffect (() => {
         setLoading(false);
-
         if(!loading)
             scrollToBottom();
     }, [chatList])

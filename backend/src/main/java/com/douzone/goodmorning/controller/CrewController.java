@@ -94,8 +94,20 @@ public class CrewController {
     public ResponseEntity<Message> crew(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo, @RequestBody CrewVo crewVo) {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+ 
+    	Message message = new Message();
     	
     	crewVo.setChannelNo(channelNo);
+    	int checkCount = crewService.findDuplicationName(crewVo);
+    	
+    	if (checkCount >= 1) {
+    		message.setStatus(StatusEnum.OK);
+        	message.setMessage("크루추가 실패");
+        	message.setData("fail");
+        	return ResponseEntity.ok().headers(headers).body(message);
+    	}
+    	
+    	
     	crewVo.setMasterCrewUserNo(userNo);
     	crewService.addCrew(crewVo);
     	Long crewNo = crewService.findMaster(channelNo, userNo);
@@ -112,9 +124,9 @@ public class CrewController {
     	Long chatNo = chatService.getLastChat(crewNo, userNo);
     	chatService.insertReadChatUserByCrewNoAndChatNo(userNo, chatNo);
     	
-    	Message message = new Message();
+    	
     	message.setStatus(StatusEnum.OK);
-    	message.setMessage("크루추가 성공");
+    	message.setMessage(Integer.toString(checkCount));
     	message.setData(crewVo);
     	return ResponseEntity.ok().headers(headers).body(message);
     }

@@ -23,6 +23,7 @@ function SiteLayout({children}) {
     const [sendMessage, setSendMessage] = useState("");
 
     const dispatch = useDispatch();
+    const flag = localStorage.getItem("flag");
     const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
     //const crewList = useSelector(state => (state.crew), shallowEqual);
     const chatList = useSelector(state => (state.chat), shallowEqual);
@@ -32,7 +33,7 @@ function SiteLayout({children}) {
     useEffect(() => {
         setLoading(true);
         connect()
-
+        console.log("#############"+flag);
         return () => {disconnect()};
     }, [crewNo, ChattingList]);
 
@@ -70,14 +71,16 @@ function SiteLayout({children}) {
             // 레디스 리스너 추가용
             client.current.publish({destination: `/pub/chat`, body: connectChat});
             // 공통 영역
-
             // focus 안된 크루에 대한 메시지 알림 기능
             if(crew.no !== crewNo) {
+
                 // 이전 안읽은 메시지 카운트 가져오고
                 const result = await get(`/chat/count/${crew.no}/${authUser.no}`);
-                // console.log("###########어떻게 받아오는거야ㅑㅑ", result)
                 dispatch(addCHATALARM({crewNo:crew.no, count:result.unReadCount, channelNo:result.channelNo}));
-                client.current.subscribe(`/sub/${crew.no}`, () => {dispatch(updateCHATALARM({crewNo:crew.no}))})
+
+                client.current.subscribe(`/sub/${crew.no}`, () => {
+                    dispatch(updateCHATALARM({crewNo:crew.no}))
+                })
 
                 return;
             };
@@ -88,12 +91,22 @@ function SiteLayout({children}) {
             dispatch(setChat(getChatList));
             dispatch(setSearch(getSearchList));
             dispatch(setCHATALARM({crewNo:crewNo}))
+
             // 읽음 업데이트
             await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
 
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)
+            const result = await get(`/chat/count/${crew.no}/${authUser.no}`);
+            dispatch(addCHATALARM({crewNo:crew.no, count:result.unReadCount, channelNo:result.channelNo}));
+
             client.current.subscribe(`/sub/${crewNo}`,async (data) => {
-                
+
+                // 다른데 가있으면 작동
+                if(flag === 'true') {
+                    dispatch(updateCHATALARM({crewNo:crew.no}))
+                }
+                if(flag !== 'true') {
+                console.log("5555555555555555555555", crew.no, "  $$ ", crewNo);
                 const chatData = JSON.parse(data.body);
 
                 if(chatData.type === 'GITHUB')
@@ -110,7 +123,10 @@ function SiteLayout({children}) {
 
                 console.log("채팅 읽음 업데이트 성공?", chatData);
                 dispatch(addChat(chatData));
-                dispatch(setCHATALARM({crewNo:crewNo}))            
+
+                
+                dispatch(setCHATALARM({crewNo:crewNo}))
+                }         
             })
             return;
         })
@@ -162,19 +178,20 @@ function SiteLayout({children}) {
         setSendMessage("");
     };
 
-    const publishLinkPreview = async(gitName, repoName) => {
+    const publishLinkPreview = async(gitName, repoName, projectCrewNo) => {
         if (!client.current.connected) 
           return;
 
           // 메시지 객체 생성 및 DB 저장
-          const addChat = chatPreviewVo(crewNo, authUser.no, `${gitName}/${repoName}`);
-          const result = await postJson(`/chat/${crewNo}/${authUser.no}`, addChat);
+          const addChat = chatPreviewVo(projectCrewNo, authUser.no, `${gitName}/${repoName}`);
+          console.log("링크프리뷰디비@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+          const result = await postJson(`/chat/${projectCrewNo}/${authUser.no}`, addChat);
 
           // DB INSERT 성공 시 STOMP 통신
           if(result.data !== 'success')
             return;
           
-          const pubChat = msgPreview(crewNo, authUser.no, `${gitName}/${repoName}`, authUser.name);
+          const pubChat = msgPreview(projectCrewNo, authUser.no, `${gitName}/${repoName}`, authUser.name);
           client.current.publish({destination: `/pub/chat`, body: pubChat});
     }
 
@@ -211,9 +228,6 @@ function SiteLayout({children}) {
       client.current.publish({destination: `/pub/chat`, body: pubChat});
     }
 
-    ///// 시창이 코드 넣을 곳 ///////////
-
-    ///////////////////////////
     return (
         <div>
             <Grid container component={Paper}>
@@ -244,4 +258,4 @@ function SiteLayout({children}) {
     );
 }
 
-export default SiteLayout;
+export default React.memo(SiteLayout);

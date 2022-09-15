@@ -40,6 +40,7 @@ function SignContainer() {
 
             localStorage.setItem('authorization', response.headers.authorization );
             localStorage.setItem('authUser',JSON.stringify(userInfo));
+            localStorage.setItem("flag", false);
             location.href="/";
             seterrormessage('');
             
