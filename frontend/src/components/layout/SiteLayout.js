@@ -33,7 +33,7 @@ function SiteLayout({children}) {
     useEffect(() => {
         setLoading(true);
         connect()
-
+        console.log("로딩ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ시작"+loading);
         return () => {disconnect()};
     }, [crewNo, ChattingList,flag]);
 
@@ -219,7 +219,7 @@ function SiteLayout({children}) {
         <div>
             <Grid container component={Paper}>
                 <Header setChattingList = {setChattingList}/>
-                <Navigation setFlag={setFlag} />
+                <Navigation flag={flag} setFlag={setFlag} />
                 {
                     (children.type === Chat) ? 
                     <Chat 

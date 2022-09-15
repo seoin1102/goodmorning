@@ -29,7 +29,15 @@ function AddCrew({modalShow, onClickModal, onCreateCrew }) {
                     }}
                   />
                 </Form.Group>
-            
+                <Form.Group className="mb-3" controlId="crewForm.creationname">
+                    <Form.Label>만드는 사람</Form.Label>
+                    <Form.Control
+                type="create"
+                placeholder="이름을 입력해주세요"
+                readOnly
+                value={user.name}               
+                />
+                </Form.Group>
         </Modal.Body>
         <Modal.Footer>
             <Button variant="outline-dark" type="button" onClick={onClickModal} >
