@@ -9,13 +9,16 @@ import { NavLink } from 'react-router-dom';
 import arrowDownIcon from '../../../assets/icons/keyboard_arrow_down.svg';
 import arrowUpIcon from '../../../assets/icons/keyboard_arrow_up.svg';
 import NavigationEctItem from './NavigationEctItem';
+import { trueFlag } from '../../../redux/flag';
+import { useDispatch } from 'react-redux';
 
-function NavigationEct({onCreateCrew, onCreateChannel, taskList, setFlag }) {
+function NavigationEct({onCreateCrew, onCreateChannel, taskList }) {
     // modal state
     const [addChannelModalShow, setAddChannelModalShow] = useState(false);
     const [addCrewModalShow, setAddCrewModalShow] = useState(false);
     // const [reservModalShow, setReservModalShow] = useState(false);
     const [open, setOpen] = useState(true);
+    const dispatch = useDispatch();
 
     const handleClick = () => {
         setOpen(!open);
@@ -74,13 +77,13 @@ function NavigationEct({onCreateCrew, onCreateChannel, taskList, setFlag }) {
             </NavigationEctItem> */}
 
 
-            <NavLink to={"/fileshare"} style={{textDecoration:'none', color: 'white'}} onClick={() => {setFlag((prevFlag)=> true)}}>
+            <NavLink to={"/fileshare"} style={{textDecoration:'none', color: 'white'}} onClick={() => {dispatch(trueFlag())}}>
             <NavigationEctItem itemName={"파일 공유"}/>
             </NavLink>
-            <NavLink to={"/project"} style={{textDecoration:'none', color: 'white'}} onClick={() => setFlag((prevFlag)=> true)}>
+            <NavLink to={"/project"} style={{textDecoration:'none', color: 'white'}} onClick={() => {dispatch(trueFlag())}}>
             <NavigationEctItem itemName={"프로젝트 달력"}/>
             </NavLink>
-            <NavLink to={"/task"} style={{textDecoration:'none', color: 'white'}} onClick={() => setFlag((prevFlag)=> true)}>
+            <NavLink to={"/task"} style={{textDecoration:'none', color: 'white'}} onClick={() => {dispatch(trueFlag())}}>
             <NavigationEctItem itemName={"업무 달력"}/>
             </NavLink>
         </List>

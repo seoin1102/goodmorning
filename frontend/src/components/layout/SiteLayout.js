@@ -21,9 +21,10 @@ function SiteLayout({children}) {
     const authUser = getLocalStorageAuthUser();
     const [loading, setLoading] = useState(true);
     const [sendMessage, setSendMessage] = useState("");
-    const [flag, setFlag] = useState(false);
+    //const [flag, setFlag] = useState(0);
 
     const dispatch = useDispatch();
+    const flag = useSelector(state => (state.flag), shallowEqual);
     const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
     //const crewList = useSelector(state => (state.crew), shallowEqual);
     const chatList = useSelector(state => (state.chat), shallowEqual);
@@ -33,9 +34,9 @@ function SiteLayout({children}) {
     useEffect(() => {
         setLoading(true);
         connect()
-        console.log("로딩ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ시작"+loading);
+        console.log("#############"+flag);
         return () => {disconnect()};
-    }, [crewNo, ChattingList,flag]);
+    }, [crewNo, ChattingList, flag]);
 
     // 자원 할당(소켓 연결)
     const connect = () => {
@@ -71,18 +72,19 @@ function SiteLayout({children}) {
             // 레디스 리스너 추가용
             client.current.publish({destination: `/pub/chat`, body: connectChat});
             // 공통 영역
-
+            console.log("11111111111111111", crew.no, "  $$ ", crewNo);
             // focus 안된 크루에 대한 메시지 알림 기능
             if(crew.no !== crewNo || flag === true) {
+                console.log("2222222222222222", crew.no, "  $$ ", crewNo);
                 // 이전 안읽은 메시지 카운트 가져오고
                 const result = await get(`/chat/count/${crew.no}/${authUser.no}`);
-                // console.log("###########어떻게 받아오는거야ㅑㅑ", result)
                 dispatch(addCHATALARM({crewNo:crew.no, count:result.unReadCount, channelNo:result.channelNo}));
                 client.current.subscribe(`/sub/${crew.no}`, () => {dispatch(updateCHATALARM({crewNo:crew.no}))})
 
                 return;
             };
 
+            console.log("333333333333333333", crew.no, "  $$ ", crewNo);
             // focus 된 [채널/크루]의 전체 메시지 리스트 DB에서 가져와 출력
             const getChatList = await get(`/chat/${crewNo}`);
             const getSearchList = await get(`/chat/channel/${channelNo}`);
@@ -91,10 +93,10 @@ function SiteLayout({children}) {
             dispatch(setCHATALARM({crewNo:crewNo}))
             // 읽음 업데이트
             await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
-
+            console.log("444444444444444444444", crew.no, "  $$ ", crewNo);
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)
             client.current.subscribe(`/sub/${crewNo}`,async (data) => {
-                
+                console.log("5555555555555555555555", crew.no, "  $$ ", crewNo);
                 const chatData = JSON.parse(data.body);
 
                 if(chatData.type === 'GITHUB')
@@ -111,8 +113,10 @@ function SiteLayout({children}) {
 
                 console.log("채팅 읽음 업데이트 성공?", chatData);
                 dispatch(addChat(chatData));
-                dispatch(setCHATALARM({crewNo:crewNo}))            
+                dispatch(setCHATALARM({crewNo:crewNo}))
+                console.log("66666666666666666",crew.no, "  $$ ", crewNo);         
             })
+            console.log("7777777777777777",crew.no, "  $$ ", crewNo);   
             return;
         })
     };
@@ -216,7 +220,7 @@ function SiteLayout({children}) {
         <div>
             <Grid container component={Paper}>
                 <Header setChattingList = {setChattingList}/>
-                <Navigation setFlag={setFlag} />
+                <Navigation />
                 {
                     (children.type === Chat) ? 
                     <Chat 

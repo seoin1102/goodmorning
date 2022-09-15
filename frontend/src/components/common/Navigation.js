@@ -10,10 +10,11 @@ import { setCrewUser } from "../../redux/crewUser";
 import { setCREWFOCUS } from '../../redux/focus';
 import { setProject } from '../../redux/project';
 import { setTask } from '../../redux/task';
+import { falseFlag } from '../../redux/flag';
 import NavigationCrew from './navigation/NavigationCrew';
 import NavigationEct from './navigation/NavigationEct';
 
-function Navigation({ setFlag }) {
+function Navigation() {
 
     const dispatch = useDispatch();
     const crewList = useSelector(state => (state.crew), shallowEqual);
@@ -21,7 +22,6 @@ function Navigation({ setFlag }) {
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
     const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
-
     const crewNo = useSelector(state => (state.focus.crewNo), shallowEqual);
     const crewName = useSelector(state => (state.focus.crewName), shallowEqual);
     const [changeCrew, setChangeCrew] = useState({
@@ -86,11 +86,12 @@ function Navigation({ setFlag }) {
 
     const onClickCrew = async(crewNo, crewName) => {        
         const result = await putJson(`/crew/${crewNo}`, JSON.stringify({no: userNo}))
-        if(result.data === 'success') 
+        if(result.data === 'success')  
             dispatch(setCREWFOCUS({no: crewNo, name: crewName})); 
           
-        setFlag((prevFlag) => false);
+        dispatch(falseFlag());
     }
+
 
     /**
      * 초기 화면
@@ -120,8 +121,7 @@ function Navigation({ setFlag }) {
         <Grid item xs={2} style={{ height: '842px',backgroundColor:"#1bc6d9"}}>
             <NavigationEct 
                 onCreateCrew={onCreateCrew} 
-                onCreateChannel={onCreateChannel}
-                setFlag={setFlag} />
+                onCreateChannel={onCreateChannel} />
             <NavigationCrew 
                 crewList={crewList} 
                 onClickCrew={onClickCrew} />

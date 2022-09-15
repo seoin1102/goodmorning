@@ -10,6 +10,7 @@ import project from './project';
 import chatAlarm from './chatAlarm';
 import file from './file';
 import search from './search';
+import flag from './flag';
 
 const rootReducer = combineReducers({
     channel,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
     project,
     chatAlarm,
     file,
-    search
+    search,
+    flag
 });
 
 export default rootReducer;
