@@ -71,10 +71,8 @@ function SiteLayout({children}) {
             // 레디스 리스너 추가용
             client.current.publish({destination: `/pub/chat`, body: connectChat});
             // 공통 영역
-            console.log("11111111111111111", crew.no, "  $$ ", crewNo);
             // focus 안된 크루에 대한 메시지 알림 기능
             if(crew.no !== crewNo) {
-                console.log("2222222222222222", crew.no, "  $$ ", crewNo);
 
                 // 이전 안읽은 메시지 카운트 가져오고
                 const result = await get(`/chat/count/${crew.no}/${authUser.no}`);
@@ -87,19 +85,19 @@ function SiteLayout({children}) {
                 return;
             };
 
-            console.log("333333333333333333", crew.no, "  $$ ", crewNo);
             // focus 된 [채널/크루]의 전체 메시지 리스트 DB에서 가져와 출력
             const getChatList = await get(`/chat/${crewNo}`);
             const getSearchList = await get(`/chat/channel/${channelNo}`);
             dispatch(setChat(getChatList));
             dispatch(setSearch(getSearchList));
             dispatch(setCHATALARM({crewNo:crewNo}))
+
             // 읽음 업데이트
             await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
-            console.log("444444444444444444444", crew.no, "  $$ ", crewNo);
+
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)
             const result = await get(`/chat/count/${crew.no}/${authUser.no}`);
-                dispatch(addCHATALARM({crewNo:crew.no, count:result.unReadCount, channelNo:result.channelNo}));
+            dispatch(addCHATALARM({crewNo:crew.no, count:result.unReadCount, channelNo:result.channelNo}));
 
             client.current.subscribe(`/sub/${crewNo}`,async (data) => {
 
@@ -128,10 +126,8 @@ function SiteLayout({children}) {
 
                 
                 dispatch(setCHATALARM({crewNo:crewNo}))
-                }
-                console.log("66666666666666666",crew.no, "  $$ ", crewNo);         
+                }         
             })
-            console.log("7777777777777777",crew.no, "  $$ ", crewNo);   
             return;
         })
     };
@@ -188,7 +184,8 @@ function SiteLayout({children}) {
 
           // 메시지 객체 생성 및 DB 저장
           const addChat = chatPreviewVo(projectCrewNo, authUser.no, `${gitName}/${repoName}`);
-          const result = await postJson(`/chat/${crewNo}/${authUser.no}`, addChat);
+          console.log("링크프리뷰디비@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+          const result = await postJson(`/chat/${projectCrewNo}/${authUser.no}`, addChat);
 
           // DB INSERT 성공 시 STOMP 통신
           if(result.data !== 'success')
