@@ -66,8 +66,8 @@ function Navigation({ setFlag }) {
      */
     const onCreateCrew = useCallback(async(channelNo, crew, userNo) => {
         const result = await post(`/crew/${channelNo}/${userNo}`, crew);
-        console.log(result)
-        if (result.data === 'fail'){
+        console.log("이녀석아!!",result);
+        if (result.data == 'fail'){
                 Swal.fire({
                     icon: 'error',
                     title: '크루 생성에 실패하였습니다.',

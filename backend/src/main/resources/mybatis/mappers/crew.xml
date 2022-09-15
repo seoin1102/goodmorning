@@ -71,9 +71,9 @@
 				]]>
 		</select>
 		
-		<select id="findDuplicationName" parameterType="map" resultType="integer">
+		<select id="findDuplicationName" parameterType="crewvo" resultType="integer">
 				<![CDATA[
-				select count(*) from crew where channel_no = #{channelNo} and name = #{crewName};
+				select count(*) from crew where channel_no = #{channelNo} and name = #{name};
 				]]>
 		</select>
 		
