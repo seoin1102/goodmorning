@@ -163,19 +163,19 @@ function SiteLayout({children}) {
         setSendMessage("");
     };
 
-    const publishLinkPreview = async(gitName, repoName) => {
+    const publishLinkPreview = async(gitName, repoName, projectCrewNo) => {
         if (!client.current.connected) 
           return;
 
           // 메시지 객체 생성 및 DB 저장
-          const addChat = chatPreviewVo(crewNo, authUser.no, `${gitName}/${repoName}`);
+          const addChat = chatPreviewVo(projectCrewNo, authUser.no, `${gitName}/${repoName}`);
           const result = await postJson(`/chat/${crewNo}/${authUser.no}`, addChat);
 
           // DB INSERT 성공 시 STOMP 통신
           if(result.data !== 'success')
             return;
           
-          const pubChat = msgPreview(crewNo, authUser.no, `${gitName}/${repoName}`, authUser.name);
+          const pubChat = msgPreview(projectCrewNo, authUser.no, `${gitName}/${repoName}`, authUser.name);
           client.current.publish({destination: `/pub/chat`, body: pubChat});
     }
 
