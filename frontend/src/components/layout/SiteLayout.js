@@ -73,6 +73,10 @@ function SiteLayout({children}) {
             // 공통 영역
             console.log("11111111111111111", crew.no, "  $$ ", crewNo);
             // focus 안된 크루에 대한 메시지 알림 기능
+
+
+
+            ////////////////////////////////////////////
             if(crew.no !== crewNo) {
                 console.log("2222222222222222", crew.no, "  $$ ", crewNo);
 
@@ -86,6 +90,10 @@ function SiteLayout({children}) {
 
                 return;
             };
+            ///////////////////////////////////////////
+
+
+
 
             console.log("333333333333333333", crew.no, "  $$ ", crewNo);
             // focus 된 [채널/크루]의 전체 메시지 리스트 DB에서 가져와 출력
@@ -98,9 +106,12 @@ function SiteLayout({children}) {
             await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
             console.log("444444444444444444444", crew.no, "  $$ ", crewNo);
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)
-            client.current.subscribe(`/sub/${crewNo}`,async (data) => {
+            const result = await get(`/chat/count/${crew.no}/${authUser.no}`);
+            dispatch(addCHATALARM({crewNo:crew.no, count:result.unReadCount, channelNo:result.channelNo}));
 
-                if(flag === true) {
+            client.current.subscribe(`/sub/${crewNo}`,async (data) => {
+                console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+ flag, " aa", (flag === "true"), " zz", (flag == "true"))
+                if(flag === "true") {
                     dispatch(updateCHATALARM({crewNo:crew.no}))
                 }
 
