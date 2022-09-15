@@ -134,7 +134,7 @@ export default function AskConfirmationBeforeSave(props) {
   };
   
   return (
-    <div style={{ height: 300, width: '100%' }}>
+    <div style={{ height: 800, width: '100%' }}>
 
       {renderConfirmDialog()}
       <DataGrid
@@ -148,7 +148,6 @@ export default function AskConfirmationBeforeSave(props) {
         processRowUpdate={processRowUpdate}
         experimentalFeatures={{ newEditingApi: true }}
       />
-      <Button>버튼</Button>
       {!!snackbar && (
         <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
           <Alert {...snackbar} onClose={handleCloseSnackbar} />

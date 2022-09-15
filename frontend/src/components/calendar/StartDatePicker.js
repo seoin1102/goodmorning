@@ -22,7 +22,7 @@ export default function StartDatePick(props) {
           value={props.clickedStart}
           onChange={startHandler}
           renderInput={(params) => <TextField {...params} />}
-
+          label='시작일시'
         />
 
       </Stack>

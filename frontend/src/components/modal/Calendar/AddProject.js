@@ -15,6 +15,7 @@ import { checkResponse, fetchResponse } from "../../../apis/Fetch";
 import { addProject } from "../../../redux/project";
 import "../../../styles/css/Calendar.css";
 import ChannelSelect from "../../calendar/ChannelSelect";
+import ProjectAssign from "../../calendar/ProjectAssign";
 
 function AddProject({show, publishLinkPreview, setShow}) {
   
@@ -27,7 +28,7 @@ function AddProject({show, publishLinkPreview, setShow}) {
   const [clickedCrewNo, setClickedCrewNo] = useState();
   const [clickedCrewName, setClickedCrewName] = useState();
   const [errormessage, seterrormessage] = useState("");
-
+  const [clickedAssign , setClickedAssign] = useState();
   const projectList = useSelector((state) => state.project, shallowEqual);
   const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
   const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
@@ -66,9 +67,11 @@ function AddProject({show, publishLinkPreview, setShow}) {
         seterrormessage('')
         setClickedCrewName('')
         setClickedCrewNo('')
+        
     }
 
     const onSubmit = async (e) => {
+      let typeError="notempty";
 
       try{
         e.preventDefault();
@@ -80,12 +83,34 @@ function AddProject({show, publishLinkPreview, setShow}) {
           status: clickedStatus,
           crewNo: clickedCrewNo,
           crewName: clickedCrewName,
-          id: maxId+1
+          id: maxId+1,
+          assign: clickedAssign
+        }
+
+        if(clickedAssign == undefined||clickedName == undefined || gitName == undefined || gitToken == undefined || clickedCrewName == undefined || clickedStart == undefined || clickedEnd == undefined ){
+          typeError="empty"
+          throw new Error(); 
         }
 
         const result1 = await post(`/project`,  updatedTask)
-        // if(reust1.data !== 'success') 
-        //   return;
+        clickedAssign.map((assign)=>{
+          const _addTask ={
+            title: assign.userName+'님의 '+clickedName+' 작업',
+            start:moment(clickedStart).format('YYYY-MM-DD'),
+            end: moment(clickedStart).format('YYYY-MM-DD'),
+            projectName:clickedName,
+            projectNo: maxId+1,
+            crewNo: clickedCrewNo,
+            color: '#00bcd4',
+            status: "Todo",
+            userName:assign.userName,
+            userNo: assign.userNo
+            }
+          
+            post(`/task`, _addTask)
+            console.log(_addTask)
+        })
+
         console.log("=====>", result1);
         console.log("=====>",updatedTask)
         dispatch(addProject([updatedTask]));
@@ -93,7 +118,6 @@ function AddProject({show, publishLinkPreview, setShow}) {
         const octokit = new Octokit({
           auth: gitToken
         })
-        const giturl='';
 
         await octokit.request(`POST /user/repos`, {
           name: clickedName,
@@ -132,13 +156,16 @@ function AddProject({show, publishLinkPreview, setShow}) {
 
         publishLinkPreview(gitName, repoName);
       } catch(err){
-        seterrormessage("깃 또는 깃토큰이 일치하지 않습니다!");
+        typeError=='empty'?
+        seterrormessage("모든 칸을 다 입력하세요")
+        : seterrormessage("깃 또는 깃토큰이 일치하지 않습니다!");
+
       }
     }
 
 
     const nameHandler = async(e) =>{
-        setClickedName(e.target.value.replace(/[^A-Za-z0-9 ]/ig, ''))
+        setClickedName(e.target.value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/ig, ''))
         setRepoName(e.target.value)
         const getProjects = await get(`/project/${channelNo}`);
         if(getProjects.find(project=> project.projectName == e.target.value)){
@@ -160,7 +187,7 @@ function AddProject({show, publishLinkPreview, setShow}) {
               <Form.Label>프로젝트명</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="프로젝트 이름을 입력해주세요. 영어만 입력 가능합니다."
+                placeholder="프로젝트 이름을 입력해주세요."
                 autoFocus
                 value={clickedName || ''} onChange={nameHandler}
               />
@@ -184,8 +211,11 @@ function AddProject({show, publishLinkPreview, setShow}) {
                 value={gitToken || ''} onChange={(e)=> {setgitToken(e.target.value)}}
               /> 
             </Form.Group>
-            <h6>프로젝트명</h6>
+            <h6>채널명</h6>
             <ChannelSelect clickedCrewNo={clickedCrewNo} setClickedCrewNo={setClickedCrewNo} clickedCrewName={clickedCrewName} setClickedCrewName={setClickedCrewName}  />
+    
+            <h6>프로젝트 참여자</h6>
+            <ProjectAssign clickedAssign={clickedAssign} setClickedAssign={setClickedAssign} />
     
             <Form.Group
               className="mb-3"
