@@ -107,7 +107,7 @@ function SiteLayout({children}) {
                 if(flag === 'true') {
                     dispatch(updateCHATALARM({crewNo:crew.no}))
                 }
-
+                if(flag !== 'true') {
                 console.log("5555555555555555555555", crew.no, "  $$ ", crewNo);
                 const chatData = JSON.parse(data.body);
 
@@ -125,9 +125,10 @@ function SiteLayout({children}) {
 
                 console.log("채팅 읽음 업데이트 성공?", chatData);
                 dispatch(addChat(chatData));
+
                 
-                if(flag !== 'true')
-                    dispatch(setCHATALARM({crewNo:crewNo}))
+                dispatch(setCHATALARM({crewNo:crewNo}))
+                }
                 console.log("66666666666666666",crew.no, "  $$ ", crewNo);         
             })
             console.log("7777777777777777",crew.no, "  $$ ", crewNo);   
