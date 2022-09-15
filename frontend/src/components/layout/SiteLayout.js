@@ -212,14 +212,11 @@ function SiteLayout({children}) {
       client.current.publish({destination: `/pub/chat`, body: pubChat});
     }
 
-    ///// 시창이 코드 넣을 곳 ///////////
-
-    ///////////////////////////
     return (
         <div>
             <Grid container component={Paper}>
                 <Header setChattingList = {setChattingList}/>
-                <Navigation flag={flag} setFlag={setFlag} />
+                <Navigation setFlag={setFlag} />
                 {
                     (children.type === Chat) ? 
                     <Chat 
@@ -245,4 +242,4 @@ function SiteLayout({children}) {
     );
 }
 
-export default SiteLayout;
+export default React.memo(SiteLayout);

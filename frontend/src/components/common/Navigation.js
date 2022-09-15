@@ -12,7 +12,7 @@ import { setTask } from '../../redux/task';
 import NavigationCrew from './navigation/NavigationCrew';
 import NavigationEct from './navigation/NavigationEct';
 
-function Navigation({ flag, setFlag }) {
+function Navigation({ setFlag }) {
 
     const dispatch = useDispatch();
     const crewList = useSelector(state => (state.crew), shallowEqual);
@@ -74,25 +74,13 @@ function Navigation({ flag, setFlag }) {
         dispatch(addChannel(result.data));              
     }, [])
 
-    const onClickCrew = async(crewNo, crewName) => {
-        console.log("1111111111111111111111111111", crewName+ " zz " + crewNo);
-        console.log("222222222222222222222222222", crewName)
+    const onClickCrew = async(crewNo, crewName) => {        
         const result = await putJson(`/crew/${crewNo}`, JSON.stringify({no: userNo}))
-        console.log("33333333333333333333333", crewName)
-        if(result.data === 'success') {
+        if(result.data === 'success') 
             dispatch(setCREWFOCUS({no: crewNo, name: crewName})); 
-            // setChangeCrew((prevState) => ({...prevState, no: crewNo, name: crewName}))
-        }
-            
-        
+          
         setFlag((prevFlag) => false);
     }
-
-    // useEffect(() =>{
-    //         console.log("444444444444444", changeCrew.name);
-    //         dispatch(setCREWFOCUS({no: changeCrew.no, name: changeCrew.name}));
-
-    // }, [changeCrew])
 
     /**
      * 초기 화면
