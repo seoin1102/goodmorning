@@ -46,11 +46,12 @@ function Navigation() {
         localStorage.setItem('taskList', JSON.stringify(tasks));
     }, [channelNo])
 
-    const initialProject = useCallback(async(channelNo) => {
-        const projects = await get(`/project/${channelNo}`);
+    const initialProject = useCallback(async(channelNo, userNo) => {
+        const projects = await get(`/project/${channelNo}/${userNo}`);
         dispatch(setProject(projects));
         localStorage.setItem('projectList', JSON.stringify(projects));
-    }, [channelNo])
+        console.log(projects)
+    }, [channelNo, userNo])
 
     const initialCrewUser = useCallback(async (channelNo) => {
         const assignList = await get(`/crew/user/${channelNo}`);
@@ -99,8 +100,9 @@ function Navigation() {
 
     useEffect(() => {
         if(channelNo !== null)
-            initialProject(channelNo);
-    }, [channelNo])
+            initialProject(channelNo,userNo);
+            console.log(channelNo, userNo)
+    }, [channelNo,userNo])
 
     useEffect(() => {
         if(channelNo !== null)

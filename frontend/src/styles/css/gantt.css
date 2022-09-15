@@ -3,8 +3,6 @@
   text-align: right;
   margin:10%;
   padding:10%;
-  overflow-x:scroll;
-  overflow-y:scroll;
   font-size: 1000px;
   dominant-baseline:central;
 }
@@ -13,11 +11,7 @@
 }
 
 .rect{
-  overflow-x:scroll;
-  overflow-y:scroll;
 }
 
 .ganttchart{
-  overflow-x:scroll;
-  overflow-y:scroll;
 }

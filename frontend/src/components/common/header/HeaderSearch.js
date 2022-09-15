@@ -9,6 +9,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import SearchIcon from '../../../assets/icons/search.svg';
 import { setProject } from "../../../redux/project";
+import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
 function HeaderSearch(props) {
   const searchList = useSelector(state => (state.search), shallowEqual);
@@ -18,7 +19,8 @@ function HeaderSearch(props) {
   const [search, setSearch] =useState('')
   const projectList = useSelector((state) => state.project, shallowEqual);
   const dispatch = useDispatch();
-
+  const user = getLocalStorageAuthUser();
+  const userNo = user.no;
   const projectName = (projectList != null?projectList.map((project)=> project.projectName):[])
   const test = [...searchKeyword,...projectName]
   const handleChange=((e)=>{
@@ -36,8 +38,8 @@ function HeaderSearch(props) {
   }
 
   const totalProject = React.useCallback(
-    async (channelNo) => {
-      const getProjects = await get(`/project/${channelNo}`);
+    async (channelNo, userNo) => {
+      const getProjects = await get(`/project/${channelNo}/${userNo}`);
       dispatch(setProject(getProjects));
     },
     [dispatch]
@@ -59,7 +61,7 @@ function HeaderSearch(props) {
               id="free-solo-demo"
               options={test}
               onChange={handleChange}
-              sx={{ width: 332, backgroundColor: 'white' }}
+              sx={{ width: '40em', backgroundColor: 'white' }}
               renderInput={(params) => 
               <TextField 
               value={search || ''}
@@ -69,7 +71,7 @@ function HeaderSearch(props) {
                 input: {
                     color: "black",
                     height: '100%',
-                    width:'300px',
+                    width:'38em',
                     border: '2px solid white', 
                     borderRadius: '7px', 
                     backgroundColor: 'white'
@@ -87,7 +89,7 @@ function HeaderSearch(props) {
                 input: {
                     color: "black",
                     height: '100%',
-                    width:'300px',
+                    width:'38em',
                     border: '2px solid white', 
                     borderRadius: '7px', 
                     backgroundColor: 'white'

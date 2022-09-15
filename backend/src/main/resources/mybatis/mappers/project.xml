@@ -10,11 +10,11 @@
 				and a.crew_no = b.no;
 				]]>
 		</select>
-		<select id="findByChannel" parameterType="long" resultType="projectvo">
+		<select id="findByChannel" parameterType="map" resultType="projectvo">
 				<![CDATA[
 				select a.no as id, a.project_name as projectName, a.start_date as start, a.end_date as end, a.descrition as description, a.status, c.name as crewName,  c.no as crewNo
-				from project a, channel b, crew c
-				where b.no= #{channelNo} and a.enable=1 and a.crew_no = c.no and b.no = c.channel_no;
+				from project a, channel b, crew c, crew_user d
+				where b.no= #{channelNo} and a.enable=1 and a.crew_no = c.no and b.no = c.channel_no and c.no=d.crew_no and d.user_no=#{userNo};
 				]]>
 		</select>
 		<select id="findCrewNoByName" parameterType="string" resultType="chatvo">

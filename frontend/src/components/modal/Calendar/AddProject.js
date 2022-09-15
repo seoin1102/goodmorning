@@ -16,6 +16,7 @@ import { addProject } from "../../../redux/project";
 import "../../../styles/css/Calendar.css";
 import ChannelSelect from "../../calendar/ChannelSelect";
 import ProjectAssign from "../../calendar/ProjectAssign";
+import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 
 function AddProject({show, publishLinkPreview, setShow}) {
   
@@ -37,7 +38,8 @@ function AddProject({show, publishLinkPreview, setShow}) {
   const [gitName, setGitName] = useState();
   const [repoName, setRepoName] = useState();
   const [gitToken, setgitToken] = useState();
-
+  const user = getLocalStorageAuthUser();
+  const userNo = user.no;
   const ids = []
   projectList.map((event) => {ids.push(event.id)})
   const maxId = Math.max(...ids);
@@ -167,7 +169,7 @@ function AddProject({show, publishLinkPreview, setShow}) {
     const nameHandler = async(e) =>{
         setClickedName(e.target.value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/ig, ''))
         setRepoName(e.target.value)
-        const getProjects = await get(`/project/${channelNo}`);
+        const getProjects = await get(`/project/${channelNo}/${userNo}`);
         if(getProjects.find(project=> project.projectName == e.target.value)){
             seterrormessage("같은 이름의 프로젝트가 있습니다. 다른 프로젝트 명을 입력해주세요.")
         }else{

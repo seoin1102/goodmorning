@@ -1,7 +1,7 @@
 import { Box, Button, Card, Divider, Grid, Paper } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useState, useLocation } from "react";
 import { NavDropdown } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { get, remove } from "../../apis/Axios";
@@ -12,10 +12,9 @@ import AddProject from "../modal/Calendar/AddProject";
 import ProjectChart from "./ProjectChart";
 import CollapsibleTable from "./ProjectTable";
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import { getLocalStorageAuthUser } from '../../apis/Fetch';
 
 function Project({publishLinkPreview}) {
 
@@ -28,23 +27,30 @@ function Project({publishLinkPreview}) {
   const dispatch = useDispatch();
   const crewList = useSelector((state) => state.crew, shallowEqual);
   const projectList = useSelector((state) => state.project, shallowEqual);
-  const taskList = useSelector((state) => state.task, shallowEqual);
   const handleShow = () => setShow(true);
   const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
   console.log("크루 넘버!",crewNo)
-  
+  const user = getLocalStorageAuthUser();
+  const userNo = user.no;
+
 
   const initialTask = React.useCallback(
     async (projectNo) => {
       const getTasks = await get(`/task/pNo/${projectNo}`);
       dispatch(setTask(getTasks));
-    },
-    [dispatch]
+    }
   );
+
+  const initialProject = React.useCallback(async(crewNo) => {
+    const getProjects = await get(`/project/cNo/${crewNo}`);
+    dispatch(setProject(getProjects));
+    localStorage.setItem('projectList', JSON.stringify(getProjects));
+}, [crewNo])
 
   useEffect(() => {
     setChangeCrew(crewNo);
   }, [crewNo]);
+
 
   const handleDelete = () => {
     selectionModel.map((id) => {
@@ -122,7 +128,7 @@ useEffect(()=>{
                     <NavDropdown.Item
                     onClick={async() => {
                       setChannelName('전체 채널')
-                      const getProjects = await get(`/project/${channelNo}`);
+                      const getProjects = await get(`/project/${channelNo}/${userNo}`);
                       dispatch(setProject(getProjects));
 
                     }}>전체 채널</NavDropdown.Item>

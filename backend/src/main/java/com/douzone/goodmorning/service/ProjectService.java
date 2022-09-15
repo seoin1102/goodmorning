@@ -26,8 +26,8 @@ public class ProjectService {
 		return projectRepository.findByCrew(crewNo);
 	}
 	
-	public List<ProjectVo> findByChannel(Long channelNo) {
-		return projectRepository.findByChannel(channelNo);
+	public List<ProjectVo> findByChannel(Long channelNo, Long userNo) {
+		return projectRepository.findByChannel(channelNo, userNo);
 	}
 	
 	public ChatVo findCrewNoByName(String projectName) {
