@@ -12,7 +12,7 @@ import { setTask } from '../../redux/task';
 import NavigationCrew from './navigation/NavigationCrew';
 import NavigationEct from './navigation/NavigationEct';
 
-function Navigation() {
+function Navigation({setFlag}) {
 
     const dispatch = useDispatch();
     const crewList = useSelector(state => (state.crew), shallowEqual);
@@ -78,6 +78,8 @@ function Navigation() {
         const result = await putJson(`/crew/${crewNo}`, JSON.stringify({no: userNo}))
         if(result.data === 'success')
             setChangeCrew((prevState) => ({...prevState, no: crewNo, name: crewName}))
+        
+        setFlag((prevFlag) => false);
     }
 
     useEffect(() =>{
@@ -112,7 +114,8 @@ function Navigation() {
         <Grid item xs={2} style={{ height: '842px',backgroundColor:"#1bc6d9"}}>
             <NavigationEct 
                 onCreateCrew={onCreateCrew} 
-                onCreateChannel={onCreateChannel} />
+                onCreateChannel={onCreateChannel}
+                setFlag={setFlag} />
             <NavigationCrew 
                 crewList={crewList} 
                 onClickCrew={onClickCrew} />

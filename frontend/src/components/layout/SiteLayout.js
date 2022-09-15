@@ -21,6 +21,7 @@ function SiteLayout({children}) {
     const authUser = getLocalStorageAuthUser();
     const [loading, setLoading] = useState(true);
     const [sendMessage, setSendMessage] = useState("");
+    const [flag, setFlag] = useState(false);
 
     const dispatch = useDispatch();
     const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
@@ -34,7 +35,7 @@ function SiteLayout({children}) {
         connect()
 
         return () => {disconnect()};
-    }, [crewNo, ChattingList]);
+    }, [crewNo, ChattingList,flag]);
 
     // 자원 할당(소켓 연결)
     const connect = () => {
@@ -72,7 +73,7 @@ function SiteLayout({children}) {
             // 공통 영역
 
             // focus 안된 크루에 대한 메시지 알림 기능
-            if(crew.no !== crewNo) {
+            if(crew.no !== crewNo || flag === true) {
                 // 이전 안읽은 메시지 카운트 가져오고
                 const result = await get(`/chat/count/${crew.no}/${authUser.no}`);
                 // console.log("###########어떻게 받아오는거야ㅑㅑ", result)
@@ -218,7 +219,7 @@ function SiteLayout({children}) {
         <div>
             <Grid container component={Paper}>
                 <Header setChattingList = {setChattingList}/>
-                <Navigation />
+                <Navigation setFlag={setFlag} />
                 {
                     (children.type === Chat) ? 
                     <Chat 
