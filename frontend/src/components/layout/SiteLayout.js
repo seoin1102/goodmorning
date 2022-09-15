@@ -35,7 +35,7 @@ function SiteLayout({children}) {
         connect()
         console.log("#############"+flag);
         return () => {disconnect()};
-    }, [crewNo, ChattingList]);
+    }, [crewNo, ChattingList, flag]);
 
     // 자원 할당(소켓 연결)
     const connect = () => {
