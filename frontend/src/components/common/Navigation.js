@@ -1,6 +1,7 @@
 import Grid from '@mui/material/Grid';
 import React, { useCallback, useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import { get, post, putJson } from '../../apis/Axios';
 import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import { addChannel } from '../../redux/channel';
@@ -67,12 +68,13 @@ function Navigation({ setFlag }) {
     const onCreateCrew = useCallback(async(channelNo, crew, userNo) => {
         const result = await post(`/crew/${channelNo}/${userNo}`, crew);
         console.log("이녀석아!!",result);
-        if (result.data == 'fail'){
+        if (result.data == 'fail' || crew == null){
                 Swal.fire({
                     icon: 'error',
                     title: '크루 생성에 실패하였습니다.',
                     text: '현재 워크스페이스에 이미 사용중인 이름입니다. 다른 이름을 사용해 주세요.'
                   })
+            return;
         }
         dispatch(addCrew(result.data));
     }, [])
