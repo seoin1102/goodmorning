@@ -73,7 +73,7 @@ function SiteLayout({children}) {
             // 공통 영역
             console.log("11111111111111111", crew.no, "  $$ ", crewNo);
             // focus 안된 크루에 대한 메시지 알림 기능
-            if(crew.no !== crewNo || flag === 'true') {
+            if(crew.no !== crewNo) {
                 console.log("2222222222222222", crew.no, "  $$ ", crewNo);
 
                 // 이전 안읽은 메시지 카운트 가져오고
@@ -98,7 +98,16 @@ function SiteLayout({children}) {
             await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
             console.log("444444444444444444444", crew.no, "  $$ ", crewNo);
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)
+            const result = await get(`/chat/count/${crew.no}/${authUser.no}`);
+                dispatch(addCHATALARM({crewNo:crew.no, count:result.unReadCount, channelNo:result.channelNo}));
+
             client.current.subscribe(`/sub/${crewNo}`,async (data) => {
+
+                // 다른데 가있으면 작동
+                if(flag === 'true') {
+                    dispatch(updateCHATALARM({crewNo:crew.no}))
+                }
+
                 console.log("5555555555555555555555", crew.no, "  $$ ", crewNo);
                 const chatData = JSON.parse(data.body);
 
@@ -116,7 +125,9 @@ function SiteLayout({children}) {
 
                 console.log("채팅 읽음 업데이트 성공?", chatData);
                 dispatch(addChat(chatData));
-                dispatch(setCHATALARM({crewNo:crewNo}))
+                
+                if(flag !== 'true')
+                    dispatch(setCHATALARM({crewNo:crewNo}))
                 console.log("66666666666666666",crew.no, "  $$ ", crewNo);         
             })
             console.log("7777777777777777",crew.no, "  $$ ", crewNo);   
