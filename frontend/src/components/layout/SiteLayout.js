@@ -31,6 +31,19 @@ function SiteLayout({children}) {
     const { crewNo } = useSelector(state => (state.focus), shallowEqual);
     const [ChattingList, setChattingList] = useState([]);
 
+    const preventClose = (e) => {e.preventDefault();  
+                                e.returnValue = "";
+                                deprecated}; 
+    useEffect(() => {
+        (() => {
+            window.addEventListener("beforeunload", preventClose);
+        })();
+           
+        return () => {
+            window.removeEventListener("beforeunload", preventClose);
+        };
+        }, []);
+
     useEffect(() => {
         setLoading(true);
         connect()
