@@ -77,13 +77,13 @@ function NavigationEct({onCreateCrew, onCreateChannel, taskList }) {
             </NavigationEctItem> */}
 
 
-            <NavLink to={"/fileshare"} style={{textDecoration:'none', color: 'white'}} onClick={() => {dispatch(trueFlag())}}>
+            <NavLink to={"/fileshare"} style={{textDecoration:'none', color: 'white'}} onClick={() => localStorage.setItem("flag", true)}>
             <NavigationEctItem itemName={"파일 공유"}/>
             </NavLink>
-            <NavLink to={"/project"} style={{textDecoration:'none', color: 'white'}} onClick={() => {dispatch(trueFlag())}}>
+            <NavLink to={"/project"} style={{textDecoration:'none', color: 'white'}} onClick={() => localStorage.setItem("flag", true)}>
             <NavigationEctItem itemName={"프로젝트 달력"}/>
             </NavLink>
-            <NavLink to={"/task"} style={{textDecoration:'none', color: 'white'}} onClick={() => {dispatch(trueFlag())}}>
+            <NavLink to={"/task"} style={{textDecoration:'none', color: 'white'}} onClick={() => localStorage.setItem("flag", true)}>
             <NavigationEctItem itemName={"업무 달력"}/>
             </NavLink>
         </List>

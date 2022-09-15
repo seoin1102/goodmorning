@@ -21,35 +21,21 @@ function SiteLayout({children}) {
     const authUser = getLocalStorageAuthUser();
     const [loading, setLoading] = useState(true);
     const [sendMessage, setSendMessage] = useState("");
-    //const [flag, setFlag] = useState(0);
 
     const dispatch = useDispatch();
-    const flag = useSelector(state => (state.flag), shallowEqual);
+    const flag = localStorage.getItem("flag");
     const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
     //const crewList = useSelector(state => (state.crew), shallowEqual);
     const chatList = useSelector(state => (state.chat), shallowEqual);
     const { crewNo } = useSelector(state => (state.focus), shallowEqual);
     const [ChattingList, setChattingList] = useState([]);
 
-    const preventClose = (e) => {e.preventDefault();  
-                                e.returnValue = "";
-                                deprecated}; 
-    useEffect(() => {
-        (() => {
-            window.addEventListener("beforeunload", preventClose);
-        })();
-           
-        return () => {
-            window.removeEventListener("beforeunload", preventClose);
-        };
-        }, []);
-
     useEffect(() => {
         setLoading(true);
         connect()
         console.log("#############"+flag);
         return () => {disconnect()};
-    }, [crewNo, ChattingList, flag]);
+    }, [crewNo, ChattingList]);
 
     // 자원 할당(소켓 연결)
     const connect = () => {

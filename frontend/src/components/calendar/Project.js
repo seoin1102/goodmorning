@@ -33,6 +33,7 @@ function Project({publishLinkPreview}) {
   const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
   console.log("크루 넘버!",crewNo)
   
+  
 
   const initialTask = React.useCallback(
     async (projectNo) => {

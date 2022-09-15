@@ -89,7 +89,8 @@ function Navigation() {
         if(result.data === 'success')  
             dispatch(setCREWFOCUS({no: crewNo, name: crewName})); 
           
-        dispatch(falseFlag());
+        // dispatch(falseFlag());
+        localStorage.setItem("flag", false);
     }
 
 
