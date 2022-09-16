@@ -111,7 +111,7 @@ function Message({chatList, loading, setLoading }) {
                     }
                 })}
                 <div ref={scrollRef}></div>
-                {true ? 
+                {jenkinsLoading ? 
                 <div style={{display: 'flex', justifyContent: 'center', backgroundColor: '#f7f7fa'}}> 
                     <img src={jenkinsLoadingIcons} alt="로딩중"  style={{margin: '0 140px 0 0'}} width={80} height={80} /> 
                 </div> : 
