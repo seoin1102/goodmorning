@@ -40,6 +40,7 @@
 						when status ='Todo' then 0
 						when status ='Doing' then 50
 						when status ='Done' then 100
+						else 0
 					end) as num
 				from task where project_no = #{projectNo}
 				group by project_no) where no=#{projectNo};

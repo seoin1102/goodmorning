@@ -27,17 +27,19 @@ public class TaskRepository {
 	}
 
 	public Boolean insert(TaskVo taskVo) {
+		Boolean result = sqlSession.insert("task.insert", taskVo)==1;
 		long projectNo = taskVo.getProjectNo();		
-		sqlSession.update("task.projectUpdate", projectNo);
+		sqlSession.update("project.projectUpdate", projectNo);
 		
-		return sqlSession.insert("task.insert", taskVo) == 1;
+		return result;
 	}
 
 	public Boolean update(TaskVo taskVo) {
+		Boolean result = sqlSession.insert("task.insert", taskVo)==1;
 		long projectNo = taskVo.getProjectNo();
 		sqlSession.update("task.projectUpdate", projectNo);
 		
-		return sqlSession.update("task.update", taskVo) == 1;
+		return result;
 	}
 
 	public Boolean delete(Long id) {

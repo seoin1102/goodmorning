@@ -47,5 +47,6 @@
 				update project set enable=0 where no=#{id}; 
 				]]>
 		</delete>
+		
 
 </mapper>
