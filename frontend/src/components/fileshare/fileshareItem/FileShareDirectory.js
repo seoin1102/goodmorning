@@ -61,8 +61,8 @@ function FileShareDirectory({userNo}) {
 
     return (
         <div style={{width: '83%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <Paper sx={{width: '90%', height: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <div style={{width:'83%', textAlign:'center', margin:'0 auto'}}>
+        <Paper sx={{width: '90%', height: '90%'}}>
+            <div style={{width:'85%', textAlign:'center', margin:'0 auto'}}>
                 <Table className='tbl-ex'  style={{width: '100%'}}>
                     <thead>
                     <tr>
