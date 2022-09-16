@@ -1,3 +1,6 @@
+.body{
+    background-image: '../../images/Animation.gif';
+}
 .channel {
     height:60px;
     white-space:no-wrap;

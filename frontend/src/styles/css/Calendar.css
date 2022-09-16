@@ -113,6 +113,31 @@ input{
   margin: auto;
 
 }
+.tasklist{
+  border: 1px solid #6e6c6c;
+  width: 200px;
+  padding: 20px;
+  margin: auto;
+
+}
+
+.cover-bar{
+  width:10px;
+  height:100%;
+  position:absolute;
+  top:0;
+  right:0;
+  -webkit-transition: all .5s;
+  opacity: 1;
+  /* 배경색을 상자색과 똑같이 맞춰준다 */
+  background-color:yellowgreen;
+}
+
+/* 중요한 부분 */
+.tasklist:hover .cover-bar {
+   opacity: 0;
+  -webkit-transition: all .5s;
+}
 
 .circle-picker{
   width: 400px;
@@ -123,32 +148,32 @@ th.fc-timeline-slot{
 }
 
 .fc .fc-button-primary{
-  background-color: #34d6ce;
-  border-color:white;
+  background-color: #34d6ce !important; 
+  border-color:white !important;
 }
 
 .fc .fc-button-primary:disabled{
-  background-color: #34d6ce;
-  border-color:white;
+  background-color: #34d6ce !important;
+  border-color:white !important;
 }
 
 .fc .fc-button-primary:hover{
-  background-color: #34d6ce;
-  border-color:white;
+  background-color: #34d6ce !important;
+  border-color:white !important;
 }
 
 .fc .fc-button-primary:not(:disabled).fc-button-active{
-  background-color: #34d6ce;
-  border-color:white;
+  background-color: #34d6ce !important;
+  border-color:white !important;
 }
 
 .fc .fc-button-primary::before{
-  background-color: #34d6ce;
-  border-color:white;
+  background-color: #34d6ce !important;
+  border-color:white !important;
 }
 
 .fc-button:focus {
   outline: 0;
-  -webkit-box-shadow: 0 0 0 0.2rem #34d6ce;
-  box-shadow: 0 0 0 0.2rem #34d6ce;
+  -webkit-box-shadow: 0 0 0 0.2rem #34d6ce !important;
+  box-shadow: 0 0 0 0.2rem #34d6ce !important;
 }
