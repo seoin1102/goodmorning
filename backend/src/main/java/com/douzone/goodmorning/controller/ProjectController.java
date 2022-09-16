@@ -47,11 +47,14 @@ public class ProjectController {
     }
     
   	@Transactional
-  	@GetMapping("/{channelNo}")
-    public ResponseEntity<JsonResult> projectList(@PathVariable("channelNo") Long channelNo) {
+  	@GetMapping("/{channelNo}/{userNo}")
+    public ResponseEntity<JsonResult> projectList(@PathVariable("channelNo") Long channelNo, @PathVariable("userNo") Long userNo) {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-    	return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.findByChannel(channelNo)));
+    	System.out.println(channelNo);
+
+    	System.out.println(userNo);
+    	return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.findByChannel(channelNo,userNo)));
     }
     
   	@Transactional

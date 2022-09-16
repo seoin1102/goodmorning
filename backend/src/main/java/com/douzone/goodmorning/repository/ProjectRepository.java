@@ -21,8 +21,11 @@ public class ProjectRepository {
 		return sqlSession.selectList("project.findByCrew", crewNo);
 	}
 	
-	public List<ProjectVo> findByChannel(Long channelNo) {
-		return sqlSession.selectList("project.findByChannel", channelNo);
+	public List<ProjectVo> findByChannel(Long channelNo, Long userNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("channelNo", channelNo);
+		map.put("userNo", userNo);
+		return sqlSession.selectList("project.findByChannel", map );
 	}
 	
 	public ChatVo findCrewNoByName(String projectName) {

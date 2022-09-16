@@ -2,7 +2,7 @@ import axios from 'axios';
 import {checkResponse, checkAuth, catchAuth } from './Fetch'
 
 const authorization = localStorage.getItem('authorization');
-const client = axios.create({baseURL:'/api', headers: {'Authorization' : authorization}});
+const client = axios.create({baseURL:'http://34.64.235.225:8080/api', headers: {'Authorization' : authorization}});
 
 
 /**
