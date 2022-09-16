@@ -142,9 +142,6 @@ useEffect(()=>{
                                 no: crew.no,
                                 name: crew.name,
                               }));
-                              dispatch(
-                                setCREWFOCUS({ no: crew.no, name: crew.name })
-                              );
                               setChannelName(crew.name)
                               const getProjects = await get(`/project/cNo/${crew.no}`);
                               dispatch(setProject(getProjects));
