@@ -46,7 +46,7 @@ function SendMessage({onChangeHandler, onClickHandler, text, publishFileUpload})
                 <TextField
                   onChange={onChangeHandler}
                   id="outlined-basic-email" 
-                  label="Type Something" 
+                  label="Message" 
                   fullWidth
                   onKeyDown={(e) => { if(e.key === 'Enter') onClickHandler() }}
                   value={text}
