@@ -50,82 +50,85 @@ function AddTask(props) {
   let newCalendarEvents = [...taskList];
 
   
-    const onSubmit = (e) => {
-    e.preventDefault(); // Submit 이벤트 발생했을 때 새로고침 방지
+    const onSubmit = async(e) => {
+        e.preventDefault(); // Submit 이벤트 발생했을 때 새로고침 방지
 
-    const clickedEventId = props.state.id
-    const updatedTask={
-      title: clickedEventTitle,
-      start:moment(clickedStart).format('YYYY-MM-DD'),
-      end: moment(clickedEnd).format('YYYY-MM-DD'),
-      projectName:clickedProject,
-      projectNo: clickedProjectNo,
-      crewNo: props.crewNo,
-      color: clickedColor,
-      status: clickedStatus,
-      id: clickedEventId}
-    
+        const clickedEventId = props.state.id
+        const updatedTask={
+          title: clickedEventTitle,
+          start:moment(clickedStart).format('YYYY-MM-DD'),
+          end: moment(clickedEnd).format('YYYY-MM-DD'),
+          projectName:clickedProject,
+          projectNo: clickedProjectNo,
+          crewNo: props.crewNo,
+          color: clickedColor,
+          status: clickedStatus,
+          id: clickedEventId}
+        
+        if(clickedEventId){
+            const clickedEventIdx = newCalendarEvents.findIndex(
+            (event) => event.id == clickedEventId);
+            if(addedAssigns){ // 추가된 사람이 있다.
+                addedAssigns.map(async (assign)=>{
+                    const ids = []
+                    newCalendarEvents.map((event) => {ids.push(event.id)})
+                    const maxId = Math.max(...ids);
+                    const _addTask={...updatedTask, id: maxId + 1, userNo: assign.userNo, userName:assign.userName}
+                    
+                    await post(`/task`, _addTask)
+                    dispatch(addTask([_addTask]));
+                    console.log( _addTask)
+                    props.setFilteredTask([...props.filteredTask,_addTask])
+                    props.closeModal();
+                    setClickedEventTitle("");
+                })
+            }
 
-    if(clickedEventId){
-      const clickedEventIdx = newCalendarEvents.findIndex(
-        (event) => event.id == clickedEventId);
-      if(addedAssigns){ // 추가된 사람이 있다.
-        addedAssigns.map((assign)=>{
-          const ids = []
-          newCalendarEvents.map((event) => {ids.push(event.id)})
-          const maxId = Math.max(...ids);
-          const _addTask={...updatedTask, id: maxId + 1, userNo: assign.userNo, userName:assign.userName}
-          
+            if(includesCheck){ //기존 사람의 변경 및 삭제 여부.
+                const filterTaskIdx = props.filteredTask.findIndex(event => event.id == id)
+                await put(`/task/${clickedEventId}`, {...updatedTask,userNo:userNo,userName:userName})
+                dispatch(updateTask(clickedEventIdx, {...updatedTask,userNo:userNo,userName:userName}));
 
-          post(`/task`, _addTask)
-          dispatch(addTask([_addTask])                   );
-          props.setFilteredTask([...props.filteredTask,_addTask])
-          props.closeModal();
-          setClickedEventTitle("");
-        })
-      }
-      if(includesCheck){ //기존 사람의 변경 및 삭제 여부.
-        const filterTaskIdx = props.filteredTask.findIndex(event => event.id == id)
-        put(`/task/${clickedEventId}`, {...updatedTask,userNo:userNo,userName:userName})
-        dispatch(updateTask(clickedEventIdx, {...updatedTask,userNo:userNo,userName:userName}));
+                props.closeModal();
+                setClickedEventTitle("");
 
-        props.closeModal();
-        setClickedEventTitle("");
+                if (filterTaskIdx > -1) {
+                    props.filteredTask[filterTaskIdx] = {...updatedTask,userNo:userNo,userName:userName}
+                    props.setFilteredTask([...props.filteredTask])
+                }
 
-        if (filterTaskIdx > -1) {
-          props.filteredTask[filterTaskIdx] = {...updatedTask,userNo:userNo,userName:userName}
-          props.setFilteredTask([...props.filteredTask])}
-
-      }else{
-        deleteEventHandler()
-        props.closeModal();
-        setClickedEventTitle("");
-      }
-    } else {
-        addedAssigns.map((assign)=>{
-        const ids = []
-        newCalendarEvents.map((event) => {ids.push(event.id)})
-        const maxId = Math.max(...ids);
-        const _addTask={...updatedTask,
-          id: maxId + 1,
-          userNo: assign.userNo,
-          userName: assign.userName
+            }else{
+                deleteEventHandler()
+                props.closeModal();
+                setClickedEventTitle("");
+            }
+        } else {
+              addedAssigns.map(async (assign)=>{
+                  const ids = []
+                  newCalendarEvents.map((event) => {ids.push(event.id)})
+                  const maxId = Math.max(...ids);
+                  const _addTask={...updatedTask,
+                    id: maxId + 1,
+                    userNo: assign.userNo,
+                    userName: assign.userName
+                  }
+                  const result = await post(`/task`, _addTask);
+                  console.log("갔냐?@@@@?????????????", result)
+                  dispatch(addTask([_addTask]));
+                  console.log(_addTask)
+                  props.setFilteredTask([...props.filteredTask,_addTask])
+                  props.closeModal();
+                  setClickedEventTitle("");
+            })
         }
-        post(`/task`, _addTask)
-        dispatch(addTask([_addTask]));
-        props.setFilteredTask([...props.filteredTask,_addTask])
-        props.closeModal();
-        setClickedEventTitle("");
-      })
-    }
     };
 
-  const deleteEventHandler = () => {
+  const deleteEventHandler = async () => {
     const clickedEventIdx = taskList.findIndex(event => event.id == id)
     const filterTaskIdx = props.filteredTask.findIndex(event => event.id == id)
     
     if (filterTaskIdx > -1) {
-      remove(`/task/${id}`, id)
+      await remove(`/task/${id}`, id)
       dispatch(deleteTask(clickedEventIdx));
       props.filteredTask.splice(filterTaskIdx, 1)
       props.setFilteredTask([...props.filteredTask,props.filteredTask])

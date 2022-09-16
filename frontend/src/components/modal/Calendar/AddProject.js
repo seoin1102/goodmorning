@@ -105,7 +105,7 @@ function AddProject({show, publishLinkPreview, setShow}) {
         }
 
         const result1 = await post(`/project`,  updatedTask)
-        clickedAssign.map((assign)=>{
+        clickedAssign.map(async (assign)=>{
           const _addTask ={
             title: assign.userName+'님의 '+clickedName+' 작업',
             start:moment(clickedStart).format('YYYY-MM-DD'),
@@ -119,7 +119,7 @@ function AddProject({show, publishLinkPreview, setShow}) {
             userNo: assign.userNo
             }
           
-            post(`/task`, _addTask)
+            await post(`/task`, _addTask)
             console.log(_addTask)
         })
 

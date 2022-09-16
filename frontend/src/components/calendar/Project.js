@@ -52,8 +52,8 @@ function Project({publishLinkPreview}) {
 
 
   const handleDelete = () => {
-    selectionModel.map((id) => {
-      remove(`/project/${id}`, id);
+      selectionModel.map(async (id) => {
+      await remove(`/project/${id}`, id);
       const projectIdx = projectList.findIndex(event => event.id == id)
       dispatch(deleteProject(projectIdx));
     });
