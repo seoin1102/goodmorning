@@ -21,8 +21,8 @@ import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 function AddProject({show, publishLinkPreview, setShow}) {
   
   const [state, setState] = useState()
-  const [clickedStart, setClickedStart] = useState()
-  const [clickedEnd, setClickedEnd] = useState()
+  const [clickedStart, setClickedStart] = useState(Date.now())
+  const [clickedEnd, setClickedEnd] = useState(Date.now())
   const [clickedName, setClickedName] = useState()
   const [clickedDescript, setClickedDescript] = useState()
   const [clickedStatus, setClickedStatus] = useState(0);
