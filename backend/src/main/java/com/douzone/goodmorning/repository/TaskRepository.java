@@ -29,7 +29,7 @@ public class TaskRepository {
 	public Boolean insert(TaskVo taskVo) {
 		Boolean result = sqlSession.insert("task.insert", taskVo)==1;
 		long projectNo = taskVo.getProjectNo();		
-		sqlSession.update("project.projectUpdate", projectNo);
+		sqlSession.update("task.projectUpdate", projectNo);
 		
 		return result;
 	}
