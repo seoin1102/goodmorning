@@ -11,6 +11,7 @@ import JenkinsMessageItem from './JenkinsMessageItem';
 import Loading from './Loading';
 import MessageItem from './MessageItem';
 import SendPreviewMessage from './SendPreviewMessage';
+import jenkinsLoadingIcons from '../../assets/icons/loading.gif'
 
 
 function Message({chatList, loading, setLoading }) {
@@ -74,7 +75,6 @@ function Message({chatList, loading, setLoading }) {
                                             time={time}
                                             name={chat.userName}
                                             url={chat.profileUrl}
-                                            jenkinsLoading={jenkinsLoading}
                                             setJenkinsLoading={setJenkinsLoading}/> :
                                     null}
                                     {(chat.type === 'GITHUB') ?
@@ -111,8 +111,13 @@ function Message({chatList, loading, setLoading }) {
                     }
                 })}
                 <div ref={scrollRef}></div>
+                {true ? 
+                <div style={{display: 'flex', justifyContent: 'center', backgroundColor: '#f7f7fa'}}> 
+                    <img src={jenkinsLoadingIcons} alt="로딩중"  style={{margin: '0 140px 0 0'}} width={80} height={80} /> 
+                </div> : 
+            null}  
             </List>
-            <Divider />
+            <Divider />     
         </>)}
     </>
     );

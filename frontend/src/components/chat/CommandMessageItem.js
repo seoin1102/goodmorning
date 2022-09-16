@@ -6,15 +6,12 @@ import React, { useEffect } from 'react';
 import '../../assets/fonts/font.css';
 import shuttleIcons from '../../assets/icons/shuttle1.png';
 import questionIcons from '../../assets/icons/question5.png';
-import jenkinsLoadingIcons from '../../assets/icons/loading.gif';
 import '../../styles/css/msItem.css';
 
-function CommandMessageItem({align, message, time, name, url, jenkinsLoading, setJenkinsLoading}) {
-
+function CommandMessageItem({align, message, time, name, url, setJenkinsLoading}) {
     useEffect(() => {
         setJenkinsLoading(() => true);
     }, [message])
-
     return (
         <ListItem key="1" >
             <Grid container spacing={1}>
@@ -31,7 +28,7 @@ function CommandMessageItem({align, message, time, name, url, jenkinsLoading, se
                         </Grid>
                         <Grid item xs={message === 'none' ? 2.3 : 3.3} sx={{display: 'flex', borderColor: '#E1E8ED', borderStyle: 'solid', borderWidth: '0 4px 2px 0', borderRadius: '10px', backgroundColor: '#FFFFFF', padding: '0 0 8px 0'}}>
                             <Grid item xs={2} sx={{height: '35px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                <img src={message === 'none' ? questionIcons : (jenkinsLoading ? jenkinsLoadingIcons : shuttleIcons)} width={30} height={30}/>
+                                <img src={message === 'none' ? questionIcons : shuttleIcons} width={30} height={30}/>
                             </Grid>
                             <Grid item xs={10} sx={{margin: ' 0 0 0 5px', display: 'flex', alignItems: 'center'}}>
                                 {message === 'none' ? 
