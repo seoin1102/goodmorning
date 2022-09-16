@@ -21,6 +21,10 @@ function Message({chatList, loading, setLoading }) {
         scrollRef.current.scrollIntoView({behavior: 'smooth'})
     }, [chatList])
 
+    useEffect(() => {
+        setJenkinsLoading(() => false);
+    },[chatList])
+
     useEffect (() => {
         setLoading(false);
         if(!loading)
