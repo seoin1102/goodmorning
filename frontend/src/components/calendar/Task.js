@@ -127,7 +127,7 @@ function Calendar() {
               </div>
             </Row>
             <div className="external-events">
-              <TaskList />
+              <TaskList taskList={filteredTask}/>
               <Checkbox
                 filteredTask={filteredTask}
                 setFilteredTask={setFilteredTask}

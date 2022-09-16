@@ -12,13 +12,14 @@ export default function MyWidget(props) {
 
   React.useEffect(() => {
     setData(props.data);
+    console.log(data)
   }, [data]);
   
   return (
     <div>
       <h3 style={{ padding: "30px"}}>프로젝트 달력</h3>
       {data.length >= 2 ? (
-        <div className='rect' style={{ margin: "20px", height:"600px", overflow:'scroll'}}>
+        <div className='rect' style={{ margin: "20px", height:"650px", overflow:'scroll'}}>
           <Chart
             className="ganttchart"
             chartType="Gantt"
@@ -31,7 +32,7 @@ export default function MyWidget(props) {
           />
         </div>
       ) : (
-        <div style={{ height:'400px', textAlign:'center', padding:'20px'}}>채널을 선택하거나 프로젝트를 생성해주세요.</div>
+        <div style={{ height:'650px', textAlign:'center', padding:'20px'}}>채널을 선택하거나 프로젝트를 생성해주세요.</div>
       )}
     </div>
   );
