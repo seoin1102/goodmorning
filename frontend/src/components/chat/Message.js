@@ -14,7 +14,7 @@ import SendPreviewMessage from './SendPreviewMessage';
 
 
 function Message({chatList, loading, setLoading }) {
-    
+    const [jenkinsLoading, setJenkinsLoading] = useState(false);
     const scrollRef = useRef(null);
     const scrollToBottom = useCallback(() => {
         scrollRef.current.scrollIntoView({behavior: 'smooth'})
@@ -73,7 +73,9 @@ function Message({chatList, loading, setLoading }) {
                                             message={chat.message} 
                                             time={time}
                                             name={chat.userName}
-                                            url={chat.profileUrl}/> :
+                                            url={chat.profileUrl}
+                                            jenkinsLoading={jenkinsLoading}
+                                            setJenkinsLoading={setJenkinsLoading}/> :
                                     null}
                                     {(chat.type === 'GITHUB') ?
                                         <GitMessageItem 
@@ -89,7 +91,8 @@ function Message({chatList, loading, setLoading }) {
                                             message={chat.message} 
                                             time={time}
                                             name={'Jenkins'}
-                                            url={jenkinsIcon}/> :
+                                            url={jenkinsIcon}
+                                            setJenkinsLoading={setJenkinsLoading}/> :
                                     null}
                                     {chat.type === 'PREVIEW' ?
                                         <SendPreviewMessage

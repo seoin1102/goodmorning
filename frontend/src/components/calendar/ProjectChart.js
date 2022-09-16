@@ -24,7 +24,7 @@ export default function MyWidget(props) {
             chartType="Gantt"
             data={data}
             width="100%"
-            height={data.length*40}
+            height={data.length*20}
             chartLanguage="ko"
             legendToggle
             options={options}
