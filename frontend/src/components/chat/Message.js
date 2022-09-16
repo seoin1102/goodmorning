@@ -11,19 +11,12 @@ import JenkinsMessageItem from './JenkinsMessageItem';
 import Loading from './Loading';
 import MessageItem from './MessageItem';
 import SendPreviewMessage from './SendPreviewMessage';
-import jenkinsLoadingIcons from '../../assets/icons/loading.gif'
-
 
 function Message({chatList, loading, setLoading }) {
-    const [jenkinsLoading, setJenkinsLoading] = useState(false);
     const scrollRef = useRef(null);
     const scrollToBottom = useCallback(() => {
         scrollRef.current.scrollIntoView({behavior: 'smooth'})
     }, [chatList])
-
-    useEffect(() => {
-        setJenkinsLoading(() => false);
-    },[chatList])
 
     useEffect (() => {
         setLoading(false);
@@ -78,8 +71,7 @@ function Message({chatList, loading, setLoading }) {
                                             message={chat.message} 
                                             time={time}
                                             name={chat.userName}
-                                            url={chat.profileUrl}
-                                            setJenkinsLoading={setJenkinsLoading}/> :
+                                            url={chat.profileUrl}/> :
                                     null}
                                     {(chat.type === 'GITHUB') ?
                                         <GitMessageItem 
@@ -95,8 +87,7 @@ function Message({chatList, loading, setLoading }) {
                                             message={chat.message} 
                                             time={time}
                                             name={'Jenkins'}
-                                            url={jenkinsIcon}
-                                            setJenkinsLoading={setJenkinsLoading}/> :
+                                            url={jenkinsIcon}/> :
                                     null}
                                     {chat.type === 'PREVIEW' ?
                                         <SendPreviewMessage
@@ -115,11 +106,6 @@ function Message({chatList, loading, setLoading }) {
                     }
                 })}
                 <div ref={scrollRef}></div>
-                {jenkinsLoading ? 
-                <div style={{display: 'flex', justifyContent: 'center', backgroundColor: '#f7f7fa'}}> 
-                    <img src={jenkinsLoadingIcons} alt="로딩중"  style={{margin: '0 140px 0 0'}} width={80} height={80} /> 
-                </div> : 
-            null}  
             </List>
             <Divider />     
         </>)}

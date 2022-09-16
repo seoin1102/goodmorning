@@ -2,16 +2,14 @@ import { Avatar, ListItemIcon } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import React, { useEffect } from 'react';
+import React from 'react';
 import '../../assets/fonts/font.css';
 import shuttleIcons from '../../assets/icons/shuttle1.png';
 import questionIcons from '../../assets/icons/question5.png';
 import '../../styles/css/msItem.css';
 
-function CommandMessageItem({align, message, time, name, url, setJenkinsLoading}) {
-    useEffect(() => {
-        setJenkinsLoading(() => true);
-    }, [message])
+function CommandMessageItem({align, message, time, name, url}) {
+
     return (
         <ListItem key="1" >
             <Grid container spacing={1}>

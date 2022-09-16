@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import '../../assets/fonts/font.css';
 import '../../styles/css/msItem.css';
 
-function JenkinsMessageItem({align, message, time, name, url, setJenkinsLoading}) {
+function JenkinsMessageItem({align, message, time, name, url}) {
     const [messageItem, setMessageItem] = useState({
         fullUrl: '',
         buildNumber: '',
@@ -19,7 +19,6 @@ function JenkinsMessageItem({align, message, time, name, url, setJenkinsLoading}
 
     useEffect(() => {
         const messageItemArray = message.split('#$#');
-        let branch;
 
         setMessageItem((prevMessageItem) => ({
             ...prevMessageItem, 
@@ -31,8 +30,6 @@ function JenkinsMessageItem({align, message, time, name, url, setJenkinsLoading}
             commit: messageItemArray[5].slice(0, 7),
             projectName: messageItemArray[6]
           }))
-         
-        setJenkinsLoading(() => false);  
     }, [message]);
 
   return (
