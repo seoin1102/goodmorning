@@ -44,7 +44,7 @@ function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,onClickFil
                 </Modal.Header>
                     <Modal.Body>
                             <Form> 
-                                <Table striped className='tbl-ex'>
+                                <Table className='tbl-ex'>
                                     <thead>
                                     <tr>
                                         <th>

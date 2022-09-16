@@ -15,7 +15,7 @@
 	width:100%;
 	margin:10px auto; 
 	border-collapse:collapse;
-	border-bottom:2px solid #333;
+	border-bottom:2px solid #F2F2F4;
 }
 
 .tbl-ex th, 
@@ -25,18 +25,26 @@
 }
 
 .tbl-ex th	{ 
-	border-top:2px solid #333;
-	border-bottom:2px solid #333; 
-	background-color:#999; 
+	border-top:2px solid #F2F2F4;
+	border-bottom:2px solid #F2F2F4; 
+	background-color:#f7F7F8; 
 	font-size:1.1em; 
-	color:#fff 
+	color:#000
 }
 
 .tbl-ex td {
-	border-top:1px dotted #333;
-	border-bottom:1px dotted #333; 
+	border-top:1px solid #F2F2F4;
+	border-bottom:1px solid #F2F2F4;
+	background-color:#fff; 
 }
 
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n) > th {
+	background-color: white;
+ }
+
+ .table-striped > tbody > tr:nth-of-type(2n+1) > td, .table-striped > tbody > tr:nth-child(2n) > th {
+	background-color: white;
+ }
 
 
 .board-form .tbl-ex td {
@@ -75,9 +83,9 @@ tr.even td	{ background-color:#e8ecf6 }
 .board-form .bottom input[type="submit"] {
 	float:right; 
 	padding:10px 20px 10px 20px; 
-	border:1px solid #555; 
+	border:1px solid #F2F2F4; 
 	font-weight:bold; 
-	background-color:#E8ECF6; 
+	background-color:#fff; 
 	color:#111;
 	cursor: pointer	
 }

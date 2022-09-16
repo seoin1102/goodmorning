@@ -77,6 +77,16 @@ function AddProject({show, publishLinkPreview, setShow}) {
 
       try{
         e.preventDefault();
+
+        const octokit = new Octokit({
+          auth: gitToken
+        })
+
+        await octokit.request(`POST /user/repos`, {
+          name: clickedName,
+          private : false
+        })
+
         const updatedTask={
           projectName: clickedName,
           start:moment(clickedStart).format('YYYY-MM-DD'),
@@ -116,15 +126,6 @@ function AddProject({show, publishLinkPreview, setShow}) {
         console.log("=====>", result1);
         console.log("=====>",updatedTask)
         dispatch(addProject([updatedTask]));
-
-        const octokit = new Octokit({
-          auth: gitToken
-        })
-
-        await octokit.request(`POST /user/repos`, {
-          name: clickedName,
-          private : false
-        })
 
         await octokit.request(`POST /repos/${gitName}/${clickedName}/hooks`, {
           owner: gitName,

@@ -1,3 +1,4 @@
+import { Paper } from '@mui/material';
 import React, { Fragment, useEffect, useState } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +10,7 @@ import Pagination from './Pagination';
 
 
 function FileShareDirectory({userNo}) {
-    const [limit, setLimit] = useState(5);
+    const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectProject, setselectProject] = useState(null);
@@ -59,9 +60,10 @@ function FileShareDirectory({userNo}) {
     }
 
     return (
-        <Fragment>
+        <div style={{width: '83%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <Paper sx={{width: '90%', height: '90%'}}>
             <div style={{width:'83%', textAlign:'center', margin:'0 auto'}}>
-                <Table className='tbl-ex' striped style={{width: '100%'}}>
+                <Table className='tbl-ex'  style={{width: '100%'}}>
                     <thead>
                     <tr>
                         <th>
@@ -69,7 +71,6 @@ function FileShareDirectory({userNo}) {
                             type="number"
                             value={limit}
                             onChange={({ target: { value } }) => setLimit(Number(value))}>
-                                <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="50">50</option>
@@ -87,7 +88,7 @@ function FileShareDirectory({userNo}) {
                        
                         isInitial ? 
                             posts.directorydata.slice(offset, offset + limit).map(({projectNo,projectName,crewName},index) => (
-                                <tr key={index}>
+                                <tr key={index} style={{backgroundColor: '#fff'}}>
                                     <td>{posts.directorydata.length-offset-index}</td>
                                     <td>{projectName}</td>
                                     <td>{crewName}</td>
@@ -127,7 +128,8 @@ function FileShareDirectory({userNo}) {
                 null
             }    
 
-        </Fragment>
+        </Paper>
+        </div>
     );
 }
 export default FileShareDirectory;
