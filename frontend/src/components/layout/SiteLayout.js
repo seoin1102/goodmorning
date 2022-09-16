@@ -184,7 +184,6 @@ function SiteLayout({children}) {
 
           // 메시지 객체 생성 및 DB 저장
           const addChat = chatPreviewVo(projectCrewNo, authUser.no, `${gitName}/${repoName}`);
-          console.log("링크프리뷰디비@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
           const result = await postJson(`/chat/${projectCrewNo}/${authUser.no}`, addChat);
 
           // DB INSERT 성공 시 STOMP 통신
