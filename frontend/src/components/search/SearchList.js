@@ -3,7 +3,7 @@ import {Box, Button, Card,CardContent, Paper, Tab, Tabs, Typography} from "@mui/
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { get } from "../../apis/Axios";
 import { setCREWFOCUS } from "../../redux/focus";
 import { setProject } from "../../redux/project";
@@ -368,14 +368,11 @@ export default function SearchList(props) {
                       </div>
                     ) : null}
 
-                    <NavLink to={"/project"} style={{ textDecoration: "none" }}>
+                    <Link to={"/project"} style={{ textDecoration: "none" }} state={{ crewName: e.crewName}}>
                       <Button
                         size="small"
                         onClick={async() => {
-                          dispatch(
-                            setCREWFOCUS({ no: e.crewNo, name: e.crewName })
-                          );
-                          console.log({ no: e.crewNo, name: e.crewName });
+                          
                           const getProjects = await get(`/project/cNo/${e.crewNo}`)
                           dispatch(setProject(getProjects));
                           console.log(projectList);
@@ -384,7 +381,7 @@ export default function SearchList(props) {
                       >
                         프로젝트 보러가기
                       </Button>
-                    </NavLink>
+                    </Link>
                   </CardContent>
                 </Card>
               </div>

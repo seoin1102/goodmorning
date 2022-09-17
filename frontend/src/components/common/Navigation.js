@@ -18,6 +18,7 @@ function Navigation() {
 
     const dispatch = useDispatch();
     const crewList = useSelector(state => (state.crew), shallowEqual);
+    const projectList = useSelector((state) => state.project, shallowEqual);
 
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
@@ -109,7 +110,7 @@ function Navigation() {
     }, [channelNo])
 
     useEffect(() => {
-        if(channelNo !== null)
+        if(projectList.length ==0 && channelNo !== null)
             initialProject(channelNo,userNo);
             console.log(channelNo, userNo)
     }, [channelNo,userNo])

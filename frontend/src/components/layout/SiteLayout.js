@@ -25,7 +25,6 @@ function SiteLayout({children}) {
     const dispatch = useDispatch();
     const flag = localStorage.getItem("flag");
     const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
-    //const crewList = useSelector(state => (state.crew), shallowEqual);
     const chatList = useSelector(state => (state.chat), shallowEqual);
     const { crewNo } = useSelector(state => (state.focus), shallowEqual);
     const [ChattingList, setChattingList] = useState([]);
@@ -33,7 +32,6 @@ function SiteLayout({children}) {
     useEffect(() => {
         setLoading(true);
         connect()
-        console.log("#############"+flag);
         return () => {disconnect()};
     }, [crewNo, ChattingList]);
 

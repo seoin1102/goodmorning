@@ -166,8 +166,16 @@ const columns = [
     field: 'crewName',
     headerName: '채널 이름',
     type: 'string',
-    width: 180,
+    width: 150,
     editable: false
+  },
+  {
+    field: 'userName',
+    headerName: '책임자',
+    description: 'This column has a value getter and is not sortable.',
+    type: 'string',
+    sortable: false,
+    width: 90,
   },
   {
     field: 'status',
