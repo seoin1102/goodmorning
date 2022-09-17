@@ -19,7 +19,6 @@ function JenkinsMessageItem({align, message, time, name, url}) {
 
     useEffect(() => {
         const messageItemArray = message.split('#$#');
-        let branch;
 
         setMessageItem((prevMessageItem) => ({
             ...prevMessageItem, 
