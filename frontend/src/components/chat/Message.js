@@ -12,9 +12,7 @@ import Loading from './Loading';
 import MessageItem from './MessageItem';
 import SendPreviewMessage from './SendPreviewMessage';
 
-
 function Message({chatList, loading, setLoading }) {
-    
     const scrollRef = useRef(null);
     const scrollToBottom = useCallback(() => {
         scrollRef.current.scrollIntoView({behavior: 'smooth'})
@@ -109,7 +107,7 @@ function Message({chatList, loading, setLoading }) {
                 })}
                 <div ref={scrollRef}></div>
             </List>
-            <Divider />
+            <Divider />     
         </>)}
     </>
     );

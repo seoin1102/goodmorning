@@ -17,6 +17,7 @@ import "../../../styles/css/Calendar.css";
 import ChannelSelect from "../../calendar/ChannelSelect";
 import ProjectAssign from "../../calendar/ProjectAssign";
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
+import loadingIcons from '../../../assets/icons/loading.gif';
 
 function AddProject({show, publishLinkPreview, setShow}) {
   
@@ -30,6 +31,8 @@ function AddProject({show, publishLinkPreview, setShow}) {
   const [clickedCrewName, setClickedCrewName] = useState();
   const [errormessage, seterrormessage] = useState("");
   const [clickedAssign , setClickedAssign] = useState();
+  const [loading, setLoading] = useState(false);
+
   const projectList = useSelector((state) => state.project, shallowEqual);
   const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
   const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
@@ -103,7 +106,8 @@ function AddProject({show, publishLinkPreview, setShow}) {
           typeError="empty"
           throw new Error(); 
         }
-
+        
+        setLoading(() => true);
         const result1 = await post(`/project`,  updatedTask)
         clickedAssign.map(async (assign)=>{
           const _addTask ={
@@ -128,6 +132,7 @@ function AddProject({show, publishLinkPreview, setShow}) {
         console.log("=====>",updatedTask)
         dispatch(addProject([updatedTask]));
 
+        
         await octokit.request(`POST /repos/${gitName}/${clickedName}/hooks`, {
           owner: gitName,
           repo: clickedName,
@@ -159,6 +164,8 @@ function AddProject({show, publishLinkPreview, setShow}) {
         setClickedCrewNo('')
 
         publishLinkPreview(gitName, repoName, clickedCrewNo);
+        setLoading(() => false);
+        
       } catch(err){
         typeError=='empty'?
         seterrormessage("모든 칸을 다 입력하세요")
@@ -182,7 +189,7 @@ function AddProject({show, publishLinkPreview, setShow}) {
   return (
     <>
       <Modal show={show} onHide={handleClose} sx={{width:'140%'}}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton style={{padding: '10px'}}>
           <Modal.Title>프로젝트 추가</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -222,31 +229,34 @@ function AddProject({show, publishLinkPreview, setShow}) {
             <ProjectAssign clickedAssign={clickedAssign} setClickedAssign={setClickedAssign} />
     
             <Form.Group
-              className="mb-3"
+              className="mb-0"
               controlId="exampleForm.ControlTextarea1"
+              sx={{height: "200px"}}
             >
               <Form.Label>시작일시</Form.Label>
               <br />
-              <StartDatePicker clickedStart={clickedStart} setClickedStart={setClickedStart} disableClock={true} locale="ko-KO" />
+              <StartDatePicker sx={{margin: '0 0 0 0'}} clickedStart={clickedStart} setClickedStart={setClickedStart} disableClock={true} locale="ko-KO" />
               <br />
               
               <Form.Label>종료일시</Form.Label>
               <br />
-              <EndDatePicker clickedEnd={clickedEnd} setClickedEnd={setClickedEnd} disableClock={true} locale="ko-KO" />
+              <EndDatePicker sx={{margin: '0 0 0 0'}} clickedEnd={clickedEnd} setClickedEnd={setClickedEnd} disableClock={true} locale="ko-KO" />
               <br />
               </Form.Group>
               <div className='text-center'>
                 {
-                  errormessage===''?
+                  loading ?
+                  <img src={loadingIcons} alt="로딩중" style={{}} width={75} height={75} /> : 
+                  (errormessage===''?
                   <><br/></>:
                   <p style={{color:'red'}}>
                     <br/>{errormessage}
-                  </p>
+                  </p>)
                 }
               </div>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer style={{padding: '10px'}}>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
