@@ -1,10 +1,11 @@
+import { Avatar } from "@mui/material";
 import React, { memo, useEffect, useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 
 function AssignCheckbox(props) {
   const taskList = useSelector((state) => state.task, shallowEqual);
   const crewUserList = useSelector((state) => state.crewUser, shallowEqual);
-  console.log('crewUserList',crewUserList)
+  console.log('taskList',taskList)
   // 체크된 아이템을 담을 배열
   const [checkItems, setCheckItems] = useState(crewUserList);
 
@@ -66,8 +67,10 @@ function AssignCheckbox(props) {
         팀원 전체
       </div>
       {crewUserList.map((assign, key) => (
+
         <div key={key}>
-          <div>
+
+          <div style={{display:'flex', alignItems: 'center' , justifyContent: 'center'}}>
             <input
               type="checkbox"
               name={`select-${assign.userNo}`}
@@ -77,6 +80,7 @@ function AssignCheckbox(props) {
               // 체크된 아이템 배열에 해당 아이템이 있을 경우 선택 활성화, 아닐 시 해제
               checked={checkItems.includes(assign) ? true : false}
             />
+            <Avatar alt={"null"} src={assign.profileUrl} sx={{width: '20px', height: '20px'}} />
             {assign.userName}
           </div>
         </div>
