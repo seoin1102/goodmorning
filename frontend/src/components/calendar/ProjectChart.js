@@ -19,13 +19,13 @@ export default function MyWidget(props) {
     <div>
       <h3 style={{ padding: "30px"}}>프로젝트 달력</h3>
       {data.length >= 2 ? (
-        <div className='rect' style={{ margin: "20px", height:"650px", overflow:'scroll'}}>
+        <div style={{ margin: "20px", height:"650px"}}>
           <Chart
             className="ganttchart"
             chartType="Gantt"
             data={data}
             width="100%"
-            height={data.length*20}
+            height={data.length*50}
             chartLanguage="ko"
             legendToggle
             options={options}

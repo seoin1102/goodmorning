@@ -11,11 +11,18 @@
 }
 
 .rect{
-  overflow-x: scroll;
-  overflow-y: scroll;
-  height:600px;
+
+
+}
+.svg{
+
 
 }
 
 .ganttchart{
+}
+
+[id^="reactgooglegraph-1"] {
+
+
 }

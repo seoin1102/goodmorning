@@ -85,7 +85,7 @@ export default function AskConfirmationBeforeSave(props) {
       const response = await mutateRow(newRow);
       const projectId = response.id
 
-      put(`/project/${projectId}`, {...response, start:moment(response.start).format('YYYY-MM-DD'),end: moment(response.end).format('YYYY-MM-DD')})
+      await put(`/project/${projectId}`, {...response, start:moment(response.start).format('YYYY-MM-DD'),end: moment(response.end).format('YYYY-MM-DD')})
       const projectIdx = projectList.findIndex(event => event.id == projectId)
 
       dispatch(updateProject(projectIdx,{...response, start:moment(response.start).format('YYYY-MM-DD'),end: moment(response.end).format('YYYY-MM-DD')}));

@@ -52,8 +52,9 @@ function Project({publishLinkPreview}) {
 
 
   const handleDelete = () => {
-    selectionModel.map((id) => {
-      remove(`/project/${id}`, id);
+      selectionModel.map(async (id) => {
+      const result = await remove(`/project/${id}`, id);
+      console.log('삭제 결과',result)
       const projectIdx = projectList.findIndex(event => event.id == id)
       dispatch(deleteProject(projectIdx));
     });

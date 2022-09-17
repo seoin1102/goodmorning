@@ -38,7 +38,7 @@ public class ProjectService {
 		return projectRepository.update(projectVo);
 	}
 
-	public Boolean addProject(ProjectVo projectVo) {
+	public long addProject(ProjectVo projectVo) {
 		return projectRepository.insert(projectVo);
 	}
 

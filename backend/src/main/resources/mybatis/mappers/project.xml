@@ -30,7 +30,7 @@
 				and project_name = #{projectName };
 				]]>
 		</select>
-		<insert id="insert" parameterType="projectvo">
+		<insert id="insert" parameterType="projectvo" useGeneratedKeys="true" keyProperty="id">
 				<![CDATA[
 				insert into project value(null, #{projectName}, #{start}, #{end}, "test 설명",0,1, #{crewNo});
 				]]>
