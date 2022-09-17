@@ -6,6 +6,7 @@ function TaskList(props) {
   return (
     <div classname='tasklist' style={{ height:'500px', overflow: 'auto'}}>
       <div style={{textAlign:'center'}}><strong>개인 업무</strong></div>
+      <br/>
       {props.taskList.map((event, index) => (
         <div
           key={index}

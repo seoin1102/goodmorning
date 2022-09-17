@@ -6,10 +6,11 @@ import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import SearchIcon from '../../../assets/icons/search.svg';
 import { setProject } from "../../../redux/project";
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
+import { get } from '../../../apis/Axios';
 
 function HeaderSearch(props) {
   const searchList = useSelector(state => (state.search), shallowEqual);
@@ -21,6 +22,8 @@ function HeaderSearch(props) {
   const dispatch = useDispatch();
   const user = getLocalStorageAuthUser();
   const userNo = user.no;
+  const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
+
   const projectName = (projectList != null?projectList.map((project)=> project.projectName):[])
   const test = [...searchKeyword,...projectName]
   const handleChange=((e)=>{
@@ -30,24 +33,15 @@ function HeaderSearch(props) {
       setSearch(e.target.value)
     }
   })
-  const handleKeyPress = (e) => {
+  const handleKeyPress = async(e) => {
+    const getProjects = await get(`/project/${channelNo}/${userNo}`);
+    dispatch(setProject(getProjects));
     if(e.key === 'Enter') {
-      return <NavLink to={"/search"}  state={{search:search}}/>
     }
 
   }
 
-  const totalProject = React.useCallback(
-    async (channelNo, userNo) => {
-      const getProjects = await get(`/project/${channelNo}/${userNo}`);
-      dispatch(setProject(getProjects));
-    },
-    [dispatch]
-  );
 
-  React.useEffect(()=>{
-    totalProject
-  },[totalProject])
   
   return (
       <Grid item xs={7}>
@@ -100,9 +94,9 @@ function HeaderSearch(props) {
             />}
               
               </List>
-          <NavLink to={"/search"} state={{search:search}}  onKeyPress={handleKeyPress}>
+          <Link to={"/search"} state={{search:search}}  onKeyPress={handleKeyPress}>
           <Button className='searchbtn' variant="none" onClick={handleKeyPress} ><img src={SearchIcon} style={{height:'40px', border:'0px' }}/></Button> 
-          </NavLink>
+          </Link>
           
           </div>
           <Divider />

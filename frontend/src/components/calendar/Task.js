@@ -3,7 +3,7 @@ import React, { memo, useCallback, useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { setTask, addTask } from "../../redux/task";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import {  Box, Card, Button, Paper } from "@mui/material";
+import {  Box, Card, Button, Paper, Divider } from "@mui/material";
 import { NavDropdown } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { get } from '../../apis/Axios';
@@ -31,9 +31,11 @@ function Calendar() {
   });
   const [modalIsOpen, setIsOpen] = useState(false);
   const [clickedEventAssign, setClickedEventAssign] = useState("");
+  const [channelName, setChannelName] = useState('전체 프로젝트')
   const taskList = useSelector((state) => state.task, shallowEqual);
   const crewNo = useSelector((state) => state.focus.crewNo, shallowEqual);
-  const crewList = useSelector((state) => state.crew, shallowEqual);
+  const projectList = useSelector((state) => state.project, shallowEqual);
+  const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
 
   const [filteredTask, setFilteredTask] = useState([]);
   /////
@@ -112,6 +114,44 @@ function Calendar() {
               <h3 style={{ padding: "30px 0px 0px 50px", width: "200px" }}>
                 업무 달력
               </h3>
+              <div style={{marginRight:'10px'}}>
+              현재 프로젝트는 <strong>{channelName}</strong> 입니다. &nbsp;
+
+            <NavDropdown
+                    style={{
+                      float: "right",
+                      fontSize: "15px",
+                      padding: "4px",
+                    }}
+                    title="프로젝트 선택"
+                  >
+                    <NavDropdown.Item
+                    onClick={async() => {
+                      setChannelName('전체 프로젝트')
+                      const getTasks = await get(`/task/${channelNo}`);
+                      dispatch(setTask(getTasks));
+
+                    }}>전체 프로젝트</NavDropdown.Item>
+                    <Divider />
+                    {projectList.length !== 0
+                      ? projectList.map((project, index) => (
+                        
+                          <NavDropdown.Item
+                            onClick={async() => {
+                              setChannelName(project.projectName)
+                              const getTasks = await get(`/task/pNo/${project.id}`);
+                              dispatch(setTask(getTasks));
+                            }}
+                            key={index}
+                          >
+                            {project.projectName}
+                          </NavDropdown.Item>
+                        ))
+                      : ""}
+                  </NavDropdown>
+           
+              </div>
+
             </div>
             <div style={{display:'flex',gap:"1rem"}}>
             
@@ -126,12 +166,14 @@ function Calendar() {
                 </Col>
               </div>
             </Row>
+            
             <div className="external-events">
               <TaskList taskList={filteredTask}/>
               
             </div>
             <div className="external-events">
             <strong>담당자</strong>
+            <br/><br/>
             <Checkbox
                 filteredTask={filteredTask}
                 setFilteredTask={setFilteredTask}

@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { post, put, remove } from '../../../apis/Axios';
 import { addTask, deleteTask, updateTask } from '../../../redux/task';
+import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 import "../../../styles/css/Calendar.css";
 import AssignSelect from '../../calendar/AssignSelect';
 import ColorPicker from '../../calendar/ColorPicker';
@@ -30,7 +31,8 @@ function AddTask(props) {
 
   const [addedAssigns, setAddedAssigns]= useState([]);
   const [includesCheck, setIncludeCheck] = useState(true);
-
+  const user = getLocalStorageAuthUser();
+  const authUserNo = user.no;
 
   
   useEffect(()=>{
@@ -76,9 +78,7 @@ function AddTask(props) {
                     const _addTask={...updatedTask, id: maxId + 1, userNo: assign.userNo, userName:assign.userName}
                     
                     await post(`/task`, _addTask)
-                    console.log('111')
                     dispatch(addTask([_addTask]));
-                    console.log( _addTask)
                     props.setFilteredTask([...props.filteredTask,_addTask])
                     props.closeModal();
                     setClickedEventTitle("");
@@ -87,9 +87,8 @@ function AddTask(props) {
 
             if(includesCheck){ //기존 사람의 변경 및 삭제 여부.
                 const filterTaskIdx = props.filteredTask.findIndex(event => event.id == id)
-                const result = await put(`/task/${clickedEventId}`, {...updatedTask,userNo:userNo,userName:userName})
+                await put(`/task/${clickedEventId}`, {...updatedTask,userNo:userNo,userName:userName})
                 dispatch(updateTask(clickedEventIdx, {...updatedTask,userNo:userNo,userName:userName}));
-                console.log('222',result, {...updatedTask,userNo:userNo,userName:userName})
 
                 props.closeModal();
                 setClickedEventTitle("");
@@ -115,9 +114,7 @@ function AddTask(props) {
                     userName: assign.userName
                   }
                   const result = await post(`/task`, _addTask);
-                  console.log("333")
                   dispatch(addTask([_addTask]));
-                  console.log(_addTask)
                   props.setFilteredTask([...props.filteredTask,_addTask])
                   props.closeModal();
                   setClickedEventTitle("");
@@ -193,8 +190,8 @@ function AddTask(props) {
         <AssignSelect defaultValue={props.state || null} addedAssigns={addedAssigns} setAddedAssigns={setAddedAssigns} includesCheck={includesCheck} setIncludeCheck={setIncludeCheck}/>
         
         <Button style={{marginTop: '10px', float:'right', borderColor:'#34d6ce',backgroundColor:'white'}} variant="outlined" type="button" onClick={closeEventHandler}>닫기</Button>
-        <Button style={{marginTop: '10px',marginRight: '5px',float:'right', borderColor:'#34d6ce',backgroundColor:'white'}} variant="outlined" type="button" onClick={deleteEventHandler}>삭제</Button>
-        <Button style={{marginTop: '10px',marginRight: '5px',float:'right', borderColor:'#34d6ce',backgroundColor:'white'}} variant="outlined" type="submit" onClick={onSubmit}>등록</Button>
+        {userNo&&userNo == authUserNo? <Button style={{marginTop: '10px',marginRight: '5px',float:'right', borderColor:'#34d6ce',backgroundColor:'white'}} variant="outlined" type="button" onClick={deleteEventHandler}>삭제</Button> :''}
+        {props.state.id ==null || userNo == authUserNo? <Button style={{marginTop: '10px',marginRight: '5px',float:'right', borderColor:'#34d6ce',backgroundColor:'white'}} variant="outlined" type="submit" onClick={onSubmit}>등록</Button>:''}
         </Form.Group>
         </Form>
         </Modal.Body>

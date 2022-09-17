@@ -18,5 +18,6 @@ public class ProjectVo {
 	private boolean enable;
 	private String crewName;
 	private String gitUserName;
+	private String userName;
 
 }

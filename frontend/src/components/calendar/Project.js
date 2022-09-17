@@ -1,7 +1,7 @@
 import { Box, Button, Card, Divider, Grid, Paper } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import React, { memo, useEffect, useState, useLocation } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { NavDropdown } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { get, remove } from "../../apis/Axios";
@@ -15,11 +15,15 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { getLocalStorageAuthUser } from '../../apis/Fetch';
+import { NavLink, useLocation } from "react-router-dom";
 
 function Project({publishLinkPreview}) {
-
+  const location = useLocation();
+  const { state } = location;
+  const crewName = state.crewName;
+  console.log(crewName)
   const crewNo = useSelector((state) => state.focus.crewNo, shallowEqual);
-  const [channelName, setChannelName] = useState('전체 채널')
+  const [channelName, setChannelName] = useState(crewName==null?" 전체 채널":crewName)
   const [show, setShow] = React.useState(false);
   const [changeCrew, setChangeCrew] = useState();
   const [selectionModel, setSelectionModel] = React.useState([]);
@@ -40,11 +44,6 @@ function Project({publishLinkPreview}) {
     }
   );
 
-  const initialProject = React.useCallback(async(crewNo) => {
-    const getProjects = await get(`/project/cNo/${crewNo}`);
-    dispatch(setProject(getProjects));
-    localStorage.setItem('projectList', JSON.stringify(getProjects));
-}, [crewNo])
 
   useEffect(() => {
     setChangeCrew(crewNo);
@@ -171,7 +170,7 @@ useEffect(()=>{
               id={`offcanvasNavbar-expand-false`}
               aria-labelledby={`offcanvasNavbarLabel-expand-false`}
               placement="end"
-              style={{width:'900px'}}
+              style={{width:'1000px'}}
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-false`}>
@@ -194,6 +193,22 @@ useEffect(()=>{
                 >
                   프로젝트 삭제
                 </Button>
+                <NavLink to={'/task'} style={{textDecoration:'none', color: 'black'}}>
+                <Button
+                    variant="primary"
+                    onClick={async()=>{
+                      const getTasks = await get(`/task/pNo/${selectionModel[0]}`);
+                    dispatch(setTask(getTasks));
+                    console.log(selectionModel[0]);
+                    console.log(getTasks);
+                  }
+                  }
+                    style={{ fontFamily: "SUIT-Medium" }
+                  }
+                >
+                  관련 업무 조회
+                </Button>
+                </NavLink>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
           </Container>

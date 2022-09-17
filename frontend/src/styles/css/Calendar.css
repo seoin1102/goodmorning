@@ -62,6 +62,8 @@ a[aria-label="토요일"]{
   color: black;
   border: 1px solid #ddd;
   text-align: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .assign-checklist{
