@@ -111,7 +111,7 @@ function AddProject({show, publishLinkPreview, setShow}) {
             start:moment(clickedStart).format('YYYY-MM-DD'),
             end: moment(clickedStart).format('YYYY-MM-DD'),
             projectName:clickedName,
-            projectNo: maxId+1,
+            projectNo: result1,
             crewNo: clickedCrewNo,
             color: '#00bcd4',
             status: "Todo",
@@ -119,11 +119,12 @@ function AddProject({show, publishLinkPreview, setShow}) {
             userNo: assign.userNo
             }
           
-            await post(`/task`, _addTask)
+            const result = await post(`/task`, _addTask);
             console.log(_addTask)
+            console.log('태스크 추가 결과',result)
         })
 
-        console.log("=====>", result1);
+        console.log("프로젝트 추가 결과", result1);
         console.log("=====>",updatedTask)
         dispatch(addProject([updatedTask]));
 

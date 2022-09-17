@@ -128,11 +128,16 @@ function Calendar() {
             </Row>
             <div className="external-events">
               <TaskList taskList={filteredTask}/>
-              <Checkbox
+              
+            </div>
+            <div className="external-events">
+            <strong>담당자</strong>
+            <Checkbox
                 filteredTask={filteredTask}
                 setFilteredTask={setFilteredTask}
               />
-            </div></div>
+            </div>
+            </div>
             <AddTask
               modalIsOpen={modalIsOpen}
               closeModal={closeModal}

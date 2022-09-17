@@ -32,8 +32,10 @@ public class ProjectRepository {
 		return sqlSession.selectOne("project.findCrewNoByName", projectName);
 	}
 
-	public Boolean insert(ProjectVo projectVo) {
-		return sqlSession.insert("project.insert", projectVo) == 1;
+	public long insert(ProjectVo projectVo) {
+		sqlSession.insert("project.insert", projectVo);
+		long projectId = projectVo.getId();
+		return projectId;
 	}
 
 	public Boolean update(ProjectVo projectVo) {
