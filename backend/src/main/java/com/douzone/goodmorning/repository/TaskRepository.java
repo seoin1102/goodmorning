@@ -35,7 +35,7 @@ public class TaskRepository {
 	}
 
 	public Boolean update(TaskVo taskVo) {
-		Boolean result = sqlSession.insert("task.insert", taskVo)==1;
+		Boolean result = sqlSession.insert("task.update", taskVo)==1;
 		long projectNo = taskVo.getProjectNo();
 		sqlSession.update("task.projectUpdate", projectNo);
 		

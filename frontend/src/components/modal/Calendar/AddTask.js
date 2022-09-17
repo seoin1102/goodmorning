@@ -76,6 +76,7 @@ function AddTask(props) {
                     const _addTask={...updatedTask, id: maxId + 1, userNo: assign.userNo, userName:assign.userName}
                     
                     await post(`/task`, _addTask)
+                    console.log('111')
                     dispatch(addTask([_addTask]));
                     console.log( _addTask)
                     props.setFilteredTask([...props.filteredTask,_addTask])
@@ -86,8 +87,9 @@ function AddTask(props) {
 
             if(includesCheck){ //기존 사람의 변경 및 삭제 여부.
                 const filterTaskIdx = props.filteredTask.findIndex(event => event.id == id)
-                await put(`/task/${clickedEventId}`, {...updatedTask,userNo:userNo,userName:userName})
+                const result = await put(`/task/${clickedEventId}`, {...updatedTask,userNo:userNo,userName:userName})
                 dispatch(updateTask(clickedEventIdx, {...updatedTask,userNo:userNo,userName:userName}));
+                console.log('222',result, {...updatedTask,userNo:userNo,userName:userName})
 
                 props.closeModal();
                 setClickedEventTitle("");
@@ -113,7 +115,7 @@ function AddTask(props) {
                     userName: assign.userName
                   }
                   const result = await post(`/task`, _addTask);
-                  console.log("갔냐?@@@@?????????????", result)
+                  console.log("333")
                   dispatch(addTask([_addTask]));
                   console.log(_addTask)
                   props.setFilteredTask([...props.filteredTask,_addTask])
