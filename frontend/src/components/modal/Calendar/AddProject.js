@@ -111,7 +111,7 @@ function AddProject({show, publishLinkPreview, setShow}) {
             start:moment(clickedStart).format('YYYY-MM-DD'),
             end: moment(clickedStart).format('YYYY-MM-DD'),
             projectName:clickedName,
-            projectNo: result1,
+            projectNo: result1.data,
             crewNo: clickedCrewNo,
             color: '#00bcd4',
             status: "Todo",

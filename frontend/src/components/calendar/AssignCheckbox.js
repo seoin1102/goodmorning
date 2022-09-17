@@ -4,6 +4,7 @@ import { shallowEqual, useSelector } from "react-redux";
 function AssignCheckbox(props) {
   const taskList = useSelector((state) => state.task, shallowEqual);
   const crewUserList = useSelector((state) => state.crewUser, shallowEqual);
+  console.log('crewUserList',crewUserList)
   // 체크된 아이템을 담을 배열
   const [checkItems, setCheckItems] = useState(crewUserList);
 

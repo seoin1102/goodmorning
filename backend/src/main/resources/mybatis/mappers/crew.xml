@@ -18,9 +18,9 @@
 				]]>
 		</select>
 		
-		<select id="findCrewUser" parameterType="long" resultType="crewvo">
+		<select id="findCrewUser" parameterType="long" resultType="map">
 				<![CDATA[
-				select a.user_no as userNo, b.name as userName from channel_user a, user b where channel_no = #{crewNo} and a.user_no = b.no;
+				select a.user_no as userNo, b.name as userName, b.profile_img as profileUrl from channel_user a, user b where channel_no = #{crewNo} and a.user_no = b.no;
 				]]>
 		</select>
 		
