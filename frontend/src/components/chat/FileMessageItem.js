@@ -48,7 +48,7 @@ function FileMessageItem({align, message, time, name, url}) {
                                 <img src={fileIcons}/>
                             </Grid>
                             <Grid item xs={8} sx={{margin: ' 0 0 0 5px'}}>
-                                <div style={{padding: '0 0 0 10px', height: '26px', fontFamily:'SUIT-Medium'}}>
+                                <div style={{padding: '0 0 0 10px', height: '26px', fontFamily:'SUIT-Medium',overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>
                                   {`${messageItem.name}`}
                                 </div>
                                 <div style={{padding: '0 0 0 10px', height: '26px', display: 'flex', fontFamily:'SUIT-Medium'}}>
