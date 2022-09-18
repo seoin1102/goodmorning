@@ -45,10 +45,7 @@ function computeMutation(newRow, oldRow) {
 export default function AskConfirmationBeforeSave(props) {
   const dispatch = useDispatch();
 
-  const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
   const projectList = useSelector((state) => state.project, shallowEqual);
-  console.log("projectList",projectList)
- console.log("props.projectList",props.projectList)
 
   const mutateRow = useFakeMutation();
   const noButtonRef = React.useRef(null);

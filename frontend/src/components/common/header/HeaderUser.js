@@ -23,7 +23,6 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum, 
     setProFileModalShow(prevprofileModalShow => !prevprofileModalShow);
   }, [])
 
-  // 고칠 코드
   useEffect(() => {
  
     let _totalSum2 = 0;
@@ -41,7 +40,6 @@ function HeaderUser({user, channelList, onChangeChannel, totalSum, setTotalSum, 
   const onClickLogout = async function() {
     try {
           const response =  await get('/user/logout');
-          // const json = await checkResponse(response);   
           localStorage.setItem('authUser',false);
           localStorage.removeItem('authorization');
           location.href="/signin"

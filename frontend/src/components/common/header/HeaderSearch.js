@@ -26,6 +26,7 @@ function HeaderSearch(props) {
 
   const projectName = (projectList != null?projectList.map((project)=> project.projectName):[])
   const test = [...searchKeyword,...projectName]
+  
   const handleChange=((e)=>{
     if(e.target.value == 0){
       setSearch(e.target.innerText)}
@@ -33,6 +34,7 @@ function HeaderSearch(props) {
       setSearch(e.target.value)
     }
   })
+
   const handleKeyPress = async(e) => {
     const getProjects = await get(`/project/${channelNo}/${userNo}`);
     dispatch(setProject(getProjects));
@@ -41,8 +43,6 @@ function HeaderSearch(props) {
 
   }
 
-
-  
   return (
       <Grid item xs={7}>
         <div style={{display:'flex' , alignItems:"center"}}>

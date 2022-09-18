@@ -3,23 +3,22 @@ import React, { useEffect, useState } from 'react';
 import { linkPreview } from '../../apis/LinkPreview';
 import '../../styles/css/textBox.css';
 
-function SendPreviewMessage({align, time, name, message}) {
+function SendPreviewMessage({message}) {
     const [linkPreviewMetaOG, setLinkPreviewMetaOG] = useState(null);
 
     const metaOGCallback = async () => {
-      const gitData = message.split('/');
+        const gitData = message.split('/');
 
-      if (gitData[0] === 'undefined')
-          gitData[0] = ''
+        if (gitData[0] === 'undefined')
+            gitData[0] = ''
 
-      if (gitData[1] === 'undefined')
-          gitData[1] = ''
+        if (gitData[1] === 'undefined')
+            gitData[1] = ''
 
-      const gitJsonData = JSON.stringify({gitId: gitData[0], projectName: gitData[1]})
-    const metaOG = await linkPreview(`/html/github`, gitJsonData);
+        const gitJsonData = JSON.stringify({gitId: gitData[0], projectName: gitData[1]})
+        const metaOG = await linkPreview(`/html/github`, gitJsonData);
 
-
-      setLinkPreviewMetaOG(metaOG);
+        setLinkPreviewMetaOG(metaOG);
     }
 
     useEffect(() => {

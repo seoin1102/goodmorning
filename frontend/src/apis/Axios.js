@@ -1,9 +1,8 @@
 import axios from 'axios';
-import {checkResponse, checkAuth, catchAuth } from './Fetch'
+import { catchAuth, checkAuth } from './Fetch';
 
 const authorization = localStorage.getItem('authorization');
 const client = axios.create({baseURL:'http://34.64.235.225:8080/api', headers: {'Authorization' : authorization}});
-
 
 /**
  * axios GET(Read) 요청
@@ -23,12 +22,8 @@ export const get = async (url) => {
 
 export const getGit = async (url, data) => {
   try {
-      let response =  await axios.post(url, data, {headers: {'Content-Type': 'application/json', 'Authorization' : authorization}});
-      //let response =  await axios.get(`/git${url}`);
-      //let response =  await axios.get(`https://github.com/shake-shack/goodmorning`);
-    
-      checkAuth(response);
-      
+      let response =  await axios.post(url, data, {headers: {'Content-Type': 'application/json', 'Authorization' : authorization}});    
+      checkAuth(response);      
       return response.data;
   } catch (error) {
       console.error("Error >>", error);

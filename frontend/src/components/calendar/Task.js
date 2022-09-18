@@ -1,22 +1,21 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
-
-import { Col, Row } from "react-bootstrap";
-import { setTask, addTask } from "../../redux/task";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import {  Box, Card, Button, Paper, Divider } from "@mui/material";
-import { NavDropdown } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { Box, Card, Divider, Paper } from "@mui/material";
+import { Col, NavDropdown, Row } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { get } from '../../apis/Axios';
-
-import "../../styles/css/Calendar.css";
-
+import { addTask, setTask } from "../../redux/task";
 import AddTask from "../modal/Calendar/AddTask";
 import Checkbox from "./AssignCheckbox";
 import TaskCalendar from "./TaskCalendar";
 import TaskList from "./TaskList";
-let isInitial = true;
+import "../../styles/css/Calendar.css";
 
 function Calendar() {
+  let isInitial = true;
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [clickedEventAssign, setClickedEventAssign] = useState("");
+  const [channelName, setChannelName] = useState('전체 프로젝트')
+  const [filteredTask, setFilteredTask] = useState([]);
   const [state, setState] = useState({
     id: "",
     projectNo: "",
@@ -29,21 +28,12 @@ function Calendar() {
     projectName: "",
     color: "",
   });
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [clickedEventAssign, setClickedEventAssign] = useState("");
-  const [channelName, setChannelName] = useState('전체 프로젝트')
   const taskList = useSelector((state) => state.task, shallowEqual);
   const crewNo = useSelector((state) => state.focus.crewNo, shallowEqual);
   const projectList = useSelector((state) => state.project, shallowEqual);
   const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
-
-  const [filteredTask, setFilteredTask] = useState([]);
-  /////
-
   const dispatch = useDispatch();
   
-  /////
-
   const openModal = () => {
     setIsOpen(true);
   };
@@ -65,11 +55,6 @@ function Calendar() {
     dispatch(addTask(task));
   };
 
-  const initialTask = useCallback(async(crewNo)=>{
-    const getTasks = await get(`/task/cNo/${crewNo}`);
-    dispatch(setTask(getTasks));
-}, [dispatch])
-  /////
   const eventClickHandler = (info) => {
     const { id, title, start, end, borderColor } = info.event;
     const { userName, userNo, status, projectNo,  projectName } =

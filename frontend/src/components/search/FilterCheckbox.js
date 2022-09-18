@@ -1,15 +1,14 @@
 // 1단계: 문 가져오기
 import {
- Checkbox
+  Checkbox
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import clickgithub from "../../assets/icons/clickGithub.svg";
 import clickjenkins from "../../assets/icons/clickJenkins.svg";
 import clickmessage from "../../assets/icons/clickMessage.png";
 import unclickgithub from "../../assets/icons/unclickGithub.svg";
 import unclickjenkins from "../../assets/icons/unclickJenkins.svg";
 import unclickmessage from "../../assets/icons/unclickMessage.png";
-import UserCheckbox from "./UserCheckbox";
 
 import "../../styles/css/Header.css";
 

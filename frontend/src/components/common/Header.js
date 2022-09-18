@@ -12,7 +12,6 @@ import HeaderUser from './header/HeaderUser';
 
 function Header({setChattingList}) {
     const [totalSum, setTotalSum] = useState(0);
-    // modal state
     const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
     const [users, setUsers] = useState([]);
     const [masterChannelUser, setMasterChannelUser] = useState([]);
@@ -37,7 +36,6 @@ function Header({setChattingList}) {
      * 채널 목록
      * @param userNo 채널 번호
      */
-
     const initialChannel = useCallback(async(channelNo, userNo) => {
       const channels = await get(`/channel/${channelNo}/${userNo}`);
       dispatch(setChannel(channels));
@@ -83,15 +81,8 @@ function Header({setChattingList}) {
             initialChannel(channelNo, userNo);
       }, [channelNo,userInfo])
 
-    // useEffect(()=>{
-    //     console.log("zzzzzzzzzzzzz");
-    // },[user])
-
-    // css
-    // 이넘 땜에 최적화 안됨 --> css 파일로 만들기
     const channelStyle = {height:'60px', whiteSpace:'no-wrap', overflow:'hidden', textOverflow:'ellipsis'};
 
-    // modal click
     const onClickChannelModal = useCallback(() => {
         setChannelModalIsOpen(prevChannelModalIsOpen => !prevChannelModalIsOpen);
         initialUser();

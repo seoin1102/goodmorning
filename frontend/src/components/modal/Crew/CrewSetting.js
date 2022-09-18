@@ -29,7 +29,6 @@ function CrewSetting({modalShow,onClickModal, users, crewName, channelNo, crewNo
         })
       }
       const result2 = await get(`/crew/invite/message/${email}`);
-      console.log(result2,"야야야야야야")
       initialUser();
       
       

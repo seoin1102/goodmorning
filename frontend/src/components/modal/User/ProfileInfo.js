@@ -37,7 +37,6 @@ function Profileinfo({ modalShow, onClickModal, setUserInfo, setChattingList}) {
       const json = await checkResponse(response);
       return json.data.profileUrl;
     } catch (err) {
-      console.log(err);
     }
   }
 

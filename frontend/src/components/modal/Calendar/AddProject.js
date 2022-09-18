@@ -56,7 +56,6 @@ function AddProject({show, publishLinkPreview, setShow}) {
           const response = await fetchResponse('/api/project/makejenkinsJob','post','jsonjsonHeader',JSON.stringify(data));
           const json = await checkResponse(response);
         } catch(err) {
-              console.log(err)
         }
       }
 
@@ -102,9 +101,10 @@ function AddProject({show, publishLinkPreview, setShow}) {
           assign: clickedAssign
         }
 
-        if(clickedAssign == undefined||clickedName == undefined || gitName == undefined || gitToken == undefined || clickedCrewName == undefined || clickedStart == undefined || clickedEnd == undefined ){
-          typeError="empty"
-          throw new Error(); 
+        if(clickedAssign == undefined || clickedName == undefined || gitName == undefined || gitToken == undefined || 
+            clickedCrewName == undefined || clickedStart == undefined || clickedEnd == undefined ) {
+            typeError="empty"
+            throw new Error(); 
         }
         
         setLoading(() => true);
@@ -124,12 +124,9 @@ function AddProject({show, publishLinkPreview, setShow}) {
             }
           
             const result = await post(`/task`, _addTask);
-            console.log(_addTask)
-            console.log('태스크 추가 결과',result)
+
         })
 
-        console.log("프로젝트 추가 결과", result1);
-        console.log("=====>",updatedTask)
         dispatch(addProject([updatedTask]));
 
         

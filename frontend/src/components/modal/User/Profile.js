@@ -28,7 +28,6 @@ function Profile({modalShow, onClickModal,profile, setProfile, user, setUserInfo
       }
 
       await put(`/user/update`, userinfo);
-      console.log("여기!",setUser);
       localStorage.setItem('authUser',JSON.stringify(setUser));
       setUserInfo(setUser);
       setChattingList(setUser);

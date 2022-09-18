@@ -19,7 +19,6 @@ function FileMessageItem({align, message, time, name, url}) {
 //
     useEffect(() => {
         const messageItemArray = message.split('#$#');
-        console.log(messageItemArray)
         setMessageItem((prevMessageItem) => ({
             ...prevMessageItem, 
             name: messageItemArray[0], 
@@ -27,7 +26,6 @@ function FileMessageItem({align, message, time, name, url}) {
             type: messageItemArray[2],
             link:messageItemArray[3]
           }))
-          console.log(messageItemArray[3]);
     }, [message]);
 
 

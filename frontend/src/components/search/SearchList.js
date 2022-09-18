@@ -1,7 +1,7 @@
 // 1단계: 문 가져오기
-import {Avatar, Box, Button, Card,CardContent, Paper, Tab, Tabs, Typography} from "@mui/material";
+import { Avatar, Box, Button, Card, CardContent, Paper, Tab, Tabs, Typography } from "@mui/material";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { get } from "../../apis/Axios";
@@ -18,8 +18,8 @@ import GitMessageItem from "../chat/GitMessageItem";
 import JenkinsMessageItem from "../chat/JenkinsMessageItem";
 import SendPreviewMessage from "../chat/SendPreviewMessage";
 
-import FilterAccordion from "./FilterAccordion";
 import { ProgressBar } from "react-bootstrap";
+import FilterAccordion from "./FilterAccordion";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -377,7 +377,6 @@ export default function SearchList(props) {
                           
                           const getProjects = await get(`/project/cNo/${e.crewNo}`)
                           dispatch(setProject(getProjects));
-                          console.log(projectList);
 
                         }}
                       >

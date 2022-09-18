@@ -15,9 +15,7 @@ function SendMessage({onChangeHandler, onClickHandler, text, publishFileUpload})
     const uploadcheck = async (comment, file, projectNo,userNo)=> {
 
         const fileUrl = await addFile(comment, file, projectNo,userNo);
-        console.log("=====>",fileUrl);
-        return fileUrl.data.url
-        //dispatch(fileFileData(FileListdata));        
+        return fileUrl.data.url   
     }
 
     // modal click

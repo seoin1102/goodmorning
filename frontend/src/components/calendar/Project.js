@@ -21,7 +21,6 @@ function Project({publishLinkPreview}) {
   const location = useLocation();
   const { state } = location;
   const crewName = state.crewName;
-  console.log(crewName)
   const crewNo = useSelector((state) => state.focus.crewNo, shallowEqual);
   const [channelName, setChannelName] = useState(crewName==null?" 전체 채널":crewName)
   const [show, setShow] = React.useState(false);
@@ -33,7 +32,6 @@ function Project({publishLinkPreview}) {
   const projectList = useSelector((state) => state.project, shallowEqual);
   const handleShow = () => setShow(true);
   const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
-  console.log("크루 넘버!",crewNo)
   const user = getLocalStorageAuthUser();
   const userNo = user.no;
 
@@ -53,13 +51,11 @@ function Project({publishLinkPreview}) {
   const handleDelete = () => {
       selectionModel.map(async (id) => {
       const result = await remove(`/project/${id}`, id);
-      console.log('삭제 결과',result)
       const projectIdx = projectList.findIndex(event => event.id == id)
       dispatch(deleteProject(projectIdx));
     });
   };
 
-console.log(projectList)
   const columns = [
     { type: "string", label: "Task ID" },
     { type: "string", label: "Task Name" },
@@ -199,8 +195,7 @@ useEffect(()=>{
                     onClick={async()=>{
                       const getTasks = await get(`/task/pNo/${selectionModel[0]}`);
                     dispatch(setTask(getTasks));
-                    console.log(selectionModel[0]);
-                    console.log(getTasks);
+     
                   }
                   }
                     style={{ fontFamily: "SUIT-Medium" }

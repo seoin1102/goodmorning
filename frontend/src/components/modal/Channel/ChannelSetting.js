@@ -67,9 +67,6 @@ function ChannelSetting({modalShow, onClickModal,users, initialUser, masterChann
                 channelNo={channelNo}
                 users={users}
                 onClickChannelInvite={onClickChannelInvite} />
-        // else if (tab === 2) return <Channelsetting_set 
-        // onClickModal={onClickModal}
-        // setTab={setTab} />
       }
 
     return (
@@ -89,12 +86,6 @@ function ChannelSetting({modalShow, onClickModal,users, initialUser, masterChann
             멤버
           </Nav.Link>
         </Nav.Item>
-        
-        {/* <Nav.Item>
-          <Nav.Link eventKey="link-2" onClick={() => setTab(2)}>
-            설정
-          </Nav.Link>
-        </Nav.Item> */}
       </Nav>
       <TabContent />
       </Modal>

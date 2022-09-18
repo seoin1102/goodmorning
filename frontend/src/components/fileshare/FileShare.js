@@ -1,8 +1,7 @@
 import React from 'react';
 import { getLocalStorageAuthUser } from '../../apis/Fetch';
 import FileShareDirectory from './fileshareItem/FileShareDirectory';
-function FileShareContainer(props) {
-
+function FileShareContainer() {
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
 

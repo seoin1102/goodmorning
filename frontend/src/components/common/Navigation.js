@@ -10,35 +10,26 @@ import { setCrewUser } from "../../redux/crewUser";
 import { setCREWFOCUS } from '../../redux/focus';
 import { setProject } from '../../redux/project';
 import { setTask } from '../../redux/task';
-import { falseFlag } from '../../redux/flag';
 import NavigationCrew from './navigation/NavigationCrew';
 import NavigationEct from './navigation/NavigationEct';
 
 function Navigation() {
+    const user = getLocalStorageAuthUser();
+    const userNo = user.no;
 
     const dispatch = useDispatch();
     const crewList = useSelector(state => (state.crew), shallowEqual);
     const projectList = useSelector((state) => state.project, shallowEqual);
-
-    const user = getLocalStorageAuthUser();
-    const userNo = user.no;
     const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
     const crewNo = useSelector(state => (state.focus.crewNo), shallowEqual);
-    const crewName = useSelector(state => (state.focus.crewName), shallowEqual);
-    const [changeCrew, setChangeCrew] = useState({
-        no: crewNo,
-        name: crewName
-    });
 
     /**
      * 크루 목록
      * @param channelNo 채널 번호
      */
-
     const initialCrew = useCallback(async(channelNo, userNo) => {
         const crews = await get(`/crew/${channelNo}/${userNo}`);
         dispatch(setCrew(crews));
-        // console.log('@@@@@@@@@', crews)
         localStorage.setItem('crewList', JSON.stringify(crews));
     }, [channelNo])
 
@@ -52,7 +43,6 @@ function Navigation() {
         const projects = await get(`/project/${channelNo}/${userNo}`);
         dispatch(setProject(projects));
         localStorage.setItem('projectList', JSON.stringify(projects));
-        console.log(projects)
     }, [channelNo, userNo])
 
     const initialCrewUser = useCallback(async (channelNo) => {
@@ -69,7 +59,6 @@ function Navigation() {
      */
     const onCreateCrew = useCallback(async(channelNo, crew, userNo) => {
         const result = await post(`/crew/${channelNo}/${userNo}`, crew);
-        console.log("이녀석아!!",result);
         if (result.data == 'fail' || crew == null){
                 Swal.fire({
                     icon: 'error',
@@ -91,7 +80,6 @@ function Navigation() {
         if(result.data === 'success')  
             dispatch(setCREWFOCUS({no: crewNo, name: crewName})); 
           
-        // dispatch(falseFlag());
         localStorage.setItem("flag", false);
     }
 
@@ -112,7 +100,6 @@ function Navigation() {
     useEffect(() => {
         if(projectList.length ==0 && channelNo !== null)
             initialProject(channelNo,userNo);
-            console.log(channelNo, userNo)
     }, [channelNo,userNo])
 
     useEffect(() => {

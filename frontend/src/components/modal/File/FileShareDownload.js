@@ -12,22 +12,16 @@ import Pagination from '../../fileshare/fileshareItem/Pagination';
 import FileUpload from '../../modal/File/FileUpload';
 
 function FileShareDownload({modalShow,FileDownloadModalIsOpenCallback,onClickFileUploadModal,FileUploadModalIsOpen,uploadModalIsOpen,authUserNo, posts}) {
-
     const [limit, setLimit] = useState(5);
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
-    const [checkflagupload, setcheckflagupload] = useState(false);
-
+    const dispatch = useDispatch();
+    
     const uploadcheck = async (comment, file, projectNo,userNo)=> {
         const FileListdata = await addFileAndFindFileList(comment, file, projectNo,userNo);
         dispatch(fileFileData(FileListdata));
     }
-    const dispatch = useDispatch();
 
-
-    // const posts = useSelector( state => ({
-    //     filedata: state.file.filedata,
-    // }));
     return (
         <div>
         <img src={downloadIcon} style={{height:'33px', display:'none'}} />

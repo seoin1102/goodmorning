@@ -104,7 +104,6 @@ function SiteLayout({children}) {
                     dispatch(updateCHATALARM({crewNo:crew.no}))
                 }
                 if(flag !== 'true') {
-                console.log("5555555555555555555555", crew.no, "  $$ ", crewNo);
                 const chatData = JSON.parse(data.body);
 
                 if(chatData.type === 'GITHUB')
@@ -114,12 +113,10 @@ function SiteLayout({children}) {
                     chatData.sendDate = new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ");
 
                 const result = await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
-                console.log("전달 받은 내용", chatData);
-                console.log("전달 받은 내용", result);
+ 
                 if(result.data !== 'success') 
                     return;
 
-                console.log("채팅 읽음 업데이트 성공?", chatData);
                 dispatch(addChat(chatData));
 
                 
@@ -149,7 +146,6 @@ function SiteLayout({children}) {
             if(jenkinsCommand[0] === 'jenkins' && jenkinsCommand[1] === 'start' && jenkinsCommand[2] === '-p') {
                 // 자기 크루에 속한 프로젝트 인지 확인하는 코드(서버에서 체크)
                 const result = await get(`/jenkinsHook/${crewNo}/${jenkinsCommand[3]}`);
-                console.log("체크체크 크루 프로젝트 체크", result)
                 if(result !== 0) {
                     addChat = chatCommand(crewNo, authUser.no, jenkinsCommand[3]);
                     pubChat = msgCommand(crewNo, authUser.no, jenkinsCommand[3], authUser.name, authUser.profileUrl);
@@ -172,7 +168,6 @@ function SiteLayout({children}) {
 
         // const pubChat = msgChat(crewNo, authUser.no, sendMessage, authUser.name, authUser.profileUrl);
         client.current.publish({destination: `/pub/chat`, body: pubChat});
-        console.log("전달할 내용", addChat);
         setSendMessage("");
     };
 
@@ -220,7 +215,6 @@ function SiteLayout({children}) {
       if(result.data !== 'success')
         return;
       
-    console.log("db 추가 성공")
       const pubChat = msgEnter(crewNo, authUser.no, userName);
       client.current.publish({destination: `/pub/chat`, body: pubChat});
     }

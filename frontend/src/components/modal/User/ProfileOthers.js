@@ -5,15 +5,12 @@ import dateIcon from '../../../assets/icons/date.png';
 import phoneIcon from '../../../assets/icons/phone.png';
 
 function ProfileOthers({ modalShow, onClickModal, user}) {
-
-  
   const [isInitial, setInitial] = useState(false);
   
   useEffect(() => {
       setInitial(true)
   }, []);
 
-  
   return (
     <>
       {

@@ -1,5 +1,5 @@
 import { Paper } from '@mui/material';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { projectDirectoryListdata, projectFileListdata } from '../../../apis/Fetch';
@@ -13,15 +13,12 @@ function FileShareDirectory({userNo}) {
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [selectProject, setselectProject] = useState(null);
     const [uploadModalIsOpen, setuploadModalIsOpen] = useState(false);
     const [isInitial, setInitial] = useState(false);
 
     const dispatch = useDispatch();
     const offset = (page - 1) * limit;
     
-
-
     useEffect(()=>{
         (async () => {
                 const directoryListdata = await projectDirectoryListdata(userNo)
@@ -45,7 +42,6 @@ function FileShareDirectory({userNo}) {
         setModalIsOpen(true)
         const FileListdata = await projectFileListdata(e.target.id);
         dispatch(fileFileData(FileListdata));
-
     }
     
     const FileDownloadModalIsOpen = (isOpenStatus) => {

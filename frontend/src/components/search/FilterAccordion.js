@@ -4,8 +4,6 @@ import "../../styles/css/Header.css";
 import FilterCheckbox from "./FilterCheckbox";
 import UserCheckbox from "./UserCheckbox";
 
-
-// 필터 보류
 export default function FilterAccordion(props) {
   return (
     <div style={{display:'flex', justifyContent:"space-between", alignItems:"center"}}>

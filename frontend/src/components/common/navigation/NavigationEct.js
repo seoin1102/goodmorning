@@ -5,25 +5,22 @@ import React, { useCallback, useState } from 'react';
 import AddCrew from '../../modal/Crew/AddCrew';
 
 import { Collapse, ListItemButton } from '@mui/material';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import arrowDownIcon from '../../../assets/icons/keyboard_arrow_down.svg';
-import arrowUpIcon from '../../../assets/icons/keyboard_arrow_up.svg';
-import NavigationEctItem from './NavigationEctItem';
-import { trueFlag } from '../../../redux/flag';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { setProject } from "../../../redux/project";
 import { get } from '../../../apis/Axios';
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
+import arrowDownIcon from '../../../assets/icons/keyboard_arrow_down.svg';
+import arrowUpIcon from '../../../assets/icons/keyboard_arrow_up.svg';
+import { setProject } from "../../../redux/project";
+import NavigationEctItem from './NavigationEctItem';
 
 
-function NavigationEct({onCreateCrew, onCreateChannel, taskList }) {
+function NavigationEct({onCreateCrew}) {
     const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
-    // modal state
     const [addChannelModalShow, setAddChannelModalShow] = useState(false);
     const [addCrewModalShow, setAddCrewModalShow] = useState(false);
-    // const [reservModalShow, setReservModalShow] = useState(false);
     const [open, setOpen] = useState(true);
     const dispatch = useDispatch();
 
@@ -39,29 +36,6 @@ function NavigationEct({onCreateCrew, onCreateChannel, taskList }) {
         setAddCrewModalShow(prevAddCrewModalShow => !prevAddCrewModalShow);
     }, [])
 
-    // const onClickReservModal = useCallback(() => {
-    //     setReservModalShow(prevReservModalShow => !prevReservModalShow);
-    // }, [])
-
-    // const list = {
-    //   overflowY: "auto",
-    //   margin: 0,
-    //   padding: 0,
-    //   listStyle: "none",
-    //   height: "100%",
-    //   '&::-webkit-scrollbar': {
-    //     width: '0.4em'
-    //   },
-    //   '&::-webkit-scrollbar-track': {
-    //     boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-    //     webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-    //   },
-    //   '&::-webkit-scrollbar-thumb': {
-    //     backgroundColor: 'rgba(0,0,0,.1)',
-    //     outline: '1px solid slategrey'
-    //   }
-    // }
-
     return (
         <>
 
@@ -72,18 +46,9 @@ function NavigationEct({onCreateCrew, onCreateChannel, taskList }) {
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
         <List style={{height: '300px', overflow: 'auto', listStyle: "none"}}>
-            
-            {/* <NavigationEctItem userName={"Remy Sharp"} itemName={"채널 생성"} onClickModal={onClickAddChannelModal}>
-                <AddChannel modalShow={addChannelModalShow} onClickModal={onClickAddChannelModal} onCreateChannel={onCreateChannel} /> 
-            </NavigationEctItem> */}
             <NavigationEctItem userName={"Alice"} itemName={"채널 생성"} onClickModal={onClickAddCrewModal}>
                 <AddCrew modalShow={addCrewModalShow} onClickModal={onClickAddCrewModal} onCreateCrew={onCreateCrew} /> 
             </NavigationEctItem>
-            {/* <NavigationEctItem userName={"Cindy Baker"} itemName={"예약 메시지"} onClickModal={onClickReservModal}>
-                <Reserv modalShow={reservModalShow} onClickModal={onClickReservModal}/> 
-            </NavigationEctItem> */}
-
-
             <NavLink to={"/fileshare"} style={{textDecoration:'none', color: 'white'}} onClick={() => localStorage.setItem("flag", true)}>
             <NavigationEctItem itemName={"파일 공유"}/>
             </NavLink>

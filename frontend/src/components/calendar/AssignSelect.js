@@ -15,7 +15,6 @@ export default function AssignSelect(props) {
         const addedAssignList = value.filter((prevAssign)=>  prevAssigns.some((assign) => assign.userName != prevAssign.userName))
         const includesCheck = (value.filter((prevAssign)=>  prevAssigns.some((assign) => assign.userName == prevAssign.userName))).length > 0 ? true: false
         const addedAssignNo = addedAssignList.map((addedAssign)=> addedAssign)
-        console.log(addedAssignNo)
         props.setAddedAssigns(addedAssignNo)
         props.setIncludeCheck(includesCheck)
     }else{

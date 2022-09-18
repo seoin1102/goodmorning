@@ -1,16 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, Form, FormSelect, InputGroup, Modal } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
 import { getLocalStorageAuthUser, projectDirectoryListdata } from '../../../apis/Fetch';
 
 function FileUpload({modalShow, FileUploadModalIsOpenCallback, uploadcheck, publishFileUpload, type}) {
     const user = getLocalStorageAuthUser();
     const userNo = user.no;
-
     const [posts, setPosts] = useState([]);
     const refForm = useRef(null);
-    const dispatch = useDispatch();
-    
+
     const handleSubmit = async function (e) {
         e.preventDefault();
 
@@ -38,7 +35,6 @@ function FileUpload({modalShow, FileUploadModalIsOpenCallback, uploadcheck, publ
             uploadcheck(comment, file, projectNo, userNo);
         }
         
-        console.log("파일 업로드", comment, file, projectNo, userNo);
         FileUploadModalIsOpenCallback(false);
     }
 

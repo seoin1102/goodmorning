@@ -8,7 +8,6 @@ import arrowDownIcon from '../../../assets/icons/keyboard_arrow_down.svg';
 import arrowUpIcon from '../../../assets/icons/keyboard_arrow_up.svg';
 import NavigationItem from './NavigationItem';
 
-// 많으면 화면 넘어가므로 스크롤 추가 해주기
 function NavigationCrew({crewList, onClickCrew}) {
     const chatAlarmList = useSelector(state => (state.chatAlarm));
     const [open, setOpen] = useState(true);

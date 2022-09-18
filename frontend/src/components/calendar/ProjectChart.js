@@ -12,7 +12,6 @@ export default function MyWidget(props) {
 
   React.useEffect(() => {
     setData(props.data);
-    console.log(data)
   }, [data]);
   
   return (

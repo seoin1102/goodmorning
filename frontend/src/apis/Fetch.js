@@ -99,7 +99,6 @@ export const getfile = async function(fileUrl,fileName) {
             responseType: 'blob'
         })
         .then((response) => {
-            console.log(response.data)
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
@@ -215,7 +214,6 @@ export const deleteFile = async function(url,userNo) {
         const json = await checkResponse(response);
 
     } catch(err) {
-        console.log(err.toString());
     }
   };
 
@@ -247,10 +245,8 @@ export const updateProfileAndFindProfileurl = async function(file,userNo) {
         formData.append('file', file);
         formData.append('userNo',userNo);
         const response = await fetchResponse('/api/fileManagement/editProfileImg','post','multipartHeader',formData);
-        console.log("zzzzzzzzzzz"+response.data)
 
         const json = await checkResponse(response);
-        console.log(json.data);
         return json.data.profileUrl;
 
     } catch (err) {
