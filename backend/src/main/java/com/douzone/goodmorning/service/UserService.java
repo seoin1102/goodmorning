@@ -117,7 +117,7 @@ public class UserService {
 		String token;
 		try {
 			token = UUID.randomUUID().toString();
-			String enctypt_token = sha256.encrypt(token);
+			String enctypt_token = bCryptPasswordEncoder.encode(token);
 			
 			String setSubject = "[굿모닝 패스워드 재설정 메일 입니다.]";
 			String setText = "<h1>패스워드 재설정 메일</h1>" +
@@ -130,7 +130,7 @@ public class UserService {
 			return userRepository.updatePw(vo.getEmail(),enctypt_token);
 			
 			
-		} catch (NoSuchAlgorithmException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
