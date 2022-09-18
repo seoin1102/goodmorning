@@ -43,7 +43,7 @@ function SearchResult() {
                     }
 
                     return (<div><Fragment key={index}>
-                                {chat.type === 'CHAT' ? 
+                                {(chat.type === 'CHAT' || chat.type === "COMMAND") ? 
                                 chat.message==searchText && chat.sendDate == sendDate?
                                 <div style={{backgroundColor:'#C9C8C8'}}>
                                     <MessageItem 

@@ -89,8 +89,8 @@ export default function SearchList(props) {
 
   const chattingResult = searchList.filter(
     (e) =>
-      (e.message.indexOf(props.searchText) !== -1 && e.type !== "FILE" )||
-      (e.userName.indexOf(props.searchText) !== -1 && e.type !== "FILE")
+      (e.message.indexOf(props.searchText) !== -1 && e.type !== "FILE"  && e.type !== "ENTER")||
+      (e.userName.indexOf(props.searchText) !== -1 && e.type !== "FILE" && e.type !== "ENTER")
   );
 
   const projectResult = projectList.filter(
@@ -165,7 +165,7 @@ export default function SearchList(props) {
           {chattingResult != "" ? (
             chattingResult.map((e, i) => (
               <div key={i}>
-                {e.type === "CHAT" && checkMessage && userLi.includes(e.userName)? (
+                {(e.type === "CHAT" || e.type === "COMMAND") && checkMessage && userLi.includes(e.userName)? (
                   <div>
                     <Card>
                       <CardContent className="searchcard">
@@ -288,10 +288,8 @@ export default function SearchList(props) {
                   <Card>
                     <CardContent className="searchcard">
                       <div style={{ display: "flex", alignItems: "center" }}>
-
                         <SendPreviewMessage message={e.message} />
-                                              </div>
-
+                        </div>
                         <NavLink
                           to={"/searchresult"}
                           style={{ textDecoration: "none" }}

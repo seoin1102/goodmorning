@@ -30,9 +30,13 @@ function SiteLayout({children}) {
     const [ChattingList, setChattingList] = useState([]);
 
     useEffect(() => {
+        console.log("111111111111111111111")
         setLoading(true);
         connect()
-        return () => {disconnect()};
+        return () => {
+            console.log('22222222222222222')
+            disconnect()
+        };
     }, [crewNo, ChattingList]);
 
     // 자원 할당(소켓 연결)
@@ -71,12 +75,13 @@ function SiteLayout({children}) {
             // 공통 영역
             // focus 안된 크루에 대한 메시지 알림 기능
             if(crew.no !== crewNo) {
-
+                console.log('33333333333333333333333')
                 // 이전 안읽은 메시지 카운트 가져오고
                 const result = await get(`/chat/count/${crew.no}/${authUser.no}`);
                 dispatch(addCHATALARM({crewNo:crew.no, count:result.unReadCount, channelNo:result.channelNo}));
 
                 client.current.subscribe(`/sub/${crew.no}`, () => {
+                    console.log('444444444444444444')
                     dispatch(updateCHATALARM({crewNo:crew.no}))
                 })
 
