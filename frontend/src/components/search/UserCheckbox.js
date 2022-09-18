@@ -9,6 +9,7 @@ export default function UserCheckbox(props) {
       <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3 }}>
       {props.user.map((e,i)=>
       <FormControlLabel
+        key={i}
         label={e.name}
         control={
         <Checkbox 
@@ -17,7 +18,6 @@ export default function UserCheckbox(props) {
             e.check = event.target.checked
             props.setUser(props.user)
             props.reRenderCallback()
-            key=i
           }} />}
       /> )}
     </Box>
