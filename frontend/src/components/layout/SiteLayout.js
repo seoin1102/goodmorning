@@ -30,11 +30,11 @@ function SiteLayout({children}) {
     const [ChattingList, setChattingList] = useState([]);
 
     useEffect(() => {
-        console.log("111111111111111111111")
+        console.log("@@@@@@@@@@@@@ 크루 포커스 (연결)변경")
         setLoading(true);
         connect()
         return () => {
-            console.log('22222222222222222')
+          console.log("@@@@@@@@@@@@@ 크루 포커스 (끊어짐)변경")
             disconnect()
         };
     }, [crewNo, ChattingList]);
@@ -65,7 +65,7 @@ function SiteLayout({children}) {
      */
     const initialSubscribe = async() => {
         const crewList = await get(`/crew/${authUser.no}`);
-
+        console.log("@@@@@@@@@@@@@@@@ 크루 리스트", crewList);
         dispatch(resetCHATALARM());
         await crewList.map(async (crew) => {
             const connectChat = msgConnect(crew.no, authUser.no);
@@ -75,13 +75,13 @@ function SiteLayout({children}) {
             // 공통 영역
             // focus 안된 크루에 대한 메시지 알림 기능
             if(crew.no !== crewNo) {
-                console.log('33333333333333333333333')
+                console.log('########################', "db 크루",crew.no, "포커스>>", crewNo, "유저",authUser.no)
                 // 이전 안읽은 메시지 카운트 가져오고
                 const result = await get(`/chat/count/${crew.no}/${authUser.no}`);
                 dispatch(addCHATALARM({crewNo:crew.no, count:result.unReadCount, channelNo:result.channelNo}));
 
                 client.current.subscribe(`/sub/${crew.no}`, () => {
-                    console.log('444444444444444444')
+                    console.log('@@@@@@@@@@@@@@@@@@@@@ 포커스 안된 소켓 통신')
                     dispatch(updateCHATALARM({crewNo:crew.no}))
                 })
 
@@ -101,7 +101,7 @@ function SiteLayout({children}) {
             // focus 된 크루의 다른 사용자가 입력한 메시지 추가(구독 이벤트 등록)
             const result = await get(`/chat/count/${crew.no}/${authUser.no}`);
             dispatch(addCHATALARM({crewNo:crew.no, count:result.unReadCount, channelNo:result.channelNo}));
-
+            console.log('########################', "db 크루",crew.no, "포커스>>", crewNo, "유저",authUser.no)
             client.current.subscribe(`/sub/${crewNo}`,async (data) => {
 
                 // 다른데 가있으면 작동
@@ -119,13 +119,11 @@ function SiteLayout({children}) {
 
                 const result = await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
                 
-                console.log("Before addChat !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", chatData)
+                console.log("@@@@@@@@@ 포커스된 addChat !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", chatData)
                 // if(result.data !== 'success') 
                 //     return;
                 
                 dispatch(addChat(chatData));
-                console.log("After addChat @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", chatData)
-                
                 dispatch(setCHATALARM({crewNo:crewNo}))
                 }         
             })
