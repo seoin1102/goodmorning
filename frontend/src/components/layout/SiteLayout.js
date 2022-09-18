@@ -114,8 +114,8 @@ function SiteLayout({children}) {
 
                 const result = await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
  
-                if(result.data !== 'success') 
-                    return;
+                // if(result.data !== 'success') 
+                //     return;
 
                 dispatch(addChat(chatData));
 
