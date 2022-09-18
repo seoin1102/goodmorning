@@ -10,9 +10,16 @@ import arrowDownIcon from '../../../assets/icons/keyboard_arrow_down.svg';
 import arrowUpIcon from '../../../assets/icons/keyboard_arrow_up.svg';
 import NavigationEctItem from './NavigationEctItem';
 import { trueFlag } from '../../../redux/flag';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { setProject } from "../../../redux/project";
+import { get } from '../../../apis/Axios';
+import { getLocalStorageAuthUser } from '../../../apis/Fetch';
+
 
 function NavigationEct({onCreateCrew, onCreateChannel, taskList }) {
+    const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
+    const user = getLocalStorageAuthUser();
+    const userNo = user.no;
     // modal state
     const [addChannelModalShow, setAddChannelModalShow] = useState(false);
     const [addCrewModalShow, setAddCrewModalShow] = useState(false);
@@ -80,7 +87,9 @@ function NavigationEct({onCreateCrew, onCreateChannel, taskList }) {
             <NavLink to={"/fileshare"} style={{textDecoration:'none', color: 'white'}} onClick={() => localStorage.setItem("flag", true)}>
             <NavigationEctItem itemName={"파일 공유"}/>
             </NavLink>
-            <NavLink to={"/project"} state={{crewName:null}} style={{textDecoration:'none', color: 'white'}} onClick={() => localStorage.setItem("flag", true)}>
+            <NavLink to={"/project"} state={{crewName:null}} style={{textDecoration:'none', color: 'white'}} onClick={async() => {localStorage.setItem("flag", true); 
+            const getProjects = await get(`/project/${channelNo}/${userNo}`);
+            dispatch(setProject(getProjects));}}>
             <NavigationEctItem itemName={"프로젝트 달력"}/>
             </NavLink>
             <NavLink to={"/task"} style={{textDecoration:'none', color: 'white'}} onClick={() => localStorage.setItem("flag", true)}>
