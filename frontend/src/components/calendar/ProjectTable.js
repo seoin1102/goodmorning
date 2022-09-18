@@ -47,7 +47,8 @@ export default function AskConfirmationBeforeSave(props) {
 
   const crewNo = useSelector(state => state.focus.crewNo, shallowEqual);
   const projectList = useSelector((state) => state.project, shallowEqual);
-
+  console.log("projectList",projectList)
+ console.log("props.projectList",props.projectList)
 
   const mutateRow = useFakeMutation();
   const noButtonRef = React.useRef(null);
@@ -168,14 +169,6 @@ const columns = [
     type: 'string',
     width: 150,
     editable: false
-  },
-  {
-    field: 'userName',
-    headerName: '책임자',
-    description: 'This column has a value getter and is not sortable.',
-    type: 'string',
-    sortable: false,
-    width: 90,
   },
   {
     field: 'status',
