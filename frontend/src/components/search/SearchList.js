@@ -1,5 +1,5 @@
 // 1단계: 문 가져오기
-import {Box, Button, Card,CardContent, Paper, Tab, Tabs, Typography} from "@mui/material";
+import {Avatar, Box, Button, Card,CardContent, Paper, Tab, Tabs, Typography} from "@mui/material";
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,7 @@ import JenkinsMessageItem from "../chat/JenkinsMessageItem";
 import SendPreviewMessage from "../chat/SendPreviewMessage";
 
 import FilterAccordion from "./FilterAccordion";
+import { ProgressBar } from "react-bootstrap";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -153,9 +154,9 @@ export default function SearchList(props) {
               justifyContent: "space-between",
             }}
           >
-            <h6>
+            <h5>
               <strong>채팅</strong>
-            </h6>
+            </h5>
             <div style={{ float: "right", marginRight:'10px' }}>
               <FilterAccordion checkMessage={checkMessage} checkGithub={checkGithub} checkJenkins={checkJenkins} messageChange={messageChange} githubChange={githubChange} jenkinsChange={jenkinsChange} user={user} setUser={setUser} reRenderCallback={reRender}/>
         
@@ -184,7 +185,7 @@ export default function SearchList(props) {
                               color="text.secondary"
                               gutterBottom
                             >
-                              &nbsp; {e.userName}
+                            <div style={{ display: "flex", alignItems: "center" }}> &nbsp;<Avatar alt={"null"} src={e.profileUrl} sx={{width: '20px', height: '20px'}} /> &nbsp; {e.userName}</div>
                             </Typography>
                           </div>
                         </div>
@@ -319,9 +320,9 @@ export default function SearchList(props) {
           <br />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <h6>
+          <h5>
             <strong>프로젝트</strong>
-          </h6>
+          </h5>
           {projectResult != "" ? (
             projectResult.map((e, i) => (
               <div key={i}>
@@ -329,41 +330,42 @@ export default function SearchList(props) {
                   <CardContent className="searchcard">
                     {e !== null ? (
                       <div>
-                        <div style={{ display: "flex", alignItems: "center" }}>
+                        <div >
                           <div>
                             <Typography
-                              sx={{ fontSize: 12, fontWeight: "bolder" }}
+                              sx={{ fontSize: 16 }}
                               color="text.secondary"
                               gutterBottom
                             >
-                              채널 이름 &nbsp;{e.crewName}
+                              <strong>채널 이름</strong> &nbsp;{e.crewName}
                             </Typography>
                           </div>
-                          <div>
+                          <div style={{ display: "flex", alignItems: "center" }}>
                             <Typography
-                              sx={{ fontSize: 12 }}
+                              sx={{ fontSize: 16 }}
                               color="text.secondary"
                               gutterBottom
                             >
-                              &nbsp; 진행율 {e.status}%
-                            </Typography>
-                          </div>
+                              <strong>진행율</strong> &nbsp;</Typography>
+                              
+                              <ProgressBar now={e.status} label={`${e.status}%`} style={{width:'70px'}}/></div>
+                            
+                          
                         </div>
-                        <Typography variant="h8" component="span">
-                          {e.projectName}
-                        </Typography>
-                        <br />
-                        <Typography
-                          sx={{ mb: 1.3, fontSize: 12 }}
-                          color="text.secondary"
-                        >
-                          시작일자:&nbsp;{e.start}
+                        <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+                        <strong>프로젝트 이름</strong> &nbsp;<h8>{e.projectName}</h8>
                         </Typography>
                         <Typography
-                          sx={{ mb: 1.3, fontSize: 12 }}
+                          sx={{ mb: 1.3, fontSize: 16 }}
                           color="text.secondary"
                         >
-                          종료일자:&nbsp;{e.end}
+                          <strong>시작일자</strong> &nbsp;{e.start}
+                        </Typography>
+                        <Typography
+                          sx={{ mb: 1.3, fontSize: 16 }}
+                          color="text.secondary"
+                        >
+                          <strong>종료일자</strong> &nbsp;{e.end}
                         </Typography>
                       </div>
                     ) : null}
@@ -392,7 +394,7 @@ export default function SearchList(props) {
         </TabPanel>
 
         <TabPanel value={value} index={2}>
-        <h6><strong>파일</strong></h6>
+        <h5><strong>파일</strong></h5>
         {fileResult != "" ? (
             fileResult.map((e, i) => (
              <div key={i}>
