@@ -113,12 +113,13 @@ function SiteLayout({children}) {
                     chatData.sendDate = new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ");
 
                 const result = await putUrl(`/chatUser/${crewNo}/${authUser.no}`);
- 
+                
+                console.log("Before addChat !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", chatData)
                 // if(result.data !== 'success') 
                 //     return;
-
+                
                 dispatch(addChat(chatData));
-
+                console.log("After addChat @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", chatData)
                 
                 dispatch(setCHATALARM({crewNo:crewNo}))
                 }         
