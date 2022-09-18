@@ -103,7 +103,7 @@ useEffect(()=>{
 
                   }}
                 >
-                    현재 채널은 <strong>{channelName}</strong> 입니다.
+                    현재 채널은 &nbsp; <strong>  {channelName} </strong> &nbsp; 입니다.
 
                     <Button
                     variant="primary"
