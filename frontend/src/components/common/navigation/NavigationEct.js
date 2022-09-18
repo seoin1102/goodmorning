@@ -49,15 +49,15 @@ function NavigationEct({onCreateCrew}) {
             <NavigationEctItem userName={"Alice"} itemName={"채널 생성"} onClickModal={onClickAddCrewModal}>
                 <AddCrew modalShow={addCrewModalShow} onClickModal={onClickAddCrewModal} onCreateCrew={onCreateCrew} /> 
             </NavigationEctItem>
-            <NavLink to={"/fileshare"} style={{textDecoration:'none', color: 'white'}} onClick={() => localStorage.setItem("flag", true)}>
+            <NavLink to={"/fileshare"} style={{textDecoration:'none', color: 'white'}}>
             <NavigationEctItem itemName={"파일 공유"}/>
             </NavLink>
-            <NavLink to={"/project"} state={{crewName:null}} style={{textDecoration:'none', color: 'white'}} onClick={async() => {localStorage.setItem("flag", true); 
+            <NavLink to={"/project"} state={{crewName:null}} style={{textDecoration:'none', color: 'white'}} onClick={async() => { 
             const getProjects = await get(`/project/${channelNo}/${userNo}`);
             dispatch(setProject(getProjects));}}>
             <NavigationEctItem itemName={"프로젝트 달력"}/>
             </NavLink>
-            <NavLink to={"/task"} style={{textDecoration:'none', color: 'white'}} onClick={() => localStorage.setItem("flag", true)}>
+            <NavLink to={"/task"} style={{textDecoration:'none', color: 'white'}}>
             <NavigationEctItem itemName={"업무 달력"}/>
             </NavLink>
         </List>

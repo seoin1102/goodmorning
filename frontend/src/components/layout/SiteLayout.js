@@ -23,7 +23,6 @@ function SiteLayout({children}) {
     const [sendMessage, setSendMessage] = useState("");
 
     const dispatch = useDispatch();
-    const flag = localStorage.getItem("flag");
     const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
     const chatList = useSelector(state => (state.chat), shallowEqual);
     const { crewNo } = useSelector(state => (state.focus), shallowEqual);
@@ -104,11 +103,6 @@ function SiteLayout({children}) {
 
             client.current.subscribe(`/sub/${crewNo}`,async (data) => {
 
-                // 다른데 가있으면 작동
-                if(flag === 'true') {
-                    dispatch(updateCHATALARM({crewNo:crew.no}))
-                }
-                if(flag !== 'true') {
                 const chatData = JSON.parse(data.body);
 
                 if(chatData.type === 'GITHUB')
@@ -127,7 +121,7 @@ function SiteLayout({children}) {
                 console.log("After addChat @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", chatData)
                 
                 dispatch(setCHATALARM({crewNo:crewNo}))
-                }         
+                      
             })
             return;
         })

@@ -80,7 +80,6 @@ function Navigation() {
         if(result.data === 'success')  
             dispatch(setCREWFOCUS({no: crewNo, name: crewName})); 
           
-        localStorage.setItem("flag", false);
     }
 
 
