@@ -20,6 +20,7 @@ function Navigation() {
     const dispatch = useDispatch();
     const crewList = useSelector(state => (state.crew), shallowEqual);
     const projectList = useSelector((state) => state.project, shallowEqual);
+    const taskList = useSelector((state) => state.task, shallowEqual);
     const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
     const crewNo = useSelector(state => (state.focus.crewNo), shallowEqual);
 
@@ -92,7 +93,7 @@ function Navigation() {
     }, [channelNo,crewNo])
 
     useEffect(() => {
-        if(channelNo !== null)
+        if(taskList.length ==0 && channelNo !== null)
             initialTask(channelNo);
     }, [channelNo])
 

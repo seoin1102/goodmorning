@@ -34,13 +34,10 @@ function Project({publishLinkPreview}) {
   const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
   const user = getLocalStorageAuthUser();
   const userNo = user.no;
-
-  const initialTask = React.useCallback(
-    async (projectNo) => {
-      const getTasks = await get(`/task/pNo/${projectNo}`);
-      dispatch(setTask(getTasks));
-    }
-  );
+  const projectName=(no)=> projectList.filter((project)=>{ 
+    return no == project.id
+  })
+  
 
 
   useEffect(() => {
@@ -79,9 +76,7 @@ function Project({publishLinkPreview}) {
   ]);
   const data = [columns, ...projects];
 
-useEffect(()=>{
-  initialTask
-},[initialTask])
+
 
   return (
     <div
@@ -189,7 +184,8 @@ useEffect(()=>{
                 >
                   프로젝트 삭제
                 </Button>
-                <NavLink to={'/task'} style={{textDecoration:'none', color: 'black'}}>
+                {console.log(selectionModel[0])}
+                <NavLink to={'/task'} state={{projectName :selectionModel[0] !== undefined? projectName(selectionModel[0])[0].projectName: null}} style={{textDecoration:'none', color: 'black'}}>
                 <Button
                     variant="primary"
                     onClick={async()=>{

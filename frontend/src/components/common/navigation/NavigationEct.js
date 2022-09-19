@@ -6,12 +6,13 @@ import AddCrew from '../../modal/Crew/AddCrew';
 
 import { Collapse, ListItemButton } from '@mui/material';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { get } from '../../../apis/Axios';
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 import arrowDownIcon from '../../../assets/icons/keyboard_arrow_down.svg';
 import arrowUpIcon from '../../../assets/icons/keyboard_arrow_up.svg';
 import { setProject } from "../../../redux/project";
+import { setTask } from "../../../redux/task";
 import NavigationEctItem from './NavigationEctItem';
 
 
@@ -57,9 +58,11 @@ function NavigationEct({onCreateCrew}) {
             dispatch(setProject(getProjects));}}>
             <NavigationEctItem itemName={"프로젝트 달력"}/>
             </NavLink>
-            <NavLink to={"/task"} style={{textDecoration:'none', color: 'white'}}>
+            <Link to={"/task"} state={{projectName:null}}  style={{textDecoration:'none', color: 'white'}} onClick={async() => { 
+                const getTasks = await get(`/task/${channelNo}`);
+                dispatch(setTask(getTasks));}}>
             <NavigationEctItem itemName={"업무 달력"}/>
-            </NavLink>
+            </Link>
         </List>
         </Collapse>
         <Divider />

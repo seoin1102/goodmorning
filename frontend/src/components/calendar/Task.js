@@ -2,6 +2,7 @@ import React, { memo, useCallback, useEffect, useState } from "react";
 import { Box, Card, Divider, Paper } from "@mui/material";
 import { Col, NavDropdown, Row } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { get } from '../../apis/Axios';
 import { addTask, setTask } from "../../redux/task";
 import AddTask from "../modal/Calendar/AddTask";
@@ -11,10 +12,12 @@ import TaskList from "./TaskList";
 import "../../styles/css/Calendar.css";
 
 function Calendar() {
+  const location = useLocation();
+	const pjName = location.state.projectName;
   let isInitial = true;
   const [modalIsOpen, setIsOpen] = useState(false);
   const [clickedEventAssign, setClickedEventAssign] = useState("");
-  const [channelName, setChannelName] = useState('전체 프로젝트')
+  const [channelName, setChannelName] = useState(pjName==null?'전체 프로젝트':pjName)
   const [filteredTask, setFilteredTask] = useState([]);
   const [state, setState] = useState({
     id: "",

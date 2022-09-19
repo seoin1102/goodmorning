@@ -15,9 +15,9 @@ function TaskCalendar(props) {
     setState(props.taskList)
   }, [taskList]);
 
-  useEffect(() => {
-    props.taskList
-  }, [taskList]);
+  // useEffect(() => {
+  //   props.taskList
+  // }, [taskList]);
 
   return (
     <div className="demo-app-calendar" id="mycalendartest"
