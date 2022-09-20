@@ -12,9 +12,11 @@ import { setProject } from "../../../redux/project";
 import { getLocalStorageAuthUser } from '../../../apis/Fetch';
 import { get } from '../../../apis/Axios';
 
-function HeaderSearch(props) {
+function HeaderSearch() {
   const searchList = useSelector(state => (state.search), shallowEqual);
-  const searchBox = searchList.map((e)=> (e.message))
+  
+  const searchMessage = searchList.map((e)=> (e.message))
+  const searchBox = searchMessage[0] !== undefined ? searchMessage.map((e)=>e.replaceAll('#$#','')):searchMessage
   const set = new Set(searchBox)
   const searchKeyword = [...set]
   const [search, setSearch] =useState('')
