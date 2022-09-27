@@ -1,25 +1,57 @@
-import React from 'react';
-import Grid from '@mui/material/Grid';
+import { Collapse, ListItemButton } from '@mui/material';
 import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
-import '../../../styles/scss/modal/modal.scss';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import arrowDownIcon from '../../../assets/icons/keyboard_arrow_down.svg';
+import arrowUpIcon from '../../../assets/icons/keyboard_arrow_up.svg';
 import NavigationItem from './NavigationItem';
 
-// 많으면 화면 넘어가므로 스크롤 추가 해주기
-function NavigationCrew({crewList}) {
-    console.log(crewList)
+function NavigationCrew({crewList, onClickCrew}) {
+    const chatAlarmList = useSelector(state => (state.chatAlarm));
+    const [open, setOpen] = useState(true);
+
+    const handleClick = () => {
+        setOpen(!open);
+    };
+    
     return (
     <>
-        <List>
-            <Grid item xs={12}>크루</Grid>
-            {crewList.map((crew) => 
-                <NavigationItem
-                    key={crew.no}
-                    navLink={"/chat/room"} 
-                    crewName={crew.name} 
-                    secondary={"online"} />
-            )}
+        <ListItemButton onClick={handleClick} style={{fontSize:'20px', padding:'10px', fontStyle:'bold',borderTop:'solid 1px #5CD1E5', borderBottom:'solid 1px #5CD1E5',color:'white'}}>
+        <Grid item xs={12} textAlign={'center'} style={{fontFamily:'SUIT-Medium'}}>채널 목록</Grid>
+        {open ? <img src={arrowUpIcon}/> : <img src={arrowDownIcon} />}
+        </ListItemButton>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+        <List style={{height: '300px', overflow: 'auto'}}>
+            {               
+                (crewList !== null && chatAlarmList !== null ?
+                (crewList.length !== 0 ? 
+                (
+                    
+                crewList.map((crew, index) => {
+                    let count;
+                chatAlarmList.map((chatAlarm) => {
+                
+                    if(crew.no === chatAlarm.crewNo) 
+                        count = chatAlarm.count;                                       
+                })
+
+                return (<NavigationItem
+                    key={index}
+                    navLink={"/"}
+                    crewName={crew.name}
+                    crewNo={crew.no}
+                    onClickCrew={onClickCrew}
+                    chatAlarmCount={count} />)
+})
+
+
+                ) :
+                '') : '')
+            }
         </List>
+        </Collapse>
         <Divider />
     </>
     );

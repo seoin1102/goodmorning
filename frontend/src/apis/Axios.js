@@ -1,14 +1,8 @@
 import axios from 'axios';
+import { catchAuth, checkAuth } from './Fetch';
 
-const url = {
-  localDev: 'http://192.168.10.10:8080',
-  localProd: 'http://192.168.10.10:8088',
-  serverDev: 'http://34.64.155.137:8080',
-  serverProd: 'http://34.64.155.137:8088'
-}
-
-
-const client = axios.create({baseURL: '/api'})
+const authorization = localStorage.getItem('authorization');
+const client = axios.create({baseURL:'http://34.64.235.225:8080/api', headers: {'Authorization' : authorization}});
 
 /**
  * axios GET(Read) 요청
@@ -18,7 +12,30 @@ const client = axios.create({baseURL: '/api'})
 export const get = async (url) => {
     try {
         let response =  await client.get(url);
+        checkAuth(response);
         return response.data.data;
+    } catch (error) {
+        console.error("Error >>", error);
+        catchAuth(error);
+    }    
+}
+
+export const getGit = async (url, data) => {
+  try {
+      let response =  await axios.post(url, data, {headers: {'Content-Type': 'application/json', 'Authorization' : authorization}});    
+      checkAuth(response);      
+      return response.data;
+  } catch (error) {
+      console.error("Error >>", error);
+      catchAuth(error);
+  }    
+}
+
+export const getJson = async (url, data) => {
+    try {
+        let response =  await client.get(url, data, {headers: {'Content-Type': 'application/json'}
+    });
+        return response.data;
     } catch (error) {
         console.error("Error >>", error);
     }    
@@ -32,7 +49,83 @@ export const get = async (url) => {
  */
 export const post = async (url, data) => {
     try {
-        let response = await axios.post(url, data);
+        
+        let response = await client.post(url, data);
+        return response.data;
+    } catch (error) {
+        console.error("Error >>", error);
+
+    }
+}
+
+export const postJson = async (url, data) => {
+  try {
+      let response = await client.post(url, data, {headers: {'Content-Type': 'application/json'}
+    });
+      return response.data;
+  } catch (error) {
+      console.error("Error >>", error);
+
+  }
+}
+
+export const postSignIn = async (url, data) => {
+    try {
+        let response = await client.post(url, data, {headers: {'Content-Type': 'application/json'}
+      });
+        return response;
+    } catch (error) {
+        console.error("Error >>", error);
+  
+    }
+  }
+
+export const postFile = async (url, data) => {
+    try {
+        let response = await client.post(url, data, {headers: {'Content-Type': 'multipart/form-data'}
+      });
+        return response.data;
+    } catch (error) {
+        console.error("Error >>", error);
+  
+    }
+  }
+
+
+export const putJson = async (url, data) => {
+    try {
+        let response = await client.put(url, data, { headers: {'Content-Type': 'application/json'}
+      });
+        return response.data;
+    } catch (error) {
+        console.error("Error >>", error);
+
+    }
+  }
+
+export const put = async (url, data) => {
+    try {
+        let response = await client.put(url, data);
+        return response.data;
+
+    } catch (error) {
+        console.error("Error >>", error);
+    }
+}
+
+export const putUrl = async (url) => {
+    try {
+        let response = await client.put(url);
+        return response.data;
+
+    } catch (error) {
+        console.error("Error >>", error);
+    }
+}
+
+export const remove = async (url, data) => {
+    try {
+        let response = await client.delete(url,data);
         return response.data;
     } catch (error) {
         console.error("Error >>", error);

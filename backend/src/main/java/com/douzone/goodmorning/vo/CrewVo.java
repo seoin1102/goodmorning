@@ -13,4 +13,9 @@ public class CrewVo {
 	private Long masterCrewUserNo;
 	private String creationDate;
 	private String name;
+	private String email;
+	// crew_user 관련 속성
+	private Long userNo;
+	private String userName;
+
 }

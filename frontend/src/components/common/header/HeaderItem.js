@@ -1,15 +1,15 @@
-import React from 'react';
-import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import Modal from "react-modal";
+import React from 'react';
 import ReactModal from "react-modal";
+import settings from '../../../assets/icons/settings.svg';
 
 ReactModal.setAppElement('body');
 
-function HeaderItem({itemName, customStyle, modalIsOpen, onClickModal, children}) {
+function HeaderItem({itemName, customStyle, onClickModal, children}) {
     
     return (
         <Grid item xs={2}>
@@ -17,20 +17,15 @@ function HeaderItem({itemName, customStyle, modalIsOpen, onClickModal, children}
                 <ListItem 
                     button key="RemySharp" 
                     style={customStyle}
-                    onClick={onClickModal}>
-                    <ListItemText >{itemName}</ListItemText>
+                    onClick={onClickModal}
+                    >
+
+                    <ListItemText primaryTypographyProps={{textDecoration:'none' ,color: 'white', fontSize:'22px', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', fontFamily:'Happiness-Sans-Title', textAlign:'center'}} primary={itemName}></ListItemText>
+                <img src={settings}/>
                 </ListItem>
-                <Modal
-                    isOpen={modalIsOpen}
-                    shouldCloseOnOverlayClick={ true }
-                    className="Modal"
-                    overlayClassName="Overlay"
-                    style={ {content: {width: 550}} }
-                    contentLabel="modal example">
                     {children}
-                </Modal>  
             </List>
-            <Divider />
+            <Divider/>
         </Grid>
     );
 }

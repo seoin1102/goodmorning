@@ -1,264 +1,191 @@
-import React, { useState, useEffect, useCallback } from "react";
-
-import { Col, Row } from "react-bootstrap";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
-
-import { setTask, addTask, deleteTask } from '../../redux/task';
-import { useSelector, useDispatch, shallowEqual  } from 'react-redux';
-
-//import "@fullcalendar/core/main.css";
-// import "@fullcalendar/daygrid/main.css";
-// import "@fullcalendar/timegrid/main.css";
-// import "../assets/css/bootstrap.min.css";
+import React, { memo, useCallback, useEffect, useState } from "react";
+import { Box, Card, Divider, Paper } from "@mui/material";
+import { Col, NavDropdown, Row } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { get } from '../../apis/Axios';
+import { addTask, setTask } from "../../redux/task";
+import AddTask from "../modal/Calendar/AddTask";
+import Checkbox from "./AssignCheckbox";
+import TaskCalendar from "./TaskCalendar";
+import TaskList from "./TaskList";
 import "../../styles/css/Calendar.css";
 
-import AddTask from "../modal/Calendar/AddTask";
 function Calendar() {
-    const dispatch = useDispatch();
-    const taskList = useSelector(state => state.task, shallowEqual);
-    
-    // 선택
-    // const data, const state, const usememo
-
-
-    const onClickAddTask = (task) => {
-      dispatch(addTask(task));
-    }
-
-    function getRandomColor() {
-      return `hsl(${parseInt(Math.random() * 24, 10) * 15}, 16%, 57%)`;
-    }
-  /////////////////////////////////////////////////////////////
-
-  const [state, setState] = useState({
-    id: '',
-    projectNo: '',
-    userNo: '',
-    title: '',
-    start: '',
-    end: '',
-    status:'',
-    crewNo: ''
-
-  })
-
+  const location = useLocation();
+	const pjName = location.state.projectName;
+  let isInitial = true;
   const [modalIsOpen, setIsOpen] = useState(false);
   const [clickedEventAssign, setClickedEventAssign] = useState("");
-
- 
-  function openModal() {
-    setIsOpen(true);
-  }
-  function closeModal() {
-    setIsOpen(false)
-    setState(prevState => {return {...prevState, title:"" }}) 
-    
-}
-  
-  const assigns = [
-    { value: "김서인", label: "김서인", no: 1 },
-    { value: "김휘민", label: "김휘민", no: 2 },
-    { value: "최시창", label: "최시창", no: 3 },
-    { value: "김현석", label: "김현석", no: 4 },
-  ];
-
-  ////////////////////////////////////////////////////////
-  useEffect(() => {
-    let draggableEl = document.getElementById("external-events");
-    new Draggable(draggableEl, {
-      itemSelector: ".fc-event",
-      eventData: function (eventEl) {
-        let title = eventEl.getAttribute("title");
-        let start = eventEl.getAttribute("start");
-        let end = eventEl.getAttribute("end");
-
-        let id = eventEl.getAttribute("data");
-        let backgroundColor = eventEl.getAttribute("backgroundColor");
-        return {
-          title: title,
-          start: start,
-          end: end,
-          id: id,
-          backgroundColor: backgroundColor,
-        };
-      },
-    });
+  const [channelName, setChannelName] = useState(pjName==null?'전체 프로젝트':pjName)
+  const [filteredTask, setFilteredTask] = useState([]);
+  const [state, setState] = useState({
+    id: "",
+    projectNo: "",
+    userName: "",
+    title: "",
+    start: "",
+    end: "",
+    status: "",
+    crewNo: "",
+    projectName: "",
+    color: "",
   });
+  const taskList = useSelector((state) => state.task, shallowEqual);
+  const crewNo = useSelector((state) => state.focus.crewNo, shallowEqual);
+  const projectList = useSelector((state) => state.project, shallowEqual);
+  const channelNo = useSelector(state => (state.focus.channelNo), shallowEqual);
+  const dispatch = useDispatch();
+  
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
-  /**
-   * when we click on event we are displaying event details
-   */
+  function closeModal() {
+    setIsOpen(false);
+    setState((prevState) => ({ ...prevState, title: "", projectName: "" }));
+  }
+
+  useEffect(() => {
+    if (!modalIsOpen && isInitial && taskList.length !== 0) {
+      setFilteredTask(taskList);
+
+      isInitial = false;
+    }
+  }, [taskList]);
+
+  const onClickAddTask = (task) => {
+    dispatch(addTask(task));
+  };
 
   const eventClickHandler = (info) => {
-    const {id, title ,start, end, classNames} = info.event;
-    setState({
+    const { id, title, start, end, borderColor } = info.event;
+    const { userName, userNo, status, projectNo,  projectName } =
+      info.event.extendedProps;
+
+    const clickedTask = {
       title: title,
       start: start,
       end: end,
       id: id,
-      classNames: classNames
-    })
-  
-    setClickedEventAssign(info.event.classNames);
+      userName: userName,
+      userNo: userNo,
+      status: status,
+      projectNo: projectNo,
+      color: borderColor,
+      projectName: projectName,
+    };
+
+    if (end == null) {
+      const clickedOnedayTask = { ...clickedTask, end: start };
+      setState(clickedOnedayTask);
+    } else {
+      setState(clickedTask);
+    }
+
     openModal();
   };
-
 
   const dateClickHandler = (info) => {
-    setState({
-      start: info.date,
-      end: info.date,
-    })
+    setState({ start: info.date, end: info.date, title: "" });
     openModal();
   };
 
-  function openModal() {
-    setIsOpen(true);
-}
-  const [checkedList, setCheckedLists] = useState([]);
-
-  // 전체 체크 클릭 시 발생하는 함수
-  const onCheckedAll = useCallback(
-    (checked) => {
-      if (checked) {
-        const checkedListArray = [];
-
-        assigns.forEach((list) => checkedListArray.push(list));
-
-        setCheckedLists(checkedListArray);
-      } else {
-        setCheckedLists([]);
-      }
-    },
-    [assigns]
-  );
-
-  // 개별 체크 클릭 시 발생하는 함수
-  const onCheckedElement = useCallback((checked, list) => {
-    if (checked)
-      setCheckedLists((prevCheckedList) => prevCheckedList.concat(list));
-
-    setCheckedLists((prevCheckedList) =>
-      prevCheckedList.filter((el) => el !== list)
-    );
-  }, []);
-
   return (
-    <div className="animated fadeIn p-4 demo-app">
-      <Row>
-        
-        {/* <CalendarItem /> */}
-        <Col lg={2}>
-          {console.log("!!!!!!",  taskList)}
-          <div
-            id="external-events"
-            style={{ maxHeight: "-webkit-fill-available", border: "1px solid #c8cacb"}}
+    <div
+      className="animated fadeIn p-4 demo-app"
+    >
+      <Box>
+        <Paper>
+          <Card sx={{ minWidth: 275 }}>
+            <div style={{display:'flex', justifyContent:"space-between", alignItems:"center"}}>
+              <h3 style={{ padding: "30px 0px 0px 50px", width: "200px" }}>
+                업무 달력
+              </h3>
+              <div style={{marginRight:'10px'}}>
+              현재 프로젝트는 <strong>{channelName}</strong> 입니다. &nbsp;
 
-          >
-            <div align="center">
-              <strong> Events</strong>
-              {taskList.map((event, index) => (
-                <div
-                  key={index}
-                  className="fc-event"
-                  title={event.title}
-                  data={event.id}
-                  style={{
-                    backgroundColor: event.backgroundColor
-                  }}
-                >
-                  {event.title}
-                  
-                </div>
+            <NavDropdown
+                    style={{
+                      float: "right",
+                      fontSize: "15px",
+                      padding: "4px",
+                    }}
+                    title="프로젝트 선택"
+                  >
+                    <NavDropdown.Item
+                    onClick={async() => {
+                      setChannelName('전체 프로젝트')
+                      const getTasks = await get(`/task/${channelNo}`);
+                      dispatch(setTask(getTasks));
 
-                
-              ))}
-              <button
-                onClick={openModal}
-                style={{
-                  padding: "10px",
-                  width: "90%",
-                  height: "auto",
-                  maxHeight: "-webkit-fill-available",
-                  border: "0px solid #c8cacb",
-                }}
-              >
-                일정 추가
-              </button>
-            </div>
-            <div className="assign-checklist">
-            <input
-              type="checkbox"
-              onChange={(e) => onCheckedAll(e.target.checked)}
-              checked={
-                checkedList.length === 0
-                  ? false
-                  : checkedList.length === assigns.length
-                  ? true
-                  : false
-              }
-            /><strong>전체</strong>
-            <br />
-            {assigns.map((list, index) => (
-              <div key={index}>
-                <input
-                  key={list.label}
-                  type="checkbox"
-                  onChange={(e) =>
-                    onCheckedElement(e.target.checked, list.label)
-                  }
-                  checked={checkedList.includes(list.label) ? true : false}
-                />
-                {list.label}
-                <br />
+                    }}>전체 프로젝트</NavDropdown.Item>
+                    <Divider />
+                    {projectList.length !== 0
+                      ? projectList.map((project, index) => (
+                        
+                          <NavDropdown.Item
+                            onClick={async() => {
+                              setChannelName(project.projectName)
+                              const getTasks = await get(`/task/pNo/${project.id}`);
+                              dispatch(setTask(getTasks));
+                            }}
+                            key={index}
+                          >
+                            {project.projectName}
+                          </NavDropdown.Item>
+                        ))
+                      : ""}
+                  </NavDropdown>
+           
               </div>
-            ))}
-          </div>            </div>
 
-        </Col>
-
-        <Col lg={9} sm={12} md={12}>
-          <div
-            className="demo-app-calendar"
-            id="mycalendartest"
-            style={{ color: "black"}}
-          >
-            <FullCalendar
-              defaultView="dayGridMonth"
-              headerToolbar={{
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
-              }}
-              locale="ko"
-
-              eventDurationEditable={true}
-              editable={true}
-              droppable={true}
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              //ref={calendarComponentRef}
-              //weekends={calendarWeekends}
-              events={taskList}
-              //eventDrop={drop}
-              // drop={this.drop}
-              //eventReceive={eventReceive}
-              eventClick={eventClickHandler}
-              //selectable={true}
-              dateClick={dateClickHandler}
-              //eventColor={getRandomColor}
+            </div>
+            <div style={{display:'flex',gap:"1rem"}}>
+            
+            <Row style={{ padding: "20px" }}>
+              <div>
+                <Col lg={9} sm={12} md={12}>
+                  <TaskCalendar
+                    taskList={filteredTask}
+                    eventClickHandler={eventClickHandler}
+                    dateClickHandler={dateClickHandler}
+                  />
+                </Col>
+              </div>
+            </Row>
+            
+            <div className="external-events">
+              <TaskList taskList={filteredTask}/>
+              
+            </div>
+            <div className="external-events">
+            <strong>담당자</strong>
+            <br/><br/>
+            <Checkbox
+                filteredTask={filteredTask}
+                setFilteredTask={setFilteredTask}
+              />
+            </div>
+            </div>
+            <AddTask
+              modalIsOpen={modalIsOpen}
+              closeModal={closeModal}
+              taskList={filteredTask}
+              state={state}
+              setState={setState}
+              onClickAddTask={onClickAddTask}
+              clickedEventAssign={clickedEventAssign}
+              setClickedEventAssign={setClickedEventAssign}
+              filteredTask={filteredTask}
+              setFilteredTask={setFilteredTask}
+              crewNo={crewNo}
             />
-          </div>
-
-          
-        </Col>
-      </Row>
-      <AddTask modalIsOpen={modalIsOpen} closeModal={closeModal} taskList={taskList} state={state} setState={setState} onClickAddTask={onClickAddTask}/>
-     
+          </Card>
+        </Paper>
+      </Box>
     </div>
   );
 }
 
-export default Calendar;
+export default memo(Calendar);

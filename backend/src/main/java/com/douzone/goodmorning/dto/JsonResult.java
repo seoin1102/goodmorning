@@ -35,4 +35,10 @@ public class JsonResult {
 	public String getMessage() {
 		return message;
 	}
+<<<<<<< HEAD
 }
+=======
+
+}
+
+>>>>>>> d3619909f30f29004bd62c55fe23b397f8f90b1f

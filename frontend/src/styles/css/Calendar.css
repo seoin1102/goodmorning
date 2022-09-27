@@ -47,19 +47,23 @@ a[aria-label="토요일"]{
 .fc-event{
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 5px;
-  background: rgba(47, 41, 41, 0.079);
   margin:5px;
 }
 
-                    
+.modalButton{
+  background-color:'#34d6ce';
+  border-color:'white';
+}        
 
 .external-events{
-  border-color: rgb(0, 0, 0);
   padding: 10px;
-  width: 30%;
+  width: 200px;
   height: auto;
   color: black;
-  border: 1px solid #c8cacb;
+  border: 1px solid #ddd;
+  text-align: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .assign-checklist{
@@ -69,4 +73,109 @@ a[aria-label="토요일"]{
 
 input{
   margin-right: 5px;
+  margin-left: 7px;
+}
+
+.addTaskModal {
+  position: fixed;
+  top: 100px;
+  right: 20%;
+  bottom: 200px;
+  height: 700px;
+  width:700px;
+  left: 30%;
+  z-index: 100;
+  background-color: rgb(255, 255, 255);
+  padding: 60px;
+  border: 1px solid #00000027;
+  
+}
+
+.Overlay {
+  z-index: 100;
+
+}
+
+.addTaskBtn{
+  padding: "10px";
+  width: "90%";
+  height: "auto";
+  border: "0px solid #c8cacb";
+}
+
+.demo-app-calendar{
+  color: "black";
+  width: "900px";
+}
+
+.taskList{
+  border: 1px solid #6e6c6c;
+  width: 200px;
+  padding: 20px;
+  margin: auto;
+
+}
+.tasklist{
+  border: 1px solid #6e6c6c;
+  width: 200px;
+  padding: 20px;
+  margin: auto;
+
+}
+
+.cover-bar{
+  width:10px;
+  height:100%;
+  position:absolute;
+  top:0;
+  right:0;
+  -webkit-transition: all .5s;
+  opacity: 1;
+  /* 배경색을 상자색과 똑같이 맞춰준다 */
+  background-color:yellowgreen;
+}
+
+/* 중요한 부분 */
+.tasklist:hover .cover-bar {
+   opacity: 0;
+  -webkit-transition: all .5s;
+}
+
+.circle-picker{
+  width: 400px;
+}
+
+th.fc-timeline-slot{
+  color:red;
+}
+
+.fc .fc-button-primary{
+  background-color: #34d6ce !important; 
+  border-color:white !important;
+}
+
+.fc .fc-button-primary:disabled{
+  background-color: #34d6ce !important;
+  border-color:white !important;
+}
+
+.fc .fc-button-primary:hover{
+  background-color: #34d6ce !important;
+  border-color:white !important;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active{
+  background-color: #34d6ce !important;
+  border-color:white !important;
+}
+
+.fc .fc-button-primary::before{
+  background-color: #34d6ce !important;
+  border-color:white !important;
+}
+
+.fc-button:focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.2rem #34d6ce !important;
+  box-shadow: 0 0 0 0.2rem #34d6ce !important;
 }

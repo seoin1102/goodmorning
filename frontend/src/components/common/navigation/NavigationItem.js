@@ -1,22 +1,22 @@
-import React from 'react';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import { Badge, ListItemButton } from '@mui/material';
 import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-
+import React from 'react';
 import { NavLink } from "react-router-dom";
-import '../../../styles/scss/modal/modal.scss';
+import hash2 from '../../../assets/icons/hash2.svg';
 
-function NavigationItem({navLink, crewName, secondary}) {
+
+function NavigationItem({navLink, crewName, chatAlarmCount, crewNo, onClickCrew}) {
+
     return (
-        <NavLink to={navLink} >
-        <ListItem button key="RemySharp">
-            <ListItemIcon>
-                <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
-            </ListItemIcon>
-            <ListItemText primary={crewName}>Remy Sharp</ListItemText>
-            <ListItemText secondary={secondary} align="right"></ListItemText>
-        </ListItem>
+        <NavLink to={navLink} style={{textDecoration:'none'}}>
+            <ListItemButton sx={{ pl: 4, padding: '8px 16px 8px 16px' }} onClick={() => {onClickCrew(crewNo,crewName)}}>
+            <img src={hash2}/>                
+                    <ListItemText primaryTypographyProps = {{fontSize: '1rem', color: 'white', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', width:'150px'}}  primary={crewName}/>
+                    <ListItemText secondary={<Badge 
+                            badgeContent={!chatAlarmCount ? null : chatAlarmCount} 
+                            color="warning"  sx={{ "& .MuiBadge-badge": { fontSize: 15, height: 20, minWidth: 20 } }}/>} align="center" /> 
+                
+            </ListItemButton>
         </NavLink>
     );
 }
